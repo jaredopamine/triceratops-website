@@ -1,1 +1,263 @@
+/* ============ DESIGN TOKENS ============ */
+:root {
+  /* Colors */
+  --color-offwhite: #FFFDFD;
+  --color-dark: #3D3D3D;
+  --color-blonde: #EBE6A0;
+  --color-yellow: #F2E35D;
+  --color-lightblue: #BDE6E6;
+  --color-green: #95D363;
+  --color-pastelgreen: #ACD87D;
+  --color-purple: #8899FA;
+  --color-formgray: #919191;
+  --color-pink: #F8C9DC;
 
+  /* Buttons */
+  --btn-primary: #649D35;
+  --btn-primary-hover: #44890B;
+  --btn-primary-press: #237B35;
+  --btn-secondary-text: #4B7D22;
+  --btn-secondary-hover-bg: #F2FFF5;
+  --btn-tertiary-text: #6EC313;
+  --btn-tertiary-hover-bg: #F1F1F1;
+  --btn-discord: #7289DA;
+  --btn-discord-hover: #5569AE;
+  --btn-discord-press: #4559A0;
+
+  /* Type */
+  --font-display: 'Pulang', 'Caveat', cursive; /* TODO: replace with real Pulang font files (not on Google Fonts) */
+  --font-body: 'Nunito', sans-serif;
+
+  /* Layout */
+  --container-max: 1280px;
+  --gutter: 24px;
+  --grid-cols: 12;
+}
+
+/* Stub for Pulang — point src at the licensed font files when you have them */
+/*
+@font-face {
+  font-family: 'Pulang';
+  src: url('fonts/Pulang-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+*/
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--color-offwhite);
+  color: var(--color-dark);
+  font-family: var(--font-body);
+}
+
+a { text-decoration: none; color: inherit; }
+button { font: inherit; border: none; background: none; }
+
+/* ============ TYPE SCALE ============ */
+.text-title      { font-family: var(--font-display); font-size: 64px; line-height: 1.2; letter-spacing: 1.28px; margin: 0; }
+.text-h1         { font-family: var(--font-display); font-size: 48px; line-height: 1.2; letter-spacing: 0.96px; margin: 0; }
+.text-h2         { font-family: var(--font-display); font-size: 36px; line-height: 1.4; letter-spacing: 0.72px; margin: 0; }
+.text-h3         { font-family: var(--font-display); font-size: 28px; line-height: 1.3; letter-spacing: 0.56px; margin: 0; }
+.text-subtitle-1 { font-family: var(--font-body); font-weight: 600; font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; margin: 0; }
+.text-subtitle-2 { font-family: var(--font-body); font-weight: 400; font-size: 16px; line-height: 1.25; letter-spacing: 0.32px; margin: 0; }
+.text-body       { font-family: var(--font-body); font-weight: 400; font-size: 18px; line-height: 1.5; letter-spacing: 0.36px; margin: 0; }
+.text-button     { font-family: var(--font-body); font-weight: 700; font-size: 18px; letter-spacing: 0.9px; }
+
+/* ============ 12-COL GRID ============ */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-cols), 1fr);
+  gap: var(--gutter);
+}
+
+.col-1  { grid-column: span 1; }
+.col-2  { grid-column: span 2; }
+.col-3  { grid-column: span 3; }
+.col-4  { grid-column: span 4; }
+.col-5  { grid-column: span 5; }
+.col-6  { grid-column: span 6; }
+.col-7  { grid-column: span 7; }
+.col-8  { grid-column: span 8; }
+.col-9  { grid-column: span 9; }
+.col-10 { grid-column: span 10; }
+.col-11 { grid-column: span 11; }
+.col-12 { grid-column: span 12; }
+
+@media (max-width: 768px) {
+  [class^="col-"] { grid-column: span 12; }
+}
+
+.section { padding: 64px 0; }
+
+/* ============ BUTTONS ============ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.9px;
+  padding: 12px 24px;
+  border-radius: 16px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn img { width: 24px; height: 24px; }
+
+.btn-primary {
+  background: var(--btn-primary);
+  color: var(--color-offwhite);
+}
+.btn-primary:hover  { background: var(--btn-primary-hover); }
+.btn-primary:active { background: var(--btn-primary-press); }
+
+.btn-secondary {
+  background: var(--color-offwhite);
+  color: var(--btn-secondary-text);
+  border: 1px solid var(--btn-primary);
+}
+.btn-secondary:hover {
+  background: var(--btn-secondary-hover-bg);
+  border-width: 2px;
+  padding: 11px 23px; /* offset the extra 1px border so size doesn't jump */
+}
+
+.btn-tertiary {
+  background: var(--color-offwhite);
+  color: var(--btn-tertiary-text);
+  text-decoration: underline;
+  text-decoration-thickness: 8%;
+}
+.btn-tertiary:hover { background: var(--btn-tertiary-hover-bg); }
+
+.btn-discord {
+  background: var(--btn-discord);
+  color: var(--color-offwhite);
+  height: 48px;
+}
+.btn-discord:hover  { background: var(--btn-discord-hover); }
+.btn-discord:active { background: var(--btn-discord-press); }
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+
+/* ============ NAV ============ */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 234px;
+  padding: 12px 40px;
+  background: #F9FFF7;
+}
+
+.nav-logo img {
+  width: 80px;
+  height: 80px;
+  display: block;
+  object-fit: cover;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  letter-spacing: 0.36px;
+  color: #000;
+  cursor: pointer;
+}
+
+.nav-dropdown-toggle .chevron {
+  width: 24px;
+  height: 24px;
+  transform: rotate(180deg);
+}
+
+@media (max-width: 900px) {
+  .navbar { flex-direction: column; gap: 16px; }
+  .nav-links { flex-wrap: wrap; justify-content: center; gap: 20px; }
+}
+
+/* ============ FOOTER ============ */
+.footer {
+  padding: 40px 28px;
+  background: linear-gradient(to top, #E6F0FF, #D8F5FF);
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.footer-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 57px;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 120px;
+}
+
+.footer-heading { color: #000; }
+
+.footer-link {
+  font-size: 18px;
+  letter-spacing: 0.36px;
+  color: #000;
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-copyright {
+  font-size: 16px;
+  color: #1E1E1E;
+  margin: 0;
+}
+
+.social-icons {
+  display: flex;
+  gap: 8px;
+}
+
+.social-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 100px;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-icon img { width: 24px; height: 24px; }
