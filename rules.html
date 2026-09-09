@@ -1,18 +1,759 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Triceratops</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rules &ndash; UC Davis Triceratops Club</title>
+  <meta name="description" content="Everything you need to know before you hunt, trade, or claim a dino with the UC Davis Triceratops Club.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       Triceratops Club — Rules page  (desktop, top half)
+       Sections: nav · hero · General Rules · Hunt Rules · Flash Sale Rules
+       ============================================================ */
+
+    @font-face {
+      font-family: "Pulang";
+      src: url("assets/fonts/Pulang.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      /* palette (from Figma variables) */
+      --green:      #ACD87D;
+      --blue:       #BDE6E6;
+      --pink:       #F8C9DC;
+      --yellow:     #F2E35D;
+      --purple:     #8899FA;
+      --blonde:     #EBE6A0;
+      --off-white:  #FFFDFD;
+      --ink:        #3D3D3D;
+      --dot:        #52A7C2;
+      --discord:    #7289DA;
+      --page-bg:    #FDFEFB;
+      --nav-bg:     #F9FFF7;
+
+      /* type */
+      --font-head: "Pulang", "Fredoka", "Trebuchet MS", sans-serif;
+      --font-body: "Nunito", "Segoe UI", system-ui, sans-serif;
+
+      /* layout */
+      --container: 1344px;
+      --gutter: clamp(20px, 5vw, 48px);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--page-bg);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 20px;
+      line-height: 1.5;
+      letter-spacing: 0.02em;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    h1, h2, h3 {
+      font-family: var(--font-head);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    a { color: inherit; }
+
+    .container {
+      width: min(var(--container), 100% - (var(--gutter) * 2));
+      margin-inline: auto;
+    }
+
+    /* ---------- Nav ---------------------------------------------- */
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      transition: box-shadow 0.2s ease;
+    }
+    .nav.is-scrolled { box-shadow: 0 2px 14px rgba(0, 0, 0, 0.12); }
+
+    .nav__inner {
+      width: min(var(--container), 100% - (var(--gutter) * 2));
+      margin-inline: auto;
+      min-height: 104px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding-block: 12px;
+    }
+
+    .nav__logo { width: 80px; height: 80px; flex: none; }
+    .nav__logo img { width: 100%; height: 100%; object-fit: contain; }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav__links a,
+    .nav__links button {
+      font: inherit;
+      font-size: 20px;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      background: none;
+      border: 0;
+      padding: 4px 0;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+    }
+    .nav__links a:hover,
+    .nav__links button:hover { border-bottom-color: var(--ink); }
+    .nav__links a[aria-current="page"] { font-weight: 700; border-bottom-color: var(--ink); }
+    .nav__chevron { width: 18px; height: 18px; }
+
+    .nav__cta {
+      flex: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 48px;
+      padding: 12px 16px;
+      border-radius: 16px;
+      background: var(--discord);
+      color: var(--off-white);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+    .nav__cta:hover { filter: brightness(1.07); transform: translateY(-1px); }
+    .nav__cta img { width: 24px; height: 24px; }
+
+    .nav__toggle { display: none; }
+
+    /* ---------- Hero ------------------------------------------- */
+
+    .hero {
+      position: relative;
+      min-height: clamp(360px, 40vw, 518px);
+      display: flex;
+      align-items: flex-end;
+      background-image: linear-gradient(to bottom, rgba(0,0,0,0.05) 35%, rgba(0,0,0,0.5)),
+                        url("assets/hero-forest.png");
+      background-size: cover;
+      background-position: center 78%;
+      color: var(--off-white);
+    }
+    .hero__inner {
+      width: min(1280px, 100% - (var(--gutter) * 2));
+      margin-inline: auto;
+      padding-block: 32px;
+    }
+    .hero h1 {
+      font-size: clamp(38px, 5vw, 64px);
+      text-shadow: 0 4px 4px rgba(0, 0, 0, 0.35);
+      margin-bottom: 8px;
+    }
+    .hero p {
+      font-weight: 600;
+      font-size: clamp(16px, 2vw, 20px);
+      line-height: 1.3;
+      margin: 0;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    /* ---------- Section scaffold ------------------------------ */
+
+    .section { padding-block: clamp(48px, 8vw, 72px); position: relative; }
+    .section + .section { padding-top: 0; }
+
+    .section__head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+    .section__head-text { max-width: 1008px; }
+
+    .section__title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: clamp(32px, 4vw, 48px);
+      color: var(--ink);
+    }
+    .section__title::before {
+      content: "";
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--dot);
+      flex: none;
+    }
+    .section__subtitle {
+      margin: 20px 0 0;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 1.3;
+      color: var(--ink);
+    }
+    .section__dino {
+      flex: none;
+      width: 153px;
+      filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.25));
+    }
+
+    /* ---------- Rule cards ------------------------------------- */
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px 22px;
+      align-items: start;
+    }
+    .card-grid--stagger > :nth-child(even) { margin-top: 72px; }
+
+    .rule-card { display: flex; flex-direction: column; }
+
+    .rule-card__head {
+      background: var(--card-accent, var(--green));
+      border: 4px solid var(--ink);
+      border-bottom: 0;
+      border-radius: 20px 20px 0 0;
+      padding: 14px 40px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      min-height: 89px;
+    }
+    .rule-card__head h3 { font-size: clamp(26px, 3vw, 36px); color: var(--ink); }
+    .rule-card__head img { height: 46px; width: auto; flex: none; }
+
+    .rule-card__body {
+      background: var(--off-white);
+      border: 4px solid var(--ink);
+      border-radius: 12px 12px 20px 20px;
+      padding: 32px clamp(24px, 4vw, 50px);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      flex: 1;
+    }
+
+    .rule-lead { margin: 0; font-weight: 700; line-height: 1.3; }
+
+    .rule-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+    .rule-list li {
+      position: relative;
+      padding-left: 36px;
+      line-height: 1.3;
+    }
+    .rule-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 4px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--card-accent, var(--green));
+    }
+
+    .rule-note {
+      border: 2px solid var(--ink);
+      border-radius: 20px;
+      padding: 14px 18px;
+      line-height: 1.5;
+      background: var(--off-white);
+    }
+
+    /* pill tags (Adhere to Dino Limits) */
+    .pill-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .pill {
+      border: 2px solid var(--green);
+      background: rgba(172, 216, 125, 0.2);
+      border-radius: 20px;
+      padding: 10px 16px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    /* General Rules bodies use divider lines instead of bullets */
+    .rule-card__body--lined > * + * {
+      border-top: 4px solid var(--card-accent, var(--green));
+      padding-top: 24px;
+    }
+    .rule-card__body--lined p { margin: 0; line-height: 1.3; }
+
+    /* card accents */
+    .accent-green  { --card-accent: var(--green); }
+    .accent-blue   { --card-accent: var(--blue); }
+    .accent-pink   { --card-accent: var(--pink); }
+    .accent-blonde { --card-accent: var(--blonde); }
+
+    /* decorative blob behind General Rules */
+    .section--general { overflow: clip; }
+    .blob {
+      position: absolute;
+      right: 6%;
+      bottom: -30px;
+      width: 240px;
+      opacity: 0.55;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* ---------- Flash Sale Rules (detail section) ------------- */
+
+    .listing-bar {
+      background: var(--green);
+      border: 4px solid var(--ink);
+      border-radius: 20px;
+      padding: 18px clamp(20px, 4vw, 72px);
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px 40px;
+      margin-bottom: 24px;
+    }
+    .listing-bar__label { font-family: var(--font-head); font-size: clamp(22px, 3vw, 28px); color: var(--ink); }
+    .listing-bar__times { display: flex; gap: 24px; flex-wrap: wrap; }
+    .time-pill {
+      background: var(--off-white);
+      border: 2px solid var(--ink);
+      border-radius: 20px;
+      padding: 10px 16px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .listing-bar__note { flex: 1 1 340px; font-weight: 600; line-height: 1.3; }
+    .listing-bar__note strong { font-weight: 800; }
+
+    .flash-points {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .flash-point {
+      background: var(--off-white);
+      border: 2px solid var(--ink);
+      border-radius: 20px;
+      padding: 22px clamp(20px, 3vw, 32px);
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      line-height: 1.3;
+    }
+    .flash-point--wide { grid-column: 1 / -1; align-items: flex-start; }
+    .flash-num {
+      flex: none;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid var(--ink);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-head);
+      font-size: 28px;
+      color: var(--ink);
+    }
+    .flash-num--1 { background: var(--pink); }
+    .flash-num--2 { background: var(--blue); }
+    .flash-num--3 { background: var(--yellow); }
+
+    .flower-row {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 48px;
+    }
+    .flower-row img { width: 80px; height: auto; }
+
+    /* ---------- Reveal animation (only when JS is active) ---- */
+    .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .js .reveal.is-visible { opacity: 1; transform: none; }
+
+    /* ---------- Responsive ---------------------------------- */
+
+    @media (max-width: 1000px) {
+      .card-grid { grid-template-columns: 1fr; }
+      .card-grid--stagger > :nth-child(even) { margin-top: 0; }
+      .flash-points { grid-template-columns: 1fr; }
+      .section__dino { width: 120px; }
+    }
+
+    @media (max-width: 860px) {
+      body { font-size: 18px; }
+      .nav__inner { flex-wrap: wrap; }
+      .nav__toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px; height: 44px;
+        border: 2px solid var(--ink);
+        border-radius: 12px;
+        background: var(--off-white);
+        font-size: 20px;
+        cursor: pointer;
+        order: 3;
+      }
+      .nav__cta { order: 2; }
+      .nav__links {
+        order: 4;
+        flex-basis: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 8px 0 16px;
+        display: none;
+      }
+      .nav__links.is-open { display: flex; }
+      .section__head { flex-direction: column; }
+      .section__dino { align-self: flex-end; margin-top: -12px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .nav__cta:hover { transform: none; }
+    }
+  </style>
 </head>
+
 <body>
-    <h1>Rules Page</h1>
-    <h2>Click on this disclaimer!</h2>
-    <p>Rules for website
-    
-    </p>
-    <p>1. No spamming or flooding the chat with messages.
-        
-    </p>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <nav class="nav__inner" aria-label="Primary">
+      <a class="nav__logo" href="index.html" aria-label="Triceratops Club home">
+        <img src="assets/logo.png" alt="UC Davis Triceratops Club logo">
+      </a>
+
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle menu">&#9776;</button>
+
+      <ul class="nav__links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li>
+          <button type="button">
+            Getting Started
+            <img class="nav__chevron" src="assets/icons/chevron.svg" alt="" aria-hidden="true" style="transform: rotate(180deg);">
+          </button>
+        </li>
+        <li><a href="dinodex.html">DinoDex</a></li>
+        <li><a href="rules.html" aria-current="page">Rules</a></li>
+        <li><a href="about.html">About Us</a></li>
+      </ul>
+
+      <a class="nav__cta" href="https://discord.gg/" target="_blank" rel="noopener">
+        <img src="assets/icons/discord.svg" alt="" aria-hidden="true">
+        Join Our Discord
+      </a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="hero__inner">
+        <h1>Rules to Know Before You Hunt</h1>
+        <p>Everything you need to know before you hunt, trade, or claim a dino.</p>
+      </div>
+    </section>
+
+    <!-- ============ GENERAL RULES ============ -->
+    <section class="section section--general" aria-labelledby="general-title">
+      <div class="container">
+        <div class="section__head reveal">
+          <div class="section__head-text">
+            <h2 class="section__title" id="general-title">General Rules</h2>
+            <p class="section__subtitle">
+              Triceratops&rsquo; #1 priority is safe Discord behavior and community conduct.
+              Please read over the following for general Behavior &amp; Conduct rules.
+            </p>
+          </div>
+          <img class="section__dino" src="assets/holidino.png" alt="A triceratops in a holiday scarf">
+        </div>
+
+        <div class="card-grid reveal">
+          <!-- Always -->
+          <article class="rule-card accent-green">
+            <div class="rule-card__head">
+              <img src="assets/icons/check-circle.svg" alt="">
+              <h3>Always</h3>
+            </div>
+            <div class="rule-card__body rule-card__body--lined">
+              <p><strong>Respectful behavior is expected at all times</strong>, both in-person and within our online community.</p>
+              <p><strong>Be respectful</strong> to staff members during drops.</p>
+              <p><strong>Keep DMs to the Instagram strictly related to Davis Triceratops</strong>, do not send personal DMs to our official club Instagram.</p>
+            </div>
+          </article>
+
+          <!-- Never -->
+          <article class="rule-card accent-pink">
+            <div class="rule-card__head">
+              <img src="assets/icons/x-circle.svg" alt="">
+              <h3>Never</h3>
+            </div>
+            <div class="rule-card__body rule-card__body--lined">
+              <p><strong>Do not post NSFW content in the server.</strong> This is an immediately bannable offense.</p>
+              <p><strong>No rude, slanderous, offensive, or hateful comments</strong>, indecent or inappropriate content, or slurs of any kind.</p>
+              <p><strong>Do not reveal staff location</strong> during drops or their individual time.</p>
+              <p><strong>Do not DM staff</strong> unless given explicit permission by staff.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+      <img class="blob" src="assets/blob-purple.svg" alt="" aria-hidden="true">
+    </section>
+
+    <!-- ============ HUNT RULES ============ -->
+    <section class="section section--hunt" aria-labelledby="hunt-title">
+      <div class="container">
+        <div class="section__head reveal">
+          <div class="section__head-text">
+            <h2 class="section__title" id="hunt-title">Hunt Rules</h2>
+            <p class="section__subtitle">
+              Any confusion on how a scavenger works and operates? Read the following to prepare
+              yourself with these hunt rules so your hunt can go smoothly.
+            </p>
+          </div>
+          <img class="section__dino" src="assets/bike-dino.png" alt="A triceratops riding a bike">
+        </div>
+
+        <div class="card-grid card-grid--stagger reveal">
+          <!-- Outdoors Only -->
+          <article class="rule-card accent-green">
+            <div class="rule-card__head">
+              <img src="assets/icons/location.svg" alt="">
+              <h3>Outdoors Only</h3>
+            </div>
+            <div class="rule-card__body">
+              <p class="rule-lead">Most dinos or event materials will be hidden outdoors.</p>
+              <ul class="rule-list">
+                <li>Dinos will only be hidden inside if stated specifically by the dropper.</li>
+                <li>Be respectful to those around you. The goal is safety and giving others space.</li>
+                <li>If dinos are hidden inside, <strong>be mindful</strong> of your surroundings and other people.</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Accessible Spots Only -->
+          <article class="rule-card accent-blue">
+            <div class="rule-card__head">
+              <img src="assets/icons/accessible.svg" alt="">
+              <h3>Accessible Spots Only</h3>
+            </div>
+            <div class="rule-card__body">
+              <p class="rule-lead">Never endanger yourself to access event materials.</p>
+              <ul class="rule-list">
+                <li>Do not trample or damage plants or property of any sort.</li>
+                <li>Dinos will not be placed deeply into bushes.</li>
+                <li>If a dino is displaced somewhere hard to reach, do not risk your personal safety to retrieve it.</li>
+                <li>Stay on the path, <strong>stay out of construction zones</strong>, and leave campus spaces as you found them.</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Random Timing -->
+          <article class="rule-card accent-blonde">
+            <div class="rule-card__head">
+              <img src="assets/icons/clock.svg" alt="">
+              <h3>Random Timing</h3>
+            </div>
+            <div class="rule-card__body">
+              <p class="rule-lead">Daily dino drops occur at random.</p>
+              <ul class="rule-list">
+                <li><strong>Timing depends</strong> on the Dropper&rsquo;s personal discretion, schedule, and time permitted.</li>
+                <li>Drops will occur <strong>only during daylight hours.</strong></li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Don't Ask About Drops -->
+          <article class="rule-card accent-pink">
+            <div class="rule-card__head">
+              <img src="assets/icons/x-circle-2.svg" alt="">
+              <h3>Don&rsquo;t Ask About Drops</h3>
+            </div>
+            <div class="rule-card__body">
+              <p class="rule-lead">Do not ask when or where drops may occur.</p>
+              <ul class="rule-list">
+                <li>Pleading and excessively requesting for drops <strong>may result in corrective action.</strong></li>
+              </ul>
+              <p class="rule-note">Remember that each of our hardworking staff commits their personal time and effort to allow for drops to occur.</p>
+            </div>
+          </article>
+
+          <!-- Adhere to Dino Limits -->
+          <article class="rule-card accent-green">
+            <div class="rule-card__head">
+              <img src="assets/icons/exclamation.svg" alt="">
+              <h3>Adhere to Dino Limits</h3>
+            </div>
+            <div class="rule-card__body">
+              <p class="rule-lead">Each person is limited to:</p>
+              <div class="pill-grid">
+                <span class="pill">1 Monthly Dino per month</span>
+                <span class="pill">1 Milestone Dino</span>
+                <span class="pill">1 Aggieceratops Dino</span>
+                <span class="pill">1 of each type of Special Dino</span>
+              </div>
+              <ul class="rule-list">
+                <li>These limits promote <strong>fairness and equal opportunity</strong> for all event participants.</li>
+                <li>Anyone caught trying to bypass the dino limits will be <strong>banned from the server.</strong></li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Flash Sale Rules -->
+          <article class="rule-card accent-blue">
+            <div class="rule-card__head">
+              <img src="assets/icons/flash.svg" alt="">
+              <h3>Flash Sale Rules</h3>
+            </div>
+            <div class="rule-card__body">
+              <p class="rule-lead">For EACH month&rsquo;s flash sale, you can buy one regular and one medium dino.</p>
+              <ul class="rule-list">
+                <li>This rule <strong>resets every year.</strong></li>
+              </ul>
+              <p class="rule-note">e.g. one regular and one medium dino in every flash sale of 2026 &ndash; that resets at the end of 2026 and starts over for 2027.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FLASH SALE RULES (detail) ============ -->
+    <section class="section section--flash" aria-labelledby="flash-title">
+      <div class="container">
+        <div class="section__head reveal">
+          <div class="section__head-text">
+            <h2 class="section__title" id="flash-title">Flash Sale Rules</h2>
+            <p class="section__subtitle">
+              Flash sales are one of your only opportunities to directly purchase a dino from the club.
+              To know more about how to obtain one, read the information below.
+            </p>
+          </div>
+          <img class="section__dino" src="assets/lucky-dino.png" alt="A lucky triceratops with a clover">
+        </div>
+
+        <div class="listing-bar reveal">
+          <span class="listing-bar__label">Listing hours</span>
+          <div class="listing-bar__times">
+            <span class="time-pill">12am &ndash; 10am</span>
+            <span class="time-pill">5pm &ndash; 11:59pm</span>
+          </div>
+          <p class="listing-bar__note">
+            Flash sales no longer run <strong>for the whole 24 hours</strong> on the last day of each month.
+            Instead, listing giveaways will run from 12am&ndash;10pm &amp; 5pm&ndash;11;59pm.
+          </p>
+        </div>
+
+        <div class="flash-points reveal">
+          <div class="flash-point">
+            <span class="flash-num flash-num--1">1</span>
+            <p><strong>Do NOT enter a raffle</strong> if you have already won a dino (of the same size) within the flash sale.</p>
+          </div>
+          <div class="flash-point">
+            <span class="flash-num flash-num--2">2</span>
+            <p><strong>Do participate and interact with staff</strong> via emoji reactions in the <strong>#listings</strong> channel during flash sales! This will make the whole process fun for both staff and general members!</p>
+          </div>
+          <div class="flash-point flash-point--wide">
+            <span class="flash-num flash-num--3">3</span>
+            <p><strong>Behave respectfully and properly during flash sales! Do NOT</strong> demand and force our staff to list sales.</p>
+          </div>
+        </div>
+
+        <div class="flower-row reveal" aria-hidden="true">
+          <img src="assets/icons/flower.svg" alt="">
+          <img src="assets/icons/flower.svg" alt="">
+          <img src="assets/icons/flower.svg" alt="">
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      document.documentElement.classList.add("js");
+
+      /* nav: shadow on scroll */
+      var nav = document.getElementById("nav");
+      var onScroll = function () {
+        nav.classList.toggle("is-scrolled", window.scrollY > 8);
+      };
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+
+      /* nav: mobile menu toggle */
+      var toggle = document.getElementById("navToggle");
+      var links = document.getElementById("navLinks");
+      toggle.addEventListener("click", function () {
+        var open = links.classList.toggle("is-open");
+        toggle.setAttribute("aria-expanded", String(open));
+      });
+      links.addEventListener("click", function (e) {
+        if (e.target.closest("a") && links.classList.contains("is-open")) {
+          links.classList.remove("is-open");
+          toggle.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      /* reveal-on-scroll */
+      var reveals = document.querySelectorAll(".reveal");
+      if (!("IntersectionObserver" in window) ||
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        reveals.forEach(function (el) { el.classList.add("is-visible"); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            io.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: "0px 0px -10% 0px" });
+      reveals.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
+
 </body>
 </html>
