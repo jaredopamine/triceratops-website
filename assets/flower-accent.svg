@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="40.1691" height="40.1691" viewBox="0 0 40.1691 40.1691" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="Repeat group 1">
+<g id="Repeat group 1_inner" data-figma-trr="r6u1-0f">
+<ellipse id="Ellipse 1752" cx="20.0846" cy="10.1842" rx="3.36433" ry="9.90039" fill="#F8CCC9"/>
+</g>
+<use xlink:href="#Repeat%20group%201_inner" transform="translate(27.436 -7.35146) rotate(60)"/>
+<use xlink:href="#Repeat%20group%201_inner" transform="translate(47.5206 12.7331) rotate(120)"/>
+<use xlink:href="#Repeat%20group%201_inner" transform="translate(40.1691 40.1691) rotate(-180)"/>
+<use xlink:href="#Repeat%20group%201_inner" transform="translate(12.7331 47.5206) rotate(-120)"/>
+<use xlink:href="#Repeat%20group%201_inner" transform="translate(-7.35146 27.436) rotate(-60)"/>
+</g>
+</svg>

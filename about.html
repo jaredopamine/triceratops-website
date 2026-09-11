@@ -1,11 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Triceratops</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — UC Davis Triceratops Club</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="about.css">
 </head>
 <body>
-    <h1>About Page</h1>
+
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="/" class="site-logo">
+        <img src="assets/logo.png" alt="UC Davis Triceratops Club logo">
+      </a>
+
+      <nav class="main-nav" aria-label="Primary">
+        <a class="main-nav__link" href="#">Home</a>
+        <div class="nav-dropdown">
+          <a class="main-nav__link" href="#">
+            Getting Started
+            <img class="main-nav__chevron" src="assets/chevron-down.svg" alt="">
+          </a>
+          <div class="nav-dropdown__panel">
+            <a href="#">Flash Sales</a>
+          </div>
+        </div>
+        <a class="main-nav__link" href="#">DinoDex</a>
+        <a class="main-nav__link" href="#">Rules</a>
+        <a class="main-nav__link main-nav__link--current" href="#" aria-current="page">About Us</a>
+      </nav>
+
+      <a href="#" class="btn btn-discord">
+        <img src="assets/discord-icon.svg" alt="">
+        Join Our Discord
+      </a>
+    </div>
+  </header>
+
+  <main class="page-content">
+
+    <!-- ==================== DECORATIONS =====================
+         Purely ornamental, so aria-hidden and pointer-events:none.
+         Absolutely positioned against .page-content; coordinates
+         come from the Figma frame, mapped onto this page's section
+         positions. Both clouds intentionally run past the page
+         edge — .page-content uses overflow-x: clip to cut them.
+    ========================================================= -->
+    <div class="page-deco" aria-hidden="true">
+      <img class="deco deco--marker"     src="assets/img/deco-marker.svg"     alt="">
+      <img class="deco deco--cloud-pink-r" src="assets/img/deco-cloud-pink.svg" alt="">
+      <img class="deco deco--arrow-mission" src="assets/img/deco-arrow.svg"   alt="">
+      <img class="deco deco--cloud-blue-l" src="assets/img/deco-cloud-blue.svg" alt="">
+      <img class="deco deco--cloud-pink-l" src="assets/img/deco-cloud-pink.svg" alt="">
+      <img class="deco deco--cloud-blue-r" src="assets/img/deco-cloud-blue.svg" alt="">
+      <img class="deco deco--cloud-blue-b" src="assets/img/deco-cloud-blue.svg" alt="">
+    </div>
+
+    <section class="hero">
+      <div class="hero__bg">
+        <img src="assets/img/hero-banner.webp" width="2880" height="952"
+             alt="Illustrated valley with a large grey triceratops on the left and a small orange one on the right">
+      </div>
+      <div class="hero__gradient"></div>
+      <div class="hero__content">
+        <h1 class="hero__title">Hey! We&rsquo;re the Triceratops Club!</h1>
+        <p class="hero__subtitle">Learn more about the club and who we are!</p>
+      </div>
+    </section>
+
+    <!-- ===================== OUR MISSION ===================== -->
+    <section class="section section--mission">
+      <div class="grid-12">
+        <div class="col-span-12">
+          <h2 class="section-heading"><span class="section-heading__dot"></span>Our Mission</h2>
+          <p class="section-subtitle">We bring fun to the Davis community!</p>
+        </div>
+
+        <div class="col-span-5 mission__media">
+          <img class="framed-photo" src="assets/img/mission-photo.webp"
+               alt="Triceratops Club members gathered under a tree on the UC Davis campus">
+        </div>
+
+        <div class="mission__copy">
+          <p class="text-body">Hey, we&rsquo;re the triceratops club at UC Davis! Our purpose is to
+            create a fun and welcoming community of members that all search for one thing:
+            <strong>cute, handmade, crocheted triceratops</strong>.</p>
+
+          <p class="text-body">We host <strong>daily scavenger hunts</strong> and
+            <strong>monthly large-scale events</strong> for members to search for and claim
+            exclusive dinos, which offers UCD students opportunities to meet new people or to
+            spend quality time with their friends.</p>
+
+          <p class="text-body">We aim to bring students together, explore, and better the campus
+            through engaging in a stress free, enjoyable activity that serves as an escape from
+            the average busy college student&rsquo;s life.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SNEAK PEEK ======================
+         Date, caption and dino badge are baked into each export,
+         so there is no text overlay here — the captions live in
+         each image's alt text instead.
+    ========================================================= -->
+    <section class="section section--sneak">
+      <div class="grid-12">
+        <div class="col-span-12">
+          <h2 class="section-heading"><span class="section-heading__dot"></span>Sneak Peek</h2>
+          <p class="section-subtitle">Take a look at some of our past events!</p>
+        </div>
+      </div>
+
+      <!-- Cards are a fixed 503px and deliberately overflow the right
+           grid margin, matching the design's carousel bleed. -->
+      <div class="event-carousel">
+        <article class="event-card">
+          <img src="assets/img/sneak-01-yarn-meetup.webp" width="1010" height="852" loading="lazy"
+               alt="May 15, 2024 — Preparing Yarn at a Team Meetup: members winding yarn together at an outdoor table.">
+        </article>
+        <article class="event-card">
+          <img src="assets/img/sneak-02-involvement-fair.webp" width="1010" height="852" loading="lazy"
+               alt="October 9, 2024 — Working Hard at the Involvement Fair: members running the club booth with a prize wheel and baskets of crocheted dinos.">
+        </article>
+        <article class="event-card">
+          <img src="assets/img/sneak-03-spring-bonding.webp" width="1010" height="852" loading="lazy"
+               alt="June 8, 2024 — A Spring Staff Bonding: staff sitting on picnic blankets in a park.">
+        </article>
+        <article class="event-card">
+          <img src="assets/img/sneak-04-study-event.webp" width="1010" height="852" loading="lazy"
+               alt="June 2, 2025 — Setting Up for a Study Event: three members at the check-in desk under STUDY OR ELSE whiteboard art.">
+        </article>
+        <article class="event-card">
+          <img src="assets/img/sneak-05-earth-day.webp" width="1010" height="852" loading="lazy"
+               alt="May 24, 2025 — Staff Show Off Earth Day Rewards: four members holding crocheted dinos outdoors.">
+        </article>
+        <article class="event-card">
+          <img src="assets/img/sneak-06-easter-prep.webp" width="1010" height="852" loading="lazy"
+               alt="April 25, 2026 — Staff Prepare for Annual Easter Event: members arranging rows of crocheted dinos on a table.">
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================== OUR VALUES ====================== -->
+    <section class="section section--values">
+      <div class="grid-12">
+        <div class="col-span-12">
+          <h2 class="section-heading"><span class="section-heading__dot"></span>Our Values</h2>
+          <p class="section-subtitle">We ensure that every dino-thusiast is welcome to the Dino Community!</p>
+        </div>
+
+        <article class="col-span-4 value-card value-card--blue">
+          <div class="value-card__head">
+            <img src="assets/img/dino-inclusivity.svg" alt="" aria-hidden="true">
+            <h3 class="value-card__title">Inclusivity</h3>
+          </div>
+          <p class="text-body">Don&rsquo;t know anyone in the club? Don&rsquo;t know how to crochet?
+            <strong>Every dino-thusiast is welcome to join!</strong></p>
+          <p class="text-body">We encourage students from all backgrounds to join and be involved
+            in the dino community!</p>
+        </article>
+
+        <article class="col-span-4 value-card value-card--yellow">
+          <div class="value-card__head">
+            <img src="assets/img/dino-accessibility.svg" alt="" aria-hidden="true">
+            <h3 class="value-card__title">Accessibility</h3>
+          </div>
+          <p class="text-body">Worried that you have to pay member-fees?
+            <strong>Being a dino-thusiast is free!</strong> We want to make sure being a part of
+            the community is accessible!</p>
+          <p class="text-body value-card__note">*For any flash-sale raffles and purchases, there
+            are still payments required.</p>
+        </article>
+
+        <article class="col-span-4 value-card value-card--green">
+          <div class="value-card__head">
+            <img src="assets/img/dino-flexibility.svg" alt="" aria-hidden="true">
+            <h3 class="value-card__title">Flexibility</h3>
+          </div>
+          <p class="text-body">Worried about heavy time commitments?
+            <strong>Being a dino-thusiast is flexible!</strong></p>
+          <p class="text-body">Many of our events and drops are flexible and we don&rsquo;t require
+            attendance at meetings! You can be involved at your own <strong>time</strong> and
+            <strong>convenience</strong>!</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ==================== STAY INVOLVED ==================== -->
+    <section class="section section--involved">
+      <div class="grid-12">
+        <div class="col-span-6 involved__copy">
+          <h2 class="text-h1 involved__title">Stay Involved With the Dino Community!</h2>
+          <p class="section-subtitle">Receive drop updates and connect with other Dino-thusiasts!</p>
+          <a href="#" class="btn btn-discord">
+            <img src="assets/discord-icon.svg" alt="">
+            Join Our Discord
+          </a>
+
+          <!-- Anchored to this block, not to a page coordinate, so the
+               arrowhead keeps pointing at the CTA even though the shared
+               .btn-discord renders narrower than the Figma button. -->
+          <img class="deco--arrow-discord" src="assets/img/deco-arrow.svg"
+               alt="" aria-hidden="true">
+        </div>
+
+        <div class="involved__media">
+          <img class="framed-photo" src="assets/img/stay-involved.webp"
+               alt="Triceratops Club members posing together for a group photo">
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grass" aria-hidden="true"></div>
+
+    <div class="footer-content">
+      <img class="footer-deco footer-deco--flower-tl" src="assets/flower-accent.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--flower-mid" src="assets/flower-accent.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud1-back" src="assets/cloud-1-back.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud1-front" src="assets/cloud-1-front.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud2-back" src="assets/cloud-2-back.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud2-front" src="assets/cloud-2-front.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud3-back" src="assets/cloud-3-back.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud3-front" src="assets/cloud-3-front.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--dino-single" src="assets/dino-single.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--dino-duo" src="assets/dino-duo.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--flower-small-1" src="assets/flower-small-1.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--flower-small-2" src="assets/flower-small-2.svg" alt="" aria-hidden="true">
+
+      <div class="footer-columns">
+        <div class="footer-column">
+          <p class="footer-column__title">Home</p>
+          <ul class="footer-column__links">
+            <li><a href="#">Testimonials</a></li>
+            <li><a href="#">Map</a></li>
+            <li><a href="#">Event Calendar</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <p class="footer-column__title">Getting Started</p>
+          <ul class="footer-column__links">
+            <li><a href="#">Set Up Notifs</a></li>
+            <li><a href="#">Drop Types</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <p class="footer-column__title">DinoDex</p>
+          <ul class="footer-column__links">
+            <li><a href="#">Popular Dinos</a></li>
+            <li><a href="#">Dino Types</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <p class="footer-column__title">Rules</p>
+          <ul class="footer-column__links">
+            <li><a href="#">Claiming Process</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <p class="footer-column__title">About Us</p>
+          <ul class="footer-column__links">
+            <li><a href="#">Get Involved</a></li>
+            <li><a href="#">Contact Form</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2026 UC Davis Triceratops Club | All Rights Reserved</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social__icon"><img src="assets/email-icon.svg" alt="Email"></a>
+          <a href="#" class="footer-social__icon"><img src="assets/discord-social-icon.svg" alt="Discord"></a>
+          <a href="#" class="footer-social__icon"><img src="assets/instagram-social-icon.svg" alt="Instagram"></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
