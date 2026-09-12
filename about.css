@@ -1,0 +1,228 @@
+/* ============================================================
+   ABOUT US — page-specific styles
+   Load AFTER styles.css. Everything here is scoped to this page;
+   shared chrome, tokens, type scale, grid, and buttons all stay
+   in styles.css so the other four pages aren't affected.
+   ============================================================ */
+
+/* --- Decoration layer ---------------------------------------
+   Ornamental SVGs sit behind the content. Coordinates are taken
+   from the Figma frame (1440-wide) and mapped onto this page via
+   two anchors — the Our Mission heading and the Our Values
+   heading — then expressed relative to .page-content's top.
+
+   overflow-x: clip (not hidden) lets the clouds bleed past both
+   page edges without making the page horizontally scrollable and
+   without turning the vertical axis into a scroll container.
+   ------------------------------------------------------------ */
+.page-content { position: relative; overflow-x: clip; }
+
+.page-deco {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.page-deco .deco { position: absolute; }
+
+/* Content sits above the decorations. */
+.section { position: relative; z-index: 1; }
+
+/* Horizontal anchoring is deliberate, not arbitrary: pieces that
+   hug a page edge in the design are pinned to that edge in px, so
+   they keep bleeding off correctly at any desktop width; pieces
+   that sit against content use a % of page width so they track it
+   as the fluid grid resizes. Vertical offsets stay in px — they
+   are measured from the 1440-wide Figma frame. */
+.deco--marker         { top:  538px; left: 42.43%; width: 100px; }
+.deco--cloud-pink-r   { top:  539px; right:  -83px; width: 281px; }
+.deco--arrow-mission  { top: 1072px; left: 47.22%; width:  97px; }
+.deco--cloud-blue-l   { top: 1076px; left:  -53px; width: 144px; }
+.deco--cloud-pink-l   { top: 1767px; left: -153px; width: 281px; }
+.deco--cloud-blue-r   { top: 1827px; right:  118px; width: 144px; }
+.deco--cloud-blue-b   { top: 2866px; right:   30px; width: 144px; }
+
+/* --- Hero ---------------------------------------------------
+   styles.css hardcodes .hero at 600px. The About Us frame's hero
+   is 476px, and the banner art is exactly 1440x476 (@2x), so at
+   600px `object-fit: cover` would scale it up and crop both
+   dinos out of frame. Overridden here for this page only.
+   ------------------------------------------------------------ */
+.hero { height: 476px; }
+
+/* --- Section rhythm ---------------------------------------- */
+.section              { padding: 72px 0; }
+.section--mission     { padding-top: 64px; }
+.section--involved    { padding-bottom: 96px; }
+
+/* --- Section heading (dot + Pulang title + subtitle) -------- */
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 4px;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: var(--text-h2-size);
+  line-height: var(--text-h2-lh);
+  letter-spacing: var(--text-h2-ls);
+  color: var(--color-text-secondary);
+}
+
+.section-heading__dot {
+  flex: 0 0 auto;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-accent-lightblue);
+}
+
+.section-subtitle {
+  margin: 0 0 40px;
+  font-family: var(--font-body);
+  font-size: var(--text-subtitle2-size);
+  line-height: var(--text-subtitle2-lh);
+  letter-spacing: var(--text-subtitle2-ls);
+  color: var(--color-text-secondary);
+}
+
+/* Column placement for the two offset blocks.
+   NOTE: don't pair a col-start-* utility with styles.css's
+   .col-span-*. That class uses the `grid-column: span N`
+   shorthand, which also sets grid-column-end: auto — overriding
+   only the start leaves the end at auto and the item collapses
+   to a single column. Set both lines in one declaration. */
+.mission__copy   { grid-column: 7 / -1; }
+.involved__media { grid-column: 8 / -1; }
+
+/* --- Section photos -----------------------------------------
+   The blonde frame is baked into the Figma exports (the Stay
+   Involved one is a scalloped shape with real transparency),
+   so no CSS border or radius here — adding one would double it.
+   ------------------------------------------------------------ */
+.framed-photo {
+  width: 100%;
+  height: auto;
+}
+
+/* --- Our Mission -------------------------------------------- */
+.mission__media { align-self: start; }
+
+.mission__copy p + p { margin-top: 24px; }
+.mission__copy p     { margin: 0; color: var(--color-text-secondary); }
+
+/* --- Sneak Peek carousel ------------------------------------
+   Cards are a fixed width and run past the right grid margin,
+   matching the bleed in the Figma frame. Horizontal scroll is
+   the affordance; the row never wraps.
+
+   Each export already contains its date, caption, dino badge and
+   rounded corners, so the card is just a sized container — no
+   overlay, no border-radius, no overflow clipping.
+   ------------------------------------------------------------ */
+.event-carousel {
+  display: flex;
+  gap: var(--grid-gutter);
+  padding: 0 var(--grid-margin);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.event-carousel::-webkit-scrollbar { display: none; }
+
+.event-card {
+  flex: 0 0 503px;
+  scroll-snap-align: start;
+}
+
+.event-card img {
+  width: 100%;
+  height: auto;
+}
+
+/* --- Our Values --------------------------------------------- */
+.value-card {
+  padding: 24px;
+  border: 2px solid;
+  border-radius: var(--radius-button);
+  background: var(--color-bg);
+}
+
+/* #ACD87D is a design-lead correction and is not in the published
+   Figma variables yet — worth asking for it as a real token so the
+   other pages don't hardcode their own copy. */
+.value-card--blue   { border-color: var(--color-accent-lightblue); }
+.value-card--yellow { border-color: var(--color-accent-yellow); }
+.value-card--green  { border-color: #ACD87D; }
+
+.value-card__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+/* The dino SVGs are 73x64 / 74x65 — never force them square.
+   Width matches the ~78px the icon occupies in the Figma frame;
+   height: auto keeps each one's own ratio. */
+.value-card__head img { width: 76px; height: auto; }
+
+.value-card__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-lh);
+  letter-spacing: var(--text-h3-ls);
+}
+
+.value-card p {
+  margin: 0;
+  font-size: var(--text-subtitle2-size);
+  line-height: 1.5;
+  letter-spacing: var(--text-subtitle2-ls);
+  color: var(--color-text-secondary);
+}
+
+.value-card p + p { margin-top: 16px; }
+
+/* --- Stay Involved ------------------------------------------ */
+/* Positioning context for the CTA arrow below. */
+.involved__copy { align-self: center; position: relative; }
+
+/* The base arrow points down with its loop upper-left; rotate(90deg)
+   swings the head to the left and the loop to upper-right, matching
+   the Figma instance. Offsets put the arrowhead 10px inside the
+   button's right edge and 20px below it, as in the design. */
+.deco--arrow-discord {
+  position: absolute;
+  left: 216px;
+  /* Anchored to the block's BOTTOM, which is the button's bottom edge —
+     so the arrow follows the CTA if the heading rewraps at a narrower
+     width, instead of drifting the way a top offset would. */
+  bottom: -100px;
+  width: 97px;
+  z-index: -1;
+  pointer-events: none;
+  transform: rotate(90deg) scale(0.85);
+}
+
+.involved__title {
+  margin: 0 0 8px;
+  color: var(--color-text-secondary);
+}
+
+.involved__copy .section-subtitle { margin-bottom: 24px; }
+
+.involved__media { align-self: center; }
+
+/* --- Current-page nav state ---------------------------------
+   styles.css has no active-page state for .main-nav__link, so
+   this is scoped here for now. It belongs in styles.css instead
+   — every page needs it, and five copies will drift. Worth
+   asking the lead to promote it into the shared chrome.
+   ------------------------------------------------------------ */
+.main-nav__link--current {
+  border-bottom-color: var(--color-text);
+}
