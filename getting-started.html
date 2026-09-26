@@ -1,18 +1,835 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Triceratops</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started — UC Davis Triceratops Club</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="getting-started.css">
 </head>
 <body>
-    <h1>Getting Started Page</h1>
-    <p>
-        TEST
-    </p>
 
-    <p>
-        test #2
-    </p>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.html" class="site-logo">
+        <img src="assets/logo.png" alt="UC Davis Triceratops Club logo">
+      </a>
+
+      <nav class="main-nav" aria-label="Primary">
+        <a class="main-nav__link" href="index.html">Home</a>
+        <div class="nav-dropdown">
+          <a class="main-nav__link" href="getting-started.html">
+            Getting Started
+            <img class="main-nav__chevron" src="assets/chevron-down.svg" alt="">
+          </a>
+          <div class="nav-dropdown__panel">
+            <a href="#">Flash Sales</a>
+          </div>
+        </div>
+        <a class="main-nav__link" href="dinodex.html">DinoDex</a>
+        <a class="main-nav__link" href="rules.html">Rules</a>
+        <a class="main-nav__link" href="about.html">About Us</a>
+      </nav>
+
+      <a href="#" class="btn btn-discord">
+        <img src="assets/discord-icon.svg" alt="">
+        Join Our Discord
+      </a>
+    </div>
+  </header>
+
+  <main class="page-content">
+
+    <!-- ===== Hero ===== -->
+    <section class="hero hero--getting-started">
+      <div class="hero__bg">
+        <img src="assets/getting-started/hero.png" alt="">
+      </div>
+      <div class="hero__gradient"></div>
+      <div class="hero__content">
+        <h1 class="hero__title">Beginner’s Guide:</h1>
+        <p class="hero__subtitle">Everything you need to know about finding, claiming, and trading dinos in the Triceratops Discord server.</p>
+      </div>
+    </section>
+
+    <div class="gs-stack">
+
+      <!-- ===== Drop notifications on Discord ===== -->
+      <section class="gs-section" id="set-up-notifs">
+        <header class="gs-heading">
+          <div class="gs-heading__title">
+            <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
+            <h2 class="text-h1">Drop Notifications On Discord</h2>
+          </div>
+          <p class="gs-heading__sub">How to setup Discord notifications so you never miss a drop!</p>
+        </header>
+
+        <div class="steps">
+          <div class="steps__list">
+            <button type="button" class="step is-active" aria-current="step">
+              <span class="step__bar"><span class="step__fill"></span></span>
+              <span class="step__body">
+                <span class="step__title text-h3">Navigate to #rules</span>
+                <span class="step__text">In the <strong>#rules</strong> channel under the <strong>“Welcome”</strong> section, read all of the General Davis Triceratops Community Rules and Expectations.</span>
+              </span>
+            </button>
+            <button type="button" class="step">
+              <span class="step__bar"><span class="step__fill"></span></span>
+              <span class="step__body">
+                <span class="step__title text-h3">Read and agree to our rules</span>
+                <span class="step__text">React to the <strong>“Turtleceratops”</strong> message under the rules — this will give you access to the rest of the channels in the server.</span>
+              </span>
+            </button>
+            <button type="button" class="step">
+              <span class="step__bar"><span class="step__fill"></span></span>
+              <span class="step__body">
+                <span class="step__title text-h3">Navigate to #dino-hunt-info</span>
+                <span class="step__text">In the <strong>#dino-hunt-info</strong> channel under the <strong>“Dino Hunts”</strong> section. Read through all the rules thoroughly and completely.</span>
+              </span>
+            </button>
+            <button type="button" class="step">
+              <span class="step__bar"><span class="step__fill"></span></span>
+              <span class="step__body">
+                <span class="step__title text-h3">React to gain dino hunt notifications</span>
+                <span class="step__text">React to the <strong>“Turtleceratops”</strong> message — this gives you the <strong>“Drop Notif”</strong> role to gain notifications for every dino hunt.</span>
+              </span>
+            </button>
+          </div>
+          <div class="steps__images">
+            <img class="steps__image is-active" src="assets/getting-started/discord-step-1.jpg" alt="The #rules channel in the Davis Triceratops Discord server">
+            <img class="steps__image" src="assets/getting-started/discord-step-2.jpg" alt="The Turtleceratops message under the rules, ready to be reacted to">
+            <img class="steps__image" src="assets/getting-started/discord-step-3.jpg" alt="The #dino-hunt-info channel with the dino hunt rules">
+            <img class="steps__image" src="assets/getting-started/discord-step-4.jpg" alt="The Turtleceratops message that gives you the Drop Notif role">
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Join Discord CTA ===== -->
+      <section class="gs-cta">
+        <h2 class="text-h2 gs-cta__title">Join our Discord so you never miss a drop!</h2>
+        <a href="#" class="btn btn-discord">
+          <img src="assets/discord-icon.svg" alt="">
+          Join Our Discord
+        </a>
+        <img class="gs-cta__arrow" src="assets/getting-started/arrow-pink.svg" alt="">
+      </section>
+
+      <!-- ===== When & where ===== -->
+      <section class="gs-section" id="when-and-where">
+        <header class="gs-heading">
+          <div class="gs-heading__title">
+            <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
+            <h2 class="text-h1">When &amp; Where Drops Happen</h2>
+          </div>
+          <p class="gs-heading__sub">Drops can happen anytime, anywhere. Here's what to expect!</p>
+        </header>
+
+        <div class="info-cards">
+          <article class="info-card info-card--blue">
+            <div class="info-card__head">
+              <img src="assets/getting-started/dino-blue.svg" alt="">
+              <h3 class="text-h3">No Fixed Schedule</h3>
+            </div>
+            <p>Drops happen spontaneously throughout the week, most often on weekdays at UC Davis.</p>
+            <p>Staff post in <strong>#new-drop-notifs</strong> whenever they're free.</p>
+          </article>
+
+          <article class="info-card info-card--yellow">
+            <div class="info-card__head">
+              <img src="assets/getting-started/dino-yellow.svg" alt="">
+              <h3 class="text-h3">Beyond The Campus</h3>
+            </div>
+            <p>Dino drops can occur <strong>outside of campus</strong> and <strong>during weekends</strong>.</p>
+            <p>They will most likely happen in local events around Davis, such as the <strong>Farmers Market</strong> on Saturday and <strong>annual festivals</strong>.</p>
+          </article>
+
+          <article class="info-card info-card--green">
+            <div class="info-card__head">
+              <img src="assets/getting-started/dino-green.svg" alt="">
+              <h3 class="text-h3">Daylight Only</h3>
+            </div>
+            <p>Worried about heavy time commitments? <strong>Being a dino-thusiast is flexible!</strong></p>
+            <p>Many of our events and drops are flexible and we don’t require attendance at meetings! <strong>You can be involved at your own time and convenience</strong>!</p>
+          </article>
+        </div>
+      </section>
+
+      <div class="gs-doodle gs-doodle--flip" aria-hidden="true">
+        <img src="assets/getting-started/doodle-right.svg" alt="">
+      </div>
+
+      <!-- ===== What happens during drops ===== -->
+      <section class="gs-section" id="during-drops">
+        <header class="gs-heading">
+          <div class="gs-heading__title">
+            <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
+            <h2 class="text-h1">What Happens During Drops</h2>
+          </div>
+          <div class="gs-heading__copy">
+            <p>During our general drops that are posted in <strong>#🔔new-drop-notifs🔔</strong>, our staff will disclose what type of drop is happening.</p>
+            <p>Want more details? Check the <strong>"Drop Types"</strong> section under [...] for a quick reference list.</p>
+            <p>Still confused? Ask the staff member running the event, or head to <strong>#general-qna</strong> under <strong>"Support and Inquiries"</strong> on Discord for help from our mods.</p>
+            <p><strong>Please don't DM staff directly</strong>, our channels are the fastest way to get answers!</p>
+          </div>
+        </header>
+
+        <div class="do-dont">
+          <article class="do-card do-card--do">
+            <header class="do-card__head">
+              <img src="assets/getting-started/icon-check.svg" alt="">
+              <h3 class="text-h2">What To Do</h3>
+            </header>
+            <div class="do-card__body">
+              <!-- TODO: swap placeholder for the real illustration -->
+              <div class="do-card__placeholder" aria-hidden="true"></div>
+              <ul class="do-card__list">
+                <li><strong>Be respectful</strong> — most dinos are hidden outdoors to give everyone space</li>
+                <li><strong>Indoor hides only happen if the dropper says so</strong> — stay aware of others</li>
+                <li><strong>Trust the placement</strong> — every dino is reachable, never risk yourself</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="do-card do-card--dont">
+            <header class="do-card__head">
+              <img src="assets/getting-started/icon-x.svg" alt="">
+              <h3 class="text-h2">What Not To Do</h3>
+            </header>
+            <div class="do-card__body">
+              <!-- TODO: swap placeholder for the real illustration -->
+              <div class="do-card__placeholder" aria-hidden="true"></div>
+              <ul class="do-card__list">
+                <li><strong>Don't damage plants, bushes, or property while searching</strong></li>
+                <li>Can't reach it safely? <strong>Leave it</strong></li>
+                <li><strong>Don't ask staff when or where the next drop is</strong></li>
+                <li><strong>Don't pressure staff</strong> — they're volunteering their time</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <div class="gs-doodle" aria-hidden="true">
+        <img src="assets/getting-started/doodle-left.svg" alt="">
+      </div>
+
+      <!-- ===== Dino limits ===== -->
+      <section class="gs-section" id="dino-limits">
+        <header class="gs-heading">
+          <div class="gs-heading__title">
+            <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
+            <h2 class="text-h1">Dino Limits</h2>
+          </div>
+          <p class="gs-heading__sub">These regulations are in place to promote fairness and equal opportunity for all event participants.<br>Anyone caught trying to bypass the dino limits will be banned from the server.</p>
+        </header>
+
+        <ul class="limits">
+          <li class="limits__row">
+            <div class="limits__name"><img src="assets/getting-started/limit-dino-1.svg" alt=""><span>Monthly Dino</span></div>
+            <p><strong>1 Monthly Dino</strong> / Person (Each Month)</p>
+            <p>In a new year, this rule doesn't reset. Event Dinos <strong>DO NOT</strong> count as monthly dinos.</p>
+          </li>
+          <li class="limits__row">
+            <div class="limits__name"><img src="assets/getting-started/limit-dino-2.svg" alt=""><span>Milestone Dino</span></div>
+            <p><strong>1 Milestone Dino</strong> / Person</p>
+            <p>Each member can be awarded <strong>1 Milestone Dino, ever.</strong></p>
+          </li>
+          <li class="limits__row">
+            <div class="limits__name"><img src="assets/getting-started/limit-dino-2.svg" alt=""><span>Aggieceratops Dino</span></div>
+            <p><strong>1 Aggieceratops Dino</strong> / Person</p>
+            <p>Each member can be awarded <strong>1 Aggieceratops Dino, ever.</strong></p>
+          </li>
+          <li class="limits__row">
+            <div class="limits__name"><img src="assets/getting-started/limit-dino-2.svg" alt=""><span>Special Dino(s)</span></div>
+            <p><strong>1 of Each Type</strong> / Person</p>
+            <p>This applies to <strong>each type of special dino</strong> ever that has dropped.</p>
+          </li>
+        </ul>
+      </section>
+
+      <div class="gs-arrow" aria-hidden="true">
+        <img src="assets/getting-started/arrow-pink.svg" alt="">
+      </div>
+
+      <!-- ===== After finding a dino ===== -->
+      <section class="gs-section" id="after-finding">
+        <header class="gs-heading">
+          <div class="gs-heading__title">
+            <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
+            <h2 class="text-h1">What To Do After Finding a Dino</h2>
+          </div>
+        </header>
+
+        <div class="after-find">
+          <article class="after-find__item">
+            <h3 class="text-h3">Found a Triceratops?</h3>
+            <p>After finding a <strong>triceratops</strong>, make a post in the <strong>#found-triceratops</strong> text channel. <strong>This post should include a photo proof of the triceratops.</strong></p>
+            <div class="after-find__shot">
+              <img src="assets/getting-started/found-triceratops.png" alt="Example post in #found-triceratops with a photo of a triceratops plush">
+            </div>
+          </article>
+
+          <article class="after-find__item">
+            <h3 class="text-h3">Found an Aggieceratops?</h3>
+            <p>After finding an <strong>Aggieceratops</strong> dino, make a post in the <strong>#found-aggie</strong> text channel. <strong>This post should include a photo proof of the triceratops.</strong></p>
+            <div class="after-find__shot">
+              <img src="assets/getting-started/found-aggie.png" alt="Example post in #found-aggie with a photo of an Aggieceratops plush">
+            </div>
+          </article>
+
+          <article class="after-find__item">
+            <h3 class="text-h3">Got Questions?</h3>
+            <p>If you have any questions, feel free to ask our moderators in the <strong>#general-qna</strong> under the <strong>“Support and Inquiries”</strong> section.</p>
+            <div class="after-find__shot after-find__shot--qna">
+              <img src="assets/getting-started/general-qna.png" alt="The #general-qna channel in Discord">
+            </div>
+          </article>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ===== Flash sales CTA ===== -->
+    <section class="flash">
+      <div class="flash__image">
+        <img class="flash__photo" src="assets/getting-started/flash-photo.png" alt="A plush dino next to a small WALL-E building set">
+        <img class="spark spark--1" src="assets/getting-started/spark-1.svg" alt="">
+        <img class="spark spark--2" src="assets/getting-started/spark-2.svg" alt="">
+        <img class="spark spark--3" src="assets/getting-started/spark-3.svg" alt="">
+        <img class="spark spark--4" src="assets/getting-started/spark-4.svg" alt="">
+      </div>
+      <div class="flash__text">
+        <h2 class="flash__title">Skip the Hunt,<br>Grab a Dino!</h2>
+        <p class="flash__sub">Flash sales are your only chance to buy dinos from the club itself!</p>
+        <a href="#" class="gs-btn">Explore Flash Sales →</a>
+        <img class="flash__arrow" src="assets/getting-started/flash-arrow.svg" alt="">
+      </div>
+    </section>
+
+    <!-- ===== Discover drop types ===== -->
+    <section class="types" id="drop-types">
+      <img class="types__flowers" src="assets/getting-started/flowers-bg.svg" alt="">
+
+      <header class="gs-heading types__heading">
+        <div class="gs-heading__title">
+          <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
+          <h2 class="text-h1">Discover Drop Types</h2>
+        </div>
+        <p class="types__intro">Every hunt looks a little different. <strong>Common drops</strong> happen often, giving members plenty of chances to join in. <strong>Rare drops</strong> are special finds tied to <strong>milestones</strong>, <strong>holidays</strong>, and <strong>events</strong>. Take a look below to see what's out there!</p>
+      </header>
+
+      <div class="types__group types__group--common">
+        <div class="types__banner">
+          <img class="types__sprout types__sprout--l" src="assets/getting-started/sprout-left.svg" alt="">
+          <h3 class="text-h2">Common Drops</h3>
+          <img class="types__sprout types__sprout--r" src="assets/getting-started/sprout-right.svg" alt="">
+        </div>
+
+        <div class="types__panel types__panel--common">
+          <button type="button" class="common-card" data-drop="0" aria-haspopup="dialog">
+            <span class="common-card__type"><img src="assets/getting-started/icon-circle.svg" alt=""><span>Find Me’s</span></span>
+            <span class="common-card__art common-card__art--green">
+              <img src="assets/getting-started/common-1.png" alt="" style="width:112.27%;height:150.68%;left:-0.35%;top:-22.98%">
+            </span>
+            <span class="common-card__desc">Track down the hidden dropper using photo and location clues.</span>
+            <span class="common-card__more">Tap To Learn More →</span>
+            <span class="common-card__foot"><span class="common-card__tag"><img src="assets/getting-started/dot.svg" alt="">COMMON DROP</span><span class="common-card__brand"><img src="assets/getting-started/tricera-logo.svg" alt="">UCD TRICERATOPS</span></span>
+          </button>
+
+          <button type="button" class="common-card" data-drop="1" aria-haspopup="dialog">
+            <span class="common-card__type"><img src="assets/getting-started/icon-circle.svg" alt=""><span>Scavengers</span></span>
+            <span class="common-card__art common-card__art--yellow">
+              <img src="assets/getting-started/common-2.png" alt="" style="width:131.76%;height:176.84%;left:-19.34%;top:-15.22%">
+            </span>
+            <span class="common-card__desc">Find dinos hidden in an area with hints given from a map outline.</span>
+            <span class="common-card__more">Tap To Learn More →</span>
+            <span class="common-card__foot"><span class="common-card__tag"><img src="assets/getting-started/dot.svg" alt="">COMMON DROP</span><span class="common-card__brand"><img src="assets/getting-started/tricera-logo.svg" alt="">UCD TRICERATOPS</span></span>
+          </button>
+
+          <button type="button" class="common-card" data-drop="2" aria-haspopup="dialog">
+            <span class="common-card__type"><img src="assets/getting-started/icon-circle.svg" alt=""><span>Flash Sales</span></span>
+            <span class="common-card__art common-card__art--pink">
+              <img src="assets/getting-started/common-3.png" alt="" style="width:183.92%;height:246.84%;left:-35.15%;top:-52.03%">
+            </span>
+            <span class="common-card__desc">Enter into giveaways on the Discord server to purchase limited dinos.</span>
+            <span class="common-card__more">Tap To Learn More →</span>
+            <span class="common-card__foot"><span class="common-card__tag"><img src="assets/getting-started/dot.svg" alt="">COMMON DROP</span><span class="common-card__brand"><img src="assets/getting-started/tricera-logo.svg" alt="">UCD TRICERATOPS</span></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="types__group types__group--rare">
+        <div class="types__banner">
+          <img class="types__sprout types__sprout--l" src="assets/getting-started/sprout-left.svg" alt="">
+          <h3 class="text-h2">Rare Drops</h3>
+          <img class="types__sprout types__sprout--r" src="assets/getting-started/sprout-right.svg" alt="">
+        </div>
+
+        <div class="types__panel types__panel--rare">
+          <button type="button" class="rare-card" data-drop="3" aria-haspopup="dialog">
+            <span class="rare-card__art">
+              <img src="assets/getting-started/rare-a.png" alt="" style="width:285.17%;height:133.48%;left:-0.03%;top:-33.24%">
+            </span>
+            <span class="rare-card__box">
+              <span class="rare-card__type"><img src="assets/getting-started/icon-star.svg" alt=""><span>Trivia</span></span>
+              <span class="rare-card__spacer"></span>
+              <span class="rare-card__info">
+                <span class="rare-card__desc">Quarterly trivia nights, the top 2 teams win a one-of-a-kind dino.</span>
+                <span class="rare-card__more">Tap To Learn More →</span>
+                <span class="rare-card__foot"><span class="rare-card__tag"><img src="assets/getting-started/icon-star-small.svg" alt="">RARE DROP</span><span class="rare-card__brand"><img src="assets/getting-started/tricera-logo.svg" alt="">UCD TRICERATOPS</span></span>
+              </span>
+            </span>
+          </button>
+
+          <button type="button" class="rare-card" data-drop="4" aria-haspopup="dialog">
+            <span class="rare-card__art">
+              <img src="assets/getting-started/rare-c.png" alt="" style="width:100%;height:100%;left:0;top:0;object-fit:cover">
+              <img src="assets/getting-started/rare-d.png" alt="" style="width:107.52%;height:79.91%;left:11.05%;top:3.64%">
+            </span>
+            <span class="rare-card__box">
+              <span class="rare-card__type"><img src="assets/getting-started/icon-star.svg" alt=""><span>Aggieceratops</span></span>
+              <span class="rare-card__spacer"></span>
+              <span class="rare-card__info">
+                <span class="rare-card__desc">A day-long hunt with hints get easier the longer it stays hidden.</span>
+                <span class="rare-card__more">Tap To Learn More →</span>
+                <span class="rare-card__foot"><span class="rare-card__tag"><img src="assets/getting-started/icon-star-small.svg" alt="">RARE DROP</span><span class="rare-card__brand"><img src="assets/getting-started/tricera-logo.svg" alt="">UCD TRICERATOPS</span></span>
+              </span>
+            </span>
+          </button>
+
+          <button type="button" class="rare-card" data-drop="5" aria-haspopup="dialog">
+            <span class="rare-card__art">
+              <img src="assets/getting-started/rare-e.png" alt="" style="width:244.59%;height:100%;left:-119.19%;top:0">
+            </span>
+            <span class="rare-card__box">
+              <span class="rare-card__type"><img src="assets/getting-started/icon-star.svg" alt=""><span>Special Dinos</span></span>
+              <span class="rare-card__spacer"></span>
+              <span class="rare-card__info">
+                <span class="rare-card__desc">Uniquely textured dinos attained outside normal events.</span>
+                <span class="rare-card__more">Tap To Learn More →</span>
+                <span class="rare-card__foot"><span class="rare-card__tag"><img src="assets/getting-started/icon-star-small.svg" alt="">RARE DROP</span><span class="rare-card__brand"><img src="assets/getting-started/tricera-logo.svg" alt="">UCD TRICERATOPS</span></span>
+              </span>
+            </span>
+          </button>
+
+          <button type="button" class="rare-card" data-drop="6" aria-haspopup="dialog">
+            <span class="rare-card__art">
+              <img src="assets/getting-started/rare-f.png" alt="" style="width:403.02%;height:292.93%;left:-302.99%;top:-80.23%">
+              <img src="assets/getting-started/rare-g.png" alt="" style="width:121.14%;height:88.05%;left:-12.08%;top:5.12%">
+            </span>
+            <span class="rare-card__box">
+              <span class="rare-card__type"><img src="assets/getting-started/icon-star.svg" alt=""><span>Milestone Dinos</span></span>
+              <span class="rare-card__spacer"></span>
+              <span class="rare-card__info">
+                <span class="rare-card__desc">Celebratory drops meant for big community milestones.</span>
+                <span class="rare-card__more">Tap To Learn More →</span>
+                <span class="rare-card__foot"><span class="rare-card__tag"><img src="assets/getting-started/icon-star-small.svg" alt="">RARE DROP</span><span class="rare-card__brand"><img src="assets/getting-started/tricera-logo.svg" alt="">UCD TRICERATOPS</span></span>
+              </span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="faq-wrap" id="faq">
+      <div class="faq">
+        <div class="faq__title">
+          <img src="assets/getting-started/faq-dino.svg" alt="">
+          <h2>Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq__list">
+          <div class="faq__col">
+            <div class="faq-item">
+              <button type="button" class="faq-item__q" id="faq-q1" aria-expanded="false" aria-controls="faq-a1">
+                <span>How do I open a ticket, and what issues require one?</span>
+                <span class="faq-item__icon" aria-hidden="true">
+                  <img class="faq-item__plus" src="assets/getting-started/plus.svg" alt="">
+                  <img class="faq-item__minus" src="assets/getting-started/minus.svg" alt="">
+                </span>
+              </button>
+              <div class="faq-item__a" id="faq-a1" role="region" aria-labelledby="faq-q1">
+                <div class="faq-item__a-clip"><div class="faq-item__a-body"><p>Type “<strong>/ticket open [subject]</strong>” command in the <strong>modmail channel</strong> to get moved to a private channel for your issue.</p><p>Use it for things like payment confirmations, friend pickups, or ad approval, not server suggestions or drama.</p></div></div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <button type="button" class="faq-item__q" id="faq-q2" aria-expanded="false" aria-controls="faq-a2">
+                <span>What advertising is allowed vs. not allowed in the server?</span>
+                <span class="faq-item__icon" aria-hidden="true">
+                  <img class="faq-item__plus" src="assets/getting-started/plus.svg" alt="">
+                  <img class="faq-item__minus" src="assets/getting-started/minus.svg" alt="">
+                </span>
+              </button>
+              <div class="faq-item__a" id="faq-a2" role="region" aria-labelledby="faq-q2">
+                <div class="faq-item__a-clip"><div class="faq-item__a-body"><p><strong>Personal business or social promo isn't allowed</strong>, since that's reserved for staff. Community and academic related posts like club events or class surveys are fine, but all ads need mod approval through modmail first.</p></div></div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <button type="button" class="faq-item__q" id="faq-q3" aria-expanded="false" aria-controls="faq-a3">
+                <span>How do I trade dinos with other members?</span>
+                <span class="faq-item__icon" aria-hidden="true">
+                  <img class="faq-item__plus" src="assets/getting-started/plus.svg" alt="">
+                  <img class="faq-item__minus" src="assets/getting-started/minus.svg" alt="">
+                </span>
+              </button>
+              <div class="faq-item__a" id="faq-a3" role="region" aria-labelledby="faq-q3">
+                <div class="faq-item__a-clip"><div class="faq-item__a-body"><p>Head to <strong>#triceratops-trades</strong> channel under the general chat category on Discord and coordinate directly with the other member.</p></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="faq__col">
+            <div class="faq-item">
+              <button type="button" class="faq-item__q" id="faq-q4" aria-expanded="false" aria-controls="faq-a4">
+                <span>How do I claim special event dino roles?</span>
+                <span class="faq-item__icon" aria-hidden="true">
+                  <img class="faq-item__plus" src="assets/getting-started/plus.svg" alt="">
+                  <img class="faq-item__minus" src="assets/getting-started/minus.svg" alt="">
+                </span>
+              </button>
+              <div class="faq-item__a" id="faq-a4" role="region" aria-labelledby="faq-q4">
+                <div class="faq-item__a-clip"><div class="faq-item__a-body"><p><strong>React to the announcement</strong> message for that event, the same way you'd claim the <strong>Turtleceratops</strong> or <strong>Flash Sale Pick up</strong> roles.</p></div></div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <button type="button" class="faq-item__q" id="faq-q5" aria-expanded="false" aria-controls="faq-a5">
+                <span>I&#39;m graduating/leaving Davis, how do I pick up my flash sale dinos?</span>
+                <span class="faq-item__icon" aria-hidden="true">
+                  <img class="faq-item__plus" src="assets/getting-started/plus.svg" alt="">
+                  <img class="faq-item__minus" src="assets/getting-started/minus.svg" alt="">
+                </span>
+              </button>
+              <div class="faq-item__a" id="faq-a5" role="region" aria-labelledby="faq-q5">
+                <div class="faq-item__a-clip"><div class="faq-item__a-body"><p>Reach out through <strong>modmail</strong> on our <strong>Discord server</strong> if you can't make it to a scheduled pickup before you leave.</p></div></div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <button type="button" class="faq-item__q" id="faq-q6" aria-expanded="false" aria-controls="faq-a6">
+                <span>How do I join staff, how often does the club onboard, and when will I hear back?</span>
+                <span class="faq-item__icon" aria-hidden="true">
+                  <img class="faq-item__plus" src="assets/getting-started/plus.svg" alt="">
+                  <img class="faq-item__minus" src="assets/getting-started/minus.svg" alt="">
+                </span>
+              </button>
+              <div class="faq-item__a" id="faq-a6" role="region" aria-labelledby="faq-q6">
+                <div class="faq-item__a-clip"><div class="faq-item__a-body"><p>Production team recruitment <strong>opens periodically</strong> and is announced in the server. Applications stay open and onboarding happens as space allows, so <strong>not hearing back right away doesn't mean you were rejected</strong>.</p></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq__more">
+          <p>Still have questions?</p>
+          <a href="#" class="gs-btn">Contact Our Team</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== Drop type overlay (opens from the drop cards) ===== -->
+  <dialog class="drop-overlay" id="drop-overlay" aria-labelledby="drop-overlay-title">
+    <div class="drop-overlay__stage">
+      <button type="button" class="drop-arrow drop-arrow--prev" aria-label="Previous drop type">
+        <img src="assets/getting-started/overlay/arrow-prev.svg" alt="">
+      </button>
+
+      <div class="binder">
+        <div class="binder__page binder__page--photo">
+          <div class="binder__photo"><img id="drop-overlay-photo" src="" alt=""></div>
+          <p class="binder__count" id="drop-overlay-count"></p>
+          <img class="binder__grass binder__grass--left" src="assets/getting-started/overlay/grass-left.svg" alt="">
+        </div>
+
+        <div class="binder__page binder__page--text">
+          <img class="binder__grass binder__grass--right" src="assets/getting-started/overlay/grass-right.svg" alt="">
+          <img class="binder__sprout" src="assets/getting-started/overlay/sprout.svg" alt="">
+          <button type="button" class="binder__close" aria-label="Close">
+            <img src="assets/getting-started/overlay/exit.svg" alt="">
+          </button>
+          <div class="binder__text">
+            <div class="binder__heading">
+              <h2 id="drop-overlay-title"></h2>
+              <p id="drop-overlay-desc"></p>
+            </div>
+            <ul class="binder__bullets" id="drop-overlay-bullets"></ul>
+            <a class="btn btn-secondary binder__cta" id="drop-overlay-cta" href="#" hidden></a>
+          </div>
+        </div>
+
+        <div class="binder__holes" aria-hidden="true">
+          <img src="assets/getting-started/overlay/binder-hole.svg" alt="">
+          <img src="assets/getting-started/overlay/binder-hole.svg" alt="">
+          <img src="assets/getting-started/overlay/binder-hole.svg" alt="">
+        </div>
+      </div>
+
+      <button type="button" class="drop-arrow drop-arrow--next" aria-label="Next drop type">
+        <img src="assets/getting-started/overlay/arrow-next.svg" alt="">
+      </button>
+    </div>
+  </dialog>
+
+  <footer class="site-footer">
+    <div class="footer-grass" aria-hidden="true"></div>
+
+    <div class="footer-content">
+      <img class="footer-deco footer-deco--flower-tl" src="assets/flower-accent.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--flower-mid" src="assets/flower-accent.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud1-back" src="assets/cloud-1-back.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud1-front" src="assets/cloud-1-front.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud2-back" src="assets/cloud-2-back.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud2-front" src="assets/cloud-2-front.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud3-back" src="assets/cloud-3-back.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud3-front" src="assets/cloud-3-front.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--dino-single" src="assets/dino-single.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--dino-duo" src="assets/dino-duo.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--flower-small-1" src="assets/flower-small-1.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--flower-small-2" src="assets/flower-small-2.svg" alt="" aria-hidden="true">
+
+      <div class="footer-columns">
+        <div class="footer-column">
+          <p class="footer-column__title">Home</p>
+          <ul class="footer-column__links">
+            <li><a href="#">Testimonials</a></li>
+            <li><a href="#">Map</a></li>
+            <li><a href="#">Event Calendar</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <p class="footer-column__title">Getting Started</p>
+          <ul class="footer-column__links">
+            <li><a href="#set-up-notifs">Set Up Notifs</a></li>
+            <li><a href="#drop-types">Drop Types</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <p class="footer-column__title">DinoDex</p>
+          <ul class="footer-column__links">
+            <li><a href="#">Popular Dinos</a></li>
+            <li><a href="#">Dino Types</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <p class="footer-column__title">Rules</p>
+          <ul class="footer-column__links">
+            <li><a href="#">Claiming Process</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <p class="footer-column__title">About Us</p>
+          <ul class="footer-column__links">
+            <li><a href="#">Get Involved</a></li>
+            <li><a href="#">Contact Form</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2026 UC Davis Triceratops Club | All Rights Reserved</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social__icon"><img src="assets/email-icon.svg" alt="Email"></a>
+          <a href="#" class="footer-social__icon"><img src="assets/discord-social-icon.svg" alt="Discord"></a>
+          <a href="#" class="footer-social__icon"><img src="assets/instagram-social-icon.svg" alt="Instagram"></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Discord steps — mirrors the Figma prototype: the active step's bar fills over 5s
+    // (linear), then the next step activates and the screenshot dissolves to match
+    // (4 -> back to 1). Clicking a step jumps straight to it.
+    (function () {
+      var root = document.querySelector('.steps');
+      if (!root) return;
+      var steps = Array.prototype.slice.call(root.querySelectorAll('.step'));
+      var fills = steps.map(function (s) { return s.querySelector('.step__fill'); });
+      var images = Array.prototype.slice.call(root.querySelectorAll('.steps__image'));
+      var duration = Number(root.dataset.duration) || 5000;
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var current = 0, elapsed = 0, last = null, raf = null;
+
+      function setFill(p) { fills[current].style.transform = 'scaleY(' + p + ')'; }
+
+      function show(index) {
+        current = index;
+        elapsed = 0;
+        steps.forEach(function (step, i) {
+          step.classList.toggle('is-active', i === index);
+          if (i === index) step.setAttribute('aria-current', 'step');
+          else step.removeAttribute('aria-current');
+          fills[i].style.transform = 'scaleY(0)';
+        });
+        images.forEach(function (img, i) { img.classList.toggle('is-active', i === index); });
+        setFill(reduceMotion ? 1 : 0);
+      }
+
+      function tick(now) {
+        if (last !== null) elapsed += now - last;
+        last = now;
+        if (elapsed >= duration) show((current + 1) % steps.length);
+        else setFill(elapsed / duration);
+        raf = requestAnimationFrame(tick);
+      }
+      function play() { if (raf === null && !reduceMotion) raf = requestAnimationFrame(tick); }
+      function pause() { if (raf !== null) cancelAnimationFrame(raf); raf = null; last = null; }
+
+      steps.forEach(function (step, i) { step.addEventListener('click', function () { show(i); }); });
+
+      show(0);
+      // Start the 5s cycle when the section is on screen; pause while it's off screen.
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          if (entries[0].isIntersecting) play(); else pause();
+        }, { threshold: 0.4 }).observe(root);
+      } else {
+        play();
+      }
+    })();
+  </script>
+  <script>
+    // FAQ — each question toggles open/closed independently (Figma: "Default" <-> "FAQ Open").
+    document.querySelectorAll('.faq-item').forEach(function (item) {
+      var button = item.querySelector('.faq-item__q');
+      button.addEventListener('click', function () {
+        var open = button.getAttribute('aria-expanded') !== 'true';
+        button.setAttribute('aria-expanded', open);
+        item.classList.toggle('is-open', open);
+      });
+    });
+  </script>
+  <script>
+    // Drop type overlay — mirrors the Figma prototype: clicking a card opens the overlay;
+    // the arrows swap between the cards in that group (common 1-3, rare 1-4); the X,
+    // clicking outside, or Esc closes it.
+    (function () {
+      var DROPS = [
+        { group: 'common', label: 'COMMON 1/3', title: 'Find Me’s', desc: 'the classic hide-and-seek hunt',
+          photo: 'photo-common-1.jpg',
+          bullets: ['A dropper hides somewhere nearby and posts hints in #new-drop-notifs.',
+                    'Hints might be an outfit photo taken at the location, or a Google Maps screenshot of a pathway.',
+                    'First hunter to spot and approach the dropper gets rewarded.'] },
+        { group: 'common', label: 'COMMON 2/3', title: 'Scavengers', desc: 'a wider search, no dropper to find',
+          photo: 'photo-common-2.jpg',
+          bullets: ['Droppers hide dinos across a general area instead of carrying them.',
+                    'The search zone is shown as an outlined region on Google Maps in #new-drop-notifs.',
+                    'Whoever spots a hidden dino first gets to keep it.'] },
+        { group: 'common', label: 'COMMON 3/3', title: 'Flash Sales', desc: 'giveaway, then checkout',
+          photo: 'photo-common-3.jpg',
+          bullets: ['Listings are posted using GiveawayBot in #listings, under the Flash Sales category. Color, size, and posting time are all random.',
+                    'Entry windows are short (15 sec–1 min), so check #listings often.',
+                    'Winners pay $8 for a regular dino, $13 for a medium one, or $3 for a sticker.'],
+          cta: { text: 'Flash Sales Guide', href: '#' } }, // TODO: point at the flash sales page once it exists
+        { group: 'rare', label: 'RARE 1/4', title: 'Trivia', desc: 'test your knowledge, win a dino',
+          photo: 'photo-rare-1.jpg',
+          bullets: ['Held once a quarter, usually in the back half of the quarter.',
+                    'Random mixed-topic questions, team up and answer fast and correctly.',
+                    'The top two scoring teams each earn a trivia dino design.'] },
+        { group: 'rare', label: 'RARE 2/4', title: 'Aggieceratops', desc: 'high risk early, easy mode later',
+          photo: 'photo-rare-2.jpg',
+          bullets: ['Dropped at a random location with only a vague first hint.',
+                    'More hints are released gradually, it can take hours to find.',
+                    'Finding it early is HIGH RISK, but highly rewarding.',
+                    'Each Aggie is a unique design, united by on-brand UC Davis colors, droppers get creative freedom, so no two ever look the same.'] },
+        { group: 'rare', label: 'RARE 3/4', title: 'Special Dinos', desc: 'unique designs, limited runs',
+          photo: 'photo-rare-3.jpg',
+          bullets: ['Time-limited or event-independent (i.e. April Fools, charity, etc.), made with specialty yarn textures.',
+                    'Availability and how-to-obtain details vary by dino.',
+                    'Check the DinoDex for a running (non-exhaustive) list.'],
+          cta: { text: 'DinoDex List', href: 'dinodex.html' } },
+        { group: 'rare', label: 'RARE 4/4', title: 'Milestone Dinos', desc: 'once per person, once ever',
+          photo: 'photo-rare-4.jpg',
+          bullets: ['Dropped roughly every 100 Discord members or Instagram followers reached.',
+                    'A batch of white triceratops with UC Davis-colored horns; the center horn reflects the drop month.',
+                    'Drop time is announced ahead, but the location stays secret until the moment.'] }
+      ];
+
+      var dialog = document.getElementById('drop-overlay');
+      if (!dialog || !dialog.showModal) return;
+      var stage = dialog.querySelector('.drop-overlay__stage');
+      var prev = dialog.querySelector('.drop-arrow--prev');
+      var next = dialog.querySelector('.drop-arrow--next');
+      var close = dialog.querySelector('.binder__close');
+      var photo = document.getElementById('drop-overlay-photo');
+      var cta = document.getElementById('drop-overlay-cta');
+      var current = 0;
+      var preloaded = false;
+
+      function neighbour(step) {
+        var i = current + step;
+        return DROPS[i] && DROPS[i].group === DROPS[current].group ? i : -1;
+      }
+
+      function fit() { // the overlay is designed at 1065x570; shrink it to fit smaller windows
+        var s = Math.min(1, (window.innerWidth - 24) / 1065, (window.innerHeight - 24) / 570);
+        stage.style.transform = s < 1 ? 'scale(' + s + ')' : '';
+      }
+
+      function render(index) {
+        var d = DROPS[index];
+        current = index;
+        photo.src = 'assets/getting-started/overlay/' + d.photo;
+        photo.alt = d.title + ' — example photo';
+        document.getElementById('drop-overlay-count').textContent = d.label;
+        document.getElementById('drop-overlay-title').textContent = d.title;
+        document.getElementById('drop-overlay-desc').textContent = d.desc;
+        var list = document.getElementById('drop-overlay-bullets');
+        list.textContent = '';
+        d.bullets.forEach(function (text) {
+          var li = document.createElement('li');
+          var icon = document.createElement('img');
+          icon.src = 'assets/getting-started/overlay/pencil.svg';
+          icon.alt = '';
+          var p = document.createElement('p');
+          p.textContent = text;
+          li.appendChild(icon);
+          li.appendChild(p);
+          list.appendChild(li);
+        });
+        if (d.cta) { cta.textContent = d.cta.text; cta.href = d.cta.href; cta.hidden = false; }
+        else { cta.hidden = true; }
+        prev.style.visibility = neighbour(-1) >= 0 ? '' : 'hidden';
+        next.style.visibility = neighbour(1) >= 0 ? '' : 'hidden';
+      }
+
+      function go(step) {
+        var i = neighbour(step);
+        if (i < 0) return;
+        render(i);
+        if (getComputedStyle(document.activeElement).visibility === 'hidden') close.focus();
+      }
+
+      function open(index) {
+        render(index);
+        fit();
+        dialog.showModal();
+        document.documentElement.classList.add('has-overlay');
+        if (!preloaded) {
+          preloaded = true;
+          DROPS.forEach(function (d) { new Image().src = 'assets/getting-started/overlay/' + d.photo; });
+        }
+      }
+
+      document.querySelectorAll('[data-drop]').forEach(function (card) {
+        card.addEventListener('click', function () { open(Number(card.dataset.drop)); });
+      });
+      prev.addEventListener('click', function () { go(-1); });
+      next.addEventListener('click', function () { go(1); });
+      close.addEventListener('click', function () { dialog.close(); });
+      cta.addEventListener('click', function (e) { if (cta.getAttribute('href') === '#') e.preventDefault(); });
+      dialog.addEventListener('click', function (e) { if (e.target === dialog) dialog.close(); }); // backdrop / outside
+      dialog.addEventListener('close', function () { document.documentElement.classList.remove('has-overlay'); });
+      dialog.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') go(-1);
+        else if (e.key === 'ArrowRight') go(1);
+      });
+      window.addEventListener('resize', fit);
+    })();
+  </script>
 </body>
 </html>
