@@ -219,7 +219,8 @@ strong { font-weight: 700; }
   padding: 32px 50px;
   flex: 1;
 }
-.do-card__placeholder { width: 238px; height: 218px; background: #d9d9d9; flex-shrink: 0; }
+/* Transparent cutouts with lots of empty space above/below — cover crops that away */
+.do-card__art { width: 238px; height: 218px; object-fit: cover; object-position: center 35%; flex-shrink: 0; }
 .do-card__list { width: 100%; max-width: 524px; }
 .do-card__list li {
   padding: 24px 8px;

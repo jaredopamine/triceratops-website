@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flash Sales — UC Davis Triceratops Club</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="getting-started.css">
+  <link rel="stylesheet" href="flash-sales.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.html" class="site-logo">
+        <img src="assets/logo.png" alt="UC Davis Triceratops Club logo">
+      </a>
+
+      <nav class="main-nav" aria-label="Primary">
+        <a class="main-nav__link" href="index.html">Home</a>
+        <div class="nav-dropdown">
+          <a class="main-nav__link" href="getting-started.html">
+            Getting Started
+            <img class="main-nav__chevron" src="assets/chevron-down.svg" alt="">
+          </a>
+          <div class="nav-dropdown__panel">
+            <a href="flash-sales.html" aria-current="page">Flash Sales</a>
+          </div>
+        </div>
+        <a class="main-nav__link" href="dinodex.html">DinoDex</a>
+        <a class="main-nav__link" href="rules.html">Rules</a>
+        <a class="main-nav__link" href="about.html">About Us</a>
+      </nav>
+
+      <a href="#" class="btn btn-discord">
+        <img src="assets/discord-icon.svg" alt="">
+        Join Our Discord
+      </a>
+    </div>
+  </header>
+
+  <main class="page-content">
+
+    <!-- ===== Hero ===== -->
+    <section class="hero hero--flash-sales">
+      <div class="hero__bg">
+        <img src="assets/flash-sales/hero.jpg" alt="">
+      </div>
+      <div class="hero__gradient"></div>
+      <div class="hero__content">
+        <h1 class="hero__title">Guide to Monthly Flash Sales:</h1>
+        <p class="hero__subtitle">Everything you need to know about entering, paying, and picking up your dino for monthly flash sales.</p>
+      </div>
+    </section>
+
+    <div class="gs-stack fs-stack">
+
+      <!-- ===== What is a flash sale ===== -->
+      <section class="gs-section fs-section--tight" id="what-is">
+        <header class="gs-heading">
+          <div class="gs-heading__title">
+            <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
+            <h2 class="text-h1">What Is A Flash Sale?</h2>
+          </div>
+          <p class="gs-heading__sub">A quick overview of how flash sales work and claim limits!</p>
+        </header>
+
+        <div class="fs-intro">
+          <div class="fs-intro__photo">
+            <img src="assets/flash-sales/what-is.jpg" alt="Two triceratops plushies on a wooden bridge in the forest">
+          </div>
+          <div class="fs-intro__copy">
+            <p>A flash sale is one of your only chances to directly purchase a dino instead of earning one through a hunt.</p>
+            <p>Listings go up during the last 24 hours of each month in <strong>#listings</strong>, with random color, size, and listing time, so you'll need a bit of luck to catch one.</p>
+            <p>You can claim 1 regular and 1 medium flash sale dino per month, counted separately from hunted dinos.</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="gs-doodle fs-doodle--tall" aria-hidden="true">
+        <img src="assets/flash-sales/path-1.svg" alt="">
+      </div>
+
+      <!-- ===== How to enter a giveaway ===== -->
+      <section class="gs-section fs-section--roomy" id="entering">
+        <header class="gs-heading">
+          <div class="gs-heading__title">
+            <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
+            <h2 class="text-h1">How To Enter a Giveaway</h2>
+          </div>
+          <p class="gs-heading__sub">How to catch a listing and react in time to win!</p>
+        </header>
+
+        <div class="steps">
+          <div class="steps__list">
+            <button type="button" class="step is-active" aria-current="step">
+              <span class="step__bar"><span class="step__fill"></span></span>
+              <span class="step__body">
+                <span class="step__title text-h3">Navigate to #listings</span>
+                <span class="step__text">Open the <strong>#listings</strong> channel, under the <strong>“Flash Sales”</strong> category. This is the only place flash sale giveaways are posted.</span>
+              </span>
+            </button>
+            <button type="button" class="step">
+              <span class="step__bar"><span class="step__fill"></span></span>
+              <span class="step__body">
+                <span class="step__title text-h3">Look for a message from GiveawayBot</span>
+                <span class="step__text"><strong>GiveawayBot</strong> will show the dino being given away (color/size) and a countdown timer. Giveaways run for just 15 seconds to 1 minute.</span>
+              </span>
+            </button>
+            <button type="button" class="step">
+              <span class="step__bar"><span class="step__fill"></span></span>
+              <span class="step__body">
+                <span class="step__title text-h3">React to enter</span>
+                <span class="step__text">Click the emoji reaction shown on the <strong>GiveawayBot</strong> message to enter. That's it, no forms, no comments, just the reaction.</span>
+              </span>
+            </button>
+            <button type="button" class="step">
+              <span class="step__bar"><span class="step__fill"></span></span>
+              <span class="step__body">
+                <span class="step__title text-h3">Winners are picked automatically</span>
+                <span class="step__text">Once the timer runs out, GiveawayBot automatically selects one winner at random from everyone who reacted.</span>
+              </span>
+            </button>
+          </div>
+          <div class="steps__images fs-steps__images">
+            <!-- TODO: placeholder from the comp — swap for screenshots of an active listing (one per step) -->
+            <img class="steps__image is-active" src="assets/flash-sales/enter-listing.png" alt="">
+          </div>
+        </div>
+      </section>
+
+      <div class="fs-spacer" aria-hidden="true"></div>
+
+      <!-- ===== I won, what now? ===== -->
+      <section class="gs-section" id="i-won">
+        <header class="gs-heading">
+          <div class="gs-heading__title">
+            <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
+            <h2 class="text-h2 fs-title">I Won, What Now?</h2>
+          </div>
+          <p class="gs-heading__sub fs-sub">What happens right after you win, what you should expect to do!</p>
+        </header>
+
+        <div class="after-find fs-won">
+          <article class="after-find__item">
+            <h3 class="text-h3">Send Payment Promptly</h3>
+            <p>After winning, you have <strong>2 hours</strong> to send payment or your dino will be rerolled to another hunter. see the <a href="#payment"><strong>Payment section below</strong></a> for accepted methods.</p>
+            <!-- TODO: placeholder from the comp — swap for the real image -->
+            <div class="after-find__shot fs-won__placeholder" aria-hidden="true"></div>
+          </article>
+
+          <article class="after-find__item">
+            <h3 class="text-h3">Watch for Pickup Info</h3>
+            <p>Once your payment's confirmed, keep an eye on <strong>#flash-sale-announcements</strong>. No extra steps needed beyond paying on time!</p>
+            <!-- TODO: placeholder from the comp — swap for the real image -->
+            <div class="after-find__shot fs-won__placeholder" aria-hidden="true"></div>
+          </article>
+        </div>
+      </section>
+
+      <div class="fs-spacer fs-spacer--sm" aria-hidden="true"></div>
+
+      <!-- ===== Pricing + payment methods ===== -->
+      <div class="fs-pay">
+        <img class="fs-cloud fs-cloud--pink" src="assets/flash-sales/cloud-pink.svg" alt="" aria-hidden="true">
+        <img class="fs-cloud fs-cloud--left" src="assets/flash-sales/cloud-blue-left.svg" alt="" aria-hidden="true">
+        <img class="fs-cloud fs-cloud--right" src="assets/flash-sales/cloud-blue-right.svg" alt="" aria-hidden="true">
+
+        <section class="gs-section fs-section--flush" id="pricing">
+          <header class="gs-heading">
+            <div class="gs-heading__title">
+              <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
+              <h2 class="text-h2 fs-title">Pricing</h2>
+            </div>
+            <p class="gs-heading__sub fs-sub">Pricing on giveaway prizes!</p>
+          </header>
+
+          <ul class="fs-pricing">
+            <li class="fs-price">
+              <img src="assets/flash-sales/price-regular.png" alt="A regular-size magenta triceratops plush">
+              <div class="fs-price__cost">
+                <p class="fs-price__amount text-h2">$8</p>
+                <p class="fs-price__label">Regular Dino</p>
+              </div>
+            </li>
+            <li class="fs-price">
+              <img src="assets/flash-sales/price-medium.png" alt="A medium-size cream triceratops plush in a party hat">
+              <div class="fs-price__cost">
+                <p class="fs-price__amount text-h2">$13</p>
+                <p class="fs-price__label">Medium Dino</p>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section class="gs-section fs-section--payment" id="payment">
+          <header class="gs-heading">
+            <div class="gs-heading__title">
+              <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
+              <h2 class="text-h2 fs-title">Payment Methods</h2>
+            </div>
+            <p class="gs-heading__sub fs-sub">How to pay for your dino once you've won, including accepted payment methods and what to include with your payment!</p>
+          </header>
+
+          <div class="info-cards">
+            <article class="info-card info-card--blue">
+              <div class="info-card__head">
+                <img src="assets/getting-started/dino-blue.svg" alt="">
+                <h3 class="text-h3">Venmo</h3>
+              </div>
+              <p class="fs-pay__to">Send payment to <u><strong>@davistriceratops</strong></u></p>
+              <p>Your payment is marked as confirmed once we like the transaction, so no need to follow up unless it's been a while.</p>
+            </article>
+
+            <article class="info-card info-card--yellow">
+              <div class="info-card__head">
+                <img src="assets/flash-sales/pay-zelle.svg" alt="">
+                <h3 class="text-h3">Zelle</h3>
+              </div>
+              <p class="fs-pay__to">Send payment to <u><strong>davistriceratops@gmail.com</strong></u></p>
+              <p>Since Zelle doesn't have a built-in "confirmation" step like Venmo, feel free to check in if you don't hear back within a couple hours.</p>
+            </article>
+
+            <article class="info-card info-card--green">
+              <div class="info-card__head">
+                <img src="assets/flash-sales/pay-cash.svg" alt="">
+                <h3 class="text-h3">Cash</h3>
+              </div>
+              <p>Prefer to pay in person with cash? You'll need to open a ticket in <strong>#modmail</strong> on Discord first so staff know to expect a cash payment from you.</p>
+              <p>Please bring <strong>exact change</strong> as change won’t be available at pickup.</p>
+            </article>
+          </div>
+
+          <p class="fs-pay__note">For all payment methods: include your <strong>Discord username</strong>, <strong>drop number</strong>, and <strong>dino type (color/size)</strong> in the payment message.<br>This is required to match your transaction to your win.</p>
+        </section>
+      </div>
+
+      <div class="gs-doodle" aria-hidden="true">
+        <img src="assets/flash-sales/path-2.svg" alt="">
+      </div>
+
+      <!-- ===== How to pick up ===== -->
+      <section class="gs-section fs-section--tight" id="pickup">
+        <header class="gs-heading">
+          <div class="gs-heading__title">
+            <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
+            <h2 class="text-h2 fs-title">How To Pick Up Dino</h2>
+          </div>
+          <p class="gs-heading__sub fs-sub">Where, when, and what to bring to claim your dino and how long you have to pick up your dino before it's considered abandoned!</p>
+        </header>
+
+        <div class="do-dont">
+          <article class="do-card do-card--do">
+            <header class="do-card__head">
+              <img class="fs-pin" src="assets/icons/location.svg" alt="">
+              <h3 class="text-h2">Picking Up Your Dino</h3>
+            </header>
+            <div class="do-card__body">
+              <ul class="do-card__list">
+                <li>Pickup dates, times, and locations are announced right away, with multiple opportunities each month.</li>
+                <li>Grab the @Flash Sale Pick-up role in<br>#Flash-Sale-Info to stay updated on pickups.</li>
+                <li>Have your Discord username, drop number, and dino type (color/size) ready to present at pickup.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="do-card do-card--dont">
+            <header class="do-card__head">
+              <img src="assets/flash-sales/icon-user.svg" alt="">
+              <h3 class="text-h2">Can My Friend Pick Up?</h3>
+            </header>
+            <div class="do-card__body">
+              <ul class="do-card__list">
+                <li><strong>Need a Friend to Pick Up for You?<br>Open a ticket in #modmail on Discord to request it.</strong></li>
+                <li>Send your request at least 1 hour before pickup time.</li>
+                <li><strong>Avoid Last-Minute Requests.</strong> <span class="fs-regular">Requests made during pickup itself may be missed or not seen in time.</span></li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <div class="fs-flowers" aria-hidden="true">
+        <img src="assets/flash-sales/flower.svg" alt="">
+        <img src="assets/flash-sales/flower.svg" alt="">
+        <img src="assets/flash-sales/flower.svg" alt="">
+      </div>
+
+      <!-- ===== How long to claim ===== -->
+      <article class="do-card fs-claim" id="claim-window">
+        <header class="do-card__head">
+          <img src="assets/icons/clock.svg" alt="">
+          <h2 class="text-h2">How Long Do I Have to Claim?</h2>
+        </header>
+        <div class="do-card__body">
+          <ul class="do-card__list">
+            <li>
+              <p><strong>Dinos unclaimed for 11 months are considered abandoned and repurposed, given away to another giveaway participant.</strong></p>
+              <p>(e.g., an April 2024 flash sale dino must be picked up by March 31, 2025.)</p>
+            </li>
+            <li>Can't make any pickup? Reach out through #modmail.</li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grass" aria-hidden="true"></div>
+
+    <div class="footer-content">
+      <img class="footer-deco footer-deco--flower-tl" src="assets/flower-accent.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--flower-mid" src="assets/flower-accent.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud1-back" src="assets/cloud-1-back.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud1-front" src="assets/cloud-1-front.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud2-back" src="assets/cloud-2-back.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud2-front" src="assets/cloud-2-front.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud3-back" src="assets/cloud-3-back.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud3-front" src="assets/cloud-3-front.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--dino-single" src="assets/dino-single.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--dino-duo" src="assets/dino-duo.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--flower-small-1" src="assets/flower-small-1.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--flower-small-2" src="assets/flower-small-2.svg" alt="" aria-hidden="true">
+
+      <div class="footer-columns">
+        <div class="footer-column">
+          <p class="footer-column__title">Home</p>
+          <ul class="footer-column__links">
+            <li><a href="#">Testimonials</a></li>
+            <li><a href="#">Map</a></li>
+            <li><a href="#">Event Calendar</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <p class="footer-column__title">Getting Started</p>
+          <ul class="footer-column__links">
+            <li><a href="getting-started.html#set-up-notifs">Set Up Notifs</a></li>
+            <li><a href="getting-started.html#drop-types">Drop Types</a></li>
+            <li><a href="getting-started.html#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <p class="footer-column__title">DinoDex</p>
+          <ul class="footer-column__links">
+            <li><a href="#">Popular Dinos</a></li>
+            <li><a href="#">Dino Types</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <p class="footer-column__title">Rules</p>
+          <ul class="footer-column__links">
+            <li><a href="#">Claiming Process</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <p class="footer-column__title">About Us</p>
+          <ul class="footer-column__links">
+            <li><a href="#">Get Involved</a></li>
+            <li><a href="#">Contact Form</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2026 UC Davis Triceratops Club | All Rights Reserved</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social__icon"><img src="assets/email-icon.svg" alt="Email"></a>
+          <a href="#" class="footer-social__icon"><img src="assets/discord-social-icon.svg" alt="Discord"></a>
+          <a href="#" class="footer-social__icon"><img src="assets/instagram-social-icon.svg" alt="Instagram"></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Giveaway steps — same behaviour as the Discord steps on getting-started.html: the
+    // active step's bar fills over 5s, then the next step activates (4 -> back to 1).
+    // Clicking a step jumps straight to it. There's only one placeholder image for now,
+    // so images only swap once there's one per step.
+    (function () {
+      var root = document.querySelector('.steps');
+      if (!root) return;
+      var steps = Array.prototype.slice.call(root.querySelectorAll('.step'));
+      var fills = steps.map(function (s) { return s.querySelector('.step__fill'); });
+      var images = Array.prototype.slice.call(root.querySelectorAll('.steps__image'));
+      var swapImages = images.length === steps.length;
+      var duration = Number(root.dataset.duration) || 5000;
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var current = 0, elapsed = 0, last = null, raf = null;
+
+      function setFill(p) { fills[current].style.transform = 'scaleY(' + p + ')'; }
+
+      function show(index) {
+        current = index;
+        elapsed = 0;
+        steps.forEach(function (step, i) {
+          step.classList.toggle('is-active', i === index);
+          if (i === index) step.setAttribute('aria-current', 'step');
+          else step.removeAttribute('aria-current');
+          fills[i].style.transform = 'scaleY(0)';
+        });
+        if (swapImages) images.forEach(function (img, i) { img.classList.toggle('is-active', i === index); });
+        setFill(reduceMotion ? 1 : 0);
+      }
+
+      function tick(now) {
+        if (last !== null) elapsed += now - last;
+        last = now;
+        if (elapsed >= duration) show((current + 1) % steps.length);
+        else setFill(elapsed / duration);
+        raf = requestAnimationFrame(tick);
+      }
+      function play() { if (raf === null && !reduceMotion) raf = requestAnimationFrame(tick); }
+      function pause() { if (raf !== null) cancelAnimationFrame(raf); raf = null; last = null; }
+
+      steps.forEach(function (step, i) { step.addEventListener('click', function () { show(i); }); });
+
+      show(0);
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          if (entries[0].isIntersecting) play(); else pause();
+        }, { threshold: 0.4 }).observe(root);
+      } else {
+        play();
+      }
+    })();
+  </script>
+</body>
+</html>
