@@ -88,7 +88,6 @@
   letter-spacing: var(--text-subtitle1-ls);
 }
 
-.fs-pay__to { color: var(--gs-muted); }
 .fs-pay__note {
   margin: 0;
   font-size: 22px;
