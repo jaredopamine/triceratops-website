@@ -226,3 +226,99 @@
 .main-nav__link--current {
   border-bottom-color: var(--color-text);
 }
+
+/* ============================================================
+   MOBILE — 640px and below
+   Measured from the 393px Figma frames. Breakpoint matches
+   styles.css and the other pages.
+   ============================================================ */
+@media (max-width: 640px) {
+  .section {
+    padding: 48px 0;
+  }
+  .section--mission  { padding-top: 40px; }
+  .section--involved { padding-bottom: 56px; }
+
+  /* Frame shows 297px — the banner art is cropped, not scaled down,
+     so object-fit: cover keeps both dinos in shot. */
+  .hero {
+    height: 297px;
+  }
+
+  .section-subtitle {
+    margin-bottom: 24px;
+  }
+
+  /* ---------- Our Mission: photo above copy ---------- */
+  /* Overrides the desktop `grid-column: 7 / -1`, which styles.css's
+     generic column collapse cannot reach (this rule is more specific). */
+  .mission__copy {
+    grid-column: 1 / -1;
+    margin-top: 24px;
+  }
+
+  /* ---------- Sneak Peek ---------- */
+  /* 238px keeps the exported 1010x852 aspect and leaves the next card
+     peeking in, which is what makes the row read as scrollable. */
+  .event-card {
+    flex: 0 0 238px;
+  }
+  .event-carousel {
+    gap: 12px;
+  }
+
+  /* ---------- Our Values ---------- */
+  /* Cards gain weight on mobile: 4px stroke and a 22px radius,
+     against 2px/16px on desktop. */
+  .section--values .grid-12 {
+    row-gap: 24px;
+  }
+
+  .value-card {
+    padding: 24px;
+    border-width: 4px;
+    border-radius: 22px;
+  }
+
+  .value-card__head img {
+    width: 56px;
+  }
+
+  /* ---------- Stay Involved ---------- */
+  /* The frame drops the group photo and centres the block. */
+  .involved__media {
+    display: none;
+  }
+
+  .involved__copy {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+
+  .involved__copy .btn-discord {
+    margin: 0 auto;
+  }
+
+  /* Arrow points at a CTA that is now centred under its own heading,
+     with no room beside it — the frame drops it too. */
+  .deco--arrow-discord {
+    display: none;
+  }
+
+  /* ---------- Decorations ---------- */
+  /* Page decorations are placed against the 1440 comp and have no
+     mobile positions yet, so they are hidden rather than guessed —
+     except the marker, which the frame keeps beside Our Mission. */
+  .page-deco .deco {
+    display: none;
+  }
+
+  /* Scoped under .page-deco so it outranks the blanket hide above —
+     `.deco--marker` alone loses on specificity. */
+  .page-deco .deco--marker {
+    display: block;
+    top: 332px;
+    left: 52%;
+    width: 44px;
+  }
+}
