@@ -233,16 +233,43 @@
    styles.css and the other pages.
    ============================================================ */
 @media (max-width: 640px) {
+  /* 40px top and bottom on each section gives the 80px separator
+     between adjacent sections. */
   .section {
-    padding: 48px 0;
+    padding: 40px 0;
   }
-  .section--mission  { padding-top: 40px; }
   .section--involved { padding-bottom: 56px; }
 
-  /* Frame shows 297px — the banner art is cropped, not scaled down,
-     so object-fit: cover keeps both dinos in shot. */
+  /* Frame shows 297px, and the mobile art is a 786x598 crop (4:3),
+     so at 393 wide it lands almost exactly without further cropping. */
   .hero {
     height: 297px;
+  }
+
+  /* The two halves of the title take different styles on mobile:
+     "Hey! We're the" is H3, "Triceratops Club!" is Title. They stay
+     inline on one line at desktop. */
+  .hero__title-a,
+  .hero__title-b {
+    display: block;
+  }
+
+  .hero__title-a {
+    font-size: var(--text-h3-size);
+    line-height: var(--text-h3-lh);
+    letter-spacing: var(--text-h3-ls);
+  }
+
+  .hero__title-b {
+    font-size: var(--text-title-size);
+    line-height: var(--text-title-lh);
+    letter-spacing: var(--text-title-ls);
+  }
+
+  .hero__subtitle {
+    font-size: var(--text-subtitle2-size);
+    line-height: var(--text-subtitle2-lh);
+    letter-spacing: var(--text-subtitle2-ls);
   }
 
   .section-subtitle {
@@ -258,10 +285,11 @@
   }
 
   /* ---------- Sneak Peek ---------- */
-  /* 238px keeps the exported 1010x852 aspect and leaves the next card
-     peeking in, which is what makes the row read as scrollable. */
+  /* Scaled up from the frame's 238px. Still narrower than the 353px
+     content column, so the next card keeps peeking in — that overhang
+     is what reads as "this row scrolls". */
   .event-card {
-    flex: 0 0 238px;
+    flex: 0 0 300px;
   }
   .event-carousel {
     gap: 12px;
