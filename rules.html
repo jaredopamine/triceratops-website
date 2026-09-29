@@ -12,8 +12,9 @@
 
   <style>
     /* ============================================================
-       Triceratops Club — Rules page  (desktop, top half)
-       Sections: nav · hero · General Rules · Hunt Rules · Flash Sale Rules
+       Triceratops Club — Rules page  (desktop)
+       Sections: nav · hero · General Rules · Hunt Rules · Flash Sale Rules ·
+                 Post-Claim Steps · FAQ · CTA banner · footer
        ============================================================ */
 
     @font-face {
@@ -394,13 +395,256 @@
     .flash-num--2 { background: var(--blue); }
     .flash-num--3 { background: var(--yellow); }
 
-    .flower-row {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      margin-top: 48px;
+    .scenery-strip {
+      width: 100%;
+      margin-top: 40px;
+      object-fit: cover;
     }
-    .flower-row img { width: 80px; height: auto; }
+
+    /* ---------- Post-Claim Steps -------------------------------- */
+
+    .section--claim {
+      background: var(--green);
+      overflow: clip;
+      padding-top: 0;
+    }
+    .grass-divider {
+      height: 72px;
+      margin-bottom: clamp(32px, 6vw, 56px);
+      background-image: url("assets/grass.svg");
+      background-repeat: repeat-x;
+      background-size: auto 72px;
+      background-position: bottom left;
+    }
+
+    .claim-steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .claim-step { display: flex; align-items: center; gap: 24px; }
+    .claim-step__photo {
+      flex: none;
+      width: 85px;
+      height: 85px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--blonde);
+      padding: 18px;
+      box-sizing: content-box;
+    }
+    .claim-step p { margin: 0; line-height: 1.5; }
+
+    /* ---------- FAQ ------------------------------------------- */
+
+    .faq-heading {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 300px;
+      height: 300px;
+      margin-bottom: 24px;
+    }
+    .faq-heading__cloud {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    .faq-heading .section__title {
+      font-size: clamp(20px, 2.2vw, 26px);
+      padding-inline: 32px;
+      text-align: left;
+    }
+    /* small flower dots scattered inside the cloud outline */
+    .faq-heading__dot {
+      position: absolute;
+      width: 22px;
+      height: 22px;
+    }
+    .faq-heading__dot--1 { top: 28%; left: 44%; }
+    .faq-heading__dot--2 { top: 34%; left: 52%; }
+    .faq-heading__dot--3 { top: 28%; left: 58%; }
+    /* decorative cluster to the upper right of the cloud */
+    .faq-heading__extras {
+      position: absolute;
+      top: -36px;
+      right: -120px;
+      width: 180px;
+      height: 140px;
+      pointer-events: none;
+    }
+    .faq-heading__extras img { position: absolute; }
+    .faq-heading__extras .blob-purple { width: 34px; top: 0; left: 76px; }
+    .faq-heading__extras .face-blue   { width: 46px; top: 34px; left: 8px; }
+    .faq-heading__extras .face-yellow { width: 46px; top: 40px; left: 96px; }
+
+    .faq-list { display: flex; flex-direction: column; gap: 24px; }
+    .faq-card { position: relative; display: flex; align-items: center; gap: 24px; }
+    .faq-card--right { flex-direction: row-reverse; }
+    .faq-card__mascot { flex: none; width: 120px; height: auto; }
+    .faq-card__bubble {
+      position: relative;
+      flex: 1;
+      background: var(--off-white);
+      border: 4px solid var(--card-accent, var(--green));
+      border-radius: 20px;
+      padding: 24px clamp(20px, 3vw, 32px);
+    }
+    /* speech-bubble tail, pointing at the mascot on either side */
+    .faq-card__bubble::before {
+      content: "";
+      position: absolute;
+      top: 32px;
+      left: -13px;
+      width: 22px;
+      height: 22px;
+      background: var(--off-white);
+      border-left: 4px solid var(--card-accent, var(--green));
+      border-bottom: 4px solid var(--card-accent, var(--green));
+      transform: rotate(45deg);
+    }
+    .faq-card--right .faq-card__bubble::before {
+      left: auto;
+      right: -13px;
+      border-left: 0;
+      border-bottom: 0;
+      border-right: 4px solid var(--card-accent, var(--green));
+      border-top: 4px solid var(--card-accent, var(--green));
+    }
+    .faq-card__bubble h3 {
+      font-family: var(--font-head);
+      font-weight: 400;
+      font-size: clamp(20px, 2.4vw, 28px);
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+    .faq-card__bubble p {
+      margin: 0;
+      padding-left: 20px;
+      border-left: 4px solid var(--card-accent, var(--green));
+      line-height: 1.5;
+    }
+    /* small creature peeking out from behind each card */
+    .faq-card__peek {
+      position: absolute;
+      top: -28px;
+      width: 56px;
+      height: auto;
+    }
+    .faq-card:not(.faq-card--right) .faq-card__peek { right: 40px; }
+    .faq-card--right .faq-card__peek { left: 40px; }
+
+    /* ---------- CTA banner ------------------------------------ */
+
+    .cta-banner {
+      border: 4px solid var(--purple);
+      background: rgba(136, 153, 250, 0.1);
+      border-radius: 20px;
+      padding: clamp(32px, 5vw, 48px) clamp(24px, 5vw, 64px);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+    .cta-banner__text {
+      margin: 0;
+      font-family: var(--font-head);
+      font-weight: 400;
+      font-size: clamp(22px, 3vw, 36px);
+      line-height: 1.3;
+    }
+    .cta-banner__text a { color: var(--purple); text-decoration: none; }
+    .cta-banner__text a:hover { text-decoration: underline; }
+    .cta-banner__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--green);
+      color: var(--off-white);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.05em;
+      padding: 12px 24px;
+      border-radius: 16px;
+      text-decoration: none;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+    .cta-banner__btn:hover { filter: brightness(1.07); transform: translateY(-1px); }
+
+    /* ---------- Footer ------------------------------------------ */
+
+    .site-footer {
+      position: relative;
+      background: linear-gradient(to top, #d8f5ff, #e6f0ff);
+      padding-top: 72px;
+    }
+    .site-footer__grass {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 72px;
+      background-image: url("assets/grass.svg");
+      background-repeat: repeat-x;
+      background-size: auto 72px;
+    }
+    .site-footer__inner { padding-block: 40px; }
+
+    .footer-cols {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      padding-bottom: 32px;
+    }
+    .footer-col { flex: 1 1 140px; min-width: 140px; }
+    .footer-col h3 {
+      font-family: var(--font-head);
+      font-weight: 400;
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+    .footer-col h3 a { text-decoration: none; }
+    .footer-col h3 a:hover { text-decoration: underline; }
+    .footer-col ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 20px;
+      color: var(--ink);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(61, 61, 61, 0.15);
+    }
+    .footer-bottom p { margin: 0; font-size: 16px; }
+    .footer-social { display: flex; gap: 8px; }
+    .footer-social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #000;
+    }
+    .footer-social img { width: 18px; height: 18px; }
 
     /* ---------- Reveal animation (only when JS is active) ---- */
     .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -413,6 +657,13 @@
       .card-grid--stagger > :nth-child(even) { margin-top: 0; }
       .flash-points { grid-template-columns: 1fr; }
       .section__dino { width: 120px; }
+      .faq-card, .faq-card--right { flex-direction: column; }
+      .faq-card__mascot { width: 96px; }
+      .faq-card__bubble::before { display: none; }
+      .faq-card__peek { display: none; }
+      .faq-heading { width: 100%; height: auto; padding-block: 32px; }
+      .faq-heading__cloud { width: min(320px, 90%); height: auto; inset: auto; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+      .faq-heading__extras { display: none; }
     }
 
     @media (max-width: 860px) {
@@ -443,6 +694,8 @@
       .nav__links.is-open { display: flex; }
       .section__head { flex-direction: column; }
       .section__dino { align-self: flex-end; margin-top: -12px; }
+      .claim-step { flex-direction: column; text-align: center; gap: 16px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -698,15 +951,156 @@
           </div>
         </div>
 
-        <div class="flower-row reveal" aria-hidden="true">
-          <img src="assets/icons/flower.svg" alt="">
-          <img src="assets/icons/flower.svg" alt="">
-          <img src="assets/icons/flower.svg" alt="">
+      </div>
+      <img class="scenery-strip reveal" src="assets/scenery-costumes.png" alt="Triceratops club mascots in costume, walking through the grass">
+    </section>
+
+    <!-- ============ POST-CLAIM STEPS ============ -->
+    <section class="section section--claim" aria-labelledby="claim-title">
+      <div class="grass-divider" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section__head reveal">
+          <div class="section__head-text">
+            <h2 class="section__title" id="claim-title">Claimed a dino? Here are your next steps:</h2>
+            <p class="section__subtitle">The next actionable steps post-claim!</p>
+          </div>
+        </div>
+
+        <ol class="claim-steps reveal">
+          <li class="claim-step">
+            <img class="claim-step__photo" src="assets/step-found.png" alt="">
+            <p>After finding a monthly triceratops, make a post in the <strong>#found-triceratops</strong> text channel. This post should include a photo proof of the triceratops.</p>
+          </li>
+          <li class="claim-step">
+            <img class="claim-step__photo" src="assets/step-role.png" alt="">
+            <p>Remember to grab your monthly triceratops parents role in the <strong>#assign-roles</strong> based on the triceratops you just claimed!</p>
+          </li>
+          <li class="claim-step">
+            <img class="claim-step__photo" src="assets/step-enjoy.png" alt="">
+            <p>Enjoy your new dino! We crafted each one with love and hope you like your <strong>one of a kind</strong> Triceratops dino.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="section section--faq" aria-labelledby="faq-title">
+      <div class="container">
+        <div class="faq-heading reveal">
+          <img class="faq-heading__cloud" src="assets/cloud.svg" alt="" aria-hidden="true">
+          <img class="faq-heading__dot faq-heading__dot--1" src="assets/sticker-flower-pink.svg" alt="" aria-hidden="true">
+          <img class="faq-heading__dot faq-heading__dot--2" src="assets/sticker-flower-teal.svg" alt="" aria-hidden="true">
+          <img class="faq-heading__dot faq-heading__dot--3" src="assets/sticker-flower-yellow.svg" alt="" aria-hidden="true">
+          <h2 class="section__title" id="faq-title">Common Rules Questions</h2>
+          <div class="faq-heading__extras" aria-hidden="true">
+            <img class="blob-purple" src="assets/sticker-purple-blob.svg" alt="">
+            <img class="face-blue" src="assets/sticker-blue-flower.svg" alt="">
+            <img class="face-yellow" src="assets/sticker-yellow-face.svg" alt="">
+          </div>
+        </div>
+
+        <div class="faq-list reveal">
+          <article class="faq-card accent-green">
+            <img class="faq-card__peek" src="assets/sticker-peek-green.svg" alt="" aria-hidden="true">
+            <img class="faq-card__mascot" src="assets/bee-dino.png" alt="">
+            <div class="faq-card__bubble">
+              <h3>What if I miss a monthly dino drop? Will I have more chances to hunt for more?</h3>
+              <p>If you miss a monthly dino drop, do not worry; there will certainly be more to come! Dino drops of a certain month will last until the second to last day of the month, so be on the lookout for more drops from our staff.</p>
+            </div>
+          </article>
+
+          <article class="faq-card faq-card--right accent-blue">
+            <img class="faq-card__peek" src="assets/sticker-peek-blue.svg" alt="" aria-hidden="true">
+            <img class="faq-card__mascot" src="assets/bee-dino.png" alt="">
+            <div class="faq-card__bubble">
+              <h3>Staff often drop different types of dinos within a hunt. What if I find a dino type that I already have or am not searching for?</h3>
+              <p>If you find a dino you do not want, carefully hide the dino in the same place. If you are unable to, you may also return the dino to the staff who is in charge of the current hunt.</p>
+            </div>
+          </article>
+
+          <article class="faq-card accent-pink">
+            <img class="faq-card__peek" src="assets/sticker-peek-pink.svg" alt="" aria-hidden="true">
+            <img class="faq-card__mascot" src="assets/bee-dino.png" alt="">
+            <div class="faq-card__bubble">
+              <h3>Any questions on these rules, or about anything at all?</h3>
+              <p>Open a ticket in the <strong>#modmail</strong> channel, and use the command <strong>/tickets open</strong> to ask our staff any questions!</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA BANNER ============ -->
+    <section class="section section--cta" aria-labelledby="cta-title">
+      <div class="container">
+        <div class="cta-banner reveal">
+          <p class="cta-banner__text" id="cta-title">Still have questions or need more clarification? Ask in <a href="https://discord.gg/" target="_blank" rel="noopener">#rules-help</a> on Discord.</p>
+          <a class="cta-banner__btn" href="https://discord.gg/" target="_blank" rel="noopener">Join the Discord!</a>
         </div>
       </div>
     </section>
 
   </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="site-footer__grass" aria-hidden="true"></div>
+    <div class="site-footer__inner container">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h3><a href="index.html">Home</a></h3>
+          <ul>
+            <li>Testimonials</li>
+            <li>Map</li>
+            <li>Event Calendar</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3><a href="getting-started.html">Getting Started</a></h3>
+          <ul>
+            <li>Set Up Notifs</li>
+            <li>Drop Types</li>
+            <li>FAQ</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3><a href="dinodex.html">DinoDex</a></h3>
+          <ul>
+            <li>Popular Dinos</li>
+            <li>Dino Types</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3><a href="rules.html" aria-current="page">Rules</a></h3>
+          <ul>
+            <li>Claiming Process</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3><a href="about.html">About Us</a></h3>
+          <ul>
+            <li>Get Involved</li>
+            <li>Contact Form</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 UC Davis Triceratops Club | All Rights Reserved</p>
+        <div class="footer-social">
+          <a href="mailto:hello@ucdavistriceratops.org" aria-label="Email us">
+            <img src="assets/icons/email.svg" alt="">
+          </a>
+          <a href="https://discord.gg/" target="_blank" rel="noopener" aria-label="Join our Discord">
+            <img src="assets/icons/discord.svg" alt="">
+          </a>
+          <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Follow us on Instagram">
+            <img src="assets/icons/instagram.svg" alt="">
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <script>
     (function () {
