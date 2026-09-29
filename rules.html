@@ -410,14 +410,22 @@
     .flash-num--3 { background: var(--yellow); }
 
     .section--flash { padding-bottom: 0; }
-    .scenery-strip {
-      display: block;
+    .scenery-strip-wrap {
+      overflow: hidden;
       width: 100%;
       margin-top: 40px;
       margin-bottom: -24px;
-      object-fit: cover;
       position: relative;
       z-index: 1;
+    }
+    .scenery-strip {
+      display: block;
+      width: 100%;
+      height: clamp(160px, 20vw, 280px);
+      object-fit: cover;
+      /* crop toward the bottom (feet in the grass) and bias the crop
+         window rightward, matching the source illustration's framing */
+      object-position: 65% 100%;
     }
 
     /* ---------- Post-Claim Steps -------------------------------- */
@@ -977,7 +985,9 @@
         </div>
 
       </div>
-      <img class="scenery-strip reveal" src="assets/scenery-costumes.png" alt="Triceratops club mascots in costume, walking through the grass">
+      <div class="scenery-strip-wrap reveal">
+        <img class="scenery-strip" src="assets/scenery-costumes.png" alt="Triceratops club mascots in costume, walking through the grass">
+      </div>
     </section>
 
     <!-- ============ POST-CLAIM STEPS ============ -->
