@@ -471,47 +471,81 @@
 
     .faq-heading {
       position: relative;
+      width: min(700px, 100%);
+      height: 300px;
+      margin-bottom: 32px;
+    }
+    /* The cloud SVG's own viewBox has a lot of empty padding around the
+       drawn outline, which made it render tiny/cramped. Crop that padding
+       away with a fixed-aspect box + object-fit: cover instead of showing
+       the whole (mostly blank) square. */
+    .faq-cloud {
+      position: absolute;
+      left: 20px;
+      top: 50px;
+      width: 320px;
+      height: 200px;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 300px;
-      height: 300px;
-      margin-bottom: 24px;
     }
-    .faq-heading__cloud {
+    .faq-cloud__img {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
+      object-fit: cover;
       z-index: -1;
     }
-    .faq-heading .section__title {
-      font-size: clamp(20px, 2.2vw, 26px);
-      padding-inline: 32px;
+    .faq-cloud .section__title {
+      position: relative;
+      font-size: clamp(16px, 1.8vw, 20px);
+      padding-inline: 24px;
       text-align: left;
+      white-space: nowrap;
     }
     /* small flower dots scattered inside the cloud outline */
-    .faq-heading__dot {
+    .faq-cloud__dot {
       position: absolute;
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
     }
-    .faq-heading__dot--1 { top: 28%; left: 44%; }
-    .faq-heading__dot--2 { top: 34%; left: 52%; }
-    .faq-heading__dot--3 { top: 28%; left: 58%; }
-    /* decorative cluster to the upper right of the cloud */
+    .faq-cloud__dot--1 { top: 18%; left: 40%; }
+    .faq-cloud__dot--2 { top: 30%; left: 47%; }
+    .faq-cloud__dot--3 { top: 18%; left: 54%; }
+
+    /* pink squiggle arrow pointing down toward the cloud */
+    .faq-heading__arrow {
+      position: absolute;
+      left: 283px;
+      top: 10px;
+      width: 40px;
+      height: auto;
+      pointer-events: none;
+    }
+    /* decorative cluster to the right of the cloud */
     .faq-heading__extras {
       position: absolute;
-      top: -10px;
-      right: -120px;
-      width: 180px;
-      height: 140px;
+      left: 540px;
+      top: 60px;
+      width: 140px;
+      height: 110px;
       pointer-events: none;
     }
     .faq-heading__extras img { position: absolute; }
-    .faq-heading__extras .blob-purple { width: 34px; top: 0; left: 76px; }
-    .faq-heading__extras .face-blue   { width: 46px; top: 34px; left: 8px; }
-    .faq-heading__extras .face-yellow { width: 46px; top: 40px; left: 96px; }
+    .faq-heading__extras .blob-purple { width: 34px; top: 0; left: 55px; }
+    .faq-heading__extras .face-blue   { width: 46px; top: 45px; left: 0; }
+    .faq-heading__extras .face-yellow { width: 46px; top: 45px; left: 90px; }
+    /* cream blob below the extras cluster */
+    .faq-heading__cream {
+      position: absolute;
+      left: 410px;
+      top: 175px;
+      width: 90px;
+      height: auto;
+      pointer-events: none;
+    }
 
     .faq-list { display: flex; flex-direction: column; gap: 24px; }
     .faq-card { position: relative; display: flex; align-items: center; gap: 24px; }
@@ -690,9 +724,10 @@
       .faq-card__mascot { width: 96px; }
       .faq-card__bubble::before { display: none; }
       .faq-card__peek { display: none; }
-      .faq-heading { width: 100%; height: auto; padding-block: 32px; }
-      .faq-heading__cloud { width: min(320px, 90%); height: auto; inset: auto; left: 50%; top: 50%; transform: translate(-50%, -50%); }
-      .faq-heading__extras { display: none; }
+      .faq-heading { width: 100%; height: auto; padding-block: 32px; display: flex; justify-content: center; }
+      .faq-cloud { position: static; width: min(320px, 90%); height: 200px; }
+      .faq-cloud .section__title { white-space: normal; text-align: center; }
+      .faq-heading__arrow, .faq-heading__extras, .faq-heading__cream { display: none; }
     }
 
     @media (max-width: 860px) {
@@ -1022,16 +1057,20 @@
     <section class="section section--faq" aria-labelledby="faq-title">
       <div class="container">
         <div class="faq-heading reveal">
-          <img class="faq-heading__cloud" src="assets/cloud.svg" alt="" aria-hidden="true">
-          <img class="faq-heading__dot faq-heading__dot--1" src="assets/sticker-flower-pink.svg" alt="" aria-hidden="true">
-          <img class="faq-heading__dot faq-heading__dot--2" src="assets/sticker-flower-teal.svg" alt="" aria-hidden="true">
-          <img class="faq-heading__dot faq-heading__dot--3" src="assets/sticker-flower-yellow.svg" alt="" aria-hidden="true">
-          <h2 class="section__title" id="faq-title">Common Rules Questions</h2>
+          <div class="faq-cloud">
+            <img class="faq-cloud__img" src="assets/cloud.svg" alt="" aria-hidden="true">
+            <img class="faq-cloud__dot faq-cloud__dot--1" src="assets/sticker-flower-pink.svg" alt="" aria-hidden="true">
+            <img class="faq-cloud__dot faq-cloud__dot--2" src="assets/sticker-flower-teal.svg" alt="" aria-hidden="true">
+            <img class="faq-cloud__dot faq-cloud__dot--3" src="assets/sticker-flower-yellow.svg" alt="" aria-hidden="true">
+            <h2 class="section__title" id="faq-title">Common Rules Questions</h2>
+          </div>
+          <img class="faq-heading__arrow" src="assets/sticker-arrow-pink.svg" alt="" aria-hidden="true">
           <div class="faq-heading__extras" aria-hidden="true">
             <img class="blob-purple" src="assets/sticker-purple-blob.svg" alt="">
             <img class="face-blue" src="assets/sticker-blue-flower.svg" alt="">
             <img class="face-yellow" src="assets/sticker-yellow-face.svg" alt="">
           </div>
+          <img class="faq-heading__cream" src="assets/sticker-cream-blob.svg" alt="" aria-hidden="true">
         </div>
 
         <div class="faq-list reveal">
