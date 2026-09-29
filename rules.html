@@ -241,6 +241,7 @@
       gap: 22px 22px;
       align-items: start;
     }
+    .card-grid--stagger { gap: 32px 32px; }
     .card-grid--stagger > :nth-child(even) { margin-top: 72px; }
 
     .rule-card { display: flex; flex-direction: column; }
@@ -262,7 +263,8 @@
     .rule-card__body {
       background: var(--off-white);
       border: 4px solid var(--ink);
-      border-radius: 12px 12px 20px 20px;
+      border-top: 0;
+      border-radius: 0 0 20px 20px;
       padding: 32px clamp(24px, 4vw, 50px);
       display: flex;
       flex-direction: column;
@@ -395,10 +397,15 @@
     .flash-num--2 { background: var(--blue); }
     .flash-num--3 { background: var(--yellow); }
 
+    .section--flash { padding-bottom: 0; }
     .scenery-strip {
+      display: block;
       width: 100%;
       margin-top: 40px;
+      margin-bottom: -24px;
       object-fit: cover;
+      position: relative;
+      z-index: 1;
     }
 
     /* ---------- Post-Claim Steps -------------------------------- */
@@ -440,6 +447,8 @@
 
     /* ---------- FAQ ------------------------------------------- */
 
+    .section--faq { padding-top: clamp(48px, 8vw, 72px); }
+
     .faq-heading {
       position: relative;
       display: flex;
@@ -473,7 +482,7 @@
     /* decorative cluster to the upper right of the cloud */
     .faq-heading__extras {
       position: absolute;
-      top: -36px;
+      top: -10px;
       right: -120px;
       width: 180px;
       height: 140px;
