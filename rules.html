@@ -242,7 +242,6 @@
       align-items: start;
     }
     .card-grid--stagger { gap: 32px 32px; }
-    .card-grid--stagger > :nth-child(even) { margin-top: 72px; }
 
     .rule-card { display: flex; flex-direction: column; }
 
@@ -263,7 +262,6 @@
     .rule-card__body {
       background: var(--off-white);
       border: 4px solid var(--ink);
-      border-top: 0;
       border-radius: 0 0 20px 20px;
       padding: 32px clamp(24px, 4vw, 50px);
       display: flex;
@@ -663,7 +661,6 @@
 
     @media (max-width: 1000px) {
       .card-grid { grid-template-columns: 1fr; }
-      .card-grid--stagger > :nth-child(even) { margin-top: 0; }
       .flash-points { grid-template-columns: 1fr; }
       .section__dino { width: 120px; }
       .faq-card, .faq-card--right { flex-direction: column; }
