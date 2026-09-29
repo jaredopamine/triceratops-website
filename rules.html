@@ -241,7 +241,21 @@
       gap: 22px 22px;
       align-items: start;
     }
-    .card-grid--stagger { gap: 32px 32px; }
+    /* Hunt Rules uses two independent columns (not a shared grid) so each
+       column's own card-to-card gap stays a uniform 32px regardless of how
+       tall the card is in the opposite column on a given row. */
+    .card-grid--stagger {
+      display: flex;
+      align-items: flex-start;
+      gap: 32px;
+    }
+    .card-col {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      flex: 1;
+      min-width: 0;
+    }
 
     .rule-card { display: flex; flex-direction: column; }
 
@@ -661,6 +675,7 @@
 
     @media (max-width: 1000px) {
       .card-grid { grid-template-columns: 1fr; }
+      .card-grid--stagger { flex-direction: column; }
       .flash-points { grid-template-columns: 1fr; }
       .section__dino { width: 120px; }
       .faq-card, .faq-card--right { flex-direction: column; }
@@ -814,104 +829,108 @@
         </div>
 
         <div class="card-grid card-grid--stagger reveal">
-          <!-- Outdoors Only -->
-          <article class="rule-card accent-green">
-            <div class="rule-card__head">
-              <img src="assets/icons/location.svg" alt="">
-              <h3>Outdoors Only</h3>
-            </div>
-            <div class="rule-card__body">
-              <p class="rule-lead">Most dinos or event materials will be hidden outdoors.</p>
-              <ul class="rule-list">
-                <li>Dinos will only be hidden inside if stated specifically by the dropper.</li>
-                <li>Be respectful to those around you. The goal is safety and giving others space.</li>
-                <li>If dinos are hidden inside, <strong>be mindful</strong> of your surroundings and other people.</li>
-              </ul>
-            </div>
-          </article>
-
-          <!-- Accessible Spots Only -->
-          <article class="rule-card accent-blue">
-            <div class="rule-card__head">
-              <img src="assets/icons/accessible.svg" alt="">
-              <h3>Accessible Spots Only</h3>
-            </div>
-            <div class="rule-card__body">
-              <p class="rule-lead">Never endanger yourself to access event materials.</p>
-              <ul class="rule-list">
-                <li>Do not trample or damage plants or property of any sort.</li>
-                <li>Dinos will not be placed deeply into bushes.</li>
-                <li>If a dino is displaced somewhere hard to reach, do not risk your personal safety to retrieve it.</li>
-                <li>Stay on the path, <strong>stay out of construction zones</strong>, and leave campus spaces as you found them.</li>
-              </ul>
-            </div>
-          </article>
-
-          <!-- Random Timing -->
-          <article class="rule-card accent-blonde">
-            <div class="rule-card__head">
-              <img src="assets/icons/clock.svg" alt="">
-              <h3>Random Timing</h3>
-            </div>
-            <div class="rule-card__body">
-              <p class="rule-lead">Daily dino drops occur at random.</p>
-              <ul class="rule-list">
-                <li><strong>Timing depends</strong> on the Dropper&rsquo;s personal discretion, schedule, and time permitted.</li>
-                <li>Drops will occur <strong>only during daylight hours.</strong></li>
-              </ul>
-            </div>
-          </article>
-
-          <!-- Don't Ask About Drops -->
-          <article class="rule-card accent-pink">
-            <div class="rule-card__head">
-              <img src="assets/icons/x-circle-2.svg" alt="">
-              <h3>Don&rsquo;t Ask About Drops</h3>
-            </div>
-            <div class="rule-card__body">
-              <p class="rule-lead">Do not ask when or where drops may occur.</p>
-              <ul class="rule-list">
-                <li>Pleading and excessively requesting for drops <strong>may result in corrective action.</strong></li>
-              </ul>
-              <p class="rule-note">Remember that each of our hardworking staff commits their personal time and effort to allow for drops to occur.</p>
-            </div>
-          </article>
-
-          <!-- Adhere to Dino Limits -->
-          <article class="rule-card accent-green">
-            <div class="rule-card__head">
-              <img src="assets/icons/exclamation.svg" alt="">
-              <h3>Adhere to Dino Limits</h3>
-            </div>
-            <div class="rule-card__body">
-              <p class="rule-lead">Each person is limited to:</p>
-              <div class="pill-grid">
-                <span class="pill">1 Monthly Dino per month</span>
-                <span class="pill">1 Milestone Dino</span>
-                <span class="pill">1 Aggieceratops Dino</span>
-                <span class="pill">1 of each type of Special Dino</span>
+          <div class="card-col">
+            <!-- Outdoors Only -->
+            <article class="rule-card accent-green">
+              <div class="rule-card__head">
+                <img src="assets/icons/location.svg" alt="">
+                <h3>Outdoors Only</h3>
               </div>
-              <ul class="rule-list">
-                <li>These limits promote <strong>fairness and equal opportunity</strong> for all event participants.</li>
-                <li>Anyone caught trying to bypass the dino limits will be <strong>banned from the server.</strong></li>
-              </ul>
-            </div>
-          </article>
+              <div class="rule-card__body">
+                <p class="rule-lead">Most dinos or event materials will be hidden outdoors.</p>
+                <ul class="rule-list">
+                  <li>Dinos will only be hidden inside if stated specifically by the dropper.</li>
+                  <li>Be respectful to those around you. The goal is safety and giving others space.</li>
+                  <li>If dinos are hidden inside, <strong>be mindful</strong> of your surroundings and other people.</li>
+                </ul>
+              </div>
+            </article>
 
-          <!-- Flash Sale Rules -->
-          <article class="rule-card accent-blue">
-            <div class="rule-card__head">
-              <img src="assets/icons/flash.svg" alt="">
-              <h3>Flash Sale Rules</h3>
-            </div>
-            <div class="rule-card__body">
-              <p class="rule-lead">For EACH month&rsquo;s flash sale, you can buy one regular and one medium dino.</p>
-              <ul class="rule-list">
-                <li>This rule <strong>resets every year.</strong></li>
-              </ul>
-              <p class="rule-note">e.g. one regular and one medium dino in every flash sale of 2026 &ndash; that resets at the end of 2026 and starts over for 2027.</p>
-            </div>
-          </article>
+            <!-- Random Timing -->
+            <article class="rule-card accent-blonde">
+              <div class="rule-card__head">
+                <img src="assets/icons/clock.svg" alt="">
+                <h3>Random Timing</h3>
+              </div>
+              <div class="rule-card__body">
+                <p class="rule-lead">Daily dino drops occur at random.</p>
+                <ul class="rule-list">
+                  <li><strong>Timing depends</strong> on the Dropper&rsquo;s personal discretion, schedule, and time permitted.</li>
+                  <li>Drops will occur <strong>only during daylight hours.</strong></li>
+                </ul>
+              </div>
+            </article>
+
+            <!-- Adhere to Dino Limits -->
+            <article class="rule-card accent-green">
+              <div class="rule-card__head">
+                <img src="assets/icons/exclamation.svg" alt="">
+                <h3>Adhere to Dino Limits</h3>
+              </div>
+              <div class="rule-card__body">
+                <p class="rule-lead">Each person is limited to:</p>
+                <div class="pill-grid">
+                  <span class="pill">1 Monthly Dino per month</span>
+                  <span class="pill">1 Milestone Dino</span>
+                  <span class="pill">1 Aggieceratops Dino</span>
+                  <span class="pill">1 of each type of Special Dino</span>
+                </div>
+                <ul class="rule-list">
+                  <li>These limits promote <strong>fairness and equal opportunity</strong> for all event participants.</li>
+                  <li>Anyone caught trying to bypass the dino limits will be <strong>banned from the server.</strong></li>
+                </ul>
+              </div>
+            </article>
+          </div>
+
+          <div class="card-col">
+            <!-- Accessible Spots Only -->
+            <article class="rule-card accent-blue">
+              <div class="rule-card__head">
+                <img src="assets/icons/accessible.svg" alt="">
+                <h3>Accessible Spots Only</h3>
+              </div>
+              <div class="rule-card__body">
+                <p class="rule-lead">Never endanger yourself to access event materials.</p>
+                <ul class="rule-list">
+                  <li>Do not trample or damage plants or property of any sort.</li>
+                  <li>Dinos will not be placed deeply into bushes.</li>
+                  <li>If a dino is displaced somewhere hard to reach, do not risk your personal safety to retrieve it.</li>
+                  <li>Stay on the path, <strong>stay out of construction zones</strong>, and leave campus spaces as you found them.</li>
+                </ul>
+              </div>
+            </article>
+
+            <!-- Don't Ask About Drops -->
+            <article class="rule-card accent-pink">
+              <div class="rule-card__head">
+                <img src="assets/icons/x-circle-2.svg" alt="">
+                <h3>Don&rsquo;t Ask About Drops</h3>
+              </div>
+              <div class="rule-card__body">
+                <p class="rule-lead">Do not ask when or where drops may occur.</p>
+                <ul class="rule-list">
+                  <li>Pleading and excessively requesting for drops <strong>may result in corrective action.</strong></li>
+                </ul>
+                <p class="rule-note">Remember that each of our hardworking staff commits their personal time and effort to allow for drops to occur.</p>
+              </div>
+            </article>
+
+            <!-- Flash Sale Rules -->
+            <article class="rule-card accent-blue">
+              <div class="rule-card__head">
+                <img src="assets/icons/flash.svg" alt="">
+                <h3>Flash Sale Rules</h3>
+              </div>
+              <div class="rule-card__body">
+                <p class="rule-lead">For EACH month&rsquo;s flash sale, you can buy one regular and one medium dino.</p>
+                <ul class="rule-list">
+                  <li>This rule <strong>resets every year.</strong></li>
+                </ul>
+                <p class="rule-note">e.g. one regular and one medium dino in every flash sale of 2026 &ndash; that resets at the end of 2026 and starts over for 2027.</p>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
     </section>
