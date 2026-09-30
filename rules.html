@@ -554,7 +554,11 @@
     .faq-card__mascot { flex: none; width: 150px; height: auto; }
     .faq-card__bubble {
       position: relative;
-      flex: 0 1 700px;
+      flex: 0 1 620px;
+      height: 334px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       background: var(--off-white);
       border: 4px solid var(--card-accent, var(--green));
       border-radius: 20px;
@@ -723,6 +727,7 @@
       .section__dino { width: 120px; }
       .faq-card, .faq-card--right { flex-direction: column; }
       .faq-card__mascot { width: 96px; }
+      .faq-card__bubble { height: auto; flex-basis: auto; }
       .faq-card__bubble::before { display: none; }
       .faq-card__peek { display: none; }
       .faq-heading { width: 100%; height: auto; padding-block: 32px; display: flex; justify-content: center; }
