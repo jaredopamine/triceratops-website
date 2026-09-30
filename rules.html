@@ -469,10 +469,15 @@
 
     .section--faq { padding-top: clamp(48px, 8vw, 72px); }
 
+    /* Everything in this heading is sized in % of .faq-heading itself
+       (rather than fixed px) so the whole composition scales together and
+       keeps the same proportions at any container width — fixed px here
+       previously looked right only near one specific viewport width and
+       shrank to a disproportionately small corner at wider ones. */
     .faq-heading {
       position: relative;
-      width: min(780px, 100%);
-      height: 310px;
+      width: 100%;
+      aspect-ratio: 780 / 310;
       margin-bottom: 32px;
     }
     /* The cloud SVG's own viewBox has a lot of empty padding around the
@@ -481,10 +486,10 @@
        the whole (mostly blank) square. */
     .faq-cloud {
       position: absolute;
-      left: 20px;
-      top: 30px;
-      width: 420px;
-      height: 255px;
+      left: 2.56%;
+      top: 9.68%;
+      width: 53.85%;
+      height: 82.26%;
       overflow: hidden;
       display: flex;
       align-items: center;
@@ -500,17 +505,17 @@
     }
     .faq-cloud .section__title {
       position: relative;
-      margin-top: 28px;
-      font-size: clamp(14px, 1.5vw, 18px);
-      padding-inline: 32px;
+      margin-top: 9%;
+      font-size: clamp(14px, 2.3vw, 24px);
+      padding-inline: 8%;
       text-align: left;
       white-space: nowrap;
     }
     /* small flower dots scattered inside the cloud outline */
     .faq-cloud__dot {
       position: absolute;
-      width: 20px;
-      height: 20px;
+      width: 5%;
+      height: auto;
     }
     .faq-cloud__dot--1 { top: 26%; left: 40%; }
     .faq-cloud__dot--2 { top: 37%; left: 47%; }
@@ -519,31 +524,31 @@
     /* pink squiggle arrow sitting on top of the cloud, right side */
     .faq-heading__arrow {
       position: absolute;
-      left: 370px;
-      top: 4px;
-      width: 40px;
+      left: 47.44%;
+      top: 1.29%;
+      width: 5.13%;
       height: auto;
       pointer-events: none;
     }
     /* decorative cluster to the right of the cloud */
     .faq-heading__extras {
       position: absolute;
-      left: 610px;
-      top: 55px;
-      width: 140px;
-      height: 110px;
+      left: 78.21%;
+      top: 17.74%;
+      width: 17.95%;
+      height: 35.48%;
       pointer-events: none;
     }
     .faq-heading__extras img { position: absolute; }
-    .faq-heading__extras .blob-purple { width: 34px; top: 0; left: 55px; }
-    .faq-heading__extras .face-blue   { width: 46px; top: 45px; left: 0; }
-    .faq-heading__extras .face-yellow { width: 46px; top: 45px; left: 90px; }
+    .faq-heading__extras .blob-purple { width: 24.29%; top: 0; left: 39.29%; }
+    .faq-heading__extras .face-blue   { width: 32.86%; top: 40.91%; left: 0; }
+    .faq-heading__extras .face-yellow { width: 32.86%; top: 40.91%; left: 64.29%; }
     /* cream blob below the extras cluster */
     .faq-heading__cream {
       position: absolute;
-      left: 490px;
-      top: 195px;
-      width: 90px;
+      left: 62.82%;
+      top: 62.9%;
+      width: 11.54%;
       height: auto;
       pointer-events: none;
     }
