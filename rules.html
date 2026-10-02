@@ -430,14 +430,23 @@
 
     /* ---------- Post-Claim Steps -------------------------------- */
 
-    .section--claim {
+    /* The grass hangs off the TOP edge of the green box (bottom: 100%), so
+       its blades rise into the white page like the footer's do, and it sits
+       behind the costume graphic (which has z-index: 1). That means no
+       overflow clipping here, and the space the divider used to take in
+       flow is now top padding instead. */
+    .section.section--claim {
       background: var(--green) url("assets/post-claim-graphic.svg") repeat-y top center / 100% auto;
-      overflow: clip;
-      padding-top: 0;
+      margin-top: 72px;
+      padding-top: clamp(32px, 6vw, 56px);
     }
     .grass-divider {
+      position: absolute;
+      z-index: 0;
+      bottom: 100%;
+      left: 0;
+      width: 100%;
       height: 72px;
-      margin-bottom: clamp(32px, 6vw, 56px);
       background-color: transparent;
       /* two half-tile-offset layers, see .site-footer__grass */
       background-image: url("assets/grass.svg"), url("assets/grass.svg");
