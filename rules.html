@@ -414,7 +414,8 @@
       overflow: hidden;
       width: 100%;
       margin-top: 72px;
-      margin-bottom: -64px;
+      /* more negative = graphic sits lower on the grass (feet land near its baseline) */
+      margin-bottom: -104px;
       position: relative;
       z-index: 1;
     }
@@ -461,9 +462,22 @@
       padding: 0;
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 56px;
     }
-    .claim-step { display: flex; align-items: center; gap: 24px; }
+    .claim-step { display: flex; align-items: center; gap: 40px; }
+    /* content block is ~988px and centered in the Figma, not full container width */
+    .claim-container { position: relative; width: min(988px, 100% - (var(--gutter) * 2)); }
+    /* the yellow dino is its own element (not baked into the background) so it
+       can sit right of the heading, above the step text, at any viewport width */
+    .claim-dino {
+      position: absolute;
+      z-index: 1;
+      top: 48px;
+      right: 20px;
+      width: 120px;
+      height: auto;
+      pointer-events: none;
+    }
     .claim-step__photo {
       flex: none;
       width: 85px;
@@ -478,7 +492,11 @@
 
     /* ---------- FAQ ------------------------------------------- */
 
-    .section--faq { padding-top: clamp(48px, 8vw, 72px); }
+    .section--faq {
+      padding-top: clamp(48px, 8vw, 72px);
+      padding-bottom: clamp(120px, 11.5vw, 171px);
+      overflow-x: clip;
+    }
 
     /* Everything in this heading is sized in % of .faq-heading itself
        (rather than fixed px) so the whole composition scales together and
@@ -516,9 +534,10 @@
     }
     .faq-cloud .section__title {
       position: relative;
-      margin-top: 9%;
-      font-size: clamp(16px, 2.6vw, 28px);
-      padding-inline: 8%;
+      margin-top: 12%;
+      /* Figma H2 token: 36px / 120% (line-height comes from the h2 base rule) */
+      font-size: clamp(18px, 2.5vw, 36px);
+      padding-inline: 4%;
       text-align: left;
       white-space: nowrap;
     }
@@ -526,12 +545,15 @@
        triangle: pink at the apex, teal/yellow forming the base */
     .faq-cloud__dot {
       position: absolute;
-      width: 7%;
+      /* same rendered size as the purple flower on the right: that one is
+         32.86% of the extras box (17.95% of the heading) = 5.9% of the
+         heading, and the cloud is 53.85% of the heading -> 10.95% of the cloud */
+      width: 10.95%;
       height: auto;
     }
-    .faq-cloud__dot--1 { top: 21%; left: 46.5%; }
-    .faq-cloud__dot--2 { top: 32%; left: 41.5%; }
-    .faq-cloud__dot--3 { top: 32%; left: 51.5%; }
+    .faq-cloud__dot--1 { top: 14%; left: 45.5%; }
+    .faq-cloud__dot--2 { top: 30.5%; left: 39.3%; }
+    .faq-cloud__dot--3 { top: 30.5%; left: 51.8%; }
 
     /* pink squiggle arrow sitting on top of the cloud, right side */
     .faq-heading__arrow {
@@ -571,7 +593,32 @@
        was also throwing off the peek stickers' positioning since they
        anchor to the card's own edge. --right cards pin to the far edge via
        align-self so they still sit opposite the default (left) cards. */
-    .faq-list { display: flex; flex-direction: column; gap: 56px; align-items: flex-start; }
+    .faq-list { position: relative; display: flex; flex-direction: column; gap: 56px; align-items: flex-start; }
+
+    /* Pastel blobs bleeding off the page edges. Horizontal offsets are in
+       Figma-frame units (1 unit = 100vw/1440) measured from the viewport's
+       edge, via (100% - 100vw)/2 = distance from the list's left edge to the
+       viewport's left edge. Vertical offsets are measured from the cards. */
+    :root { --fu: calc(100vw / 1440); }
+    .blob-edge { position: absolute; z-index: 0; pointer-events: none; max-width: none; }
+    .blob-edge--cream {
+      left: calc((100% - 100vw) / 2 + var(--fu) * -117);
+      top: 194px;
+      width: calc(var(--fu) * 281);
+      height: calc(var(--fu) * 92);
+    }
+    .blob-edge--pink-right {
+      left: calc((100% - 100vw) / 2 + var(--fu) * 1327);
+      top: 282px;
+      width: calc(var(--fu) * 180.15);
+      height: calc(var(--fu) * 199);
+    }
+    .blob-edge--pink-left {
+      left: calc((100% - 100vw) / 2 + var(--fu) * -67);
+      top: 898px;
+      width: calc(var(--fu) * 180.15);
+      height: calc(var(--fu) * 199);
+    }
     .faq-card { position: relative; display: flex; align-items: center; gap: 40px; }
     .faq-card--right { flex-direction: row-reverse; align-self: flex-end; }
     .faq-card__mascot { flex: none; width: 150px; height: auto; z-index: 1; }
@@ -638,6 +685,42 @@
 
     /* ---------- CTA banner ------------------------------------ */
 
+    .section--cta { overflow-x: clip; }
+    .blob-edge--teal {
+      right: calc(var(--fu) * -102);
+      top: calc(100% - 114px);
+      width: calc(var(--fu) * 200.84);
+      height: calc(var(--fu) * 204.6);
+    }
+    /* --u = 1 Figma unit of the 1225px-wide banner, so the stickers keep their
+       exact placement around the banner as it scales */
+    .cta-wrap { position: relative; container-type: inline-size; --u: calc(100cqw / 1225); }
+    .cta-decor { position: absolute; max-width: none; pointer-events: none; }
+    .cta-decor--flower-teal {
+      width: calc(var(--u) * 118.14); height: calc(var(--u) * 116.38);
+      left: calc(var(--u) * 16.4); top: calc(var(--u) * -262.7);
+      transform: rotate(29.74deg);
+    }
+    .cta-decor--flower-yellow {
+      width: calc(var(--u) * 42.49); height: calc(var(--u) * 44.26);
+      left: calc(var(--u) * -25.7); top: calc(var(--u) * -142.4);
+      transform: rotate(-29.31deg);
+    }
+    .cta-decor--daisy {
+      width: calc(var(--u) * 88.97); height: calc(var(--u) * 95.21);
+      left: calc(var(--u) * 7); top: calc(var(--u) * -81);
+    }
+    .cta-decor--sprouts {
+      width: calc(var(--u) * 200.16); height: calc(var(--u) * 99.02);
+      left: calc(var(--u) * 978.8); top: calc(var(--u) * -99);
+    }
+    .cta-decor--flower-pink {
+      z-index: 2;
+      width: calc(var(--u) * 119.13); height: calc(var(--u) * 115.38);
+      /* sits on the corner/sprout base but ends above the text's first line (~46u) */
+      left: calc(var(--u) * 1100); top: calc(var(--u) * -72);
+    }
+    .cta-wrap .cta-banner { position: relative; z-index: 1; }
     .cta-banner {
       border: 4px solid var(--purple);
       background: rgba(136, 153, 250, 0.1);
@@ -760,6 +843,7 @@
     /* ---------- Responsive ---------------------------------- */
 
     @media (max-width: 1000px) {
+      .blob-edge, .cta-decor, .claim-dino { display: none; }
       .card-grid { grid-template-columns: 1fr; }
       .card-grid--stagger { flex-direction: column; }
       .flash-points { grid-template-columns: 1fr; }
@@ -1073,7 +1157,8 @@
     <!-- ============ POST-CLAIM STEPS ============ -->
     <section class="section section--claim" aria-labelledby="claim-title">
       <div class="grass-divider" aria-hidden="true"></div>
-      <div class="container">
+      <div class="container claim-container">
+        <img class="claim-dino" src="assets/post-claim-dino.svg" alt="" aria-hidden="true">
         <div class="section__head reveal">
           <div class="section__head-text">
             <h2 class="section__title" id="claim-title">Claimed a dino? Here are your next steps:</h2>
@@ -1119,6 +1204,9 @@
         </div>
 
         <div class="faq-list reveal">
+          <img class="blob-edge blob-edge--cream" src="assets/blob-cream-pill.svg" alt="" aria-hidden="true">
+          <img class="blob-edge blob-edge--pink-right" src="assets/blob-pink-right.svg" alt="" aria-hidden="true">
+          <img class="blob-edge blob-edge--pink-left" src="assets/blob-pink-left.svg" alt="" aria-hidden="true">
           <article class="faq-card accent-green">
             <img class="faq-card__peek" src="assets/sticker-peek-green.svg" alt="" aria-hidden="true">
             <img class="faq-card__mascot" src="assets/bee-dino.png" alt="">
@@ -1151,10 +1239,18 @@
 
     <!-- ============ CTA BANNER ============ -->
     <section class="section section--cta" aria-labelledby="cta-title">
+      <img class="blob-edge blob-edge--teal" src="assets/blob-teal.svg" alt="" aria-hidden="true">
       <div class="container">
-        <div class="cta-banner reveal">
-          <p class="cta-banner__text" id="cta-title">Still have questions or need more clarification? Ask in <a href="https://discord.gg/" target="_blank" rel="noopener">#rules-help</a> on Discord.</p>
-          <a class="cta-banner__btn" href="https://discord.gg/" target="_blank" rel="noopener">Join the Discord!</a>
+        <div class="cta-wrap">
+          <img class="cta-decor cta-decor--flower-teal" src="assets/cta-flower-teal.svg" alt="" aria-hidden="true">
+          <img class="cta-decor cta-decor--flower-yellow" src="assets/cta-flower-yellow.svg" alt="" aria-hidden="true">
+          <img class="cta-decor cta-decor--daisy" src="assets/cta-daisy.svg" alt="" aria-hidden="true">
+          <img class="cta-decor cta-decor--sprouts" src="assets/cta-sprouts.svg" alt="" aria-hidden="true">
+          <div class="cta-banner reveal">
+            <p class="cta-banner__text" id="cta-title">Still have questions or need more clarification? Ask in <a href="https://discord.gg/" target="_blank" rel="noopener">#rules-help</a> on Discord.</p>
+            <a class="cta-banner__btn" href="https://discord.gg/" target="_blank" rel="noopener">Join the Discord!</a>
+          </div>
+          <img class="cta-decor cta-decor--flower-pink" src="assets/cta-flower-pink.svg" alt="" aria-hidden="true">
         </div>
       </div>
     </section>
