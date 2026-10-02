@@ -494,7 +494,7 @@
 
     .section--faq {
       padding-top: clamp(48px, 8vw, 72px);
-      padding-bottom: clamp(120px, 11.5vw, 171px);
+      padding-bottom: max(72px, calc(var(--fu) * 163));
       overflow-x: clip;
     }
 
@@ -593,7 +593,7 @@
        was also throwing off the peek stickers' positioning since they
        anchor to the card's own edge. --right cards pin to the far edge via
        align-self so they still sit opposite the default (left) cards. */
-    .faq-list { position: relative; display: flex; flex-direction: column; gap: 56px; align-items: flex-start; }
+    .faq-list { position: relative; display: flex; flex-direction: column; gap: 62px; align-items: flex-start; }
 
     /* Pastel blobs bleeding off the page edges. Horizontal offsets are in
        Figma-frame units (1 unit = 100vw/1440) measured from the viewport's
@@ -609,22 +609,34 @@
     }
     .blob-edge--pink-right {
       left: calc((100% - 100vw) / 2 + var(--fu) * 1327);
-      top: 282px;
+      top: 288px;
       width: calc(var(--fu) * 180.15);
       height: calc(var(--fu) * 199);
     }
     .blob-edge--pink-left {
       left: calc((100% - 100vw) / 2 + var(--fu) * -67);
-      top: 898px;
+      top: 910px;
       width: calc(var(--fu) * 180.15);
       height: calc(var(--fu) * 199);
     }
-    .faq-card { position: relative; display: flex; align-items: center; gap: 40px; }
-    .faq-card--right { flex-direction: row-reverse; align-self: flex-end; }
-    .faq-card__mascot { flex: none; width: 150px; height: auto; z-index: 1; }
+    /* Placement follows the Figma frame (1 unit = 100vw/1440, from the viewport's
+       left edge; (100vw - 100%)/2 converts that to this container's own edge):
+       mascot 187u at x=184 with a 184u gap to the bubble on the default cards;
+       the --right card's bubble starts at x=113 with a 145u gap to a 181u mascot.
+       Mascots sit a little above each card's centre (--lift), as in the design. */
+    .faq-card { position: relative; display: flex; align-items: center; gap: calc(var(--fu) * 183.8);
+      margin-left: calc(var(--fu) * 184 - (100vw - 100%) / 2); }
+    .faq-card--right { flex-direction: row-reverse; gap: calc(var(--fu) * 145.4);
+      margin-left: calc(var(--fu) * 113 - (100vw - 100%) / 2); }
+    .faq-list article:nth-of-type(1) { --lift: calc(var(--fu) * 61); }
+    .faq-list article:nth-of-type(2) { --lift: calc(var(--fu) * 18); }
+    .faq-list article:nth-of-type(3) { --lift: calc(var(--fu) * 22); }
+    .faq-card__mascot { flex: none; width: calc(var(--fu) * 187); height: auto; z-index: 1;
+      transform: translateY(calc(var(--lift, 0px) * -1)); }
+    .faq-card--right .faq-card__mascot { width: calc(var(--fu) * 181); }
     /* the mascot art faces left by default; mirror it on the cards where
        the mascot sits to the left of the bubble, so it faces inward */
-    .faq-card:not(.faq-card--right) .faq-card__mascot { transform: scaleX(-1); }
+    .faq-card:not(.faq-card--right) .faq-card__mascot { transform: translateY(calc(var(--lift, 0px) * -1)) scaleX(-1); }
     .faq-card__bubble {
       position: relative;
       z-index: 1;
@@ -676,12 +688,12 @@
     .faq-card__peek {
       position: absolute;
       z-index: 0;
-      top: -40px;
-      width: 56px;
+      top: calc(var(--fu) * -49);
+      width: calc(var(--fu) * 72.4);
       height: auto;
     }
-    .faq-card:not(.faq-card--right) .faq-card__peek { right: 40px; }
-    .faq-card--right .faq-card__peek { left: 40px; }
+    .faq-card:not(.faq-card--right) .faq-card__peek { right: calc(var(--fu) * 86); }
+    .faq-card--right .faq-card__peek { left: calc(var(--fu) * 65); }
 
     /* ---------- CTA banner ------------------------------------ */
 
@@ -694,7 +706,8 @@
     }
     /* --u = 1 Figma unit of the 1225px-wide banner, so the stickers keep their
        exact placement around the banner as it scales */
-    .cta-wrap { position: relative; container-type: inline-size; --u: calc(100cqw / 1225); }
+    .cta-wrap { position: relative; container-type: inline-size; --u: calc(100cqw / 1225);
+      width: calc(var(--fu) * 1225); margin-left: calc(var(--fu) * 113 - (100vw - 100%) / 2); }
     .cta-decor { position: absolute; max-width: none; pointer-events: none; }
     .cta-decor--flower-teal {
       width: calc(var(--u) * 118.14); height: calc(var(--u) * 116.38);
@@ -846,12 +859,16 @@
 
     @media (max-width: 1000px) {
       .blob-edge, .cta-decor, .claim-dino { display: none; }
+      .faq-card, .faq-card--right { margin-left: 0; gap: 24px; align-self: center; }
+      .faq-card__mascot, .faq-card--right .faq-card__mascot { transform: none; }
+      .faq-card:not(.faq-card--right) .faq-card__mascot { transform: scaleX(-1); }
+      .cta-wrap { width: auto; margin-left: 0; }
       .card-grid { grid-template-columns: 1fr; }
       .card-grid--stagger { flex-direction: column; }
       .flash-points { grid-template-columns: 1fr; }
       .section__dino { width: 120px; }
       .faq-card, .faq-card--right { flex-direction: column; }
-      .faq-card__mascot { width: 96px; }
+      .faq-card__mascot, .faq-card--right .faq-card__mascot { width: 96px; }
       .faq-card__bubble { height: auto; flex-basis: auto; }
       .faq-card__bubble::before { display: none; }
       .faq-card__peek { display: none; }
