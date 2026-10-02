@@ -413,8 +413,8 @@
     .scenery-strip-wrap {
       overflow: hidden;
       width: 100%;
-      margin-top: 40px;
-      margin-bottom: -48px;
+      margin-top: 32px;
+      margin-bottom: -64px;
       position: relative;
       z-index: 1;
     }
@@ -438,9 +438,12 @@
     .grass-divider {
       height: 72px;
       margin-bottom: clamp(32px, 6vw, 56px);
+      background-color: transparent;
       background-image: url("assets/grass.svg");
       background-repeat: repeat-x;
-      background-size: auto 72px;
+      /* see .site-footer__grass: whole-pixel, slightly-reduced tile width
+         so tiles overlap instead of leaving a seam at each repeat */
+      background-size: 280px 72px;
       background-position: bottom left;
     }
 
@@ -562,6 +565,9 @@
     .faq-card { position: relative; display: flex; align-items: center; gap: 40px; }
     .faq-card--right { flex-direction: row-reverse; align-self: flex-end; }
     .faq-card__mascot { flex: none; width: 150px; height: auto; z-index: 1; }
+    /* the mascot art faces left by default; mirror it on the cards where
+       the mascot sits to the left of the bubble, so it faces inward */
+    .faq-card:not(.faq-card--right) .faq-card__mascot { transform: scaleX(-1); }
     .faq-card__bubble {
       position: relative;
       z-index: 1;
@@ -672,9 +678,15 @@
       left: 0;
       width: 100%;
       height: 72px;
+      background-color: transparent;
       background-image: url("assets/grass.svg");
       background-repeat: repeat-x;
-      background-size: auto 72px;
+      /* The tile's natural width (657.036/152 * 72 ≈ 311.3px) is a non-
+         integer, which browsers round per-repeat and drift out of sync,
+         showing a hairline seam at every tile boundary. Using a smaller,
+         whole-pixel width makes consecutive tiles overlap deliberately
+         instead, so the grass blades interlock with no gap. */
+      background-size: 280px 72px;
     }
     .site-footer__inner { padding-block: 40px; }
 
