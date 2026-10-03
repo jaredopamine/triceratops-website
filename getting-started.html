@@ -12,32 +12,38 @@
 </head>
 <body>
 
-  <header class="site-header">
+  <header class="site-header site-header--collapsible">
     <div class="site-header__inner">
       <a href="index.html" class="site-logo">
         <img src="assets/logo.png" alt="UC Davis Triceratops Club logo">
       </a>
 
-      <nav class="main-nav" aria-label="Primary">
-        <a class="main-nav__link" href="index.html">Home</a>
-        <div class="nav-dropdown">
-          <a class="main-nav__link" href="getting-started.html">
-            Getting Started
-            <img class="main-nav__chevron" src="assets/chevron-down.svg" alt="">
-          </a>
-          <div class="nav-dropdown__panel">
-            <a href="flash-sales.html">Flash Sales</a>
-          </div>
-        </div>
-        <a class="main-nav__link" href="dinodex.html">DinoDex</a>
-        <a class="main-nav__link" href="rules.html">Rules</a>
-        <a class="main-nav__link" href="about.html">About Us</a>
-      </nav>
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Menu">
+        <img src="assets/icons/menu.svg" alt="">
+      </button>
 
-      <a href="#" class="btn btn-discord">
-        <img src="assets/discord-icon.svg" alt="">
-        Join Our Discord
-      </a>
+      <div class="site-header__menu" id="site-menu">
+        <nav class="main-nav" aria-label="Primary">
+          <a class="main-nav__link" href="index.html">Home</a>
+          <div class="nav-dropdown">
+            <a class="main-nav__link" href="getting-started.html">
+              Getting Started
+              <img class="main-nav__chevron" src="assets/chevron-down.svg" alt="">
+            </a>
+            <div class="nav-dropdown__panel">
+              <a href="flash-sales.html">Flash Sales</a>
+            </div>
+          </div>
+          <a class="main-nav__link" href="dinodex.html">DinoDex</a>
+          <a class="main-nav__link" href="rules.html">Rules</a>
+          <a class="main-nav__link" href="about.html">About Us</a>
+        </nav>
+
+        <a href="#" class="btn btn-discord">
+          <img src="assets/discord-icon.svg" alt="">
+          Join Our Discord
+        </a>
+      </div>
     </div>
   </header>
 
@@ -103,6 +109,13 @@
             <img class="steps__image" src="assets/getting-started/discord-step-2.jpg" alt="The Turtleceratops message under the rules, ready to be reacted to">
             <img class="steps__image" src="assets/getting-started/discord-step-3.jpg" alt="The #dino-hunt-info channel with the dino hunt rules">
             <img class="steps__image" src="assets/getting-started/discord-step-4.jpg" alt="The Turtleceratops message that gives you the Drop Notif role">
+          </div>
+          <!-- Mobile only: numbered step picker (Figma "num_sequence") -->
+          <div class="steps__nums">
+            <button type="button" class="steps__num" aria-label="Step 1"><span class="steps__num-fill"></span><span class="steps__num-label">1</span></button>
+            <button type="button" class="steps__num" aria-label="Step 2"><span class="steps__num-fill"></span><span class="steps__num-label">2</span></button>
+            <button type="button" class="steps__num" aria-label="Step 3"><span class="steps__num-fill"></span><span class="steps__num-label">3</span></button>
+            <button type="button" class="steps__num" aria-label="Step 4"><span class="steps__num-fill"></span><span class="steps__num-label">4</span></button>
           </div>
         </div>
       </section>
@@ -221,7 +234,10 @@
             <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
             <h2 class="text-h1">Dino Limits</h2>
           </div>
-          <p class="gs-heading__sub">These regulations are in place to promote fairness and equal opportunity for all event participants.<br>Anyone caught trying to bypass the dino limits will be banned from the server.</p>
+          <div class="gs-heading__sub">
+            <p>These regulations are in place to promote fairness and equal opportunity for all event participants.</p>
+            <p>Anyone caught trying to bypass the dino limits will be banned from the server.</p>
+          </div>
         </header>
 
         <ul class="limits">
@@ -310,13 +326,14 @@
     <!-- ===== Discover drop types ===== -->
     <section class="types" id="drop-types">
       <img class="types__flowers" src="assets/getting-started/flowers-bg.svg" alt="">
+      <img class="types__flowers-mobile" src="assets/getting-started/flowers-bg-mobile.svg" alt="">
 
       <header class="gs-heading types__heading">
         <div class="gs-heading__title">
           <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
           <h2 class="text-h1">Discover Drop Types</h2>
         </div>
-        <p class="types__intro">Every hunt looks a little different. <strong>Common drops</strong> happen often, giving members plenty of chances to join in. <strong>Rare drops</strong> are special finds tied to <strong>milestones</strong>, <strong>holidays</strong>, and <strong>events</strong>. Take a look below to see what's out there!</p>
+        <p class="types__intro">Every hunt looks a little different. <strong>Common drops</strong> happen often, giving members plenty of chances to join in. <strong>Rare drops</strong> are special finds tied to <strong>milestones</strong>, <strong>holidays</strong>, and <strong>events</strong>. <span class="types__intro-end">Take a look below to see what's out there!</span></p>
       </header>
 
       <div class="types__group types__group--common">
@@ -357,6 +374,7 @@
             <span class="common-card__foot"><span class="common-card__tag"><img src="assets/getting-started/dot.svg" alt="">COMMON DROP</span><span class="common-card__brand"><img src="assets/getting-started/tricera-logo.svg" alt="">UCD TRICERATOPS</span></span>
           </button>
         </div>
+        <div class="types__swipe" aria-hidden="true"><span class="types__dots"></span>Swipe For More →</div>
       </div>
 
       <div class="types__group types__group--rare">
@@ -427,6 +445,7 @@
             </span>
           </button>
         </div>
+        <div class="types__swipe" aria-hidden="true"><span class="types__dots"></span>Swipe For More →</div>
       </div>
     </section>
 
@@ -646,11 +665,17 @@
       var steps = Array.prototype.slice.call(root.querySelectorAll('.step'));
       var fills = steps.map(function (s) { return s.querySelector('.step__fill'); });
       var images = Array.prototype.slice.call(root.querySelectorAll('.steps__image'));
+      // Mobile shows numbered circles instead of the vertical bars; same timer, horizontal fill.
+      var nums = Array.prototype.slice.call(root.querySelectorAll('.steps__num'));
+      var numFills = nums.map(function (n) { return n.querySelector('.steps__num-fill'); });
       var duration = Number(root.dataset.duration) || 5000;
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var current = 0, elapsed = 0, last = null, raf = null;
 
-      function setFill(p) { fills[current].style.transform = 'scaleY(' + p + ')'; }
+      function setFill(p) {
+        fills[current].style.transform = 'scaleY(' + p + ')';
+        if (numFills[current]) numFills[current].style.transform = 'scaleX(' + p + ')';
+      }
 
       function show(index) {
         current = index;
@@ -660,6 +685,11 @@
           if (i === index) step.setAttribute('aria-current', 'step');
           else step.removeAttribute('aria-current');
           fills[i].style.transform = 'scaleY(0)';
+        });
+        nums.forEach(function (num, i) {
+          if (i === index) num.setAttribute('aria-current', 'step');
+          else num.removeAttribute('aria-current');
+          numFills[i].style.transform = 'scaleX(0)';
         });
         images.forEach(function (img, i) { img.classList.toggle('is-active', i === index); });
         setFill(reduceMotion ? 1 : 0);
@@ -676,6 +706,7 @@
       function pause() { if (raf !== null) cancelAnimationFrame(raf); raf = null; last = null; }
 
       steps.forEach(function (step, i) { step.addEventListener('click', function () { show(i); }); });
+      nums.forEach(function (num, i) { num.addEventListener('click', function () { show(i); }); });
 
       show(0);
       // Start the 5s cycle when the section is on screen; pause while it's off screen.
@@ -687,6 +718,56 @@
         play();
       }
     })();
+  </script>
+  <script>
+    // Mobile header — the hamburger opens/closes the nav panel; following a link closes it.
+    (function () {
+      var header = document.querySelector('.site-header--collapsible');
+      if (!header) return;
+      var toggle = header.querySelector('.nav-toggle');
+      function setOpen(open) {
+        header.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', open);
+      }
+      toggle.addEventListener('click', function () { setOpen(!header.classList.contains('is-open')); });
+      header.querySelectorAll('.site-header__menu a').forEach(function (a) {
+        a.addEventListener('click', function () { setOpen(false); });
+      });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+    })();
+  </script>
+  <script>
+    // Drop type carousels (mobile) — one dot per card; the active dot follows the scroll position.
+    document.querySelectorAll('.types__group').forEach(function (group) {
+      var panel = group.querySelector('.types__panel');
+      var dotsWrap = group.querySelector('.types__dots');
+      if (!panel || !dotsWrap) return;
+      var cards = Array.prototype.slice.call(panel.children);
+      var dots = cards.map(function () {
+        var dot = document.createElement('span');
+        dot.className = 'types__dot';
+        dotsWrap.appendChild(dot);
+        return dot;
+      });
+
+      function update() {
+        var max = panel.scrollWidth - panel.clientWidth;
+        var index = 0;
+        if (max > 0 && panel.scrollLeft >= max - 2) {
+          index = cards.length - 1; // the last card can't scroll all the way to the start edge
+        } else {
+          var start = panel.getBoundingClientRect().left;
+          cards.forEach(function (card, i) {
+            var box = card.getBoundingClientRect(); // rendered size (the cards are zoomed on mobile)
+            if (box.left - start <= box.width / 2) index = i;
+          });
+        }
+        dots.forEach(function (dot, i) { dot.classList.toggle('is-active', i === index); });
+      }
+      panel.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    });
   </script>
   <script>
     // FAQ — each question toggles open/closed independently (Figma: "Default" <-> "FAQ Open").

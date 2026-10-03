@@ -68,6 +68,7 @@ strong { font-weight: 700; }
   letter-spacing: var(--text-subtitle1-ls);
   color: var(--gs-body);
 }
+.gs-heading__sub p { margin: 0; }
 .gs-heading__copy {
   font-size: 18px;
   line-height: 1.5;
@@ -150,6 +151,9 @@ strong { font-weight: 700; }
 }
 .step.is-active { color: var(--gs-body); }
 .step:hover:not(.is-active) { color: var(--gs-body); }
+
+/* Numbered step picker — mobile only (styled in the mobile block below) */
+.steps__nums { display: none; }
 
 /* ---------- Join Discord CTA ---------- */
 .gs-cta {
@@ -383,6 +387,9 @@ strong { font-weight: 700; }
   transform: translateX(-50%);
   pointer-events: none;
 }
+/* Mobile-only pieces: the smaller flower graphic and the "Swipe For More" carousel indicators */
+.types__flowers-mobile,
+.types__swipe { display: none; }
 .types__heading { position: relative; width: 100%; padding: 10px 0; }
 .types__heading .gs-heading__title { gap: 24px; }
 .types__intro { margin: 0; font-size: 24px; line-height: normal; color: var(--gs-body); }
@@ -757,8 +764,9 @@ html.has-overlay { overflow: hidden; }
 .faq__more p { margin: 0; font-size: 22px; color: #000; }
 
 /* ============================================================
-   NARROW SCREENS (temporary — there is no mobile comp yet)
-   Just stacks the multi-column layouts so nothing overflows.
+   TABLET (641–1200px) — no comp for this range; stacks the
+   multi-column desktop layouts so nothing overflows. Phones get
+   the real mobile design in the block below.
 ============================================================ */
 @media (max-width: 1200px) {
   .flash__arrow { display: none; }
@@ -775,17 +783,230 @@ html.has-overlay { overflow: hidden; }
   .types__panel--common { flex-direction: column; align-items: center; }
 }
 
+/* ============================================================
+   MOBILE (≤640px)
+   From the Figma "V2 Getting Started: Beginner's Guide Mobile
+   Vertical Page" frame (393px wide): 24px side margins, 48px
+   between sections, mobile type scale (H2 26 / H3 20 / body 16).
+============================================================ */
 @media (max-width: 640px) {
-  .gs-stack { padding-top: 48px; }
-  .hero--getting-started { height: 340px; }
-  .flash__title { font-size: 40px; }
-  .flash__sub { font-size: 22px; }
-  .flash__image { transform: scale(0.7); transform-origin: top center; margin-bottom: -140px; }
-  .types__banner { width: 100%; max-width: 525px; }
-  .types__panel { padding: 16px; flex-direction: column; align-items: center; }
-  .faq-wrap { padding: 48px 20px; }
-  .faq { padding: 24px 16px; }
-  .faq__title h2 { font-size: 28px; }
-  .faq-item__q { padding-left: 16px; padding-right: 16px; }
-  .faq-item__a-body { padding-left: 16px; padding-right: 16px; }
+  :root { --nav-height: 76px; } /* 52px logo + 12px padding */
+
+  /* ---------- Hero ---------- */
+  .hero--getting-started { height: 244px; justify-content: center; }
+  .hero--getting-started .hero__bg img { object-position: center; }
+  .hero--getting-started .hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 365px; /* 345px text block + 10px padding */
+    padding: 10px;
+  }
+  .hero--getting-started .hero__title { margin: 0; font-size: 40px; letter-spacing: 0.8px; }
+  .hero--getting-started .hero__subtitle { font-size: 12px; letter-spacing: 0.24px; }
+
+  /* ---------- Shared section bits ---------- */
+  .gs-stack { gap: 48px; padding: 48px 24px 0; }
+  .gs-heading { gap: 16px; }
+  .gs-heading__title { gap: 24px; }
+  .gs-heading__title h2 { font-size: 26px; line-height: 1.2; letter-spacing: 0.52px; }
+  .gs-heading__sub { font-size: 16px; letter-spacing: 0.32px; }
+  .gs-heading__copy { font-size: 16px; letter-spacing: 0.32px; }
+  .gs-heading__copy p:first-child { margin-bottom: 0; } /* first two lines run together in the comp */
+  .gs-section .text-h3 { font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; }
+
+  .gs-doodle,
+  .gs-doodle img { height: 129.68px; }
+  .gs-arrow img { width: 87.21px; }
+
+  /* ---------- Drop notifications: image, number picker, active step ---------- */
+  .steps { flex-direction: column; align-items: stretch; gap: 16px; }
+  .steps__images { order: 0; flex: none; width: 100%; height: auto; aspect-ratio: 345 / 259; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25); }
+  .steps__nums { order: 1; display: flex; justify-content: space-between; }
+  .steps__list { order: 2; }
+  .step { display: none; }
+  .step.is-active { display: flex; cursor: default; }
+  .step__bar { display: none; }
+  .step__title { font-size: 20px; letter-spacing: 0.4px; }
+
+  .steps__num {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    overflow: hidden;
+    border: 2px solid var(--gs-body);
+    border-radius: var(--radius-pill);
+    background: var(--gs-gray);
+    cursor: pointer;
+  }
+  .steps__num-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--gs-pastel-green);
+    transform: scaleX(0); /* driven by the step timer */
+    transform-origin: left;
+  }
+  .steps__num-label {
+    position: relative;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.3;
+    letter-spacing: 0.8px;
+    color: var(--gs-body);
+  }
+  .steps__num:focus-visible { outline: 3px solid var(--gs-pastel-green); outline-offset: 2px; }
+
+  /* ---------- Join Discord CTA ---------- */
+  .gs-cta__title { font-size: 26px; line-height: 1.2; letter-spacing: 0.52px; }
+  .gs-cta .btn-discord { padding: 12px 24px; font-size: 18px; }
+
+  /* ---------- When & where ---------- */
+  #when-and-where { gap: 48px; }
+  .info-cards { grid-template-columns: 1fr; gap: 24px; padding: 0; }
+  .info-card { min-height: 0; font-size: 16px; letter-spacing: 0.32px; }
+  .info-card__head img { height: 63.4px; }
+
+  /* ---------- What to do / not to do ---------- */
+  .do-dont { grid-template-columns: 1fr; gap: 24px; justify-items: center; }
+  .do-card { width: 100%; max-width: 312px; border-width: 2px; }
+  .do-card__head { gap: 16px; padding: 14px 27px 18px; border-bottom-width: 2px; }
+  .do-card__head img { width: 28px; height: 28px; }
+  .do-card__head h3 { font-size: 26px; letter-spacing: 0.52px; }
+  .do-card__body { gap: 16px; padding: 16px 28px; }
+  .do-card__art { object-position: center; }
+  .do-card__list li {
+    padding: 16px 0;
+    border-top: 4px solid var(--gs-pastel-green);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.32px;
+  }
+  .do-card--dont .do-card__list li { border-top-color: var(--gs-pink); }
+
+  /* ---------- Dino limits ---------- */
+  #dino-limits .gs-heading__sub { font-size: 20px; letter-spacing: 0.4px; }
+  #dino-limits .gs-heading__sub p + p { margin-top: 1.3em; }
+  .limits__row {
+    grid-template-columns: 1fr;
+    align-items: start;
+    padding: 16px 0;
+    font-size: 16px;
+    letter-spacing: 0.32px;
+  }
+  .limits__name { color: var(--gs-heading); }
+  .limits__name img { width: 62.88px; height: 55.07px; }
+
+  /* ---------- After finding a dino ---------- */
+  #after-finding { gap: 16px; }
+  .after-find { grid-template-columns: 1fr; grid-template-rows: none; row-gap: 24px; }
+  .after-find__item { display: flex; flex-direction: column; }
+  .after-find__item p { margin-bottom: 24px; font-size: 16px; letter-spacing: 0.32px; }
+  .after-find__item:first-child .after-find__shot { height: 310px; }
+
+  /* ---------- Flash sales CTA (text + button only on mobile) ---------- */
+  .flash { margin-top: 48px; padding: 10px; gap: 10px; }
+  .flash__image { display: none; }
+  .flash__text { width: 100%; align-items: center; gap: 4px; padding: 4px 10px; text-align: center; }
+  .flash__title { font-size: 26px; line-height: 1.2; letter-spacing: 0.52px; }
+  .flash__sub { margin: 0 0 18px; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; }
+
+  /* ---------- Discover drop types: swipeable carousels ---------- */
+  .types { margin-top: 48px; gap: 16px; padding: 16px 0; }
+  .types__flowers { display: none; }
+  .types__flowers-mobile {
+    display: block;
+    position: absolute;
+    left: -194px;
+    top: 232.74px;
+    width: 590.375px;
+    height: 626.375px;
+    max-width: none;
+    pointer-events: none;
+  }
+  .types__heading { gap: 16px; padding: 0 24px; }
+  .types__intro { font-weight: 600; font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; }
+  .types__intro strong { font-weight: inherit; }
+  .types__intro-end { display: block; margin-top: 1.3em; }
+
+  .types__group { gap: 14px; width: 100%; }
+  /* The mobile banner and cards are the desktop components at 56.25% and 75% */
+  .types__banner { zoom: 0.5625; }
+  .types__banner h3 { font-size: 36px; letter-spacing: 0.72px; } /* desktop size; the zoom scales it to 20.25px */
+  .types__panel,
+  .types__panel--common,
+  .types__panel--rare {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 24px;
+    width: 345px;
+    max-width: calc(100% - 48px);
+    padding: 4px 2px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    background: none;
+    border-radius: 0;
+    filter: none;
+  }
+  .types__panel::-webkit-scrollbar { display: none; }
+  .common-card,
+  .rare-card { flex-shrink: 0; zoom: 0.75; scroll-snap-align: start; }
+  /* zoomed, so these lengths are pre-divided by 0.75 to land on the comp's values */
+  .common-card { border-color: #76c03a; box-shadow: 0 1.33px 2.67px rgba(125, 86, 24, 0.4); }
+  .rare-card { border-color: #fff; box-shadow: 0 1.33px 5.33px rgba(125, 86, 24, 0.4); }
+  .common-card:hover,
+  .rare-card:hover { transform: none; } /* would be clipped by the scroller */
+
+  .types__swipe {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    background: var(--color-bg);
+    border-radius: 16px;
+    filter: drop-shadow(0 1px 2px rgba(125, 86, 24, 0.4));
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1.3;
+    letter-spacing: 0.24px;
+    color: var(--gs-card-green);
+  }
+  .types__dots { display: flex; gap: 5px; }
+  .types__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 12px;
+    background: var(--color-accent-blonde);
+    transition: width 200ms ease-out, background-color 200ms ease-out;
+  }
+  .types__dot.is-active { width: 20px; background: var(--color-accent-yellow); }
+
+  /* ---------- FAQ ---------- */
+  .faq-wrap { margin-top: 48px; padding: 0 0 48px; }
+  .faq { gap: 24px; padding: 38px 25px; border-radius: 0; }
+  .faq__title { gap: 8px; }
+  .faq__title img { width: 53.27px; height: 46.65px; }
+  .faq__title h2 { width: 256px; font-size: 26px; line-height: 1.2; letter-spacing: 0.52px; }
+  .faq__list { flex-direction: column; gap: 24px; padding: 0; }
+  .faq__col { gap: 24px; }
+  .faq-item,
+  .faq-item.is-open { filter: drop-shadow(0 4px 2px rgba(81, 81, 81, 0.16)); }
+  .faq-item__q,
+  .faq-item.is-open .faq-item__q {
+    min-height: 76px;
+    padding: 8px 19px;
+    font-size: 16px;
+    letter-spacing: 0.32px;
+  }
+  /* Plus/minus at the comp's 33x42 (75% of desktop) */
+  .faq-item__icon { flex-basis: 33px; height: 42px; }
+  .faq-item__plus { width: 33px; height: 42px; }
+  .faq-item__minus { left: 4.5px; top: 19.5px; width: 24.13px; height: 3px; }
+  .faq-item__a-body { padding: 0 19px 16px; font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; }
+  .faq__more p { font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; }
+  .faq__more .gs-btn { line-height: 1.3; letter-spacing: 0.8px; }
 }

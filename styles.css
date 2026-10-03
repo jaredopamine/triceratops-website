@@ -370,6 +370,28 @@ ul {
   border-bottom-color: var(--color-text);
 }
 
+/* Hamburger header (opt in with .site-header--collapsible + a .nav-toggle
+   button and a .site-header__menu wrapper around the nav and Discord CTA).
+   On desktop the wrapper is invisible to layout; on phones it becomes the
+   dropdown panel — see the mobile block at the bottom of this file. */
+.site-header__menu {
+  display: contents;
+}
+
+.nav-toggle {
+  display: none;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.nav-toggle img {
+  width: 32px;
+  height: 32px;
+}
+
 /* ============================================================
    PAGE CONTENT
    Intentionally unstyled/unconstrained — flex: 1 0 auto lets it
@@ -580,17 +602,12 @@ ul {
 }
 
 /* ============================================================
-   MOBILE SAFETY NET (temporary)
-   Not a real mobile design — there isn't one yet. This is just
-   defensive CSS so nothing visually breaks (horizontal overflow,
-   overlapping footer art, an oversized fixed-height hero) if the
-   template gets viewed on a narrow screen in the meantime.
-   The layout doesn't change shape at any width: nav stays one
-   horizontal row (it scrolls sideways if it doesn't fit, rather
-   than wrapping and colliding with the hero below), the hero
-   stays a single full-width banner, the footer keeps the same
-   column layout. Replace this whole block once real mobile
-   designs exist — don't build on top of it.
+   MOBILE (≤640px)
+   The footer and the hamburger header follow the Figma mobile
+   comps ("Mobile Footer", "Mobile Hamburger Menu"). The rest is
+   still the old safety net: headers that haven't opted into
+   .site-header--collapsible keep one horizontal nav row that
+   scrolls sideways rather than wrapping into the hero below.
 ============================================================ */
 body {
   overflow-x: hidden;
@@ -639,13 +656,133 @@ body {
     height: 340px;
   }
 
-  /* Positioned with fixed px offsets meant for the 1440px comp —
-     at phone widths they'd overlap the footer columns/copyright
-     instead of sitting in open space, so they're hidden rather
-     than guessed at. */
-  .footer-deco {
+  /* ---------- Hamburger header (Figma "Mobile Hamburger Menu") ---------- */
+  .site-header--collapsible {
+    background: var(--color-bg);
+  }
+  .site-header--collapsible .site-header__inner {
+    padding: 12px;
+  }
+  .site-header--collapsible .nav-toggle {
+    display: block;
+  }
+  /* The open state isn't in the mobile comp — a simple panel under the bar. */
+  .site-header--collapsible .site-header__menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 8px 24px 24px;
+    background: var(--color-bg);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  }
+  .site-header--collapsible.is-open .site-header__menu {
+    display: flex;
+  }
+  .site-header--collapsible .main-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    overflow: visible;
+  }
+  .site-header--collapsible .main-nav__chevron {
     display: none;
   }
+  .site-header--collapsible .nav-dropdown__panel {
+    position: static;
+    padding: 12px 0 0 16px;
+    background: none;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* ---------- Footer (Figma "Mobile Footer", 393px) ---------- */
+  .site-footer {
+    background: #def3ff;
+  }
+
+  /* Same overlapping-clump idea as desktop, with the smaller mobile grass:
+     copies 114px apart, the first one mirrored (via ::before). */
+  .footer-grass {
+    position: relative;
+    height: 45px;
+    background-size: 165.307px 44.924px;
+    background-image:
+      url('assets/grass-mobile.svg'), url('assets/grass-mobile.svg'), url('assets/grass-mobile.svg'),
+      url('assets/grass-mobile.svg'), url('assets/grass-mobile.svg');
+    background-position:
+      113.72px bottom, 227.69px bottom, 341.66px bottom, 455.63px bottom, 569.6px bottom;
+  }
+  .footer-grass::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 165.307px;
+    height: 44.924px;
+    background: url('assets/grass-mobile.svg') no-repeat center / 100% 100%;
+    transform: scaleX(-1);
+  }
+
+  .footer-content {
+    min-height: 817px;
+    padding: 61px 16px 131px 21px;
+    overflow: hidden;
+  }
+
+  .footer-columns {
+    display: grid;
+    grid-template-columns: minmax(0, 163px) minmax(0, 161px);
+    justify-content: space-between;
+    gap: 60px 0;
+    max-width: 356px;
+    margin-bottom: 92px;
+  }
+  .footer-column__title {
+    line-height: 1.3;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+  }
+  .footer-column__links a {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.32px;
+  }
+
+  .footer-bottom {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 12px;
+    max-width: 323px;
+  }
+  .footer-copyright {
+    line-height: 1.5;
+    letter-spacing: 0.32px;
+  }
+  .footer-social__icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* Decorations re-placed per the mobile comp (left/right/bottom offsets
+     from the 393px frame; right-side clouds stay pinned to the right edge). */
+  .footer-deco--flower-tl,
+  .footer-deco--flower-mid { display: none; }
+  .footer-deco--cloud1-back  { left: -30px;    right: auto; top: 19.46px;  width: 65.11px; height: 34.47px; }
+  .footer-deco--cloud1-front { left: -26.94px; right: auto; top: 17.92px;  width: 64.24px; height: 34.47px; }
+  .footer-deco--cloud2-back  { right: 44px;     top: 355.92px; width: 85px;    height: 45px; }
+  .footer-deco--cloud2-front { right: 41.14px;  top: 353.92px; width: 83.86px; height: 45px; }
+  .footer-deco--cloud3-back  { right: -20.49px; top: 153.37px; width: 61.49px; height: 32.55px; }
+  .footer-deco--cloud3-front { right: -22.56px; top: 151.92px; width: 60.67px; height: 32.55px; }
+  .footer-deco--dino-single  { left: 21px;     right: auto; top: auto; bottom: -1px;   width: 61.2px;  height: 95px; }
+  .footer-deco--dino-duo     { left: 86.47px;  right: auto; bottom: 1.55px;           width: 58.09px; height: 76.64px; }
+  .footer-deco--flower-small-1 { left: 164.09px; right: auto; bottom: 0; width: 20.84px; height: 23px; }
+  .footer-deco--flower-small-2 { left: 187.08px; right: auto; bottom: 0; width: 28.03px; height: 30.9px; }
 
   .margin-marker {
     height: 180px;
