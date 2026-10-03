@@ -231,10 +231,50 @@
   .fs-claim .do-card__list p + p { margin-top: 24px; }
 }
 
-/* Landscape phones — there's no landscape comp for this page, so it
-   follows the Getting Started landscape layout (752px column from
-   getting-started.css); only the hero needs matching here. */
+/* ============================================================
+   LANDSCAPE PHONES (641–960px wide, ≤500px tall)
+   From the Figma "Getting Started: Flash Sales Mobile Horizontal
+   Page" frame (853px). The mobile block above still applies, and
+   so does the Getting Started landscape block in
+   getting-started.css — this undoes the parts of it that don't
+   fit this page and widens everything to a 763px column.
+============================================================ */
 @media (orientation: landscape) and (max-height: 500px) and (min-width: 641px) and (max-width: 960px) {
-  .hero--flash-sales { height: 299px; }
-  .hero--flash-sales .hero__content { gap: 8px; max-width: 752px; padding: 16px 0; }
+  /* ---------- Hero: same height as portrait, text spans the width ---------- */
+  .hero--flash-sales { height: 244px; }
+  .hero--flash-sales .hero__bg img { object-position: center 20%; } /* Figma crop */
+  .hero--flash-sales .hero__content { gap: 16px; max-width: none; padding: 10px; }
+
+  /* ---------- 763px content column (45px margins at 853px) ---------- */
+  .fs-stack { padding-left: max(24px, calc((100% - 763px) / 2)); padding-right: max(24px, calc((100% - 763px) / 2)); }
+
+  /* ---------- How to enter: stacked at full width (not side by side) ---------- */
+  #entering .steps { display: flex; align-items: stretch; }
+  #entering .steps__images { height: 259px; aspect-ratio: auto; }
+
+  /* ---------- Pricing: the two dinos side by side ---------- */
+  .fs-pricing { flex-direction: row; justify-content: center; }
+
+  /* ---------- Pick up + claim window: full-width cards ---------- */
+  #pickup .do-card,
+  .fs-claim { max-width: none; }
+  #pickup .do-card__body,
+  .fs-claim .do-card__body { padding: 16px 50px; }
+  /* The first card's text spans the card; the others keep a centred 251px column */
+  #pickup .do-card--do .do-card__list { max-width: none; }
+  #pickup .do-card--dont .do-card__list,
+  .fs-claim .do-card__list { max-width: 251px; }
+  /* Dividers stay 250px and centred, even where the text runs full width */
+  #pickup .do-card--do .do-card__list li { position: relative; border-top-color: transparent; }
+  #pickup .do-card--do .do-card__list li:not(:first-child)::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    width: 250px;
+    height: 4px;
+    background: var(--gs-pastel-green);
+    transform: translateX(-50%);
+  }
+  .fs-claim .do-card__head h2 { max-width: 190px; } /* wraps to two lines, as in the comp */
 }
