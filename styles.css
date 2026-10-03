@@ -1,0 +1,661 @@
+@import url('https://fonts.cdnfonts.com/css/pulang');
+
+/* ============================================================
+   DESIGN SYSTEM TOKENS
+   Pulled from the "Color Palette", "Typographic Scale", and the
+   *Hover State" component frames in the Figma file. Every page
+   should read colors/type from these variables instead of
+   hardcoding values, so the whole site stays in sync.
+
+   NOTE — flagging so nobody re-derives this from scratch later:
+   the Color Palette page labels body text "#3D3D3D," but the
+   real nav/footer instances all use pure black. Kept black
+   (--color-text) since that's what's actually deployed, and
+   added #3D3D3D as --color-text-secondary in case it's
+   intentional for other page content — worth confirming.
+
+   The 12-column grid (node 855:512) doesn't show up as layers —
+   it's a Figma layout-grid guide on the frame, not real content,
+   so values below are taken from that grid's settings panel
+   rather than the code extraction.
+============================================================ */
+:root {
+  /* Core */
+  --color-bg: #fffdfd;
+  --color-text: #000000;
+  --color-text-secondary: #3d3d3d; /* documented "text-on-light" token — see note above */
+  --color-text-muted: #1e1e1e; /* actual color used on the real footer copyright line */
+  --color-text-on-dark: #fffdfd;
+
+  /* Accent / secondary palette (assets, card borders, illustrations) */
+  --color-accent-blonde: #ebe6a0;
+  --color-accent-yellow: #f2e35d;
+  --color-accent-lightblue: #bde6e6;
+  --color-accent-purple: #8899fa;
+  --color-accent-pink: #f8ccc9;
+  --color-neutral-border: #919191; /* form borders */
+
+  /* Nav + footer chrome */
+  --color-nav-bg: #f9fff7;
+  --color-footer-gradient-start: #e6f0ff;
+  --color-footer-gradient-end: #d8f5ff;
+  --color-social-bg: #000000;
+
+  /* Primary CTA (solid green button) */
+  --color-primary-default: #649d35;
+  --color-primary-hover: #44890b;
+  --color-primary-active: #237b35;
+
+  /* Secondary CTA (outlined button) */
+  --color-secondary-border: #649d35;
+  --color-secondary-text: #4b7d22;
+  --color-secondary-hover-bg: #f2fff5;
+
+  /* Tertiary CTA (underlined text button) */
+  --color-tertiary-text: #6ec313;
+  --color-tertiary-hover-bg: #f1f1f1;
+
+  /* Discord CTA */
+  --color-discord-default: #7289da;
+  --color-discord-hover: #5569ae;
+  --color-discord-active: #4559a0;
+
+  /* Radius — observed from real components, not a documented scale */
+  --radius-button: 16px;
+  --radius-pill: 100px;
+
+  /* 12-column desktop layout grid (Figma frame 855:512 — Stretch type,
+     12 columns, auto width, 48px side margins, 20px gutter) */
+  --grid-columns: 12;
+  --grid-margin: 48px;
+  --grid-gutter: 20px;
+
+  /* Nav bar's own rendered height (80px logo + 12px top/bottom padding),
+     used to offset content below it now that it's fixed. */
+  --nav-height: 104px;
+
+  /* Fonts */
+  --font-heading: 'Pulang', 'Nunito', sans-serif;
+  --font-body: 'Nunito', sans-serif;
+
+  /* Type scale (desktop — Figma's mobile scale had gaps/inconsistencies
+     in the source file and there's no breakpoint spec yet, so it isn't
+     included here; ask if you want it added once a breakpoint exists) */
+  --text-title-size: 64px;   --text-title-lh: 1.2; --text-title-ls: 1.28px;
+  --text-h1-size: 48px;      --text-h1-lh: 1.2;    --text-h1-ls: 0.96px;
+  --text-h2-size: 36px;      --text-h2-lh: 1.4;    --text-h2-ls: 0.72px;
+  --text-h3-size: 28px;      --text-h3-lh: 1.3;    --text-h3-ls: 0.56px;
+  --text-subtitle1-size: 20px; --text-subtitle1-lh: 1.3; --text-subtitle1-ls: 0.4px;
+  --text-subtitle2-size: 16px; --text-subtitle2-lh: 1.3; --text-subtitle2-ls: 0.32px;
+  --text-body-size: 20px;    --text-body-lh: 1.5;  --text-body-ls: 0.4px;
+  --text-button-size: 18px;  --text-button-lh: 1.3; --text-button-ls: 0.9px;
+}
+
+/* ============================================================
+   BASE / RESET
+============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  padding-top: var(--nav-height); /* compensates for the fixed nav bar below */
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ============================================================
+   TYPE SCALE
+   Matches the named text styles in the Figma "Typographic
+   Scale" frame 1:1 — use these classes on headings/body copy
+   so every page's type stays on-system.
+============================================================ */
+.text-title    { font-family: var(--font-heading); font-weight: 400; font-size: var(--text-title-size); line-height: var(--text-title-lh); letter-spacing: var(--text-title-ls); }
+.text-h1       { font-family: var(--font-heading); font-weight: 400; font-size: var(--text-h1-size); line-height: var(--text-h1-lh); letter-spacing: var(--text-h1-ls); }
+.text-h2       { font-family: var(--font-heading); font-weight: 400; font-size: var(--text-h2-size); line-height: var(--text-h2-lh); letter-spacing: var(--text-h2-ls); }
+.text-h3       { font-family: var(--font-heading); font-weight: 400; font-size: var(--text-h3-size); line-height: var(--text-h3-lh); letter-spacing: var(--text-h3-ls); }
+.text-subtitle-1 { font-family: var(--font-body); font-weight: 600; font-size: var(--text-subtitle1-size); line-height: var(--text-subtitle1-lh); letter-spacing: var(--text-subtitle1-ls); }
+.text-subtitle-2 { font-family: var(--font-body); font-weight: 400; font-size: var(--text-subtitle2-size); line-height: var(--text-subtitle2-lh); letter-spacing: var(--text-subtitle2-ls); }
+.text-body     { font-family: var(--font-body); font-weight: 400; font-size: var(--text-body-size); line-height: var(--text-body-lh); letter-spacing: var(--text-body-ls); }
+
+/* ============================================================
+   LAYOUT GRID
+   12-column desktop grid — wrap your page content in .grid-12
+   and place children with .col-span-N (1-12) to line up with
+   the rest of the site. Fluid width with a fixed 48px side
+   margin and 20px gutter at any screen size — matches how the
+   nav/footer/hero stay flush against the true edges, so this
+   stays aligned with them instead of drifting on wide screens.
+============================================================ */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  gap: var(--grid-gutter);
+  width: 100%;
+  padding: 0 var(--grid-margin);
+}
+
+.col-span-1  { grid-column: span 1; }
+.col-span-2  { grid-column: span 2; }
+.col-span-3  { grid-column: span 3; }
+.col-span-4  { grid-column: span 4; }
+.col-span-5  { grid-column: span 5; }
+.col-span-6  { grid-column: span 6; }
+.col-span-7  { grid-column: span 7; }
+.col-span-8  { grid-column: span 8; }
+.col-span-9  { grid-column: span 9; }
+.col-span-10 { grid-column: span 10; }
+.col-span-11 { grid-column: span 11; }
+.col-span-12 { grid-column: span 12; }
+
+/* Dev-only guide box — sized by .grid-12/.col-span-12 above, so its
+   left/right edges land exactly on the grid's 48px margins. Not a
+   real design-system component; delete along with the markup in
+   index.html once the margins are understood. */
+.margin-marker {
+  box-sizing: border-box;
+  height: 352px;
+  margin: 124px 0; /* gap to the hero above and the footer/grass below */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  background: #d9d9d9;
+  border: 2px dashed #8a8a8a;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  color: #4a4a4a;
+}
+
+/* ============================================================
+   BUTTONS
+   .btn is the shared base; pick one variant class per button.
+   Hover/active colors come straight from the *Hover State*
+   component frames in Figma.
+============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--radius-button);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-button-size);
+  line-height: var(--text-button-lh);
+  letter-spacing: var(--text-button-ls);
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--color-primary-default);
+  color: var(--color-text-on-dark);
+}
+.btn-primary:hover { background: var(--color-primary-hover); }
+.btn-primary:active { background: var(--color-primary-active); }
+
+/* Primary + trailing icon — Figma only defines Default/Press (no
+   separate hover shade), so Press is used as the hover color. */
+.btn-primary-icon {
+  background: var(--color-primary-default);
+  color: var(--color-text-on-dark);
+}
+.btn-primary-icon:hover { background: var(--color-primary-active); }
+.btn-primary-icon img { width: 24px; height: 24px; transform: rotate(90deg); }
+
+.btn-secondary {
+  height: 48px;
+  min-height: 48px;
+  background: var(--color-bg);
+  color: var(--color-secondary-text);
+  border: 1px solid var(--color-secondary-border);
+}
+.btn-secondary:hover {
+  background: var(--color-secondary-hover-bg);
+  border-width: 2px;
+}
+
+.btn-tertiary {
+  background: var(--color-bg);
+  color: var(--color-tertiary-text);
+  text-decoration: underline;
+}
+.btn-tertiary:hover { background: var(--color-tertiary-hover-bg); }
+
+.btn-discord {
+  height: 48px;
+  min-height: 48px;
+  padding: 12px 16px;
+  background: var(--color-discord-default);
+  color: var(--color-text-on-dark);
+  transition: background-color 300ms ease;
+}
+.btn-discord:hover { background: var(--color-discord-hover); }
+.btn-discord:active { background: var(--color-discord-active); }
+.btn-discord img { width: 24px; height: 24px; }
+
+/* ============================================================
+   NAV LINKS
+   Transparent border by default, colored on hover — avoids the
+   1px text jump you'd get from adding a border only on :hover.
+============================================================ */
+.main-nav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-lh);
+  letter-spacing: var(--text-body-ls);
+  white-space: nowrap;
+  border-bottom: 1px solid transparent;
+}
+.main-nav__link:hover {
+  border-bottom-color: var(--color-text);
+}
+
+.main-nav__chevron {
+  width: 24px;
+  height: 24px;
+  transform: rotate(180deg);
+  transition: transform 0.15s ease;
+}
+
+/* ============================================================
+   HEADER / NAV
+============================================================ */
+.site-header {
+  width: 100%;
+  background: var(--color-nav-bg);
+  flex-shrink: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 30;
+}
+
+.site-header__inner {
+  width: 100%;
+  padding: 12px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.site-logo img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* "Getting Started" dropdown trigger + overlay */
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown:hover .main-nav__link {
+  border-bottom-color: var(--color-text);
+}
+.nav-dropdown:hover .main-nav__chevron {
+  transform: rotate(0deg);
+}
+
+.nav-dropdown__panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: max-content;
+  min-width: 100%;
+  background: var(--color-nav-bg);
+  padding: 12px;
+  border-radius: 0 0 var(--radius-button) 0;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease;
+}
+
+.nav-dropdown:hover .nav-dropdown__panel {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav-dropdown__panel a {
+  display: block;
+  font-size: var(--text-body-size);
+  letter-spacing: var(--text-body-ls);
+  white-space: nowrap;
+  border-bottom: 1px solid transparent;
+}
+.nav-dropdown__panel a:hover {
+  border-bottom-color: var(--color-text);
+}
+
+/* ============================================================
+   PAGE CONTENT
+   Intentionally unstyled/unconstrained — flex: 1 0 auto lets it
+   grow to whatever height its content needs (sticky-footer
+   pattern), and there is no max-height/overflow:hidden anywhere
+   in this file, so long content is never cut off.
+============================================================ */
+.page-content {
+  flex: 1 0 auto;
+  width: 100%;
+}
+
+/* ============================================================
+   HERO
+   Full-width banner with a bottom-left title/subtitle over a
+   darkening gradient. This is example page content (like the
+   Figma "Frame 48" DinoDex hero) — swap .hero__bg's image and
+   the text for your own page, or delete the whole section if
+   your page doesn't use this pattern. Title/subtitle sizing
+   matches .text-title / .text-subtitle-1 from the type scale;
+   the text block's side margins match the 12-col grid (48px).
+============================================================ */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--color-text-secondary); /* dark gray placeholder — drop an <img> back in here to swap in a real photo/illustration */
+}
+
+.hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 68%; /* matches the pan/crop set in Figma for this image */
+}
+
+.hero__gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to bottom, rgba(102, 102, 102, 0) 0%, rgba(0, 0, 0, 0.7) 75%);
+  pointer-events: none;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 16px var(--grid-margin);
+}
+
+.hero__title {
+  margin: 0 0 8px;
+  font-family: var(--font-heading);
+  font-size: var(--text-title-size);
+  line-height: var(--text-title-lh);
+  letter-spacing: var(--text-title-ls);
+  color: var(--color-text-on-dark);
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.hero__subtitle {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-subtitle1-size);
+  line-height: var(--text-subtitle1-lh);
+  letter-spacing: var(--text-subtitle1-ls);
+  color: var(--color-text-on-dark);
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* ============================================================
+   FOOTER
+============================================================ */
+.site-footer {
+  width: 100%;
+  flex-shrink: 0;
+  background: linear-gradient(to top, var(--color-footer-gradient-start), var(--color-footer-gradient-end));
+}
+
+/* The grass art is a single ~657px-wide clump, not a seamless tile — Figma
+   built the strip by overlapping 3 copies 452px apart (205px of overlap
+   each), not by repeating it edge-to-edge. Plain background-repeat shows
+   that seam as gaps with the footer's blue peeking through, so this
+   reproduces the same manual overlap instead, via stacked background
+   layers, repeated enough times to cover very wide screens. */
+.footer-grass {
+  width: 100%;
+  height: 152px;
+  background-color: var(--color-bg);
+  background-repeat: no-repeat;
+  background-size: 657px 152px;
+  background-image:
+    url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg'),
+    url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg'),
+    url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg'),
+    url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg');
+  background-position:
+    -226px bottom, 226px bottom, 678px bottom, 1130px bottom, 1582px bottom, 2034px bottom,
+    2486px bottom, 2938px bottom, 3390px bottom, 3842px bottom, 4294px bottom, 4746px bottom;
+}
+
+.footer-content {
+  position: relative;
+  width: 100%;
+  padding: 40px 28px;
+}
+
+/* Decorative footer illustrations — positioned to match the 1440px desktop
+   comp. Not part of the responsive spec yet; revisit once one exists. */
+.footer-deco {
+  position: absolute;
+  pointer-events: none;
+}
+
+/* Left-anchored — these sit near the left-aligned columns/copyright,
+   so they stay pinned to the true left edge at any width. */
+.footer-deco--flower-tl    { left: 0px;   top: 0px;   width: 40px; height: 40px; }
+.footer-deco--flower-mid   { left: 478px; top: 226px; width: 40px; height: 40px; }
+
+/* Right-anchored — these were positioned relative to the right edge of
+   the 1440px comp, so they're pinned via `right` (1440 - left - width)
+   instead of `left`, and track the true right edge at any width now
+   that .footer-content is fluid rather than capped at 1440. */
+.footer-deco--cloud1-back  { right: 294px; top: 61px;   width: 65px; height: 34px; }
+.footer-deco--cloud1-front { right: 292px; top: 59px;   width: 64px; height: 34px; }
+.footer-deco--cloud2-back  { right: 165px; top: 20px;   width: 85px; height: 45px; }
+.footer-deco--cloud2-front { right: 162px; top: 18px;   width: 84px; height: 45px; }
+.footer-deco--cloud3-back  { right: 65px;  top: 78px;   width: 61px; height: 33px; }
+.footer-deco--cloud3-front { right: 62px;  top: 77px;   width: 61px; height: 33px; }
+.footer-deco--dino-single  { right: 213px; top: 173px;  width: 85px; height: 132px; }
+.footer-deco--dino-duo     { right: 126px; bottom: 9px; width: 81px; height: 107px; }
+.footer-deco--flower-small-1 { right: 28px; bottom: 7px; width: 39px; height: 43px; }
+.footer-deco--flower-small-2 { right: 70px; bottom: 7px; width: 29px; height: 32px; }
+
+.footer-columns {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 57px;
+  margin-bottom: 48px;
+}
+
+.footer-column__title {
+  margin: 0 0 12px;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  color: var(--color-text);
+}
+
+.footer-column__links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-column__links a {
+  font-size: 20px;
+  letter-spacing: 0.4px;
+  border-bottom: 1px solid transparent;
+}
+.footer-column__links a:hover {
+  border-bottom-color: var(--color-text);
+}
+
+.footer-bottom {
+  position: relative;
+  z-index: 1;
+  max-width: 822px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-copyright {
+  margin: 0;
+  font-size: 16px;
+  color: var(--color-text-muted);
+}
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-social__icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-pill);
+  background: var(--color-social-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ============================================================
+   MOBILE SAFETY NET (temporary)
+   Not a real mobile design — there isn't one yet. This is just
+   defensive CSS so nothing visually breaks (horizontal overflow,
+   overlapping footer art, an oversized fixed-height hero) if the
+   template gets viewed on a narrow screen in the meantime.
+   The layout doesn't change shape at any width: nav stays one
+   horizontal row (it scrolls sideways if it doesn't fit, rather
+   than wrapping and colliding with the hero below), the hero
+   stays a single full-width banner, the footer keeps the same
+   column layout. Replace this whole block once real mobile
+   designs exist — don't build on top of it.
+============================================================ */
+body {
+  overflow-x: hidden;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --grid-margin: 20px;
+    --text-title-size: 32px;
+    --text-h1-size: 26px;
+    --text-h2-size: 22px;
+    --text-h3-size: 19px;
+  }
+
+  .site-header__inner {
+    padding: 8px 16px;
+    gap: 16px;
+  }
+
+  .site-logo img {
+    width: 52px;
+    height: 52px;
+  }
+
+  /* Lets the nav links scroll sideways instead of wrapping —
+     wrapping would make the fixed header taller than the
+     --nav-height reserved for it, which would hide part of the
+     hero underneath it. */
+  .main-nav {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    scrollbar-width: none;
+  }
+  .main-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .btn-discord {
+    padding: 10px 14px;
+    font-size: 15px;
+  }
+
+  .hero {
+    height: 340px;
+  }
+
+  /* Positioned with fixed px offsets meant for the 1440px comp —
+     at phone widths they'd overlap the footer columns/copyright
+     instead of sitting in open space, so they're hidden rather
+     than guessed at. */
+  .footer-deco {
+    display: none;
+  }
+
+  .margin-marker {
+    height: 180px;
+    margin: 48px 0;
+    padding: 16px;
+    font-size: 14px;
+  }
+}
+
+.footer-social__icon img {
+  width: 24px;
+  height: 24px;
+}
