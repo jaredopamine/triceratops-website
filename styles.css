@@ -602,7 +602,8 @@ ul {
 }
 
 /* ============================================================
-   MOBILE (≤640px)
+   MOBILE (≤640px, plus phones held sideways: landscape, ≤500px
+   tall, ≤960px wide)
    The footer and the hamburger header follow the Figma mobile
    comps ("Mobile Footer", "Mobile Hamburger Menu"). The rest is
    still the old safety net: headers that haven't opted into
@@ -613,7 +614,7 @@ body {
   overflow-x: hidden;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 640px), (orientation: landscape) and (max-height: 500px) and (max-width: 960px) {
   :root {
     --grid-margin: 20px;
     --text-title-size: 32px;
@@ -714,9 +715,11 @@ body {
     background-size: 165.307px 44.924px;
     background-image:
       url('assets/grass-mobile.svg'), url('assets/grass-mobile.svg'), url('assets/grass-mobile.svg'),
+      url('assets/grass-mobile.svg'), url('assets/grass-mobile.svg'), url('assets/grass-mobile.svg'),
       url('assets/grass-mobile.svg'), url('assets/grass-mobile.svg');
     background-position:
-      113.72px bottom, 227.69px bottom, 341.66px bottom, 455.63px bottom, 569.6px bottom;
+      113.72px bottom, 227.69px bottom, 341.66px bottom, 455.63px bottom, 569.6px bottom,
+      683.57px bottom, 797.54px bottom, 911.51px bottom; /* enough copies for landscape phones */
   }
   .footer-grass::before {
     content: '';
@@ -790,6 +793,16 @@ body {
     padding: 16px;
     font-size: 14px;
   }
+}
+
+/* Landscape phones (Figma "Mobile Horizontal Page", 853px): same footer,
+   but the right-hand clouds keep their left offsets from the 393px comp
+   instead of hugging the (now far away) right edge. */
+@media (orientation: landscape) and (max-height: 500px) and (min-width: 641px) and (max-width: 960px) {
+  .footer-deco--cloud2-back  { left: 264px;    right: auto; }
+  .footer-deco--cloud2-front { left: 268px;    right: auto; }
+  .footer-deco--cloud3-back  { left: 352px;    right: auto; }
+  .footer-deco--cloud3-front { left: 354.89px; right: auto; }
 }
 
 .footer-social__icon img {

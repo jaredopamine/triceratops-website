@@ -784,12 +784,13 @@ html.has-overlay { overflow: hidden; }
 }
 
 /* ============================================================
-   MOBILE (≤640px)
+   MOBILE (≤640px, plus phones held sideways — see the landscape
+   block below for what changes there)
    From the Figma "V2 Getting Started: Beginner's Guide Mobile
    Vertical Page" frame (393px wide): 24px side margins, 48px
    between sections, mobile type scale (H2 26 / H3 20 / body 16).
 ============================================================ */
-@media (max-width: 640px) {
+@media (max-width: 640px), (orientation: landscape) and (max-height: 500px) and (max-width: 960px) {
   :root { --nav-height: 76px; } /* 52px logo + 12px padding */
 
   /* ---------- Hero ---------- */
@@ -1009,4 +1010,68 @@ html.has-overlay { overflow: hidden; }
   .faq-item__a-body { padding: 0 19px 16px; font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; }
   .faq__more p { font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; }
   .faq__more .gs-btn { line-height: 1.3; letter-spacing: 0.8px; }
+}
+
+/* ============================================================
+   LANDSCAPE PHONES (641–960px wide, ≤500px tall)
+   From the Figma "Getting Started: Beginner's Guide Mobile
+   Horizontal Page" frame (853px wide). Everything from the mobile
+   block above still applies; this widens it to a centred 752px
+   column and puts a few things side by side.
+============================================================ */
+@media (orientation: landscape) and (max-height: 500px) and (min-width: 641px) and (max-width: 960px) {
+  /* ---------- Hero: full-width text block, bottom-left ---------- */
+  .hero--getting-started { height: 299px; }
+  .hero--getting-started .hero__content { gap: 8px; max-width: 752px; padding: 16px 0; }
+
+  /* ---------- 752px content column (50.5px margins at 853px) ---------- */
+  .gs-stack { padding-left: max(24px, calc((100% - 752px) / 2)); padding-right: max(24px, calc((100% - 752px) / 2)); }
+
+  /* ---------- Drop notifications: screenshot left, picker + step right ---------- */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 345px)); /* 345px each at 853px, shrinking on smaller phones */
+    grid-template-areas: "image nums" "image text";
+    grid-template-rows: auto 1fr;
+    justify-content: space-between;
+    align-items: start;
+    gap: 24px 24px;
+  }
+  .steps__images { grid-area: image; }
+  .steps__nums { grid-area: nums; }
+  .steps__list { grid-area: text; }
+
+  /* ---------- Join Discord CTA: title wraps in a 345px block, as in the comp ---------- */
+  .gs-cta__title { max-width: 345px; }
+
+  /* ---------- When & where: one row of cards that scrolls sideways ---------- */
+  #when-and-where { gap: 24px; }
+  #when-and-where .info-cards {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  #when-and-where .info-cards::-webkit-scrollbar { display: none; }
+  #when-and-where .info-card { flex: 0 0 345px; scroll-snap-align: start; }
+
+  /* ---------- What to do / not to do: side by side ---------- */
+  #during-drops .do-dont { grid-template-columns: 1fr 1fr; align-items: start; }
+  #during-drops .do-card { max-width: none; }
+  #during-drops .do-card__list { max-width: 251px; }
+
+  /* ---------- After finding a dino ---------- */
+  .after-find__item:first-child .after-find__shot { height: 358px; }
+
+  /* ---------- Drop types: wider carousels, centred when they fit ---------- */
+  .types__heading { padding: 0 max(24px, calc((100% - 751px) / 2)); }
+  .types__panel,
+  .types__panel--common,
+  .types__panel--rare { width: 759px; justify-content: safe center; }
+
+  /* ---------- FAQ: one-line title, 761px questions ---------- */
+  .faq { padding: 46px 46px 38px; }
+  .faq__title h2 { width: auto; white-space: nowrap; }
 }

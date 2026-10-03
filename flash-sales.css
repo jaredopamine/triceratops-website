@@ -141,7 +141,7 @@
    cards) already apply; this only covers where this comp differs.
    Every block is 48px apart here — no spacers, clouds or flowers.
 ============================================================ */
-@media (max-width: 640px) {
+@media (max-width: 640px), (orientation: landscape) and (max-height: 500px) and (max-width: 960px) {
   /* ---------- Hero ---------- */
   .hero--flash-sales { height: 244px; justify-content: center; }
   .hero--flash-sales .hero__bg img { object-position: center; }
@@ -229,4 +229,12 @@
   .fs-claim .do-card__list li { border-top-color: var(--color-accent-lightblue); }
   .fs-claim .do-card__list li:first-child strong { font-weight: 700; }
   .fs-claim .do-card__list p + p { margin-top: 24px; }
+}
+
+/* Landscape phones — there's no landscape comp for this page, so it
+   follows the Getting Started landscape layout (752px column from
+   getting-started.css); only the hero needs matching here. */
+@media (orientation: landscape) and (max-height: 500px) and (min-width: 641px) and (max-width: 960px) {
+  .hero--flash-sales { height: 299px; }
+  .hero--flash-sales .hero__content { gap: 8px; max-width: 752px; padding: 16px 0; }
 }
