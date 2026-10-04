@@ -12,8 +12,9 @@
 
   <style>
     /* ============================================================
-       Triceratops Club — Rules page  (desktop, top half)
-       Sections: nav · hero · General Rules · Hunt Rules · Flash Sale Rules
+       Triceratops Club — Rules page  (desktop)
+       Sections: nav · hero · General Rules · Hunt Rules · Flash Sale Rules ·
+                 Post-Claim Steps · FAQ · CTA banner · footer
        ============================================================ */
 
     @font-face {
@@ -240,7 +241,21 @@
       gap: 22px 22px;
       align-items: start;
     }
-    .card-grid--stagger > :nth-child(even) { margin-top: 72px; }
+    /* Hunt Rules uses two independent columns (not a shared grid) so each
+       column's own card-to-card gap stays a uniform 32px regardless of how
+       tall the card is in the opposite column on a given row. */
+    .card-grid--stagger {
+      display: flex;
+      align-items: flex-start;
+      gap: 32px;
+    }
+    .card-col {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      flex: 1;
+      min-width: 0;
+    }
 
     .rule-card { display: flex; flex-direction: column; }
 
@@ -261,7 +276,7 @@
     .rule-card__body {
       background: var(--off-white);
       border: 4px solid var(--ink);
-      border-radius: 12px 12px 20px 20px;
+      border-radius: 0 0 20px 20px;
       padding: 32px clamp(24px, 4vw, 50px);
       display: flex;
       flex-direction: column;
@@ -394,13 +409,447 @@
     .flash-num--2 { background: var(--blue); }
     .flash-num--3 { background: var(--yellow); }
 
-    .flower-row {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      margin-top: 48px;
+    .section--flash { padding-bottom: 0; }
+    .scenery-strip-wrap {
+      overflow: hidden;
+      width: 100%;
+      margin-top: 72px;
+      /* more negative = graphic sits lower on the grass (feet land near its baseline) */
+      margin-bottom: -104px;
+      position: relative;
+      z-index: 1;
     }
-    .flower-row img { width: 80px; height: auto; }
+    .scenery-strip {
+      display: block;
+      width: 100%;
+      height: clamp(160px, 20vw, 280px);
+      object-fit: cover;
+      /* crop toward the bottom (feet in the grass) and bias the crop
+         window rightward, matching the source illustration's framing */
+      object-position: 65% 100%;
+    }
+
+    /* ---------- Post-Claim Steps -------------------------------- */
+
+    /* The grass hangs off the TOP edge of the green box (bottom: 100%), so
+       its blades rise into the white page like the footer's do, and it sits
+       behind the costume graphic (which has z-index: 1). That means no
+       overflow clipping here, and the space the divider used to take in
+       flow is now top padding instead. */
+    .section.section--claim {
+      background: var(--green) url("assets/post-claim-graphic.svg") repeat-y top center / 100% auto;
+      margin-top: 72px;
+      padding-top: clamp(32px, 6vw, 56px);
+    }
+    .grass-divider {
+      position: absolute;
+      z-index: 0;
+      bottom: 100%;
+      left: 0;
+      width: 100%;
+      height: 72px;
+      background-color: transparent;
+      /* two half-tile-offset layers, see .site-footer__grass */
+      background-image: url("assets/grass.svg"), url("assets/grass.svg");
+      background-repeat: repeat-x, repeat-x;
+      background-size: 280px 72px, 280px 72px;
+      background-position: 0 100%, 140px 100%;
+    }
+
+    .claim-steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 56px;
+    }
+    .claim-step { display: flex; align-items: center; gap: 40px; }
+    /* content block is ~988px and centered in the Figma, not full container width */
+    .claim-container { position: relative; width: min(988px, 100% - (var(--gutter) * 2)); }
+    /* the yellow dino is its own element (not baked into the background) so it
+       can sit right of the heading, above the step text, at any viewport width */
+    .claim-dino {
+      position: absolute;
+      z-index: 1;
+      top: 48px;
+      right: 20px;
+      width: 120px;
+      height: auto;
+      pointer-events: none;
+    }
+    .claim-step__photo {
+      flex: none;
+      width: 85px;
+      height: 85px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--blonde);
+      padding: 18px;
+      box-sizing: content-box;
+    }
+    .claim-step p { margin: 0; line-height: 1.5; }
+
+    /* ---------- FAQ ------------------------------------------- */
+
+    .section--faq {
+      padding-top: clamp(48px, 8vw, 72px);
+      padding-bottom: max(72px, calc(var(--fu) * 163));
+      overflow-x: clip;
+    }
+
+    /* Everything in this heading is sized in % of .faq-heading itself
+       (rather than fixed px) so the whole composition scales together and
+       keeps the same proportions at any container width — fixed px here
+       previously looked right only near one specific viewport width and
+       shrank to a disproportionately small corner at wider ones. */
+    .faq-heading {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 780 / 310;
+      margin-bottom: 32px;
+    }
+    /* The cloud SVG's own viewBox has a lot of empty padding around the
+       drawn outline, which made it render tiny/cramped. Crop that padding
+       away with a fixed-aspect box + object-fit: cover instead of showing
+       the whole (mostly blank) square. */
+    .faq-cloud {
+      position: absolute;
+      left: 2.56%;
+      top: 9.68%;
+      width: 53.85%;
+      height: 82.26%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .faq-cloud__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .faq-cloud .section__title {
+      position: relative;
+      margin-top: 12%;
+      /* Figma H2 token: 36px / 120% (line-height comes from the h2 base rule) */
+      font-size: clamp(18px, 2.5vw, 36px);
+      padding-inline: 4%;
+      text-align: left;
+      white-space: nowrap;
+    }
+    /* small flower dots scattered inside the cloud outline, in a tight
+       triangle: pink at the apex, teal/yellow forming the base */
+    .faq-cloud__dot {
+      position: absolute;
+      /* same rendered size as the purple flower on the right: that one is
+         32.86% of the extras box (17.95% of the heading) = 5.9% of the
+         heading, and the cloud is 53.85% of the heading -> 10.95% of the cloud */
+      width: 10.95%;
+      height: auto;
+    }
+    .faq-cloud__dot--1 { top: 14%; left: 45.5%; }
+    .faq-cloud__dot--2 { top: 30.5%; left: 39.3%; }
+    .faq-cloud__dot--3 { top: 30.5%; left: 51.8%; }
+
+    /* pink squiggle arrow sitting on top of the cloud, right side */
+    .faq-heading__arrow {
+      position: absolute;
+      left: 47.44%;
+      top: 7%;
+      width: 5.13%;
+      height: auto;
+      pointer-events: none;
+    }
+    /* decorative cluster to the right of the cloud */
+    .faq-heading__extras {
+      position: absolute;
+      left: 78.21%;
+      top: 17.74%;
+      width: 17.95%;
+      height: 35.48%;
+      pointer-events: none;
+    }
+    .faq-heading__extras img { position: absolute; }
+    .faq-heading__extras .blob-purple { width: 32.86%; top: 0; left: 35%; }
+    .faq-heading__extras .face-blue   { width: 32.86%; top: 40.91%; left: 0; }
+    .faq-heading__extras .face-yellow { width: 32.86%; top: 40.91%; left: 64.29%; }
+    /* cream blob below the extras cluster */
+    .faq-heading__cream {
+      position: absolute;
+      left: 62.82%;
+      top: 62.9%;
+      width: 11.54%;
+      height: auto;
+      pointer-events: none;
+      transform: rotate(-45deg);
+    }
+
+    /* align-items: flex-start keeps each card sized to its own content
+       (mascot + bubble) instead of stretching to the full row width, which
+       was also throwing off the peek stickers' positioning since they
+       anchor to the card's own edge. --right cards pin to the far edge via
+       align-self so they still sit opposite the default (left) cards. */
+    .faq-list { position: relative; display: flex; flex-direction: column; gap: 62px; align-items: flex-start; }
+
+    /* Pastel blobs bleeding off the page edges. Horizontal offsets are in
+       Figma-frame units (1 unit = 100vw/1440) measured from the viewport's
+       edge, via (100% - 100vw)/2 = distance from the list's left edge to the
+       viewport's left edge. Vertical offsets are measured from the cards. */
+    :root { --fu: calc(100vw / 1440); }
+    .blob-edge { position: absolute; z-index: 0; pointer-events: none; max-width: none; }
+    .blob-edge--cream {
+      left: calc((100% - 100vw) / 2 + var(--fu) * -117);
+      top: 194px;
+      width: calc(var(--fu) * 281);
+      height: calc(var(--fu) * 92);
+    }
+    .blob-edge--pink-right {
+      left: calc((100% - 100vw) / 2 + var(--fu) * 1327);
+      top: 288px;
+      width: calc(var(--fu) * 180.15);
+      height: calc(var(--fu) * 199);
+    }
+    .blob-edge--pink-left {
+      left: calc((100% - 100vw) / 2 + var(--fu) * -67);
+      top: 910px;
+      width: calc(var(--fu) * 180.15);
+      height: calc(var(--fu) * 199);
+    }
+    /* Placement follows the Figma frame (1 unit = 100vw/1440, from the viewport's
+       left edge; (100vw - 100%)/2 converts that to this container's own edge):
+       mascot 187u at x=184 with a 184u gap to the bubble on the default cards;
+       the --right card's bubble starts at x=113 with a 145u gap to a 181u mascot.
+       Mascots sit a little above each card's centre (--lift), as in the design. */
+    .faq-card { position: relative; display: flex; align-items: center; gap: calc(var(--fu) * 183.8);
+      margin-left: calc(var(--fu) * 184 - (100vw - 100%) / 2); }
+    .faq-card--right { flex-direction: row-reverse; gap: calc(var(--fu) * 145.4);
+      margin-left: calc(var(--fu) * 113 - (100vw - 100%) / 2); }
+    .faq-list article:nth-of-type(1) { --lift: calc(var(--fu) * 61); }
+    .faq-list article:nth-of-type(2) { --lift: calc(var(--fu) * 18); }
+    .faq-list article:nth-of-type(3) { --lift: calc(var(--fu) * 22); }
+    .faq-card__mascot { flex: none; width: calc(var(--fu) * 187); height: auto; z-index: 1;
+      transform: translateY(calc(var(--lift, 0px) * -1)); }
+    .faq-card--right .faq-card__mascot { width: calc(var(--fu) * 181); }
+    /* the mascot art faces left by default; mirror it on the cards where
+       the mascot sits to the left of the bubble, so it faces inward */
+    .faq-card:not(.faq-card--right) .faq-card__mascot { transform: translateY(calc(var(--lift, 0px) * -1)) scaleX(-1); }
+    .faq-card__bubble {
+      position: relative;
+      z-index: 1;
+      flex: 0 1 802.57px;
+      height: 290px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--off-white);
+      border: 4px solid var(--card-accent, var(--green));
+      border-radius: 20px;
+      padding: 24px clamp(20px, 3vw, 32px);
+    }
+    /* speech-bubble tail, pointing at the mascot on either side */
+    .faq-card__bubble::before {
+      content: "";
+      position: absolute;
+      top: 32px;
+      left: -13px;
+      width: 22px;
+      height: 22px;
+      background: var(--off-white);
+      border-left: 4px solid var(--card-accent, var(--green));
+      border-bottom: 4px solid var(--card-accent, var(--green));
+      transform: rotate(45deg);
+    }
+    .faq-card--right .faq-card__bubble::before {
+      left: auto;
+      right: -13px;
+      border-left: 0;
+      border-bottom: 0;
+      border-right: 4px solid var(--card-accent, var(--green));
+      border-top: 4px solid var(--card-accent, var(--green));
+    }
+    .faq-card__bubble h3 {
+      font-family: var(--font-head);
+      font-weight: 400;
+      font-size: clamp(20px, 2.4vw, 28px);
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+    .faq-card__bubble p {
+      margin: 0;
+      padding-left: 20px;
+      border-left: 4px solid var(--card-accent, var(--green));
+      line-height: 1.5;
+    }
+    /* small creature peeking out from behind each card */
+    .faq-card__peek {
+      position: absolute;
+      z-index: 0;
+      top: calc(var(--fu) * -49);
+      width: calc(var(--fu) * 72.4);
+      height: auto;
+    }
+    .faq-card:not(.faq-card--right) .faq-card__peek { right: calc(var(--fu) * 86); }
+    .faq-card--right .faq-card__peek { left: calc(var(--fu) * 65); }
+
+    /* ---------- CTA banner ------------------------------------ */
+
+    .section--cta { overflow-x: clip; }
+    .blob-edge--teal {
+      right: calc(var(--fu) * -102);
+      top: calc(100% - 114px);
+      width: calc(var(--fu) * 200.84);
+      height: calc(var(--fu) * 204.6);
+    }
+    /* --u = 1 Figma unit of the 1225px-wide banner, so the stickers keep their
+       exact placement around the banner as it scales */
+    .cta-wrap { position: relative; container-type: inline-size; --u: calc(100cqw / 1225);
+      width: calc(var(--fu) * 1225); margin-left: calc(var(--fu) * 113 - (100vw - 100%) / 2); }
+    .cta-decor { position: absolute; max-width: none; pointer-events: none; }
+    .cta-decor--flower-teal {
+      width: calc(var(--u) * 118.14); height: calc(var(--u) * 116.38);
+      left: calc(var(--u) * 16.4); top: calc(var(--u) * -262.7);
+      transform: rotate(29.74deg);
+    }
+    .cta-decor--flower-yellow {
+      width: calc(var(--u) * 42.49); height: calc(var(--u) * 44.26);
+      left: calc(var(--u) * -25.7); top: calc(var(--u) * -142.4);
+      transform: rotate(-29.31deg);
+    }
+    .cta-decor--daisy {
+      width: calc(var(--u) * 88.97); height: calc(var(--u) * 95.21);
+      left: calc(var(--u) * 7); top: calc(var(--u) * -81);
+    }
+    .cta-decor--sprouts {
+      width: calc(var(--u) * 200.16); height: calc(var(--u) * 99.02);
+      left: calc(var(--u) * 978.8); top: calc(var(--u) * -99);
+    }
+    .cta-decor--flower-pink {
+      z-index: 2;
+      width: calc(var(--u) * 119.13); height: calc(var(--u) * 115.38);
+      /* sits on the corner/sprout base but ends above the text's first line (~46u) */
+      left: calc(var(--u) * 1100); top: calc(var(--u) * -72);
+    }
+    .cta-wrap .cta-banner { position: relative; z-index: 1; }
+    .cta-banner {
+      border: 4px solid var(--purple);
+      background: rgba(136, 153, 250, 0.1);
+      border-radius: 20px;
+      padding: clamp(32px, 5vw, 48px) clamp(24px, 5vw, 64px);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+    .cta-banner__text {
+      margin: 0;
+      font-family: var(--font-head);
+      font-weight: 400;
+      font-size: clamp(22px, 3vw, 36px);
+      line-height: 1.3;
+    }
+    /* the question gets its own line; "Ask in #rules-help on Discord." follows below */
+    .cta-banner__line { display: block; }
+    .cta-banner__text a { color: var(--purple); text-decoration: none; }
+    .cta-banner__text a:hover { text-decoration: underline; }
+    .cta-banner__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--green);
+      color: var(--off-white);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.05em;
+      padding: 12px 24px;
+      border-radius: 16px;
+      text-decoration: none;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+    .cta-banner__btn:hover { filter: brightness(1.07); transform: translateY(-1px); }
+
+    /* ---------- Footer ------------------------------------------ */
+
+    /* gradient runs lavender (bottom) -> cyan (top), as in the Figma footer */
+    .site-footer {
+      position: relative;
+      background: linear-gradient(to top, #e6f0ff, #d8f5ff);
+    }
+    /* The grass sits entirely ABOVE the footer fill (bottom edge flush with
+       the footer's top edge) on a transparent background, so only the page's
+       white shows between blades — none of the footer's tint. */
+    .site-footer__grass {
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      width: 100%;
+      height: 72px;
+      background-color: transparent;
+      /* Each tile has slanted left/right edges, so plain repeat-x leaves a
+         notch at every seam. Two copies offset by half a tile put a tile
+         body behind every seam of the other layer, so the blades overlap
+         into one continuous strip. */
+      background-image: url("assets/grass.svg"), url("assets/grass.svg");
+      background-repeat: repeat-x, repeat-x;
+      background-size: 280px 72px, 280px 72px;
+      background-position: 0 100%, 140px 100%;
+    }
+    .site-footer__inner { padding-block: 40px; }
+    /* extra room so the 72px grass strip above the footer clears the banner */
+    .section--cta { padding-bottom: 144px; }
+
+    .footer-cols {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      padding-bottom: 32px;
+    }
+    .footer-col { flex: 1 1 140px; min-width: 140px; }
+    .footer-col h3 {
+      font-family: var(--font-head);
+      font-weight: 400;
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+    .footer-col h3 a { text-decoration: none; }
+    .footer-col h3 a:hover { text-decoration: underline; }
+    .footer-col ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 20px;
+      color: var(--ink);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(61, 61, 61, 0.15);
+    }
+    .footer-bottom p { margin: 0; font-size: 16px; }
+    .footer-social { display: flex; gap: 8px; }
+    .footer-social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #000;
+    }
+    .footer-social img { width: 18px; height: 18px; }
 
     /* ---------- Reveal animation (only when JS is active) ---- */
     .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -409,10 +858,24 @@
     /* ---------- Responsive ---------------------------------- */
 
     @media (max-width: 1000px) {
+      .blob-edge, .cta-decor, .claim-dino { display: none; }
+      .faq-card, .faq-card--right { margin-left: 0; gap: 24px; align-self: center; }
+      .faq-card__mascot, .faq-card--right .faq-card__mascot { transform: none; }
+      .faq-card:not(.faq-card--right) .faq-card__mascot { transform: scaleX(-1); }
+      .cta-wrap { width: auto; margin-left: 0; }
       .card-grid { grid-template-columns: 1fr; }
-      .card-grid--stagger > :nth-child(even) { margin-top: 0; }
+      .card-grid--stagger { flex-direction: column; }
       .flash-points { grid-template-columns: 1fr; }
       .section__dino { width: 120px; }
+      .faq-card, .faq-card--right { flex-direction: column; }
+      .faq-card__mascot, .faq-card--right .faq-card__mascot { width: 96px; }
+      .faq-card__bubble { height: auto; flex-basis: auto; }
+      .faq-card__bubble::before { display: none; }
+      .faq-card__peek { display: none; }
+      .faq-heading { width: 100%; height: auto; padding-block: 32px; display: flex; justify-content: center; }
+      .faq-cloud { position: static; width: min(320px, 90%); height: 200px; }
+      .faq-cloud .section__title { white-space: normal; text-align: center; }
+      .faq-heading__arrow, .faq-heading__extras, .faq-heading__cream { display: none; }
     }
 
     @media (max-width: 860px) {
@@ -443,6 +906,8 @@
       .nav__links.is-open { display: flex; }
       .section__head { flex-direction: column; }
       .section__dino { align-self: flex-end; margin-top: -12px; }
+      .claim-step { flex-direction: column; text-align: center; gap: 16px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -555,104 +1020,108 @@
         </div>
 
         <div class="card-grid card-grid--stagger reveal">
-          <!-- Outdoors Only -->
-          <article class="rule-card accent-green">
-            <div class="rule-card__head">
-              <img src="assets/icons/location.svg" alt="">
-              <h3>Outdoors Only</h3>
-            </div>
-            <div class="rule-card__body">
-              <p class="rule-lead">Most dinos or event materials will be hidden outdoors.</p>
-              <ul class="rule-list">
-                <li>Dinos will only be hidden inside if stated specifically by the dropper.</li>
-                <li>Be respectful to those around you. The goal is safety and giving others space.</li>
-                <li>If dinos are hidden inside, <strong>be mindful</strong> of your surroundings and other people.</li>
-              </ul>
-            </div>
-          </article>
-
-          <!-- Accessible Spots Only -->
-          <article class="rule-card accent-blue">
-            <div class="rule-card__head">
-              <img src="assets/icons/accessible.svg" alt="">
-              <h3>Accessible Spots Only</h3>
-            </div>
-            <div class="rule-card__body">
-              <p class="rule-lead">Never endanger yourself to access event materials.</p>
-              <ul class="rule-list">
-                <li>Do not trample or damage plants or property of any sort.</li>
-                <li>Dinos will not be placed deeply into bushes.</li>
-                <li>If a dino is displaced somewhere hard to reach, do not risk your personal safety to retrieve it.</li>
-                <li>Stay on the path, <strong>stay out of construction zones</strong>, and leave campus spaces as you found them.</li>
-              </ul>
-            </div>
-          </article>
-
-          <!-- Random Timing -->
-          <article class="rule-card accent-blonde">
-            <div class="rule-card__head">
-              <img src="assets/icons/clock.svg" alt="">
-              <h3>Random Timing</h3>
-            </div>
-            <div class="rule-card__body">
-              <p class="rule-lead">Daily dino drops occur at random.</p>
-              <ul class="rule-list">
-                <li><strong>Timing depends</strong> on the Dropper&rsquo;s personal discretion, schedule, and time permitted.</li>
-                <li>Drops will occur <strong>only during daylight hours.</strong></li>
-              </ul>
-            </div>
-          </article>
-
-          <!-- Don't Ask About Drops -->
-          <article class="rule-card accent-pink">
-            <div class="rule-card__head">
-              <img src="assets/icons/x-circle-2.svg" alt="">
-              <h3>Don&rsquo;t Ask About Drops</h3>
-            </div>
-            <div class="rule-card__body">
-              <p class="rule-lead">Do not ask when or where drops may occur.</p>
-              <ul class="rule-list">
-                <li>Pleading and excessively requesting for drops <strong>may result in corrective action.</strong></li>
-              </ul>
-              <p class="rule-note">Remember that each of our hardworking staff commits their personal time and effort to allow for drops to occur.</p>
-            </div>
-          </article>
-
-          <!-- Adhere to Dino Limits -->
-          <article class="rule-card accent-green">
-            <div class="rule-card__head">
-              <img src="assets/icons/exclamation.svg" alt="">
-              <h3>Adhere to Dino Limits</h3>
-            </div>
-            <div class="rule-card__body">
-              <p class="rule-lead">Each person is limited to:</p>
-              <div class="pill-grid">
-                <span class="pill">1 Monthly Dino per month</span>
-                <span class="pill">1 Milestone Dino</span>
-                <span class="pill">1 Aggieceratops Dino</span>
-                <span class="pill">1 of each type of Special Dino</span>
+          <div class="card-col">
+            <!-- Outdoors Only -->
+            <article class="rule-card accent-green">
+              <div class="rule-card__head">
+                <img src="assets/icons/location.svg" alt="">
+                <h3>Outdoors Only</h3>
               </div>
-              <ul class="rule-list">
-                <li>These limits promote <strong>fairness and equal opportunity</strong> for all event participants.</li>
-                <li>Anyone caught trying to bypass the dino limits will be <strong>banned from the server.</strong></li>
-              </ul>
-            </div>
-          </article>
+              <div class="rule-card__body">
+                <p class="rule-lead">Most dinos or event materials will be hidden outdoors.</p>
+                <ul class="rule-list">
+                  <li>Dinos will only be hidden inside if stated specifically by the dropper.</li>
+                  <li>Be respectful to those around you. The goal is safety and giving others space.</li>
+                  <li>If dinos are hidden inside, <strong>be mindful</strong> of your surroundings and other people.</li>
+                </ul>
+              </div>
+            </article>
 
-          <!-- Flash Sale Rules -->
-          <article class="rule-card accent-blue">
-            <div class="rule-card__head">
-              <img src="assets/icons/flash.svg" alt="">
-              <h3>Flash Sale Rules</h3>
-            </div>
-            <div class="rule-card__body">
-              <p class="rule-lead">For EACH month&rsquo;s flash sale, you can buy one regular and one medium dino.</p>
-              <ul class="rule-list">
-                <li>This rule <strong>resets every year.</strong></li>
-              </ul>
-              <p class="rule-note">e.g. one regular and one medium dino in every flash sale of 2026 &ndash; that resets at the end of 2026 and starts over for 2027.</p>
-            </div>
-          </article>
+            <!-- Random Timing -->
+            <article class="rule-card accent-blonde">
+              <div class="rule-card__head">
+                <img src="assets/icons/clock.svg" alt="">
+                <h3>Random Timing</h3>
+              </div>
+              <div class="rule-card__body">
+                <p class="rule-lead">Daily dino drops occur at random.</p>
+                <ul class="rule-list">
+                  <li><strong>Timing depends</strong> on the Dropper&rsquo;s personal discretion, schedule, and time permitted.</li>
+                  <li>Drops will occur <strong>only during daylight hours.</strong></li>
+                </ul>
+              </div>
+            </article>
+
+            <!-- Adhere to Dino Limits -->
+            <article class="rule-card accent-green">
+              <div class="rule-card__head">
+                <img src="assets/icons/exclamation.svg" alt="">
+                <h3>Adhere to Dino Limits</h3>
+              </div>
+              <div class="rule-card__body">
+                <p class="rule-lead">Each person is limited to:</p>
+                <div class="pill-grid">
+                  <span class="pill">1 Monthly Dino per month</span>
+                  <span class="pill">1 Milestone Dino</span>
+                  <span class="pill">1 Aggieceratops Dino</span>
+                  <span class="pill">1 of each type of Special Dino</span>
+                </div>
+                <ul class="rule-list">
+                  <li>These limits promote <strong>fairness and equal opportunity</strong> for all event participants.</li>
+                  <li>Anyone caught trying to bypass the dino limits will be <strong>banned from the server.</strong></li>
+                </ul>
+              </div>
+            </article>
+          </div>
+
+          <div class="card-col">
+            <!-- Accessible Spots Only -->
+            <article class="rule-card accent-blue">
+              <div class="rule-card__head">
+                <img src="assets/icons/accessible.svg" alt="">
+                <h3>Accessible Spots Only</h3>
+              </div>
+              <div class="rule-card__body">
+                <p class="rule-lead">Never endanger yourself to access event materials.</p>
+                <ul class="rule-list">
+                  <li>Do not trample or damage plants or property of any sort.</li>
+                  <li>Dinos will not be placed deeply into bushes.</li>
+                  <li>If a dino is displaced somewhere hard to reach, do not risk your personal safety to retrieve it.</li>
+                  <li>Stay on the path, <strong>stay out of construction zones</strong>, and leave campus spaces as you found them.</li>
+                </ul>
+              </div>
+            </article>
+
+            <!-- Don't Ask About Drops -->
+            <article class="rule-card accent-pink">
+              <div class="rule-card__head">
+                <img src="assets/icons/x-circle-2.svg" alt="">
+                <h3>Don&rsquo;t Ask About Drops</h3>
+              </div>
+              <div class="rule-card__body">
+                <p class="rule-lead">Do not ask when or where drops may occur.</p>
+                <ul class="rule-list">
+                  <li>Pleading and excessively requesting for drops <strong>may result in corrective action.</strong></li>
+                </ul>
+                <p class="rule-note">Remember that each of our hardworking staff commits their personal time and effort to allow for drops to occur.</p>
+              </div>
+            </article>
+
+            <!-- Flash Sale Rules -->
+            <article class="rule-card accent-blue">
+              <div class="rule-card__head">
+                <img src="assets/icons/flash.svg" alt="">
+                <h3>Flash Sale Rules</h3>
+              </div>
+              <div class="rule-card__body">
+                <p class="rule-lead">For EACH month&rsquo;s flash sale, you can buy one regular and one medium dino.</p>
+                <ul class="rule-list">
+                  <li>This rule <strong>resets every year.</strong></li>
+                </ul>
+                <p class="rule-note">e.g. one regular and one medium dino in every flash sale of 2026 &ndash; that resets at the end of 2026 and starts over for 2027.</p>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
     </section>
@@ -698,15 +1167,174 @@
           </div>
         </div>
 
-        <div class="flower-row reveal" aria-hidden="true">
-          <img src="assets/icons/flower.svg" alt="">
-          <img src="assets/icons/flower.svg" alt="">
-          <img src="assets/icons/flower.svg" alt="">
+      </div>
+      <div class="scenery-strip-wrap reveal">
+        <img class="scenery-strip" src="assets/scenery-costumes.png" alt="Triceratops club mascots in costume, walking through the grass">
+      </div>
+    </section>
+
+    <!-- ============ POST-CLAIM STEPS ============ -->
+    <section class="section section--claim" aria-labelledby="claim-title">
+      <div class="grass-divider" aria-hidden="true"></div>
+      <div class="container claim-container">
+        <img class="claim-dino" src="assets/post-claim-dino.svg" alt="" aria-hidden="true">
+        <div class="section__head reveal">
+          <div class="section__head-text">
+            <h2 class="section__title" id="claim-title">Claimed a dino? Here are your next steps:</h2>
+            <p class="section__subtitle">The next actionable steps post-claim!</p>
+          </div>
+        </div>
+
+        <ol class="claim-steps reveal">
+          <li class="claim-step">
+            <img class="claim-step__photo" src="assets/step-found.png" alt="">
+            <p>After finding a monthly triceratops, make a post in the <strong>#found-triceratops</strong> text channel. This post should include a photo proof of the triceratops.</p>
+          </li>
+          <li class="claim-step">
+            <img class="claim-step__photo" src="assets/step-role.png" alt="">
+            <p>Remember to grab your monthly triceratops parents role in the <strong>#assign-roles</strong> based on the triceratops you just claimed!</p>
+          </li>
+          <li class="claim-step">
+            <img class="claim-step__photo" src="assets/step-enjoy.png" alt="">
+            <p>Enjoy your new dino! We crafted each one with love and hope you like your <strong>one of a kind</strong> Triceratops dino.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="section section--faq" aria-labelledby="faq-title">
+      <div class="container">
+        <div class="faq-heading reveal">
+          <div class="faq-cloud">
+            <img class="faq-cloud__img" src="assets/cloud.svg" alt="" aria-hidden="true">
+            <img class="faq-cloud__dot faq-cloud__dot--1" src="assets/sticker-flower-pink.svg" alt="" aria-hidden="true">
+            <img class="faq-cloud__dot faq-cloud__dot--2" src="assets/sticker-flower-teal.svg" alt="" aria-hidden="true">
+            <img class="faq-cloud__dot faq-cloud__dot--3" src="assets/sticker-flower-yellow.svg" alt="" aria-hidden="true">
+            <h2 class="section__title" id="faq-title">Common Rules Questions</h2>
+          </div>
+          <img class="faq-heading__arrow" src="assets/sticker-arrow-pink.svg" alt="" aria-hidden="true">
+          <div class="faq-heading__extras" aria-hidden="true">
+            <img class="blob-purple" src="assets/sticker-purple-blob.svg" alt="">
+            <img class="face-blue" src="assets/sticker-blue-flower.svg" alt="">
+            <img class="face-yellow" src="assets/sticker-yellow-face.svg" alt="">
+          </div>
+          <img class="faq-heading__cream" src="assets/sticker-cream-blob.svg" alt="" aria-hidden="true">
+        </div>
+
+        <div class="faq-list reveal">
+          <img class="blob-edge blob-edge--cream" src="assets/blob-cream-pill.svg" alt="" aria-hidden="true">
+          <img class="blob-edge blob-edge--pink-right" src="assets/blob-pink-right.svg" alt="" aria-hidden="true">
+          <img class="blob-edge blob-edge--pink-left" src="assets/blob-pink-left.svg" alt="" aria-hidden="true">
+          <article class="faq-card accent-green">
+            <img class="faq-card__peek" src="assets/sticker-peek-green.svg" alt="" aria-hidden="true">
+            <img class="faq-card__mascot" src="assets/bee-dino.png" alt="">
+            <div class="faq-card__bubble">
+              <h3>What if I miss a monthly dino drop? Will I have more chances to hunt for more?</h3>
+              <p>If you miss a monthly dino drop, do not worry; there will certainly be more to come! Dino drops of a certain month will last until the second to last day of the month, so be on the lookout for more drops from our staff.</p>
+            </div>
+          </article>
+
+          <article class="faq-card faq-card--right accent-blue">
+            <img class="faq-card__peek" src="assets/sticker-peek-blue.svg" alt="" aria-hidden="true">
+            <img class="faq-card__mascot" src="assets/bee-dino.png" alt="">
+            <div class="faq-card__bubble">
+              <h3>Staff often drop different types of dinos within a hunt. What if I find a dino type that I already have or am not searching for?</h3>
+              <p>If you find a dino you do not want, carefully hide the dino in the same place. If you are unable to, you may also return the dino to the staff who is in charge of the current hunt.</p>
+            </div>
+          </article>
+
+          <article class="faq-card accent-pink">
+            <img class="faq-card__peek" src="assets/sticker-peek-pink.svg" alt="" aria-hidden="true">
+            <img class="faq-card__mascot" src="assets/bee-dino.png" alt="">
+            <div class="faq-card__bubble">
+              <h3>Any questions on these rules, or about anything at all?</h3>
+              <p>Open a ticket in the <strong>#modmail</strong> channel, and use the command <strong>/tickets open</strong> to ask our staff any questions!</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA BANNER ============ -->
+    <section class="section section--cta" aria-labelledby="cta-title">
+      <img class="blob-edge blob-edge--teal" src="assets/blob-teal.svg" alt="" aria-hidden="true">
+      <div class="container">
+        <div class="cta-wrap">
+          <img class="cta-decor cta-decor--flower-teal" src="assets/cta-flower-teal.svg" alt="" aria-hidden="true">
+          <img class="cta-decor cta-decor--flower-yellow" src="assets/cta-flower-yellow.svg" alt="" aria-hidden="true">
+          <img class="cta-decor cta-decor--daisy" src="assets/cta-daisy.svg" alt="" aria-hidden="true">
+          <img class="cta-decor cta-decor--sprouts" src="assets/cta-sprouts.svg" alt="" aria-hidden="true">
+          <div class="cta-banner reveal">
+            <p class="cta-banner__text" id="cta-title"><span class="cta-banner__line">Still have questions or need more clarification?</span> Ask in <a href="https://discord.gg/" target="_blank" rel="noopener">#rules-help</a> on Discord.</p>
+            <a class="cta-banner__btn" href="https://discord.gg/" target="_blank" rel="noopener">Join the Discord!</a>
+          </div>
+          <img class="cta-decor cta-decor--flower-pink" src="assets/cta-flower-pink.svg" alt="" aria-hidden="true">
         </div>
       </div>
     </section>
 
   </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="site-footer__grass" aria-hidden="true"></div>
+    <div class="site-footer__inner container">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h3><a href="index.html">Home</a></h3>
+          <ul>
+            <li>Testimonials</li>
+            <li>Map</li>
+            <li>Event Calendar</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3><a href="getting-started.html">Getting Started</a></h3>
+          <ul>
+            <li>Set Up Notifs</li>
+            <li>Drop Types</li>
+            <li>FAQ</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3><a href="dinodex.html">DinoDex</a></h3>
+          <ul>
+            <li>Popular Dinos</li>
+            <li>Dino Types</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3><a href="rules.html" aria-current="page">Rules</a></h3>
+          <ul>
+            <li>Claiming Process</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3><a href="about.html">About Us</a></h3>
+          <ul>
+            <li>Get Involved</li>
+            <li>Contact Form</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 UC Davis Triceratops Club | All Rights Reserved</p>
+        <div class="footer-social">
+          <a href="mailto:hello@ucdavistriceratops.org" aria-label="Email us">
+            <img src="assets/icons/email.svg" alt="">
+          </a>
+          <a href="https://discord.gg/" target="_blank" rel="noopener" aria-label="Join our Discord">
+            <img src="assets/icons/discord.svg" alt="">
+          </a>
+          <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Follow us on Instagram">
+            <img src="assets/icons/instagram.svg" alt="">
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <script>
     (function () {
