@@ -915,11 +915,192 @@
       .reveal { opacity: 1; transform: none; transition: none; }
       .nav__cta:hover { transform: none; }
     }
+
+    /* =====================================================================
+       Mobile (<= 600px) — the 393 x 6923 Figma frame, "Rules Mobile Vertical
+       Page - V2". Everything below is in design px: blocks are placed with
+       --x/--y (page coordinates from Figma) and the whole 393px page is scaled
+       to the screen with `zoom` (set from JS), so sizing and spacing stay
+       exactly as designed on any phone width. The desktop markup is hidden at
+       this size and this markup is hidden above it.
+       ===================================================================== */
+    .m-only { display: none; background: #fff; }
+    @media (max-width: 600px) {
+      .d-only { display: none; }
+      .m-only { display: block; }
+      body { background: #fff; }
+    }
+
+    .m-only img { max-width: none; }
+    .m-page {
+      position: relative;
+      width: 393px;
+      height: 6923px;
+      margin: 0 auto;
+      overflow: hidden;
+      zoom: var(--mz, 1);
+      background: #fff;
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 12px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+    .m-page b { font-weight: 700; }
+    .m-p { position: absolute; left: calc(var(--x) * 1px); top: calc(var(--y) * 1px); }
+
+    /* nav (closed state) */
+    .m-nav { position: absolute; left: 0; top: 0; width: 393px; height: 161px; background: var(--off-white); z-index: 5; }
+    .m-nav__logo { position: absolute; left: 12px; top: 54.5px; width: 52px; height: 52px; display: block; }
+    .m-nav__logo img { width: 100%; height: 100%; object-fit: cover; }
+    .m-nav__toggle { position: absolute; left: 349px; top: 64.5px; width: 32px; height: 32px; padding: 0; border: 0; background: none; cursor: pointer; }
+    .m-nav__toggle img { width: 100%; height: 100%; }
+    .m-nav__toggle:focus-visible, .m-menu__close:focus-visible, .m-menu a:focus-visible, .m-menu button:focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; border-radius: 8px; }
+
+    /* hero (Frame 54 is 599px wide, offset -99px, so only its middle shows) */
+    .m-hero { position: absolute; left: 0; top: 161px; width: 393px; height: 218px; overflow: hidden; }
+    .m-hero__bg { position: absolute; left: -99px; top: 0; width: 599px; height: 218px; }
+    .m-hero__bg img { position: absolute; height: 198.59%; left: 15.79%; top: -92.17%; width: 68.68%; }
+    .m-hero__shade { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(102, 102, 102, 0), rgba(0, 0, 0, 0.7) 75%); }
+    .m-hero__text { position: absolute; left: 23px; top: 78px; width: 356px; color: var(--off-white); text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25); }
+    .m-hero h1 { margin: 0; font-family: var(--font-head); font-weight: 400; font-size: 40px; line-height: 1.2; letter-spacing: 0.8px; }
+    .m-hero p { margin: 0; font-weight: 600; font-size: 12px; line-height: 1.3; letter-spacing: 0.24px; }
+
+    /* section headings */
+    .m-head { width: 360px; }
+    .m-title { display: flex; align-items: center; gap: 16px; margin: 0; font-family: var(--font-head); font-weight: 400; font-size: 26px; line-height: 1.2; letter-spacing: 0.52px; color: var(--ink); white-space: nowrap; }
+    .m-title__dot { flex: none; width: 12px; height: 12px; border-radius: 50%; background: var(--dot); }
+    .m-sub { margin: 16px 0 0; width: 360px; font-weight: 600; font-size: 12px; line-height: 1.3; letter-spacing: 0.24px; }
+    .m-general-gfx { width: 114.69px; height: 114px; overflow: hidden; }
+    .m-general-gfx img { position: absolute; height: 100.19%; left: -20.96%; top: 0; width: 140.88%; }
+
+    /* rule cards: a 76px coloured head, with the white body starting 11px up
+       inside it (so the head shows 65px, then the body's own top border) */
+    .m-card { width: 312px; }
+    .m-card__head { box-sizing: border-box; position: relative; height: 76px; display: flex; align-items: flex-start; gap: 16px; padding: 16px 0 0 27px; background: var(--accent); border: 2px solid var(--ink); border-radius: 20px 20px 0 0; }
+    .m-card__icon { flex: none; height: 24px; width: auto; margin-top: 3px; }
+    .m-icon--loc { height: 29.4px; margin-top: 0.3px; }
+    .m-icon--flash { height: 32px; margin-top: -1px; }
+    .m-card__title { flex: none; display: flex; align-items: center; height: 48px; margin: -9px 0 0; font-family: var(--font-head); font-weight: 400; font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; color: var(--ink); white-space: nowrap; }
+    .m-card__title--lg { font-size: 26px; line-height: 1.2; letter-spacing: 0.52px; }
+    .m-card__body { box-sizing: border-box; position: relative; margin-top: -11px; padding: 18px 19px; background: var(--off-white); border: 2px solid var(--ink); border-radius: 0 0 20px 20px; font-size: 12px; letter-spacing: 0.24px; }
+    /* per-card inner padding (Figma inner frames sit 9-20px inside) */
+    .m-page .m-card:nth-of-type(4) .m-card__body, .m-page .m-card:nth-of-type(8) .m-card__body { padding: 7px 9px; }
+    .m-page .m-card:nth-of-type(6) .m-card__body, .m-page .m-card:nth-of-type(7) .m-card__body { padding: 9px 15px; }
+    .m-lead { margin: 0 auto; width: 243px; min-height: 32px; font-weight: 700; font-size: 12px; line-height: 16px; letter-spacing: 0.24px; }
+    .m-lead--box { box-sizing: border-box; width: 100%; min-height: 0; padding: 10px; }
+    .m-list { list-style: none; margin: 0; padding: 0; }
+    .m-li { display: flex; align-items: center; gap: 5px; }
+    .m-li + .m-li { margin-top: -5px; }
+    .m-li p { flex: 1; min-width: 0; margin: 0; padding: 10px; font-weight: 600; font-size: 12px; line-height: 16px; letter-spacing: 0.24px; }
+    .m-dot { flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+    .m-pills { display: grid; grid-template-columns: 125px 125px; gap: 3px 4px; width: 254px; margin: 2px auto; }
+    .m-pills span { box-sizing: border-box; height: 51px; padding: 2px 15px; display: flex; align-items: center; background: rgba(172, 216, 125, 0.2); border: 2px solid var(--green); border-radius: 20px; font-weight: 600; font-size: 12px; line-height: 1.3; letter-spacing: 0.24px; }
+    .m-note { box-sizing: border-box; margin: 5px 0 0; min-height: 75px; display: flex; align-items: center; padding: 10px 12px 10px 10px; background: var(--off-white); border: 2px solid var(--ink); border-radius: 20px; font-weight: 600; font-size: 12px; line-height: 1.3; letter-spacing: 0.24px; color: #000; }
+    /* General Rules bodies: text + 2px accent dividers */
+    .m-card__body--lined { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 14px 0; }
+    .m-lined { margin: 0; width: 251px; font-size: 12px; font-weight: 400; letter-spacing: 0.24px; color: var(--ink); }
+    .m-lh13 { line-height: 16px; }
+    .m-lh15 { line-height: 18px; }
+    .m-rule { display: block; flex: none; width: 250px; height: 2px; border-radius: 1px; background: var(--accent); }
+
+    /* flash sale rules */
+    .m-flash { width: 333px; display: flex; flex-direction: column; gap: 16px; }
+    .m-listing { box-sizing: border-box; height: 219px; padding: 7px 14px 0 15px; display: flex; flex-direction: column; align-items: center; gap: 12px; background: var(--green); border: 2px solid var(--ink); border-radius: 20px; }
+    .m-listing h3 { margin: 0; padding: 10px; font-family: var(--font-head); font-weight: 400; font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; color: #000; }
+    .m-listing__times { display: flex; gap: 16px; }
+    .m-listing__times span { padding: 10px 15px; background: var(--off-white); border: 2px solid var(--ink); border-radius: 20px; font-weight: 700; font-size: 12px; line-height: 1.3; letter-spacing: 0.24px; color: var(--ink); white-space: nowrap; }
+    .m-listing p { margin: 0; padding: 10px; width: 100%; box-sizing: border-box; text-align: center; font-weight: 600; font-size: 12px; line-height: 1.3; letter-spacing: 0.24px; color: #000; }
+    .m-reg { font-weight: 400; }
+    .m-point { box-sizing: border-box; display: flex; align-items: center; justify-content: center; gap: 16px; padding-inline: 20px; background: var(--off-white); border: 2px solid var(--ink); border-radius: 20px; }
+    .m-point p { margin: 0; width: 245px; font-size: 12px; line-height: 1.3; letter-spacing: 0.24px; color: #000; }
+    .m-num { flex: none; box-sizing: border-box; width: 24px; height: 24px; display: grid; place-items: center; background: var(--bg); border: 2px solid var(--ink); border-radius: 12px; font-family: var(--font-head); font-size: 12px; line-height: 1.3; letter-spacing: 0.24px; color: #000; }
+
+    /* post-claim */
+    .m-flowers { display: flex; gap: 40px; }
+    .m-flowers img { width: 80px; height: 77.83px; }
+    .m-claim__grass { position: absolute; left: -28px; top: 4218.97px; width: 459px; height: 73px; }
+    .m-claim__bg { width: 393px; height: 506px; display: block; }
+    .m-claim__body { width: 360.92px; display: flex; flex-direction: column; gap: 24px; }
+    .m-title--claim { align-items: center; }
+    .m-steps { list-style: none; margin: 0 0 0 9.96px; padding: 0; width: 341px; display: flex; flex-direction: column; gap: 16px; }
+    .m-steps li { display: flex; align-items: flex-start; gap: 16px; }
+    .m-step__n { flex: none; box-sizing: border-box; width: 48px; height: 48px; display: grid; place-items: center; background: var(--bg); border: 2px solid var(--ink); border-radius: 50%; font-family: var(--font-head); font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; color: #000; }
+    .m-steps p { margin: 0; width: 273px; font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; }
+
+    /* FAQ: bubbles are the exported shapes (they carry the tail + coloured stroke) */
+    .m-faq__cloud { position: absolute; left: 24px; top: 4815px; width: 345px; height: 185.19px; }
+    .m-faq__title { white-space: nowrap; }
+    .m-faq__decor { width: 63.9px; height: 68.65px; display: grid; place-items: center; }
+    .m-faq__decor img { width: 68.075px; height: 63.273px; transform: rotate(89.47deg); }
+    .m-faq__bee { width: 63px; height: 63px; object-fit: cover; }
+    .m-faq__bee--flip { transform: scaleX(-1); }
+    .m-faq__q { margin: 0; width: 241px; font-family: var(--font-body); font-weight: 700; font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; color: var(--ink); }
+    .m-faq__a { display: flex; gap: 16px; width: 235px; }
+    .m-faq__line { flex: none; width: 2px; border-radius: 1px; background: var(--accent); }
+    .m-faq__a p { margin: 0; width: 219px; font-weight: 600; font-size: 12px; line-height: 17px; letter-spacing: 0.24px; color: var(--ink); }
+
+    /* CTA */
+    .m-cta__box { box-sizing: border-box; width: 352px; height: 185px; padding-top: 3px; display: flex; flex-direction: column; align-items: center; background: rgba(136, 153, 250, 0.1); border: 2px solid #a7b3f5; border-radius: 20px; }
+    .m-cta__text { box-sizing: border-box; width: 349px; height: 105px; margin: 0 0 5px; padding: 13.5px 7.5px 0; text-align: center; font-family: var(--font-head); font-weight: 400; font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; color: var(--ink); }
+    .m-cta__text a { color: #849bff; text-decoration: none; }
+    .m-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; border-radius: 16px; background: var(--green); color: var(--off-white); font-family: var(--font-body); font-weight: 700; font-size: 16px; line-height: 1.3; letter-spacing: 0.8px; text-decoration: none; white-space: nowrap; transition: filter 0.4s ease-in-out, transform 0.4s ease-in-out; }
+    .m-btn:hover { filter: brightness(1.07); transform: translateY(-1px); }
+
+    /* footer */
+    .m-footer { position: absolute; left: 0; top: 6061px; width: 394px; height: 862px; }
+    .m-footer__grass { position: relative; height: 44.924px; }
+    .m-footer__grass img { position: absolute; top: 0; width: 165.307px; height: 44.924px; }
+    .m-flipx { transform: scaleX(-1); }
+    .m-footer__block { position: relative; height: 817px; overflow: hidden; background: #def3ff; }
+    .m-footer__decor { position: absolute; inset: 0; }
+    .m-fp { position: absolute; max-width: none; height: auto; }
+    .m-footer__nav { position: absolute; left: 21px; top: 61px; width: 356px; display: flex; justify-content: space-between; align-items: flex-start; }
+    .m-footer__col { display: flex; flex-direction: column; gap: 60px; }
+    .m-footer__col--a { width: 163px; }
+    .m-footer__col--b { width: 161px; }
+    .m-footer__group h3 { margin: 0 0 12px; height: 25px; font-family: var(--font-head); font-weight: 400; font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; color: #000; white-space: nowrap; }
+    .m-footer__col--a .m-footer__group:first-child h3 { margin-bottom: 8px; }
+    .m-footer__group h3 a { color: inherit; text-decoration: none; }
+    .m-footer__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+    .m-footer__list--g12 { gap: 12px; }
+    .m-footer__list li { padding-right: 8px; font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; color: #000; white-space: nowrap; }
+    .m-footer__bottom { position: absolute; left: 21px; top: 584px; width: 323px; display: flex; flex-direction: column; gap: 12px; }
+    .m-footer__social { display: flex; gap: 8px; }
+    .m-footer__social a { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 100px; background: #000; }
+    .m-footer__social img { width: 24px; height: 24px; }
+    .m-footer__bottom p { margin: 0; font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; color: #1e1e1e; }
+
+    /* hamburger overlay: slides in from the right, 200ms ease-in-out (the Figma prototype's
+       "Open overlay · Move in Right · Ease in and out · 200ms") */
+    .m-menu { position: fixed; inset: 0; z-index: 1000; display: flex; flex-direction: column; background: var(--off-white); transform: translateX(100%); visibility: hidden; transition: transform 0.2s ease-in-out, visibility 0s linear 0.2s; overflow-y: auto; }
+    .m-menu.is-open { transform: none; visibility: visible; transition: transform 0.2s ease-in-out; }
+    .m-menu__bar { display: flex; align-items: center; justify-content: space-between; box-sizing: border-box; height: 76px; padding: 12px; flex: none; }
+    .m-menu__bar .m-nav__logo { position: static; }
+    .m-menu__close { position: relative; width: 32px; height: 32px; padding: 0; border: 0; background: none; cursor: pointer; }
+    .m-menu__close span { position: absolute; left: 4px; right: 4px; top: 15px; height: 2px; border-radius: 1px; background: var(--ink); transition: transform 0.2s ease-in-out; }
+    .m-menu__close span:first-child { transform: rotate(45deg); }
+    .m-menu__close span:last-child { transform: rotate(-45deg); }
+    .m-menu__links { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 24px; }
+    .m-menu__links a, .m-menu__drop { position: relative; display: inline-flex; align-items: center; gap: 6px; padding: 4px 0; border: 0; background: none; cursor: pointer; font-family: var(--font-body); font-size: 20px; line-height: 1.5; letter-spacing: 0.4px; color: var(--ink); text-decoration: none; }
+    .m-menu__links a::after, .m-menu__drop::after { content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: var(--ink); transition: width 0.2s ease-in-out; }
+    .m-menu__links a:hover::after, .m-menu__drop:hover::after, .m-menu__links a[aria-current="page"]::after { width: 100%; }
+    .m-menu__links a[aria-current="page"] { font-weight: 700; }
+    .m-menu__chev { opacity: 0; transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out; }
+    .m-menu__drop:hover .m-menu__chev, .m-menu__drop[aria-expanded="true"] .m-menu__chev { opacity: 1; }
+    .m-menu__drop[aria-expanded="false"] .m-menu__chev { transform: rotate(180deg); }
+    .m-menu__sub { display: none; flex-direction: column; gap: 4px; padding: 4px 0 4px 16px; }
+    .m-menu__sub a { font-size: 16px; }
+    .m-menu__drop[aria-expanded="true"] + .m-menu__sub { display: flex; }
+    .m-menu__cta { align-self: flex-start; margin: 8px 24px 24px; height: 48px; padding: 12px 16px; background: var(--discord); }
+    .m-menu__cta img { width: 24px; height: 24px; }
+    @media (prefers-reduced-motion: reduce) { .m-menu, .m-menu.is-open, .m-menu__chev, .m-menu__links a::after, .m-btn { transition: none; } }
   </style>
 </head>
 
 <body>
 
+<div class="d-only">
   <!-- ============ NAV ============ -->
   <header class="nav" id="nav">
     <nav class="nav__inner" aria-label="Primary">
@@ -1335,6 +1516,211 @@
       </div>
     </div>
   </footer>
+</div>
+
+<div class="m-only" id="mobile">
+<div class="m-page" id="mPage">
+  <header class="m-nav" id="mNav">
+    <a class="m-nav__logo" href="index.html" aria-label="Triceratops Club home"><img src="assets/mobile/logo.png" alt="UC Davis Triceratops Club logo"></a>
+    <button class="m-nav__toggle" id="mMenuOpen" type="button" aria-expanded="false" aria-controls="mMenu" aria-label="Open menu"><img src="assets/mobile/menu-open.svg" alt=""></button>
+  </header>
+
+  <section class="m-hero" aria-label="Rules">
+    <div class="m-hero__bg"><img src="assets/mobile/hero.png" alt=""><span class="m-hero__shade"></span></div>
+    <div class="m-hero__text">
+      <h1>Rules to Know Before You Hunt</h1>
+      <p>Everything you need to know before you hunt, trade, or claim a dino.</p>
+    </div>
+  </section>
+
+  <div class="m-general-gfx m-p" style="--x:141.66;--y:411"><img src="assets/mobile/general-graphic.png" alt="A triceratops waving"></div>
+
+  <div class="m-head m-p" style="--x:19;--y:558;">
+    <h2 class="m-title" id="m-general-title"><span class="m-title__dot"></span>General Rules</h2>
+    <p class="m-sub">Triceratops&rsquo; #1 priority is safe Discord behavior and community conduct. Please read over the following for general Behavior &amp; Conduct rules.</p>
+  </div>
+
+    <article class="m-card m-p" style="--x:38;--y:683;--accent:#ACD87D">
+      <div class="m-card__head">
+        <img class="m-card__icon " src="assets/icons/check-circle.svg" alt="">
+        <h3 class="m-card__title m-card__title--lg">Always</h3>
+      </div>
+      <div class="m-card__body m-card__body--lined" style="height:237px"><p class="m-lined m-lh13"><b>Respectful behavior is expected at all times</b>, both in-person and within our online community.</p><span class="m-rule" style="--accent:#ACD87D"></span><p class="m-lined m-lh15"><b>Be respectful </b>to staff members during drops.</p><span class="m-rule" style="--accent:#ACD87D"></span><p class="m-lined m-lh13"><b>Keep DMs to the Instagram strictly related to Davis Triceratops</b>, do not send personal DMs to our official club Instagram.</p></div>
+    </article>
+
+    <article class="m-card m-p" style="--x:39;--y:1009;--accent:#F8C9DC">
+      <div class="m-card__head">
+        <img class="m-card__icon " src="assets/icons/x-circle.svg" alt="">
+        <h3 class="m-card__title m-card__title--lg">Never</h3>
+      </div>
+      <div class="m-card__body m-card__body--lined" style="height:287px"><p class="m-lined m-lh13"><b>Do not post NSFW content in the server. </b>This is an immediately bannable offense.</p><span class="m-rule" style="--accent:#F8C9DC"></span><p class="m-lined m-lh15"><b>No rude, slanderous, offensive, or hateful comments, </b>indecent or inappropriate content, or slurs of any kind.</p><span class="m-rule" style="--accent:#F8C9DC"></span><p class="m-lined m-lh13"><b>Do not reveal staff location </b>during drops or their individual time.</p><span class="m-rule" style="--accent:#F8C9DC"></span><p class="m-lined m-lh13"><b>Do not DM staff </b>unless given explicit permission by staff.</p></div>
+    </article>
+
+  <div class="m-head m-p" style="--x:24;--y:1393;">
+    <h2 class="m-title" id="m-hunt-title"><span class="m-title__dot"></span>Hunt Rules</h2>
+    <p class="m-sub">Any confusion on how a scavenger works and operates? Read the following to prepare yourself with these hunt rules so your hunt can go smoothly.</p>
+  </div>
+
+    <article class="m-card m-p" style="--x:39;--y:1515;--accent:#ACD87D">
+      <div class="m-card__head">
+        <img class="m-card__icon m-icon--loc" src="assets/icons/location.svg" alt="">
+        <h3 class="m-card__title ">Outdoors Only</h3>
+      </div>
+      <div class="m-card__body " style="height:218px"><p class="m-lead ">Most dinos or event materials will be hidden outdoors.</p><ul class="m-list"><li class="m-li"><span class="m-dot"></span><p>Dinos will only be <b>hidden inside</b> if stated specifically by the dropper.</p></li><li class="m-li"><span class="m-dot"></span><p><b>Be respectful </b>to those around you. The goal is safety and giving others space.</p></li><li class="m-li"><span class="m-dot"></span><p>If dinos are hidden inside, <b>be mindful </b>of your surroundings and other people.</p></li></ul></div>
+    </article>
+
+    <article class="m-card m-p" style="--x:39;--y:1822;--accent:#BDE6E6">
+      <div class="m-card__head">
+        <img class="m-card__icon " src="assets/icons/accessible.svg" alt="">
+        <h3 class="m-card__title ">Accessible Spots Only</h3>
+      </div>
+      <div class="m-card__body " style="height:296px"><p class="m-lead m-lead--box">Never endanger yourself to access event materials.</p><ul class="m-list"><li class="m-li"><span class="m-dot"></span><p>Do not trample or damage plants or property of any sort.</p></li><li class="m-li"><span class="m-dot"></span><p>Dinos will not be placed deeply into bushes.</p></li><li class="m-li"><span class="m-dot"></span><p>If a dino is displaced somewhere hard to reach, do not risk your personal safety to retrieve it.</p></li><li class="m-li"><span class="m-dot"></span><p>Stay on the path, <b>stay out of construction zones</b>, and leave campus spaces as you found them.</p></li></ul></div>
+    </article>
+
+    <article class="m-card m-p" style="--x:39;--y:2207;--accent:#EBE6A0">
+      <div class="m-card__head">
+        <img class="m-card__icon " src="assets/icons/clock.svg" alt="">
+        <h3 class="m-card__title ">Random Timing</h3>
+      </div>
+      <div class="m-card__body " style="height:171px"><p class="m-lead ">Daily dino drops occur at random.</p><ul class="m-list"><li class="m-li"><span class="m-dot"></span><p><b>Timing depends</b> on the Dropper&rsquo;s personal discretion, schedule, and time permitted.</p></li><li class="m-li"><span class="m-dot"></span><p>Drops will occur <b>only during daylight hours.</b></p></li></ul></div>
+    </article>
+
+    <article class="m-card m-p" style="--x:39;--y:2467;--accent:#F8C9DC">
+      <div class="m-card__head">
+        <img class="m-card__icon " src="assets/icons/x-circle-2.svg" alt="">
+        <h3 class="m-card__title ">Don&rsquo;t Ask About Drops</h3>
+      </div>
+      <div class="m-card__body " style="height:201px"><p class="m-lead m-lead--box">Do not ask when or where drops may occur.</p><ul class="m-list"><li class="m-li"><span class="m-dot"></span><p>Pleading and excessively requesting for drops <b>may result in corrective action.</b></p></li></ul><p class="m-note">Remember that each of our hardworking staff commits their personal time and effort to allow for drops to occur.</p></div>
+    </article>
+
+    <article class="m-card m-p" style="--x:39;--y:2757;--accent:#ACD87D">
+      <div class="m-card__head">
+        <img class="m-card__icon " src="assets/icons/exclamation.svg" alt="">
+        <h3 class="m-card__title ">Adhere to Dino Limits</h3>
+      </div>
+      <div class="m-card__body " style="height:266px"><p class="m-lead m-lead--box">Each person is limited to:</p><div class="m-pills"><span>1 Monthly Dino per month</span><span>1 Milestone Dino</span><span>1 Aggieceratops Dino</span><span>1 of each type of Special Dino</span></div><ul class="m-list m-list--after-pills"><li class="m-li"><span class="m-dot"></span><p>These limits promote <b>fairness and equal opportunity</b> for all event participants.</p></li><li class="m-li"><span class="m-dot"></span><p>Anyone caught trying to bypass the dino limits will be <b>banned from the server.</b></p></li></ul></div>
+    </article>
+
+    <article class="m-card m-p" style="--x:39;--y:3112;--accent:#BDE6E6">
+      <div class="m-card__head">
+        <img class="m-card__icon m-icon--flash" src="assets/icons/flash.svg" alt="">
+        <h3 class="m-card__title ">Flash Sale Rules</h3>
+      </div>
+      <div class="m-card__body " style="height:195px"><p class="m-lead m-lead--box">For EACH month&rsquo;s flash sale, you can buy one regular and one medium dino.</p><ul class="m-list"><li class="m-li"><span class="m-dot"></span><p>This rule <b>resets every year.</b></p></li></ul><p class="m-note">e.g. one regular and one medium dino in every flash sale of 2026 - that resets at the end of 2026 and starts over for 2027.</p></div>
+    </article>
+
+  <div class="m-head m-p" style="--x:24;--y:3404;">
+    <h2 class="m-title" id="m-flash-title"><span class="m-title__dot"></span>Flash Sale Rules</h2>
+    <p class="m-sub">Flash sales are one of your only opportunities to directly purchase a dino from the club. To know more about how to obtain one, read the information below.</p>
+  </div>
+
+  <div class="m-flash m-p" style="--x:30;--y:3525">
+    <div class="m-listing">
+      <h3>Listing Hours</h3>
+      <div class="m-listing__times"><span>12am - 10am</span><span>5pm - 11:59pm</span></div>
+      <p><span class="m-reg">Flash sales</span> no longer run <b>for the whole 24 hours</b> <span class="m-reg">on the last day of each month.</span><br><span class="m-reg">Instead, listing giveaways will run from </span>12am-10pm &amp; 5pm-11;59pm.</p>
+    </div>
+    <div class="m-point" style="height:81px;padding-block:15px"><span class="m-num" style="--bg:#F8C9DC">1</span><p><b>Do NOT enter a raffle</b> if you have already won a dino (of the same size) within the flash sale.</p></div>
+    <div class="m-point" style="height:117px;padding-block:22px"><span class="m-num" style="--bg:#BDE6E6">2</span><p class="m-bold"><b>Do participate and interact with staff v</b>ia emoji reactions in the <b>#listings</b> channel during flash sales! This will make the whole process fun for both staff and general members!</p></div>
+    <div class="m-point" style="height:79px;padding-block:15px"><span class="m-num" style="--bg:#EBE6A0">3</span><p class="m-bold"><b>Behave respectfully and properly during flash sales! Do NOT</b> demand and force our staff to list sales.</p></div>
+  </div>
+
+  <div class="m-flowers m-p" style="--x:30;--y:4112" aria-hidden="true"><img src="assets/mobile/flowers-trio.svg" alt=""><img src="assets/mobile/flowers-trio.svg" alt=""><img src="assets/mobile/flowers-trio.svg" alt=""></div>
+  <section class="m-claim" aria-labelledby="m-claim-title">
+    <img class="m-claim__grass" src="assets/grass.svg" alt="">
+    <img class="m-claim__bg m-p" style="--x:0;--y:4279.15" src="assets/mobile/claim-graphic.svg" alt="">
+    <div class="m-claim__body m-p" style="--x:16.04;--y:4315.51">
+      <h2 class="m-title m-title--claim" id="m-claim-title"><span class="m-title__dot"></span><span>Claimed a Dino? Here are<br>your next steps:</span></h2>
+      <ol class="m-steps">
+        <li><span class="m-step__n" style="--bg:#F8C9DC">1</span><p>After finding a monthly triceratops, make a post in the <b>#found-triceratops</b> text channel. This post should include a photo proof of the triceratops.</p></li>
+        <li><span class="m-step__n" style="--bg:#BDE6E6">2</span><p>Remember to grab your monthly triceratops parents role in the <b>#assign-roles </b>based on the triceratops you just claimed!</p></li>
+        <li><span class="m-step__n" style="--bg:#EBE6A0">3</span><p>Enjoy your new dino! We crafted each one with love and hope you like your <b>one of a kind</b> Triceratops dino.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="m-faq" aria-labelledby="m-faq-title">
+    <div class="m-faq__decor m-p" style="--x:352;--y:4815" aria-hidden="true"><img src="assets/mobile/faq-decor.svg" alt=""></div>
+    <img class="m-faq__cloud m-p" style="--x:25;--y:4816" src="assets/mobile/faq-cloud.svg" alt="" aria-hidden="true">
+    <h2 class="m-title m-p m-faq__title" id="m-faq-title" style="--x:76;--y:4913"><span class="m-title__dot"></span>Common Rules FAQ</h2>
+    <img class="m-faq__bee m-faq__bee--flip m-p" style="--x:11;--y:5046" src="assets/bee-dino.png" alt="">
+    
+    <img class="m-faq__bubble m-p" style="--x:83;--y:5023.19" src="assets/mobile/faq-bubble-1.svg" alt="">
+    <h3 class="m-faq__q m-p" style="--x:110.55;--y:5037.19">What if I miss a monthly dino drop? Will I have more chances to hunt for more?</h3>
+    <div class="m-faq__a m-p" style="--x:112.55;--y:5123.19;--accent:#ACD87D;--lh:99"><span class="m-faq__line" style="height:99px"></span><p style="height:99px">If you<b> miss a monthly dino drop,</b> do not worry; there will certainly be more to come! Dino drops of a certain month will <b>last until the</b> <b>second to last day of the month</b>, so be on the lookout for more drops from our staff.</p></div>
+    
+    <img class="m-faq__bubble m-p" style="--x:29;--y:5262.19" src="assets/mobile/faq-bubble-2.svg" alt="">
+    <h3 class="m-faq__q m-p" style="--x:51;--y:5277.19">Staff often drop different types of dinos within a hunt. What if I find a dino type that I already have or am not searching for?</h3>
+    <div class="m-faq__a m-p" style="--x:54;--y:5404.19;--accent:#BDE6E6;--lh:85"><span class="m-faq__line" style="height:85px"></span><p style="height:85px">If you find a dino you do not want, <b>carefully hide the dino in the same place.</b> If you are unable to, you may also <b>return the dino</b> to the staff who is in charge of the current hunt.</p></div>
+    <img class="m-faq__bee m-p" style="--x:321;--y:5304" src="assets/bee-dino.png" alt="">
+    
+    <img class="m-faq__bubble m-p" style="--x:95;--y:5527.19" src="assets/mobile/faq-bubble-3.svg" alt="">
+    <h3 class="m-faq__q m-p" style="--x:122.55;--y:5541.19">Any questions on these rules, or about anything at all?</h3>
+    <div class="m-faq__a m-p" style="--x:125;--y:5599.19;--accent:#F8C9DC;--lh:70"><span class="m-faq__line" style="height:70px"></span><p style="height:68px">Open a ticket in the <b>#modmail </b>channel, and <b>use the command /tickets</b> open to ask our staff any questions!</p></div>
+    <img class="m-faq__bee m-faq__bee--flip m-p" style="--x:9;--y:5575" src="assets/bee-dino.png" alt="">
+  </section>
+
+  <section class="m-cta" aria-labelledby="m-cta-title">
+    <img class="m-p m-cta__daisy" style="--x:43;--y:5749" src="assets/mobile/cta-daisy.svg" alt="" aria-hidden="true">
+    <img class="m-p m-cta__sprouts" style="--x:267.93;--y:5722" src="assets/mobile/cta-sprouts.svg" alt="" aria-hidden="true">
+    <div class="m-cta__box m-p" style="--x:21;--y:5789">
+      <p class="m-cta__text" id="m-cta-title">Have more questions or need clarification? Ask in <a href="https://discord.gg/" target="_blank" rel="noopener">#rules-help</a> on Discord.</p>
+      <a class="m-btn" href="https://discord.gg/" target="_blank" rel="noopener">Join the Discord!</a>
+    </div>
+  </section>
+
+  <footer class="m-footer">
+    <div class="m-footer__grass" aria-hidden="true"><img style="left:227.69px" src="assets/mobile/footer-grass-a.svg" alt=""><img class="m-flipx" style="left:0" src="assets/mobile/footer-grass-b.svg" alt=""><img style="left:113.72px" src="assets/mobile/footer-grass-a.svg" alt=""></div>
+    <div class="m-footer__block">
+      <div class="m-footer__decor" aria-hidden="true">
+        <img class="m-fp" style="left:86.47px;bottom:1.55px;width:58.1px" src="assets/mobile/footer-dino-1.png" alt="">
+        <img class="m-fp" style="left:21px;top:723px;width:61.2px" src="assets/mobile/footer-dino-2.png" alt="">
+        <img class="m-fp" style="left:187.08px;bottom:-0.14px;width:28px" src="assets/mobile/footer-sprout-1.png" alt="">
+        <img class="m-fp" style="left:164.09px;bottom:-0.08px;width:21px" src="assets/mobile/footer-sprout-2.png" alt="">
+        <img class="m-fp" style="left:-30px;top:19.46px;width:65.106px;height:34.468px" src="assets/mobile/footer-cloud-1a.svg" alt=""><span class="m-fp" style="left:-26.94px;top:17.92px;width:64.235px;height:34.468px"><img style="position:absolute;inset:-5.51% -4.51% -22.92% -10.74%;max-width:none;width:auto;height:auto" src="assets/mobile/footer-cloud-1b.svg" alt=""></span><img class="m-fp" style="left:264px;top:355.92px;width:85px;height:45px" src="assets/mobile/footer-cloud-2a.svg" alt=""><span class="m-fp" style="left:268px;top:353.92px;width:83.863px;height:45px"><img style="position:absolute;inset:-4.22% -3.46% -17.56% -8.23%;max-width:none;width:auto;height:auto" src="assets/mobile/footer-cloud-2b.svg" alt=""></span><img class="m-fp" style="left:352px;top:153.37px;width:61.489px;height:32.553px" src="assets/mobile/footer-cloud-3a.svg" alt=""><span class="m-fp" style="left:354.89px;top:151.92px;width:60.667px;height:32.553px"><img style="position:absolute;inset:-5.84% -4.78% -24.27% -11.37%;max-width:none;width:auto;height:auto" src="assets/mobile/footer-cloud-3b.svg" alt=""></span>
+      </div>
+      <nav class="m-footer__nav" aria-label="Footer">
+        <div class="m-footer__col m-footer__col--a">
+          <div class="m-footer__group"><h3><a href="index.html">Home</a></h3><ul class="m-footer__list m-footer__list--g12"><li>Testimonials</li><li>Map</li><li>Event Calendar</li></ul></div>
+          <div class="m-footer__group"><h3><a href="dinodex.html">DinoDex</a></h3><ul class="m-footer__list m-footer__list--g12"><li>Popular Dinos</li><li>Dino Types</li></ul></div>
+          <div class="m-footer__group"><h3><a href="about.html">About Us</a></h3><ul class="m-footer__list m-footer__list--g12"><li>Get Involved</li><li>Contact Form</li></ul></div>
+        </div>
+        <div class="m-footer__col m-footer__col--b">
+          <div class="m-footer__group"><h3><a href="getting-started.html">Getting Started</a></h3><ul class="m-footer__list m-footer__list--g12"><li>Set Up Notifs</li><li>Drop Types</li><li>FAQ</li></ul></div>
+          <div class="m-footer__group"><h3><a href="rules.html" aria-current="page">Rules</a></h3><ul class="m-footer__list"><li>Claiming Process</li></ul></div>
+        </div>
+      </nav>
+      <div class="m-footer__bottom">
+        <div class="m-footer__social">
+          <a href="mailto:hello@ucdavistriceratops.org" aria-label="Email us"><img src="assets/icons/email.svg" alt=""></a>
+          <a href="https://discord.gg/" target="_blank" rel="noopener" aria-label="Join our Discord"><img src="assets/icons/discord.svg" alt=""></a>
+          <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><img src="assets/icons/instagram.svg" alt=""></a>
+        </div>
+        <p>&copy; 2026 UC Davis Triceratops Club | All Rights Reserved</p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div class="m-menu" id="mMenu" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true">
+  <div class="m-menu__bar">
+    <a class="m-nav__logo" href="index.html" aria-label="Triceratops Club home"><img src="assets/mobile/logo.png" alt=""></a>
+    <button class="m-menu__close" id="mMenuClose" type="button" aria-label="Close menu"><span></span><span></span></button>
+  </div>
+  <nav class="m-menu__links" aria-label="Primary">
+    <a href="index.html">Home</a>
+    <div class="m-menu__group">
+      <button type="button" class="m-menu__drop" aria-expanded="false" aria-controls="mSubGs">Getting Started <svg class="m-menu__chev" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 15l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="m-menu__sub" id="mSubGs"><a href="getting-started.html">Getting Started</a><a href="flash-sales.html">Flash Sales</a></div>
+    </div>
+    <a href="dinodex.html">DinoDex</a>
+    <a href="rules.html" aria-current="page">Rules</a>
+    <a href="about.html">About Us</a>
+  </nav>
+  <a class="m-btn m-menu__cta" href="https://discord.gg/" target="_blank" rel="noopener"><img src="assets/icons/discord.svg" alt="" aria-hidden="true">Join Our Discord</a>
+</div>
+</div>
+
 
   <script>
     (function () {
@@ -1380,6 +1766,48 @@
         });
       }, { rootMargin: "0px 0px -10% 0px" });
       reveals.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
+
+
+  <script>
+    /* Mobile page: scale the 393px Figma frame to the screen, and drive the hamburger overlay */
+    (function () {
+      "use strict";
+      var root = document.documentElement;
+      function fit() {
+        if (window.innerWidth <= 600) {
+          root.style.setProperty("--mz", Math.min(1.3, Math.max(0.8, root.clientWidth / 393)).toFixed(4));
+        }
+      }
+      fit();
+      window.addEventListener("resize", fit);
+
+      var menu = document.getElementById("mMenu");
+      var openBtn = document.getElementById("mMenuOpen");
+      var closeBtn = document.getElementById("mMenuClose");
+      if (!menu || !openBtn || !closeBtn) return;
+
+      function setOpen(open) {
+        menu.classList.toggle("is-open", open);
+        menu.setAttribute("aria-hidden", String(!open));
+        openBtn.setAttribute("aria-expanded", String(open));
+        document.body.style.overflow = open ? "hidden" : "";
+        (open ? closeBtn : openBtn).focus();
+      }
+      openBtn.addEventListener("click", function () { setOpen(true); });
+      closeBtn.addEventListener("click", function () { setOpen(false); });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && menu.classList.contains("is-open")) setOpen(false);
+      });
+      menu.addEventListener("click", function (e) {
+        var a = e.target.closest("a");
+        if (a && a.getAttribute("href") === "rules.html") setOpen(false);
+      });
+      var drop = menu.querySelector(".m-menu__drop");
+      if (drop) drop.addEventListener("click", function () {
+        drop.setAttribute("aria-expanded", String(drop.getAttribute("aria-expanded") !== "true"));
+      });
     })();
   </script>
 
