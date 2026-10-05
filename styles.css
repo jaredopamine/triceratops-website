@@ -81,14 +81,20 @@
   /* Type scale (desktop — Figma's mobile scale had gaps/inconsistencies
      in the source file and there's no breakpoint spec yet, so it isn't
      included here; ask if you want it added once a breakpoint exists) */
-  --text-title-size: 64px;   --text-title-lh: 1.2; --text-title-ls: 1.28px;
-  --text-h1-size: 48px;      --text-h1-lh: 1.2;    --text-h1-ls: 0.96px;
-  --text-h2-size: 36px;      --text-h2-lh: 1.4;    --text-h2-ls: 0.72px;
-  --text-h3-size: 28px;      --text-h3-lh: 1.3;    --text-h3-ls: 0.56px;
-  --text-subtitle1-size: 20px; --text-subtitle1-lh: 1.3; --text-subtitle1-ls: 0.4px;
-  --text-subtitle2-size: 16px; --text-subtitle2-lh: 1.3; --text-subtitle2-ls: 0.32px;
-  --text-body-size: 20px;    --text-body-lh: 1.5;  --text-body-ls: 0.4px;
-  --text-button-size: 18px;  --text-button-lh: 1.3; --text-button-ls: 0.9px;
+  /* Letter-spacing is in em, not px. Every value in the Figma type
+     scale is a percentage of its own font size (2% everywhere, 5% on
+     buttons), and 1em == 100%, so these are the same numbers the px
+     versions produced at desktop sizes — but they now follow the font
+     size automatically, so the mobile breakpoint only has to override
+     the one tracking that actually changes (body, 2% -> 3%). */
+  --text-title-size: 64px;   --text-title-lh: 1.2; --text-title-ls: 0.02em;
+  --text-h1-size: 48px;      --text-h1-lh: 1.2;    --text-h1-ls: 0.02em;
+  --text-h2-size: 36px;      --text-h2-lh: 1.4;    --text-h2-ls: 0.02em;
+  --text-h3-size: 28px;      --text-h3-lh: 1.3;    --text-h3-ls: 0.02em;
+  --text-subtitle1-size: 20px; --text-subtitle1-lh: 1.3; --text-subtitle1-ls: 0.02em;
+  --text-subtitle2-size: 16px; --text-subtitle2-lh: 1.3; --text-subtitle2-ls: 0.02em;
+  --text-body-size: 20px;    --text-body-lh: 1.5;  --text-body-ls: 0.02em;
+  --text-button-size: 18px;  --text-button-lh: 1.3; --text-button-ls: 0.05em;
 }
 
 /* ============================================================
@@ -408,6 +414,10 @@ ul {
   background: var(--color-text-secondary); /* dark gray placeholder — drop an <img> back in here to swap in a real photo/illustration */
 }
 
+.hero__bg picture {
+  display: contents;
+}
+
 .hero__bg img {
   width: 100%;
   height: 100%;
@@ -580,78 +590,355 @@ ul {
 }
 
 /* ============================================================
-   MOBILE SAFETY NET (temporary)
-   Not a real mobile design — there isn't one yet. This is just
-   defensive CSS so nothing visually breaks (horizontal overflow,
-   overlapping footer art, an oversized fixed-height hero) if the
-   template gets viewed on a narrow screen in the meantime.
-   The layout doesn't change shape at any width: nav stays one
-   horizontal row (it scrolls sideways if it doesn't fit, rather
-   than wrapping and colliding with the hero below), the hero
-   stays a single full-width banner, the footer keeps the same
-   column layout. Replace this whole block once real mobile
-   designs exist — don't build on top of it.
+   TABLET + MOBILE
+   Two tiers:
+     <= 1200px  the nav collapses to the slide-in menu (matches the
+                tablet breakpoint already used by flash-sales.css
+                and getting-started.css)
+     <=  640px  the mobile type scale and the 393px layout
+
+   nav.js appends the menu markup on every viewport, so the base
+   rules below must hide it explicitly — without them it renders as
+   loose unstyled content beneath the footer on desktop.
 ============================================================ */
+
 body {
   overflow-x: hidden;
 }
 
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 26px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--color-text);
+}
+
+.mobile-menu,
+.mobile-menu__overlay {
+  display: none;
+}
+
+/* ============================================================
+   TABLET AND BELOW — slide-in menu
+============================================================ */
+@media (max-width: 1200px) {
+  /* Swapped for the menu, but only on pages that load nav.js —
+     without this guard a page missing the script tag would be left
+     with no navigation at all. */
+  .has-mobile-menu .main-nav,
+  .has-mobile-menu .site-header__inner > .btn-discord {
+    display: none;
+  }
+
+  .has-mobile-menu .nav-toggle {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  /* Fallback for pages without nav.js: the nav scrolls sideways
+     rather than wrapping, which would push the fixed header taller
+     than --nav-height and hide content beneath it. Remove once every
+     page includes nav.js. */
+  body:not(.has-mobile-menu) .main-nav {
+    flex: 1 1 auto;
+    min-width: 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  body:not(.has-mobile-menu) .main-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-menu__overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 300ms ease-in-out, visibility 300ms ease-in-out;
+  }
+  .mobile-menu__overlay.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Enters from the right. 300ms ease-in-out matches Figma's Smart
+     Animate default duration and its Ease In And Out curve.
+     Full-bleed on a phone; a 393px drawer on a tablet, which is the
+     width the menu was designed at. */
+  .mobile-menu {
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 50;
+    flex-direction: column;
+    width: min(100%, 393px);
+    height: 100%;
+    padding: 0 20px 40px;
+    background: var(--color-bg);
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 300ms ease-in-out;
+  }
+  .mobile-menu.is-open {
+    transform: translateX(0);
+  }
+
+  .mobile-menu__close {
+    position: absolute;
+    top: 58px;
+    right: 8px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+  .mobile-menu__close::before,
+  .mobile-menu__close::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 22px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--color-text);
+  }
+  .mobile-menu__close::before { transform: translate(-50%, -50%) rotate(45deg); }
+  .mobile-menu__close::after  { transform: translate(-50%, -50%) rotate(-45deg); }
+
+  .mobile-menu__nav {
+    margin-top: 116px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 24px is the mobile H1 size. It is written out rather than taken
+     from --text-h1-size because the menu is one component shared by
+     both tiers, and above 640px that token is still the desktop 48px. */
+  .mobile-menu__link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 21px 0;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+
+  .mobile-menu__label {
+    border-bottom: 3px solid transparent;
+  }
+  /* Expanded "Getting Started" is underlined — the text only, not the
+     chevron, which is why the label sits in its own span. */
+  .mobile-menu__trigger[aria-expanded="true"] .mobile-menu__label {
+    border-bottom-color: currentColor;
+  }
+
+  .mobile-menu__chevron {
+    width: 24px;
+    height: 24px;
+    /* The asset points up; 180deg is the collapsed (down) state. */
+    transform: rotate(180deg);
+    transition: transform 300ms ease-in-out;
+  }
+  .mobile-menu__trigger[aria-expanded="true"] .mobile-menu__chevron {
+    transform: rotate(0deg);
+  }
+
+  .mobile-menu__sub {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 300ms ease-in-out;
+  }
+
+  /* Children sit at the same indent and size as top-level items, just
+     closer together (52px pitch in the frame, versus 72px). */
+  .mobile-menu__sublink {
+    padding: 11px 0;
+  }
+
+  .mobile-menu__social {
+    margin-top: auto;
+    padding-top: 40px;
+    justify-content: flex-end;
+  }
+
+  body.menu-open {
+    overflow: hidden;
+  }
+}
+
+/* ============================================================
+   MOBILE — 640px and below
+============================================================ */
 @media (max-width: 640px) {
   :root {
     --grid-margin: 20px;
-    --text-title-size: 32px;
-    --text-h1-size: 26px;
-    --text-h2-size: 22px;
-    --text-h3-size: 19px;
+
+    /* Mobile type scale. Sizes plus the two line-heights that change;
+       tracking is inherited from the em tokens except body (2% -> 3%). */
+    --text-title-size: 48px;
+    --text-h1-size: 24px;
+    --text-h2-size: 20px;      --text-h2-lh: 1.2;
+    --text-h3-size: 18px;
+    --text-subtitle1-size: 18px;
+    --text-body-size: 18px;    --text-body-ls: 0.03em;
+    --text-button-size: 16px;  --text-button-lh: normal;
   }
 
-  .site-header__inner {
-    padding: 8px 16px;
+  /* Every grid child goes full-width; the 12-column desktop layout has
+     no meaning at 393px. Pages override individual items where the
+     mobile design keeps them side by side. */
+  [class*="col-span-"] {
+    grid-column: 1 / -1;
+  }
+
+  /* ---------- Header ---------- */
+  .has-mobile-menu {
+    --nav-height: 160px;
+  }
+
+  .has-mobile-menu .site-header__inner {
+    height: var(--nav-height);
+    padding: 0 var(--grid-margin);
+    gap: 0;
+  }
+
+  body:not(.has-mobile-menu) {
+    /* Header collapses to logo height + padding, so the offset body
+       reserves for the fixed header has to shrink to match. */
+    --nav-height: 70px;
+  }
+  body:not(.has-mobile-menu) .site-header__inner {
+    height: auto;
+    padding: 8px var(--grid-margin);
     gap: 16px;
   }
 
   .site-logo img {
-    width: 52px;
+    width: 50px;
+    height: 50px;
+  }
+
+  /* ---------- Footer ---------- */
+  .site-footer {
+    background: #DEF3FF;
+  }
+
+  .footer-grass {
     height: 52px;
+    background-size: 285px 52px;
+    background-position:
+      -98px bottom, 98px bottom, 294px bottom, 490px bottom, 686px bottom, 882px bottom,
+      1078px bottom, 1274px bottom, 1470px bottom, 1666px bottom, 1862px bottom, 2058px bottom;
   }
 
-  /* Lets the nav links scroll sideways instead of wrapping —
-     wrapping would make the fixed header taller than the
-     --nav-height reserved for it, which would hide part of the
-     hero underneath it. */
-  .main-nav {
-    flex: 1 1 auto;
-    min-width: 0;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    scrollbar-width: none;
+  /* Deep bottom padding leaves the dino art its own band beneath the
+     copyright, as in the frame, instead of colliding with the icons. */
+  .footer-content {
+    padding: 32px var(--grid-margin) 150px;
   }
-  .main-nav::-webkit-scrollbar {
+
+  .footer-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px 16px;
+    margin-bottom: 32px;
+  }
+
+  /* The frame puts the social icons above the copyright; column-reverse
+     gets that order without changing the shared markup. */
+  .footer-bottom {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  /* Mobile placements from the 393 frame. Note the asset names are
+     misleading: dino-single is the blue one, dino-duo the green. */
+  .footer-deco--dino-single {
+    left: var(--grid-margin);
+    right: auto;
+    /* The desktop rule pins this one with `top`, which would otherwise
+       win over `bottom` and strand it at the top of the footer. */
+    top: auto;
+    bottom: 24px;
+    width: 56px;
+    height: auto;
+  }
+  .footer-deco--dino-duo {
+    left: 82px;
+    right: auto;
+    bottom: 24px;
+    width: 56px;
+    height: auto;
+  }
+  .footer-deco--flower-small-2 {
+    left: 162px;
+    right: auto;
+    bottom: 30px;
+    width: 26px;
+    height: auto;
+  }
+  .footer-deco--flower-small-1 {
+    left: 196px;
+    right: auto;
+    bottom: 30px;
+    width: 24px;
+    height: auto;
+  }
+
+  .footer-deco--cloud2-back,
+  .footer-deco--cloud2-front { right: 16px; top: 120px; }
+  .footer-deco--cloud3-back,
+  .footer-deco--cloud3-front { right: 40px; top: 250px; }
+
+  /* Positioned for the 1440 comp with no mobile placement; hidden
+     rather than guessed at. */
+  .footer-deco--flower-tl,
+  .footer-deco--flower-mid,
+  .footer-deco--cloud1-back,
+  .footer-deco--cloud1-front {
     display: none;
   }
+}
 
-  .btn-discord {
-    padding: 10px 14px;
-    font-size: 15px;
-  }
-
-  .hero {
-    height: 340px;
-  }
-
-  /* Positioned with fixed px offsets meant for the 1440px comp —
-     at phone widths they'd overlap the footer columns/copyright
-     instead of sitting in open space, so they're hidden rather
-     than guessed at. */
-  .footer-deco {
-    display: none;
-  }
-
-  .margin-marker {
-    height: 180px;
-    margin: 48px 0;
-    padding: 16px;
-    font-size: 14px;
+/* Respect a reduced-motion preference: the menu still opens and closes,
+   it just does not animate. Matches getting-started.css. */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-menu,
+  .mobile-menu__overlay,
+  .mobile-menu__sub,
+  .mobile-menu__chevron {
+    transition: none;
   }
 }
 

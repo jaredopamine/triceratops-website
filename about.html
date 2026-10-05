@@ -63,12 +63,17 @@
 
     <section class="hero">
       <div class="hero__bg">
-        <img src="assets/img/hero-banner.webp" width="2880" height="952"
-             alt="Illustrated valley with a large grey triceratops on the left and a small orange one on the right">
+        <picture>
+          <!-- Taller crop for phones; the wide desktop banner loses both
+               dinos once it is cropped to a 393-wide viewport. -->
+          <source media="(max-width: 640px)" srcset="assets/img/hero-banner-mobile.webp">
+          <img src="assets/img/hero-banner.webp" width="2880" height="952"
+               alt="Illustrated valley with a large grey triceratops on the left and a small orange one on the right">
+        </picture>
       </div>
       <div class="hero__gradient"></div>
       <div class="hero__content">
-        <h1 class="hero__title">Hey! We&rsquo;re the Triceratops Club!</h1>
+        <h1 class="hero__title"><span class="hero__title-a">Hey! We&rsquo;re the</span> <span class="hero__title-b">Triceratops Club!</span></h1>
         <p class="hero__subtitle">Learn more about the club and who we are!</p>
       </div>
     </section>
@@ -285,5 +290,6 @@
     </div>
   </footer>
 
+  <script src="nav.js" defer></script>
 </body>
 </html>
