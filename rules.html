@@ -130,11 +130,20 @@
       gap: 6px;
       white-space: nowrap;
       border-bottom: 2px solid transparent;
+      /* underline slides in (Figma "Link" hover: 0.3s, ease-out) */
+      background: linear-gradient(var(--ink), var(--ink)) no-repeat left bottom / 0 2px border-box;
+      transition: background-size 0.3s ease-out;
     }
     .nav__links a:hover,
-    .nav__links button:hover { border-bottom-color: var(--ink); }
-    .nav__links a[aria-current="page"] { font-weight: 700; border-bottom-color: var(--ink); }
-    .nav__chevron { width: 18px; height: 18px; }
+    .nav__links button:hover,
+    .nav__links a:focus-visible,
+    .nav__links button:focus-visible { background-size: 100% 2px; }
+    .nav__links a[aria-current="page"] { font-weight: 700; background-size: 100% 2px; }
+    /* chevron flips up on hover / when open (Figma: rotate 180deg, 0.3s ease-out) */
+    .nav__chevron { width: 18px; height: 18px; transform: rotate(180deg); transition: transform 0.3s ease-out; }
+    .nav__links button:hover .nav__chevron,
+    .nav__links button:focus-visible .nav__chevron,
+    .nav__links button[aria-expanded="true"] .nav__chevron { transform: rotate(0deg); }
 
     .nav__cta {
       flex: none;
@@ -153,7 +162,7 @@
       letter-spacing: 0.05em;
       text-decoration: none;
       white-space: nowrap;
-      transition: transform 0.15s ease, filter 0.15s ease;
+      transition: transform 0.4s ease-in-out, filter 0.4s ease-in-out;
     }
     .nav__cta:hover { filter: brightness(1.07); transform: translateY(-1px); }
     .nav__cta img { width: 24px; height: 24px; }
@@ -914,6 +923,7 @@
       html { scroll-behavior: auto; }
       .reveal { opacity: 1; transform: none; transition: none; }
       .nav__cta:hover { transform: none; }
+      .nav__links a, .nav__links button, .nav__chevron { transition: none; }
     }
 
     /* =====================================================================
@@ -1149,7 +1159,7 @@
         <li>
           <button type="button">
             Getting Started
-            <img class="nav__chevron" src="assets/icons/chevron.svg" alt="" aria-hidden="true" style="transform: rotate(180deg);">
+            <img class="nav__chevron" src="assets/icons/chevron.svg" alt="" aria-hidden="true">
           </button>
         </li>
         <li><a href="dinodex.html">DinoDex</a></li>
