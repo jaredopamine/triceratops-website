@@ -229,8 +229,8 @@
     }
     .section__dino {
       flex: none;
-      width: 153px;
-      filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.25));
+      width: var(--w, 153px);
+      height: auto;
     }
 
     /* ---------- Rule cards ------------------------------------- */
@@ -866,7 +866,7 @@
       .card-grid { grid-template-columns: 1fr; }
       .card-grid--stagger { flex-direction: column; }
       .flash-points { grid-template-columns: 1fr; }
-      .section__dino { width: 120px; }
+      .section__dino { width: calc(var(--w, 153px) * 0.78); }
       .faq-card, .faq-card--right { flex-direction: column; }
       .faq-card__mascot, .faq-card--right .faq-card__mascot { width: 96px; }
       .faq-card__bubble { height: auto; flex-basis: auto; }
@@ -1153,7 +1153,7 @@
               Please read over the following for general Behavior &amp; Conduct rules.
             </p>
           </div>
-          <img class="section__dino" src="assets/holidino.png" alt="A triceratops in a holiday scarf">
+          <img class="section__dino" style="--w:166px" src="assets/rules-general.png" alt="A triceratops reading the rules">
         </div>
 
         <div class="card-grid reveal">
@@ -1199,7 +1199,7 @@
               yourself with these hunt rules so your hunt can go smoothly.
             </p>
           </div>
-          <img class="section__dino" src="assets/bike-dino.png" alt="A triceratops riding a bike">
+          <img class="section__dino" style="--w:240px" src="assets/rules-hunt.png" alt="A triceratops peeking out of a bush">
         </div>
 
         <div class="card-grid card-grid--stagger reveal">
@@ -1320,7 +1320,7 @@
               To know more about how to obtain one, read the information below.
             </p>
           </div>
-          <img class="section__dino" src="assets/lucky-dino.png" alt="A lucky triceratops with a clover">
+          <img class="section__dino" style="--w:170px" src="assets/rules-flash.png" alt="A triceratops at a laptop">
         </div>
 
         <div class="listing-bar reveal">
