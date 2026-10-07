@@ -143,7 +143,28 @@
     .nav__chevron { width: 18px; height: 18px; transform: rotate(180deg); transition: transform 0.3s ease-out; }
     .nav__links button:hover .nav__chevron,
     .nav__links button:focus-visible .nav__chevron,
-    .nav__links button[aria-expanded="true"] .nav__chevron { transform: rotate(0deg); }
+    .nav__links button[aria-expanded="true"] .nav__chevron,
+    .nav__drop:hover .nav__chevron,
+    .nav__drop:focus-within .nav__chevron { transform: rotate(0deg); }
+    /* "Getting Started" dropdown — same panel as the shared nav in styles.css */
+    .nav__drop { position: relative; }
+    .nav__drop-panel {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 5;
+      min-width: 100%;
+      width: max-content;
+      padding: 12px;
+      background: var(--nav-bg);
+      border-radius: 0 0 16px 0;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.15s ease;
+    }
+    .nav__drop:hover .nav__drop-panel,
+    .nav__drop:focus-within .nav__drop-panel { opacity: 1; visibility: visible; }
 
     .nav__cta {
       flex: none;
@@ -913,6 +934,8 @@
         display: none;
       }
       .nav__links.is-open { display: flex; }
+      /* In the stacked menu, show Flash Sales as an indented link under Getting Started */
+      .nav__drop-panel { position: static; opacity: 1; visibility: visible; padding: 8px 0 0 16px; background: none; box-shadow: none; }
       .section__head { flex-direction: column; }
       .section__dino { align-self: flex-end; margin-top: -12px; }
       .claim-step { flex-direction: column; text-align: center; gap: 16px; }
@@ -1156,11 +1179,14 @@
 
       <ul class="nav__links" id="navLinks">
         <li><a href="index.html">Home</a></li>
-        <li>
-          <button type="button">
+        <li class="nav__drop">
+          <a href="getting-started.html">
             Getting Started
             <img class="nav__chevron" src="assets/icons/chevron.svg" alt="" aria-hidden="true">
-          </button>
+          </a>
+          <div class="nav__drop-panel">
+            <a href="flash-sales.html">Flash Sales</a>
+          </div>
         </li>
         <li><a href="dinodex.html">DinoDex</a></li>
         <li><a href="rules.html" aria-current="page">Rules</a></li>

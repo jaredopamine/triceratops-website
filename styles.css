@@ -360,7 +360,8 @@ ul {
   transition: opacity 0.15s ease;
 }
 
-.nav-dropdown:hover .nav-dropdown__panel {
+.nav-dropdown:hover .nav-dropdown__panel,
+.nav-dropdown:focus-within .nav-dropdown__panel {
   opacity: 1;
   visibility: visible;
 }

@@ -12,6 +12,8 @@
 /* ---------- Layout ---------- */
 /* Blocks in this comp sit 20px apart (vs 48px on Getting Started). */
 .fs-stack { gap: 20px; padding-bottom: 68px; }
+/* getting-started.css pulls the grass 130px up over its FAQ box; here it sits 68px below the claim card */
+.footer-grass { margin-top: 0; background-color: var(--color-bg); }
 
 .fs-section--tight { gap: 16px; }
 .fs-section--roomy { gap: 48px; }
@@ -40,6 +42,18 @@
   overflow: hidden;
 }
 .fs-intro__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 78%; }
+/* Desktop: Figma's exact crop of the photo (full width, 227.86% tall, shifted up 100.36%) */
+@media (min-width: 1201px) {
+  .fs-intro__photo { position: relative; }
+  .fs-intro__photo img {
+    position: absolute;
+    left: 0;
+    top: -100.36%;
+    height: 227.86%;
+    max-width: none;
+    object-fit: fill;
+  }
+}
 .fs-intro__copy {
   flex: 1 1 0;
   min-width: 0;
@@ -54,30 +68,46 @@
 .fs-intro__copy p { margin: 0; }
 
 /* ---------- How to enter ---------- */
-.fs-steps__images { box-shadow: none; }
+/* The "flashsales_component": 1340px wide (2px in from the column), steps 36px apart,
+   and one screenshot per step ("flashsale_img_1" variants), each framed as in the comp. */
+.fs-steps { margin: 0 2px; }
+.fs-steps .steps__list { gap: 36px; }
+/* Framed like the mobile comps: step 1 fills the frame from the left, steps 2-4 are
+   fitted on Discord's dark grey */
+.fs-steps__images { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25); }
+.fs-step-img--1 { object-fit: cover; object-position: left center; }
+.fs-step-img--2,
+.fs-step-img--3,
+.fs-step-img--4 { object-fit: contain; background: #1a1a1e; }
 
 /* ---------- I won ---------- */
-.fs-won { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto auto 488px; }
-.fs-won .after-find__item p { margin-bottom: 24px; }
+.fs-won .after-find__item p { margin-bottom: 0; } /* 18px copy, nothing below it */
 .fs-won a { color: inherit; }
-.fs-won__placeholder { height: auto; background: #c4c4c4; }
 
-/* ---------- Pricing + payment ---------- */
+/* ---------- Payment methods ---------- */
+.fs-payment { display: flex; flex-direction: column; gap: 16px; }
+.fs-payment .info-card { letter-spacing: 0.4px; }
+.fs-payment .fs-muted { color: var(--gs-muted); }
+
+/* ---------- Pricing ---------- */
 .fs-pay { position: relative; display: flex; flex-direction: column; gap: 20px; }
 
 .fs-cloud { position: absolute; max-width: none; pointer-events: none; }
-.fs-cloud--pink  { top: 35px;  right: -136px; width: 281px; height: 92px; }
+.fs-cloud--pink  { top: 22px;  right: -136px; width: 281px; height: 92px; }
 .fs-cloud--left  { top: 215px; left: -145px;  width: 202.37px; height: 188.095px; }
-.fs-cloud--right { top: 200px; right: -94px;  width: 233.983px; height: 217.478px; }
+.fs-cloud--right { top: 260px; right: -94px;  width: 233.983px; height: 217.478px; }
 
+/* Regular photo 250px, medium 330px, standing on the same baseline 160px apart */
 .fs-pricing {
   position: relative;
   display: flex;
   justify-content: center;
+  align-items: flex-end;
   gap: 160px;
 }
 .fs-price { display: flex; flex-direction: column; align-items: center; gap: 16px; }
-.fs-price img { width: 250px; height: 250px; object-fit: contain; border-radius: 16px; }
+.fs-price img { width: 250px; height: 250px; object-fit: cover; border-radius: 16px; }
+.fs-price--medium img { width: 330px; height: 330px; }
 .fs-price__cost { display: flex; flex-direction: column; align-items: center; }
 .fs-price p { margin: 0; padding: 4px 10px; color: var(--gs-heading); text-align: center; }
 .fs-price__amount { line-height: 1.2; }
@@ -96,18 +126,47 @@
   text-align: center;
 }
 
+/* "Watch for Pickup Info": 20px copy with a blank line after it in the comp */
+.fs-watch .after-find__item p { font-size: var(--text-body-size); margin-bottom: 30px; }
+
 /* ---------- Pick up ---------- */
+/* Both headers are 85px here, the body tucks ~9.6px under them, and the rules between
+   items are 4px rounded lines in the card's colour (24px either side of each line). */
+.fs-pickup .do-card__head { height: 85.41px; }
+.fs-pickup .do-card--do .do-card__body,
+.fs-pickup .do-card--dont .do-card__body { margin-top: -9.59px; }
 .fs-pin { width: 42.5px; height: 52px; }
 .fs-regular { font-weight: 400; }
+
+.fs-pickup .do-card__list li,
+.fs-claim .do-card__list li { position: relative; padding-top: 24px; padding-bottom: 24px; border-top: 0; }
+.fs-pickup .do-card__list li:first-child,
+.fs-claim .do-card__list li:first-child { padding-top: 0; }
+.fs-pickup .do-card__list li:last-child,
+.fs-claim .do-card__list li:last-child { padding-bottom: 0; }
+.fs-pickup .do-card__list li + li::before,
+.fs-claim .do-card__list li + li::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--gs-pastel-green);
+}
+.fs-pickup .do-card--dont .do-card__list li + li::before { background: var(--gs-pink); }
+.fs-claim .do-card__list li + li::before { background: var(--color-accent-lightblue); }
 
 .fs-flowers { display: flex; justify-content: center; gap: 40px; padding: 12px 0; }
 .fs-flowers img { width: 80px; height: 77.83px; }
 
 .fs-claim { width: 100%; max-width: 666px; margin: 0 auto; }
-.fs-claim .do-card__head { justify-content: center; padding: 16px 20px; background: var(--color-accent-lightblue); }
+.fs-claim .do-card__head { height: 85.41px; justify-content: center; padding: 16px 20px; background: var(--color-accent-lightblue); }
+.fs-claim .do-card__body { margin-top: -9.59px; }
 .fs-claim .do-card__head img { width: 50px; height: 50px; padding: 2.17px; }
 .fs-claim .do-card__head h2 { margin: 0; color: var(--gs-heading); line-height: 1.2; }
-.fs-claim .do-card__body { padding: 32px 29.5px; }
+.fs-claim .do-card__body { padding: 32px 25.5px; } /* 607px text column, as in the comp */
 .fs-claim .do-card__list { max-width: none; }
 .fs-claim .do-card__list li {
   padding-left: 0;
@@ -125,17 +184,238 @@
 @media (max-width: 1200px) {
   .fs-intro { flex-direction: column; align-items: stretch; }
   .fs-intro__photo { flex: none; }
-  .fs-won { grid-template-rows: none; }
-  .fs-won .after-find__item { grid-row: auto; grid-template-rows: none; }
-  .fs-won__placeholder { height: 334px; }
   .fs-pricing { gap: 48px; flex-wrap: wrap; }
   .fs-cloud { display: none; }
 }
 
+/* ============================================================
+   MOBILE LANDSCAPE — 641px to 1200px (same range as getting-started.css),
+   from the Figma "Flash Sales Mobile Horizontal Page" frame (853px wide):
+   the mobile type scale and 48px rhythm in a 763px column (45px side
+   margins, scaled with the viewport). getting-started.css's landscape
+   block supplies the steps grid + number picker, headings and footer;
+   this overrides the pieces that differ on this page.
+============================================================ */
+@media (min-width: 641px) and (max-width: 1200px) {
+  /* ---------- Hero: 244px, text across the bottom ---------- */
+  .hero--flash-sales { height: 244px; padding: 10px; justify-content: center; }
+  .hero--flash-sales .hero__bg img { object-position: center 20%; } /* Figma crop */
+  .hero--flash-sales .hero__content { display: flex; flex-direction: column; gap: 16px; padding: 0; }
+  .hero--flash-sales .hero__title { margin: 0; font-size: 40px; line-height: 1.2; letter-spacing: 0.8px; }
+  .hero--flash-sales .hero__subtitle { font-size: 12px; line-height: 1.3; letter-spacing: 0.24px; }
+
+  /* ---------- Layout ---------- */
+  .fs-stack { gap: 48px; padding: 48px 5.275vw; } /* 45px at 853px */
+  .fs-spacer,
+  .fs-flowers { display: none; }
+  .fs-section--tight,
+  .fs-section--roomy,
+  .fs-section--flush { gap: 24px; }
+  #what-is .gs-desktop-only { display: none; } /* "What is a Flash Sale", no "?" */
+  .fs-sub { color: var(--gs-body); }
+  #i-won .gs-heading,
+  #pricing .gs-heading { gap: 9px; }
+  #i-won .gs-heading__title,
+  #pricing .gs-heading__title { gap: 16px; }
+  #i-won .gs-heading__sub { font-size: 20px; letter-spacing: 0.4px; color: var(--gs-muted); }
+
+  .fs-doodle--tall,
+  .fs-doodle--tall img { height: 157.3px; }
+  .fs-stack .gs-doodle--flip img { transform: none; } /* not mirrored in this comp */
+
+  /* ---------- What is a flash sale ---------- */
+  .fs-intro { gap: 48px; }
+  .fs-intro__photo img { object-position: center 72.5%; } /* Figma crop */
+  .fs-intro__copy { gap: 24px; font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; }
+
+  /* ---------- How to enter: screenshot left, number picker + active step right ---------- */
+  #entering .gs-arrow { margin-bottom: 24px; } /* 48px above the heading, like the other blocks */
+  .fs-steps { margin: 0; max-width: 752px; }
+  .fs-steps .steps__list { gap: 0; }
+  .fs-steps__images { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25); }
+  .fs-step-img--1 { inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: left center; }
+  .fs-step-img--2,
+  .fs-step-img--3 { background: #1a1a1e; } /* Discord's dark grey behind the fitted screenshot */
+
+  /* ---------- Payment methods: stacked full-width cards ---------- */
+  .fs-payment .info-cards {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+    margin-right: 0;
+    padding: 0;
+    overflow: visible;
+  }
+  .fs-payment .info-card { flex: none; letter-spacing: 0.32px; }
+  .fs-payment .info-card--yellow .info-card__head { justify-content: flex-start; }
+  .fs-payment .fs-muted { color: var(--gs-body); }
+  .fs-payment .fs-muted strong { font-weight: 400; color: var(--gs-gray); }
+  .fs-pay__note { font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; }
+  .fs-pay__note strong { font-weight: 400; }
+
+  /* ---------- Pricing: side by side, clouds at 75% and rotated as in the comp ---------- */
+  .fs-pay { gap: 48px; }
+  .fs-pricing { gap: 48px; } /* side by side from ~700px; they stack below that rather than overflow */
+  .fs-cloud { display: block; }
+  .fs-cloud--pink  { top: 16px;  left: 626px;   right: auto; width: 210.75px; height: 69px; }
+  .fs-cloud--left  { top: 127.5px; left: -97.35px; width: 151.78px; height: 141.07px; transform: rotate(105.8deg); }
+  .fs-cloud--right { top: 413px; left: 701.4px; right: auto; width: 175.49px; height: 163.11px; transform: rotate(-77.07deg); }
+
+  .fs-watch .after-find__item p { font-size: 16px; letter-spacing: 0.32px; margin-bottom: 24px; }
+  .fs-watch .after-find__item strong { font-weight: 700; } /* getting-started un-bolds first items at this size */
+
+  /* ---------- Pick up + claim: three full-width cards ---------- */
+  #pickup { gap: 10px; }
+  .fs-pickup { grid-template-columns: 1fr; gap: 24px; }
+  .fs-pickup .do-card,
+  .fs-claim { width: 100%; max-width: none; }
+  .fs-claim { margin-top: -24px; } /* 24px under the friend card, not 48 */
+  .fs-pickup strong { font-weight: 400; }
+
+  /* 76px header, its content centred in the 65px left visible above the body */
+  .fs-pickup .do-card--do .do-card__head,
+  .fs-pickup .do-card--dont .do-card__head,
+  .fs-claim .do-card__head {
+    height: 76px;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    padding: 0 0 11px 27px;
+    border-width: 2px;
+  }
+  .fs-pickup .do-card__head img,
+  .fs-claim .do-card__head img { width: 28px; height: 28px; padding: 0; }
+  .fs-pickup .do-card__head h3,
+  .fs-claim .do-card__head h2 { font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; white-space: nowrap; }
+
+  /* Rules run 25.5px in from the card edge, text 52px in */
+  .fs-pickup .do-card--do .do-card__body,
+  .fs-pickup .do-card--dont .do-card__body,
+  .fs-claim .do-card__body {
+    margin-top: -11px;
+    padding: 16px 23.5px;
+    gap: 16px;
+    border-width: 2px;
+    border-radius: 0 0 20px 20px;
+  }
+  .fs-pickup .do-card__list,
+  .fs-claim .do-card__list { width: 100%; max-width: none; }
+  .fs-pickup .do-card__list li,
+  .fs-claim .do-card__list li { padding: 16px 26.5px; font-size: 16px; }
+  .fs-claim .do-card__list p + p { margin-top: 24px; }
+}
+
+/* ============================================================
+   MOBILE — 640px and below (same breakpoint as getting-started.css),
+   from the Figma "Mobile Vertical Page pg. 2" frame (393px wide).
+   getting-started.css's mobile block supplies the shared pieces
+   (headings, steps + number picker, info cards, do/don't cards);
+   this only adds what differs on this page.
+============================================================ */
 @media (max-width: 640px) {
-  .hero--flash-sales { height: 340px; }
-  .fs-spacer { height: 48px; }
-  .fs-doodle--tall, .fs-doodle--tall img { height: auto; }
-  .fs-price img { width: 200px; height: 200px; }
-  .fs-claim .do-card__head { flex-wrap: wrap; }
+  /* ---------- Hero ---------- */
+  .hero--flash-sales { height: 244px; padding: 10px; justify-content: center; }
+  .hero--flash-sales .hero__bg img { object-position: center; }
+  .hero--flash-sales .hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 345px;
+    max-width: 100%;
+    padding: 0;
+  }
+  .hero--flash-sales .hero__title { margin: 0; font-size: 40px; line-height: 1.2; letter-spacing: 0.8px; }
+  .hero--flash-sales .hero__subtitle { font-size: 12px; line-height: 1.3; letter-spacing: 0.24px; }
+
+  /* ---------- Layout: 48px between every block, no decorative spacers ---------- */
+  .fs-stack { gap: 48px; padding-bottom: 48px; }
+  .fs-spacer,
+  .fs-flowers,
+  #entering .gs-arrow { display: none; }
+  .fs-section--tight,
+  .fs-section--roomy,
+  .fs-section--flush { gap: 24px; }
+  .fs-sub { color: var(--gs-body); }
+  /* "I Won" and "Pricing" use the tighter heading from the desktop comp */
+  #i-won .gs-heading,
+  #pricing .gs-heading { gap: 9px; }
+  #i-won .gs-heading__title,
+  #pricing .gs-heading__title { gap: 16px; }
+  #i-won .gs-heading__sub { font-size: 20px; letter-spacing: 0.4px; color: var(--gs-muted); }
+
+  .fs-doodle--tall,
+  .fs-doodle--tall img { height: 157.3px; } /* half-size, like the other doodles */
+  /* The mobile comp puts this doodle between "What Is" and "How To Enter" (desktop: after) */
+  #what-is { order: -2; }
+  .fs-doodle--tall { order: -1; }
+
+  /* ---------- What is a flash sale ---------- */
+  .fs-intro { gap: 48px; }
+  .fs-intro__photo img { object-position: center; }
+  .fs-intro__copy { gap: 24px; font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; }
+
+  /* ---------- How to enter: screenshot, number picker, active step ---------- */
+  #entering .gs-heading__title h2 { max-width: 170px; } /* two lines in the comp */
+  .fs-steps { margin: 0; }
+  .fs-steps .steps__list { gap: 0; }
+  /* Step 1 fills the 345 x 259 frame from the left; steps 2-3 sit on Discord's dark grey */
+  .fs-steps__images { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25); }
+  .fs-step-img--1 { inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: left center; }
+  .fs-step-img--2,
+  .fs-step-img--3 { background: #1a1a1e; }
+  .fs-steps .step__body { padding-bottom: 30px; } /* the comp leaves a blank line under the step text */
+
+  /* ---------- I won ---------- */
+  .fs-won .after-find__item p { font-size: 16px; }
+
+  /* ---------- Payment methods: stacked cards ---------- */
+  .fs-payment .info-card { letter-spacing: 0.32px; }
+  .fs-payment .info-card--yellow .info-card__head { justify-content: flex-start; }
+  .fs-payment .fs-muted { color: var(--gs-body); }
+  .fs-payment .fs-muted strong { font-weight: 400; color: var(--gs-gray); }
+  .fs-pay__note { font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; }
+  .fs-pay__note strong { font-weight: 400; }
+
+  /* ---------- Pricing: stacked, with the clouds at 75% size ---------- */
+  .fs-pay { gap: 48px; }
+  .fs-pricing { flex-direction: column; align-items: center; gap: 48px; }
+  .fs-price__amount { font-size: 36px; letter-spacing: 0.72px; }
+  .fs-price__label { font-size: 20px; letter-spacing: 0.4px; }
+  .fs-cloud { display: block; }
+  .fs-cloud--pink  { top: 60.6px; left: 264px;  right: auto; width: 210.75px; height: 69px; }
+  .fs-cloud--left  { top: 344px;  left: -89px;  width: 151.78px; height: 141.07px; }
+  .fs-cloud--right { top: 811px;  left: 266px;  right: auto; width: 175.49px; height: 163.11px; }
+
+  /* "Watch for Pickup Info": 16px copy with a blank line after it */
+  .fs-watch .after-find__item p { font-size: 16px; letter-spacing: 0.32px; margin-bottom: 24px; }
+
+  /* ---------- Pick up + claim: three 312px cards in one column ---------- */
+  #pickup { gap: 10px; }
+  .fs-pickup strong { font-weight: 400; }
+  /* 76px header, its content centred in the 65px left visible above the body */
+  .fs-pickup .do-card__head,
+  .fs-claim .do-card__head {
+    height: 76px;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    padding: 0 0 11px 27px; /* the title row runs to the card's right edge in the comp */
+    border-width: 2px;
+  }
+  .fs-pickup .do-card__head h3 { white-space: nowrap; }
+  .fs-pickup .do-card__head img,
+  .fs-claim .do-card__head img { width: 28px; height: 28px; padding: 0; }
+  .fs-pickup .do-card__head h3,
+  .fs-claim .do-card__head h2 { font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; }
+  .fs-pickup .do-card--do .do-card__body,
+  .fs-pickup .do-card--dont .do-card__body,
+  .fs-claim .do-card__body { margin-top: -11px; }
+  .fs-pickup .do-card__list li,
+  .fs-claim .do-card__list li { padding-top: 16px; padding-bottom: 16px; }
+
+  .fs-claim { max-width: 312px; margin-top: -24px; } /* 24px under the friend card, not 48 */
+  .fs-claim .do-card__head h2 { max-width: 237px; }
+  .fs-claim .do-card__body { padding: 16px 28.5px; gap: 16px; border-width: 2px; border-radius: 0 0 20px 20px; }
+  .fs-claim .do-card__list li { font-size: 16px; }
+  .fs-claim .do-card__list p + p { margin-top: 24px; }
 }

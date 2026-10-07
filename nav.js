@@ -92,15 +92,21 @@
 
       var subWrap = document.createElement('div');
       subWrap.className = 'mobile-menu__sub';
-      if (sub) {
-        Array.prototype.forEach.call(sub.querySelectorAll('a'), function (a) {
-          var link = document.createElement('a');
-          link.className = 'mobile-menu__link mobile-menu__sublink';
-          link.href = a.getAttribute('href') || '#';
-          link.textContent = a.textContent.trim();
-          subWrap.appendChild(link);
-        });
-      }
+      /* The trigger is a button here (it only expands the group), so the
+         trigger's own page goes first in the list, then its sub-pages —
+         otherwise "Getting Started" itself could never be reached. */
+      var subLinks = [trigger].concat(sub ? Array.prototype.slice.call(sub.querySelectorAll('a')) : []);
+      subLinks.forEach(function (a) {
+        var link = document.createElement('a');
+        link.className = 'mobile-menu__link mobile-menu__sublink';
+        link.href = a.getAttribute('href') || '#';
+        link.textContent = a.textContent.trim();
+        if (a.hasAttribute('aria-current')) {
+          link.setAttribute('aria-current', a.getAttribute('aria-current'));
+          link.classList.add('mobile-menu__link--current');
+        }
+        subWrap.appendChild(link);
+      });
       group.appendChild(subWrap);
 
       btn.addEventListener('click', function () {

@@ -63,7 +63,7 @@
         <header class="gs-heading">
           <div class="gs-heading__title">
             <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
-            <h2 class="text-h1">What Is A Flash Sale?</h2>
+            <h2 class="text-h1">What Is A Flash Sale<span class="gs-desktop-only">?</span></h2>
           </div>
           <p class="gs-heading__sub">A quick overview of how flash sales work and claim limits!</p>
         </header>
@@ -80,12 +80,12 @@
         </div>
       </section>
 
-      <div class="gs-doodle fs-doodle--tall" aria-hidden="true">
-        <img src="assets/flash-sales/path-1.svg" alt="">
-      </div>
-
       <!-- ===== How to enter a giveaway ===== -->
       <section class="gs-section fs-section--roomy" id="entering">
+        <div class="gs-arrow" aria-hidden="true">
+          <img src="assets/getting-started/arrow-pink.svg" alt="">
+        </div>
+
         <header class="gs-heading">
           <div class="gs-heading__title">
             <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
@@ -94,7 +94,7 @@
           <p class="gs-heading__sub">How to catch a listing and react in time to win!</p>
         </header>
 
-        <div class="steps">
+        <div class="steps fs-steps">
           <div class="steps__list">
             <button type="button" class="step is-active" aria-current="step">
               <span class="step__bar"><span class="step__fill"></span></span>
@@ -126,13 +126,26 @@
             </button>
           </div>
           <div class="steps__images fs-steps__images">
-            <!-- TODO: placeholder from the comp — swap for screenshots of an active listing (one per step) -->
-            <img class="steps__image is-active" src="assets/flash-sales/enter-listing.png" alt="">
+            <img class="steps__image fs-step-img--1 is-active" src="assets/flash-sales/enter-step-1.png" alt="The #listings channel under the Flash Sales category in Discord">
+            <img class="steps__image fs-step-img--2" src="assets/flash-sales/enter-step-2.png" alt="A GiveawayBot listing showing the dino, a countdown timer and the reaction to enter">
+            <img class="steps__image fs-step-img--3" src="assets/flash-sales/enter-step-3.png" alt="Clicking the party popper reaction on the GiveawayBot listing">
+            <img class="steps__image fs-step-img--4" src="assets/flash-sales/enter-step-4.png" alt="The ended giveaway, with the winner chosen by GiveawayBot">
+          </div>
+          <!-- Mobile only: numbered step picker under the screenshot -->
+          <div class="steps__nums">
+            <button type="button" class="steps__num is-active" aria-label="Step 1"><span class="steps__num-fill"></span><span class="steps__num-label">1</span></button>
+            <button type="button" class="steps__num" aria-label="Step 2"><span class="steps__num-fill"></span><span class="steps__num-label">2</span></button>
+            <button type="button" class="steps__num" aria-label="Step 3"><span class="steps__num-fill"></span><span class="steps__num-label">3</span></button>
+            <button type="button" class="steps__num" aria-label="Step 4"><span class="steps__num-fill"></span><span class="steps__num-label">4</span></button>
           </div>
         </div>
       </section>
 
       <div class="fs-spacer" aria-hidden="true"></div>
+
+      <div class="gs-doodle fs-doodle--tall" aria-hidden="true">
+        <img src="assets/flash-sales/path-1.svg" alt="">
+      </div>
 
       <!-- ===== I won, what now? ===== -->
       <section class="gs-section" id="i-won">
@@ -148,22 +161,47 @@
           <article class="after-find__item">
             <h3 class="text-h3">Send Payment Promptly</h3>
             <p>After winning, you have <strong>2 hours</strong> to send payment or your dino will be rerolled to another hunter. see the <a href="#payment"><strong>Payment section below</strong></a> for accepted methods.</p>
-            <!-- TODO: placeholder from the comp — swap for the real image -->
-            <div class="after-find__shot fs-won__placeholder" aria-hidden="true"></div>
-          </article>
-
-          <article class="after-find__item">
-            <h3 class="text-h3">Watch for Pickup Info</h3>
-            <p>Once your payment's confirmed, keep an eye on <strong>#flash-sale-announcements</strong>. No extra steps needed beyond paying on time!</p>
-            <!-- TODO: placeholder from the comp — swap for the real image -->
-            <div class="after-find__shot fs-won__placeholder" aria-hidden="true"></div>
           </article>
         </div>
       </section>
 
+      <!-- ===== Payment methods ===== -->
+      <section class="fs-payment" id="payment" aria-label="Payment methods">
+        <div class="info-cards">
+          <article class="info-card info-card--blue">
+            <div class="info-card__head">
+              <img src="assets/getting-started/dino-blue.svg" alt="">
+              <h3 class="text-h3">Venmo</h3>
+            </div>
+            <p class="fs-muted">Send payment to <strong><u>@davistriceratops</u></strong></p>
+            <p>Your payment is marked as confirmed once we like the transaction, so no need to follow up unless it's been a while.</p>
+          </article>
+
+          <article class="info-card info-card--yellow">
+            <div class="info-card__head">
+              <img src="assets/flash-sales/pay-zelle.svg" alt="">
+              <h3 class="text-h3">Zelle</h3>
+            </div>
+            <p class="fs-muted">Send payment to <strong><u>davistriceratops@gmail.com</u></strong></p>
+            <p>Since Zelle doesn't have a built-in "confirmation" step like Venmo, feel free to check in if you don't hear back within a couple hours.</p>
+          </article>
+
+          <article class="info-card info-card--green">
+            <div class="info-card__head">
+              <img src="assets/flash-sales/pay-cash.svg" alt="">
+              <h3 class="text-h3">Cash</h3>
+            </div>
+            <p>Prefer to pay in person with cash? You'll need to open a ticket in <strong>#modmail</strong> on Discord first so staff know to expect a cash payment from you.</p>
+            <p>Please bring <strong>exact change</strong> as change won’t be available at pickup.</p>
+          </article>
+        </div>
+
+        <p class="fs-pay__note">For all payment methods: include your <strong>Discord username</strong>, <strong>drop number</strong>, and <strong>dino type (color/size)</strong> in the payment message.<br>This is required to match your transaction to your win.</p>
+      </section>
+
       <div class="fs-spacer fs-spacer--sm" aria-hidden="true"></div>
 
-      <!-- ===== Pricing + payment methods ===== -->
+      <!-- ===== Pricing ===== -->
       <div class="fs-pay">
         <img class="fs-cloud fs-cloud--pink" src="assets/flash-sales/cloud-pink.svg" alt="" aria-hidden="true">
         <img class="fs-cloud fs-cloud--left" src="assets/flash-sales/cloud-blue-left.svg" alt="" aria-hidden="true">
@@ -180,14 +218,14 @@
 
           <ul class="fs-pricing">
             <li class="fs-price">
-              <img src="assets/flash-sales/price-regular.png" alt="A regular-size magenta triceratops plush">
+              <img src="assets/flash-sales/price-regular-dino.png" alt="A regular-size pastel rainbow triceratops plush">
               <div class="fs-price__cost">
                 <p class="fs-price__amount text-h2">$8</p>
                 <p class="fs-price__label">Regular Dino</p>
               </div>
             </li>
-            <li class="fs-price">
-              <img src="assets/flash-sales/price-medium.png" alt="A medium-size cream triceratops plush in a party hat">
+            <li class="fs-price fs-price--medium">
+              <img src="assets/flash-sales/price-medium-dino.png" alt="A medium-size orange triceratops plush">
               <div class="fs-price__cost">
                 <p class="fs-price__amount text-h2">$13</p>
                 <p class="fs-price__label">Medium Dino</p>
@@ -196,49 +234,16 @@
           </ul>
         </section>
 
-        <section class="gs-section fs-section--payment" id="payment">
-          <header class="gs-heading">
-            <div class="gs-heading__title">
-              <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
-              <h2 class="text-h2 fs-title">Payment Methods</h2>
-            </div>
-            <p class="gs-heading__sub fs-sub">How to pay for your dino once you've won, including accepted payment methods and what to include with your payment!</p>
-          </header>
-
-          <div class="info-cards">
-            <article class="info-card info-card--blue">
-              <div class="info-card__head">
-                <img src="assets/getting-started/dino-blue.svg" alt="">
-                <h3 class="text-h3">Venmo</h3>
-              </div>
-              <p>Send payment to <strong>@<u>davistriceratops</u></strong></p>
-              <p>Your payment is marked as confirmed once we like the transaction, so no need to follow up unless it's been a while.</p>
-            </article>
-
-            <article class="info-card info-card--yellow">
-              <div class="info-card__head">
-                <img src="assets/flash-sales/pay-zelle.svg" alt="">
-                <h3 class="text-h3">Zelle</h3>
-              </div>
-              <p>Send payment to <strong><u>davistriceratops</u>@<u>gmail.com</u></strong></p>
-              <p>Since Zelle doesn't have a built-in "confirmation" step like Venmo, feel free to check in if you don't hear back within a couple hours.</p>
-            </article>
-
-            <article class="info-card info-card--green">
-              <div class="info-card__head">
-                <img src="assets/flash-sales/pay-cash.svg" alt="">
-                <h3 class="text-h3">Cash</h3>
-              </div>
-              <p>Prefer to pay in person with cash? You'll need to open a ticket in <strong>#modmail</strong> on Discord first so staff know to expect a cash payment from you.</p>
-              <p>Please bring <strong>exact change</strong> as change won’t be available at pickup.</p>
-            </article>
-          </div>
-
-          <p class="fs-pay__note">For all payment methods: include your <strong>Discord username</strong>, <strong>drop number</strong>, and <strong>dino type (color/size)</strong> in the payment message.<br>This is required to match your transaction to your win.</p>
-        </section>
+        <!-- ===== Watch for pickup info ===== -->
+        <div class="after-find fs-watch">
+          <article class="after-find__item">
+            <h3 class="text-h3">Watch for Pickup Info</h3>
+            <p>Once your payment's confirmed, keep an eye on <strong>#flash-sale-announcements</strong>. No extra steps needed beyond paying on time!</p>
+          </article>
+        </div>
       </div>
 
-      <div class="gs-doodle" aria-hidden="true">
+      <div class="gs-doodle gs-doodle--flip" aria-hidden="true">
         <img src="assets/flash-sales/path-2.svg" alt="">
       </div>
 
@@ -252,10 +257,10 @@
           <p class="gs-heading__sub fs-sub">Where, when, and what to bring to claim your dino and how long you have to pick up your dino before it's considered abandoned!</p>
         </header>
 
-        <div class="do-dont">
+        <div class="do-dont fs-pickup">
           <article class="do-card do-card--do">
             <header class="do-card__head">
-              <img class="fs-pin" src="assets/icons/location.svg" alt="">
+              <picture><source media="(max-width: 1200px)" srcset="assets/flash-sales/icon-pin-mobile.svg"><img class="fs-pin" src="assets/icons/location.svg" alt=""></picture>
               <h3 class="text-h2">Picking Up Your Dino</h3>
             </header>
             <div class="do-card__body">
@@ -269,7 +274,7 @@
 
           <article class="do-card do-card--dont">
             <header class="do-card__head">
-              <img src="assets/flash-sales/icon-user.svg" alt="">
+              <picture><source media="(max-width: 1200px)" srcset="assets/flash-sales/icon-user-mobile.svg"><img src="assets/flash-sales/icon-user.svg" alt=""></picture>
               <h3 class="text-h2">Can My Friend Pick Up?</h3>
             </header>
             <div class="do-card__body">
@@ -292,7 +297,7 @@
       <!-- ===== How long to claim ===== -->
       <article class="do-card fs-claim" id="claim-window">
         <header class="do-card__head">
-          <img src="assets/icons/clock.svg" alt="">
+          <picture><source media="(max-width: 1200px)" srcset="assets/flash-sales/icon-clock-mobile.svg"><img src="assets/icons/clock.svg" alt=""></picture>
           <h2 class="text-h2">How Long Do I Have to Claim?</h2>
         </header>
         <div class="do-card__body">
@@ -379,8 +384,7 @@
   <script>
     // Giveaway steps — same behaviour as the Discord steps on getting-started.html: the
     // active step's bar fills over 5s, then the next step activates (4 -> back to 1).
-    // Clicking a step jumps straight to it. There's only one placeholder image for now,
-    // so images only swap once there's one per step.
+    // Clicking a step jumps straight to it, and the screenshot dissolves to that step's image.
     (function () {
       var root = document.querySelector('.steps');
       if (!root) return;
@@ -388,11 +392,17 @@
       var fills = steps.map(function (s) { return s.querySelector('.step__fill'); });
       var images = Array.prototype.slice.call(root.querySelectorAll('.steps__image'));
       var swapImages = images.length === steps.length;
+      // Mobile picker: the numbered circles fill left-to-right with the same 5s timer
+      var nums = Array.prototype.slice.call(root.querySelectorAll('.steps__num'));
+      var numFills = nums.map(function (n) { return n.querySelector('.steps__num-fill'); });
       var duration = Number(root.dataset.duration) || 5000;
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var current = 0, elapsed = 0, last = null, raf = null;
 
-      function setFill(p) { fills[current].style.transform = 'scaleY(' + p + ')'; }
+      function setFill(p) {
+        fills[current].style.transform = 'scaleY(' + p + ')';
+        if (numFills[current]) numFills[current].style.transform = 'scaleX(' + p + ')';
+      }
 
       function show(index) {
         current = index;
@@ -404,6 +414,12 @@
           fills[i].style.transform = 'scaleY(0)';
         });
         if (swapImages) images.forEach(function (img, i) { img.classList.toggle('is-active', i === index); });
+        nums.forEach(function (num, i) {
+          num.classList.toggle('is-active', i === index);
+          if (i === index) num.setAttribute('aria-current', 'step');
+          else num.removeAttribute('aria-current');
+          numFills[i].style.transform = 'scaleX(0)';
+        });
         setFill(reduceMotion ? 1 : 0);
       }
 
@@ -418,6 +434,7 @@
       function pause() { if (raf !== null) cancelAnimationFrame(raf); raf = null; last = null; }
 
       steps.forEach(function (step, i) { step.addEventListener('click', function () { show(i); }); });
+      nums.forEach(function (num, i) { num.addEventListener('click', function () { show(i); }); });
 
       show(0);
       if ('IntersectionObserver' in window) {
@@ -429,5 +446,6 @@
       }
     })();
   </script>
+  <script src="nav.js" defer></script>
 </body>
 </html>

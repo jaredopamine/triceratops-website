@@ -25,6 +25,13 @@ button {
 
 strong { font-weight: 700; }
 
+/* Small copy differences between the desktop and mobile comps */
+.gs-mobile-only { display: none; }
+.gs-line { display: block; } /* a sentence that starts on its own line */
+/* <picture> wrappers only swap in the mobile artwork — they mustn't add a layout box */
+.do-card__head picture { display: contents; }
+.types > picture { position: absolute; inset: 0; pointer-events: none; } /* same box the flowers were positioned in */
+
 /* Pastel green CTA ("CTA Button Hi-Fi" in Figma) */
 .gs-btn {
   display: inline-flex;
@@ -74,8 +81,11 @@ strong { font-weight: 700; }
   letter-spacing: 0.36px;
   color: var(--gs-body);
 }
-.gs-heading__copy p { margin: 0 0 24px; }
+/* Comp: the first two lines run together, then a blank line (1.5 x 18px) between the rest */
+.gs-heading__copy p { margin: 0 0 27px; }
+.gs-heading__copy p:first-child,
 .gs-heading__copy p:last-child { margin-bottom: 0; }
+#during-drops .gs-heading__title { gap: 24px; }
 
 .gs-doodle {
   position: relative;
@@ -88,7 +98,8 @@ strong { font-weight: 700; }
 .gs-doodle--flip img { transform: scaleX(-1); }
 
 .gs-arrow { display: flex; justify-content: center; }
-.gs-arrow img { width: 87px; height: auto; }
+/* The arrow SVG overhangs its 94.76px Figma frame by ~3px; don't let that add to the layout */
+.gs-arrow img { width: 87px; height: auto; margin-bottom: -3.25px; }
 
 /* ---------- Drop notifications (steps) ---------- */
 /* Behaviour mirrors the Figma prototype: 5s timer per step, bar fills as a loading
@@ -141,7 +152,7 @@ strong { font-weight: 700; }
   transform: scaleY(0); /* driven by the script: 0 -> 1 over 5s */
   transform-origin: top;
 }
-.step__body { display: flex; flex-direction: column; gap: 16px; }
+.step__body { flex: 0 1 612px; display: flex; flex-direction: column; gap: 16px; } /* 612px text column in the comp */
 .step__title { margin: 0; }
 .step__text {
   font-size: var(--text-body-size);
@@ -149,6 +160,7 @@ strong { font-weight: 700; }
   letter-spacing: var(--text-body-ls);
 }
 .step.is-active { color: var(--gs-body); }
+.steps__nums { display: none; } /* mobile-only numbered picker */
 .step:hover:not(.is-active) { color: var(--gs-body); }
 
 /* ---------- Join Discord CTA ---------- */
@@ -158,8 +170,8 @@ strong { font-weight: 700; }
   align-items: center;
   gap: 24px;
 }
-.gs-cta__title { margin: 0; padding: 10px; color: var(--gs-body); text-align: center; }
-.gs-cta__arrow { width: 87px; height: auto; }
+.gs-cta__title { margin: 0; padding: 10px; color: var(--gs-body); text-align: center; line-height: 1.2; }
+.gs-cta__arrow { width: 87px; height: auto; margin-bottom: -3.25px; }
 
 /* ---------- When & where ---------- */
 .info-cards {
@@ -191,26 +203,25 @@ strong { font-weight: 700; }
 .info-card__head h3 { margin: 0; }
 
 /* ---------- What to do / not to do ---------- */
+/* In the comp the coloured header is its own bordered box laid over the top of the
+   body box (whose top corners are tucked underneath it), and the two headers differ
+   in height (101.6px / 89px) while the card bottoms line up. */
 .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 21px; align-items: stretch; }
-.do-card {
-  display: flex;
-  flex-direction: column;
-  background: var(--color-bg);
-  border: 4px solid var(--gs-body);
-  border-radius: 20px;
-  overflow: hidden;
-}
+.do-card { display: flex; flex-direction: column; }
 .do-card__head {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: 24px;
-  padding: 20px 43px;
-  border-bottom: 4px solid var(--gs-body);
+  padding: 0 43px;
+  border: 4px solid var(--gs-body);
+  border-radius: 20px 20px 0 0;
 }
 .do-card__head img { width: 48px; height: 48px; }
 .do-card__head h3 { margin: 0; color: var(--gs-body); line-height: 1.2; }
-.do-card--do .do-card__head { background: var(--gs-pastel-green); }
-.do-card--dont .do-card__head { background: var(--gs-pink); }
+.do-card--do .do-card__head { height: 101.64px; background: var(--gs-pastel-green); }
+.do-card--dont .do-card__head { height: 89px; background: var(--gs-pink); }
 .do-card__body {
   display: flex;
   flex-direction: column;
@@ -218,12 +229,17 @@ strong { font-weight: 700; }
   gap: 24px;
   padding: 32px 50px;
   flex: 1;
+  background: var(--color-bg);
+  border: 4px solid var(--gs-body);
+  border-radius: 12px 12px 20px 20px;
 }
-/* Transparent cutouts with lots of empty space above/below — cover crops that away */
-.do-card__art { width: 238px; height: 218px; object-fit: cover; object-position: center 35%; flex-shrink: 0; }
+.do-card--do .do-card__body { margin-top: -11.42px; }
+.do-card--dont .do-card__body { margin-top: -10px; }
+/* Portrait cutouts, centre-cropped to the comp's 285.6 x 261.6 frame */
+.do-card__art { width: 285.6px; height: 261.6px; max-width: 100%; object-fit: cover; flex-shrink: 0; }
 .do-card__list { width: 100%; max-width: 524px; }
 .do-card__list li {
-  padding: 24px 8px;
+  padding: 23px 7px; /* 23 + 2px rule + 23: the comp's zero-height lines sit in a 24px gap each side */
   border-top: 2px solid rgba(145, 145, 145, 0.5);
   font-weight: 600;
   font-size: var(--text-body-size);
@@ -247,7 +263,7 @@ strong { font-weight: 700; }
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
   gap: 10px;
-  padding: 8px 0;
+  padding: 16px 0;
   border-top: 2px solid rgba(145, 145, 145, 0.5);
   color: var(--gs-body);
   font-size: var(--text-body-size);
@@ -261,29 +277,31 @@ strong { font-weight: 700; }
 .limits__name img { width: 63px; height: 55px; }
 
 /* ---------- After finding a dino ---------- */
-/* Each item spans the same three rows (title / text / screenshot) via subgrid, so the
-   screenshots start at the same y even though the paragraphs differ in length. */
+/* As in the comp: the columns are centred vertically, and the first one stretches to
+   the row height with its screenshot filling the leftover space (so it's taller). */
+#after-finding { gap: 16px; }
 .after-find {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto auto 334px;
-  column-gap: 48px;
-  row-gap: 0;
+  display: flex;
+  align-items: center;
+  gap: 48px;
 }
 .after-find__item {
-  display: grid;
-  grid-row: span 3;
-  grid-template-rows: subgrid;
-  row-gap: 0;
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
   color: var(--gs-body);
 }
+.after-find__item:first-child { align-self: stretch; }
 .after-find__item h3 { margin: 0 0 9px; }
 .after-find__item p {
-  margin: 0 0 15px;
+  margin: 0 0 24px;
   font-size: var(--text-body-size);
   line-height: var(--text-body-lh);
   letter-spacing: var(--text-body-ls);
 }
+.after-find__item:first-child p { font-size: 18px; } /* 18px in the comp, unlike its neighbours */
+.after-find__item:first-child .after-find__shot { flex: 1 0 334px; }
 .after-find__shot {
   position: relative;
   flex: none;
@@ -371,7 +389,7 @@ strong { font-weight: 700; }
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  padding: 20px var(--grid-margin) 60px;
+  padding: 20px var(--grid-margin);
   background: linear-gradient(to bottom, #ebffd5 0%, #acd87d 45.673%);
 }
 .types__flowers {
@@ -483,21 +501,62 @@ strong { font-weight: 700; }
   width: 298px;
   height: 410px;
   padding: 0;
-  overflow: hidden;
-  border: 6px solid transparent;
+  border: 6px solid transparent; /* no overflow:hidden — it would clip the shine, which sits on this border */
   border-radius: 24px;
-  background: url('assets/getting-started/rare-b.png') center / cover border-box;
+  /* Holographic 6px stroke. In Figma it's four stacked stroke paints (grey, a radial
+     rainbow gradient, then two angular gradients in difference/screen blend modes);
+     rare-border.png is that stroke rendered from the exact paint values at 2x. */
+  background: url('assets/getting-started/rare-border.png') center / 100% 100% no-repeat border-box;
   text-align: left;
   color: var(--gs-card-green);
   cursor: pointer;
-  transition: transform 250ms ease-out, box-shadow 250ms ease-out, border-color 250ms ease-out;
+  transition: transform 250ms ease-out, box-shadow 250ms ease-out;
 }
+/* Figma "RHover": 2% bigger with a white glow, border unchanged (0.25s ease-out) */
 .rare-card:hover,
 .rare-card:focus-visible {
   transform: scale(1.02);
-  border-color: rgba(255, 255, 255, 0.95);
   box-shadow: 0 4px 16px rgba(255, 255, 255, 0.7);
+  animation: rare-shine 5.6s linear infinite;
 }
+
+/* "Card Shine": a white comet-tail light that travels clockwise around the border only.
+   Figma steps it Lower Right -> Bottom Left -> Upper Left -> Upper Right, 1.4s each,
+   linear, looping — i.e. one full lap every 5.6s. It's an angular gradient (clear for
+   the first 75%, ramping to 50% white at the head) on a 6px inside stroke, drawn twice:
+   sharp (::after) and blurred 8px at double strength (.rare-card__shine). */
+@property --shine-angle { syntax: '<angle>'; inherits: true; initial-value: 0deg; }
+@keyframes rare-shine { to { --shine-angle: 360deg; } }
+
+.rare-card::after,
+.rare-card__shine::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 6px solid transparent;
+  border-radius: inherit;
+  background: conic-gradient(from calc(180deg + var(--shine-angle)), transparent 0 75%, var(--shine-head) 100%) border-box;
+  /* keep only the 6px ring */
+  -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+.rare-card::after,
+.rare-card__shine {
+  position: absolute;
+  inset: -6px; /* the card's own border box */
+  border-radius: 24px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 250ms ease-out;
+}
+.rare-card::after { --shine-head: rgba(255, 255, 255, 0.5); }
+.rare-card__shine { --shine-head: rgba(255, 255, 255, 0.75); filter: blur(8px); } /* two 50% strokes stacked */
+.rare-card:hover::after,
+.rare-card:hover .rare-card__shine,
+.rare-card:focus-visible::after,
+.rare-card:focus-visible .rare-card__shine { opacity: 1; }
 .common-card:focus-visible, .rare-card:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 .rare-card__art { position: absolute; inset: 0; overflow: hidden; border-radius: 18px; }
 .rare-card__art img { position: absolute; max-width: none; }
@@ -615,6 +674,7 @@ html.has-overlay { overflow: hidden; }
 }
 .binder__close {
   position: absolute;
+  z-index: 2; /* .binder__text is positioned and comes later, so without this it covers the button */
   top: 17.5px;
   right: 17.5px;
   width: 36px;
@@ -653,6 +713,9 @@ html.has-overlay { overflow: hidden; }
 .binder__bullets p { flex: 1; min-width: 0; margin: 0; font-size: 16px; line-height: normal; color: var(--gs-body); }
 .binder__cta[hidden] { display: none; }
 
+/* Mobile pop-up card (the Figma "… Pop-up" frames); only shown at ≤640px */
+.drop-sheet { display: none; }
+
 .binder__holes {
   position: absolute;
   left: 436.63px;
@@ -669,7 +732,8 @@ html.has-overlay { overflow: hidden; }
 .binder__holes img { width: 57.75px; height: 19.5px; max-width: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .common-card, .rare-card, .drop-arrow { transition: none; }
+  .common-card, .rare-card, .drop-arrow, .drop-sheet__dot { transition: none; }
+  .rare-card:hover, .rare-card:focus-visible { animation: none; } /* shine stays put */
 }
 
 /* ---------- FAQ ---------- */
@@ -694,7 +758,8 @@ html.has-overlay { overflow: hidden; }
   color: var(--gs-heading);
   text-align: center;
 }
-.faq__list { display: flex; gap: 22px; width: 100%; max-width: 1286px; padding: 4px 12px; }
+/* The comp's list is 1286px wide inside a 1236px content box — it runs 25px into the box padding each side */
+.faq__list { display: flex; gap: 22px; width: calc(100% + 50px); max-width: 1286px; margin: 0 -25px; padding: 4px 12px; }
 .faq__col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
 /* Each item toggles between Figma's "Default" (92px) and "FAQ Open" variants, 0.3s ease-out. */
 .faq-item {
@@ -756,9 +821,13 @@ html.has-overlay { overflow: hidden; }
 .faq__more { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 4px 2px; }
 .faq__more p { margin: 0; font-size: 22px; color: #000; }
 
+/* On this page the footer grass rises over the FAQ section, overlapping the box's bottom 30px */
+.footer-grass { position: relative; margin-top: -130px; background-color: transparent; }
+
 /* ============================================================
-   NARROW SCREENS (temporary — there is no mobile comp yet)
+   TABLET / NARROW DESKTOP (no comp for these widths)
    Just stacks the multi-column layouts so nothing overflows.
+   640px and below gets the real mobile layout further down.
 ============================================================ */
 @media (max-width: 1200px) {
   .flash__arrow { display: none; }
@@ -766,26 +835,748 @@ html.has-overlay { overflow: hidden; }
   .steps { flex-direction: column; align-items: stretch; }
   .steps__images { flex: none; width: 100%; height: auto; aspect-ratio: 654 / 532; }
   .info-cards,
-  .do-dont,
-  .after-find { grid-template-columns: 1fr; }
+  .do-dont { grid-template-columns: 1fr; }
+  .after-find { flex-direction: column; align-items: stretch; }
+  .after-find__item:first-child .after-find__shot { flex: none; }
   .limits__row { grid-template-columns: 1fr; }
-  .faq__list { flex-direction: column; }
+  .faq__list { flex-direction: column; width: 100%; margin: 0; }
   .flash { flex-direction: column; }
   .flash__text { align-items: center; text-align: center; width: 100%; }
   .types__panel--common { flex-direction: column; align-items: center; }
 }
 
+/* ============================================================
+   MOBILE LANDSCAPE — 641px to 1200px, from the Figma "Mobile Horizontal
+   Page" frame (853px wide). It uses the vertical mobile type scale and
+   48px section rhythm with a 752px content column (50.5px side margins,
+   scaled with the viewport), and lays some sections out side by side.
+   Overrides the tablet fallback above; ≤640px is the vertical layout below.
+============================================================ */
+@media (min-width: 641px) and (max-width: 1200px) {
+  :root { --gs-side: 5.92vw; } /* 50.5px at 853px */
+  .gs-mobile-only { display: inline; }
+
+  /* ---------- Hero: 299px, text pinned to the bottom of the content column ---------- */
+  .hero--getting-started { height: 299px; }
+  .hero--getting-started .hero__bg img { object-position: center; }
+  .hero--getting-started .hero__content { padding: 16px var(--gs-side); }
+  .hero--getting-started .hero__title { font-size: 40px; line-height: 1.2; letter-spacing: 0.8px; }
+  .hero--getting-started .hero__subtitle { font-size: 12px; line-height: 1.3; letter-spacing: 0.24px; }
+
+  /* ---------- Shared section pieces ---------- */
+  .gs-stack { padding: 48px var(--gs-side) 0; gap: 48px; }
+  .gs-heading { gap: 16px; }
+  .gs-heading__title,
+  #during-drops .gs-heading__title { gap: 24px; }
+  .gs-heading__title h2 { font-size: 26px; line-height: 1.2; letter-spacing: 0.52px; text-wrap: balance; }
+  .gs-heading__sub { font-size: 16px; line-height: 1.3; letter-spacing: 0.32px; }
+
+  /* ---------- Drop notifications: screenshot left; number picker + active step right ---------- */
+  .steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    align-items: start;
+    gap: 24px 8.25%; /* two 345px columns, 62px apart, at 853px */
+  }
+  .steps__images {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 345 / 259;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  }
+  .steps__nums { grid-column: 2; grid-row: 1; display: flex; justify-content: space-between; }
+  .steps__list { grid-column: 2; grid-row: 2; gap: 0; }
+  .step { display: none; color: var(--gs-body); }
+  .step.is-active { display: flex; }
+  .step__bar { display: none; }
+  .step__body { flex: 1 1 auto; }
+  .step__title { font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; }
+  .step__text { font-size: 20px; line-height: 1.5; letter-spacing: 0.4px; }
+
+  .steps__num {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    overflow: hidden;
+    border: 2px solid var(--gs-body);
+    border-radius: 100px;
+    background: var(--gs-gray);
+    cursor: pointer;
+  }
+  .steps__num-fill { position: absolute; inset: 0; background: var(--gs-pastel-green); transform: scaleX(0); transform-origin: left; }
+  .steps__num-label { position: relative; font-weight: 700; font-size: 16px; line-height: 1.3; letter-spacing: 0.8px; color: var(--gs-body); }
+  .steps__num:focus-visible { outline: 3px solid var(--gs-pastel-green); outline-offset: 2px; }
+
+  /* ---------- Join Discord CTA ---------- */
+  .gs-cta__title { max-width: 297px; font-size: 26px; letter-spacing: 0.52px; }
+  .gs-cta .btn-discord { padding: 12px 24px; font-size: 18px; line-height: 1.3; letter-spacing: 0.9px; }
+
+  /* ---------- When & where: 345px cards in a sideways row that runs off the right edge ---------- */
+  .info-cards {
+    display: flex;
+    align-items: stretch; /* every card as tall as the tallest one */
+    gap: 24px;
+    margin-right: calc(-1 * var(--gs-side));
+    padding: 0 var(--gs-side) 0 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .info-cards::-webkit-scrollbar { display: none; }
+  /* 12px + the 4px border = the comp's 16px inset (its stroke doesn't take up layout space) */
+  .info-card {
+    flex: 0 0 345px;
+    min-height: 0;
+    padding: 12px;
+    scroll-snap-align: start;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.32px;
+  }
+  .info-card__head img { height: 63.4px; }
+  .info-card__head h3 { font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; }
+  .info-card--yellow .info-card__head { justify-content: center; }
+
+  .gs-doodle,
+  .gs-doodle img { height: 129.68px; } /* half-size doodles */
+
+  /* ---------- What happens during drops (761px wide in the comp, 4.5px past the column each side) ---------- */
+  #during-drops { gap: 24px; margin: 0 -4.5px; }
+  #during-drops .gs-heading { gap: 24px; }
+  .gs-heading__copy { font-size: 16px; letter-spacing: 0.32px; }
+  .gs-heading__copy p { margin-bottom: 24px; }
+
+  .do-dont { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  /* Header box: 76px, content top-aligned; the body tucks 11px up underneath it.
+     Padding and title scale down below 853px so "What Not To Do" stays on one line. */
+  .do-card--do .do-card__head,
+  .do-card--dont .do-card__head { height: 76px; align-items: flex-start; padding: 16px min(27px, 3.17vw) 0; gap: 16px; border-width: 2px; }
+  .do-card__head img { width: 28px; height: 28px; }
+  .do-card__head h3 { font-size: min(26px, 3.05vw); letter-spacing: 0.52px; white-space: nowrap; }
+  .do-card--do .do-card__body,
+  .do-card--dont .do-card__body {
+    margin-top: -11px;
+    padding: 16px min(50px, 5.86vw);
+    gap: 16px;
+    border-width: 2px;
+    border-radius: 0 0 20px 20px;
+  }
+  .do-card__art { width: 238px; height: 218px; }
+  .do-card__list { width: 251px; max-width: 100%; }
+  .do-card__list li {
+    position: relative;
+    padding: 16px 0;
+    border-top: 0;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.32px;
+  }
+  .do-card__list li + li::before { /* 4px rounded rule in the card's colour */
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--gs-pastel-green);
+  }
+  .do-card--dont .do-card__list li + li::before { background: var(--gs-pink); }
+
+  /* ---------- Dino limits ---------- */
+  #dino-limits { gap: 16px; }
+  #dino-limits .gs-heading__sub { font-size: 20px; letter-spacing: 0.4px; }
+  #dino-limits .gs-line { margin-top: 1.3em; }
+  .limits__row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 16px 0;
+    border-top-color: var(--gs-pastel-green);
+    font-size: 16px;
+    letter-spacing: 0.32px;
+  }
+
+  /* ---------- After finding a dino: stacked, screenshots shown whole on Discord's dark grey ---------- */
+  #after-finding .gs-heading__title { gap: 16px; }
+  #after-finding .gs-heading__title h2 { max-width: 230px; } /* two lines in the comp */
+  .after-find { gap: 24px; }
+  .after-find__item h3 { font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; }
+  .after-find__item p,
+  .after-find__item:first-child p { font-size: 16px; letter-spacing: 0.32px; }
+  .after-find__item:first-child strong { font-weight: 400; }
+  .after-find__item:first-child .after-find__shot { height: 358px; }
+  .after-find__shot:not(.after-find__shot--qna) { background: #1a191e; }
+  .after-find__shot:not(.after-find__shot--qna) img { object-fit: contain; }
+  /* The comp paints a dark bar over each photo's left edge to hide a stray strip of the
+     Discord sidebar. Offsets are from the centre, so they follow the centred photo. */
+  .after-find__shot:not(.after-find__shot--qna)::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: #1a191e;
+  }
+  .after-find__item:first-child .after-find__shot::after { left: 0; width: calc(50% - 171.8px); }
+  .after-find__item:nth-child(2) .after-find__shot::after { left: calc(50% - 230.5px); width: 66px; }
+  .after-find__shot--qna img { width: 122.35%; height: 147.87%; left: -3.7%; top: -37.11%; }
+
+  /* ---------- Flash sales: text and button only ---------- */
+  .flash { gap: 0; padding: 70px 10px 22px; }
+  .flash__image { display: none; }
+  .flash__text { gap: 4px; padding: 4px 10px; }
+  .flash__title { font-size: 26px; line-height: 1.2; letter-spacing: 0.52px; text-align: right; }
+  .flash__sub { margin: 0 0 14px; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; text-align: center; }
+
+  /* ---------- Discover drop types: 75% cards; common row centred, rare row scrolls ---------- */
+  .types { margin-top: 48px; padding: 16px 0; gap: 16px; }
+  .types__flowers { left: -194px; top: 232.74px; width: 590.375px; transform: none; }
+  .types__heading { padding: 0 var(--gs-side); }
+  .types__intro { font-weight: 600; font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; }
+  .types__intro strong { font-weight: inherit; }
+  .gs-line--mobile { display: block; margin-top: 1.3em; }
+
+  .types__group { width: 100%; gap: 14px; }
+  .types__banner { width: 295.3px; height: 43.9px; gap: 6.75px; }
+  .types__banner h3 { font-size: 20.25px; letter-spacing: 0.405px; }
+  .types__sprout { width: 22.5px; height: 22.5px; }
+  .types__panel,
+  .types__panel--common,
+  .types__panel--rare {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 24px;
+    width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    background: none;
+    border-radius: 0;
+    filter: none;
+  }
+  .types__panel::-webkit-scrollbar { display: none; }
+  .types__panel--common { padding: 4px 2px; }
+  /* This comp orders the cards Flash Sales, Find Me's, Scavengers and
+     Trivia, Aggieceratops, Milestone, Special */
+  .types__panel--common > :nth-child(3) { order: -1; }
+  .types__panel--rare > :nth-child(3) { order: 1; }
+  /* Centred, but still scrollable from the first card if the row is ever wider than the screen */
+  .types__panel--common > :nth-child(3) { margin-left: auto; }
+  .types__panel--common > :nth-child(2) { margin-right: auto; }
+  .types__panel--rare { padding: 4px calc(var(--gs-side) - 1.5px); scroll-padding: 0 calc(var(--gs-side) - 1.5px); }
+  .common-card,
+  .rare-card {
+    zoom: 0.75; /* 223.5 x 307.5, as in the vertical mobile comp */
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+  .common-card { border-color: #76c03a; box-shadow: 0 1.33px 2.67px rgba(125, 86, 24, 0.4); }
+  .rare-card { box-shadow: 0 1.33px 5.33px rgba(125, 86, 24, 0.4); }
+
+  /* ---------- FAQ: full-width band, one column of 761px rows ---------- */
+  .faq-wrap { margin-top: 48px; padding: 0 0 48px; }
+  .faq { padding: 19px 24px; gap: 24px; border-radius: 0; }
+  .faq__title { gap: 8px; }
+  .faq__title img { width: 53.27px; height: 46.65px; }
+  .faq__title h2 { font-size: 26px; line-height: 1.2; letter-spacing: 0.52px; }
+  .faq__list,
+  .faq__col { gap: 24px; }
+  .faq__list { flex-direction: column; width: 100%; max-width: 761px; margin: 0; padding: 0; }
+  .faq-item,
+  .faq-item.is-open { filter: drop-shadow(0 4px 2px rgba(81, 81, 81, 0.16)); }
+  .faq-item__q { min-height: 76px; padding: 8px 19px; font-size: 16px; letter-spacing: 0.32px; }
+  .faq-item.is-open .faq-item__q { min-height: 64px; padding-top: 12px; }
+  .faq-item__icon { flex: 0 0 33px; height: 42px; }
+  .faq-item__plus { width: 33px; height: 42px; }
+  .faq-item__minus { left: 4.5px; top: 19.5px; width: 24.13px; height: 3px; }
+  .faq-item__a-body { padding: 4px 19px 20px; font-size: 16px; line-height: 1.5; }
+  .faq__more p { font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; }
+  .faq__more .gs-btn { line-height: 1.3; letter-spacing: 0.8px; }
+
+  /* ---------- Drop type pop-ups: the mobile photo card at 1.2x (Figma "… Horizontal" frames) ---------- */
+  /* Same <dialog>, markup and script as the vertical mobile card. The frame is 431.5px wide
+     with a 381.6px content column (21.6px in from the left), and grows past a 393px-tall
+     phone screen, so the card scrolls inside itself while the page stays locked. */
+  .drop-overlay__stage { display: none; }
+  .drop-sheet {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 7.2px;
+    width: 431.5px;
+    max-width: calc(100vw - 24px);
+    max-height: calc(100dvh - 24px);
+    overflow: hidden auto;
+    overscroll-behavior: contain;
+    padding: 19.2px 28.3px 19.2px 21.6px;
+    background: var(--color-bg);
+    border-radius: 19.2px;
+  }
+  .drop-sheet__close { /* 32.4px X rotated 45° in a 45.8px box, 6.5px in from the right edge */
+    position: absolute;
+    top: 0;
+    right: 6.48px;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45.82px;
+    height: 45.82px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+  }
+  .drop-sheet__close img { display: block; width: 32.4px; height: 32.4px; transform: rotate(-45deg); }
+  .drop-sheet__close:focus-visible { outline: 3px solid #687144; outline-offset: -2px; }
+
+  .drop-sheet__photo {
+    position: relative;
+    flex-shrink: 0;
+    height: 189.6px;
+    overflow: hidden;
+    border: 4.8px solid #687144;
+    border-radius: 9.6px;
+  }
+  .drop-sheet__photo img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; }
+  .drop-sheet__photo img.is-cropped { bottom: auto; object-fit: fill; }
+
+  .drop-sheet__info { position: relative; display: flex; flex-direction: column; gap: 9.6px; touch-action: pan-y; }
+  /* Leaf on the corner of the title's first letter, behind the lettering (as on mobile) */
+  .drop-sheet__title { position: relative; isolation: isolate; }
+  .drop-sheet__title::before {
+    content: '';
+    position: absolute;
+    left: -10.8px;
+    top: -4.8px;
+    width: 23.07px;
+    height: 20.41px;
+    background: url('assets/getting-started/overlay/sprout.svg') center / contain no-repeat;
+    transform: rotate(-30deg);
+    pointer-events: none;
+    z-index: -1;
+  }
+  .drop-sheet__page { display: flex; flex-direction: column; gap: 9.6px; }
+  .drop-sheet__page[hidden] { display: none; }
+  .drop-sheet__heading { padding: 2.4px 4.8px; }
+  .drop-sheet__title { margin: 0; font-family: var(--font-heading); font-weight: 400; font-size: 28.8px; line-height: 1.3; letter-spacing: 0.576px; color: #687144; }
+  .drop-sheet__desc { margin: 0; padding: 2.4px 4.8px; font-weight: 600; font-size: 17.28px; line-height: 1.3; letter-spacing: 0.3456px; color: #676767; }
+  .drop-sheet__bullets { display: flex; flex-direction: column; gap: 9.6px; }
+  .drop-sheet__bullets li { display: flex; align-items: flex-start; gap: 12px; padding: 2.4px 4.8px; }
+  .drop-sheet__bullets img { flex: 0 0 20.48px; width: 20.48px; height: 20.48px; padding: 1.8px; }
+  .drop-sheet__bullets p { flex: 1; min-width: 0; margin: 0; font-weight: 600; font-size: 17.28px; line-height: 1.3; letter-spacing: 0.3456px; color: var(--gs-body); }
+  .drop-sheet__cta { /* Figma "Secondary CTA" at 1.2x */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 28.8px;
+    padding: 7.2px 14.4px;
+    background: var(--color-bg);
+    border: 0.6px solid #649d35;
+    border-radius: 19.2px;
+    font-weight: 700;
+    font-size: 10.8px;
+    line-height: 1.3;
+    letter-spacing: 0.54px;
+    color: #4b7d22;
+  }
+  .drop-sheet__cta[hidden] { display: none; }
+
+  .drop-sheet__swipe { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 4.8px 12px; }
+  .drop-sheet__swipe span { font-weight: 600; font-size: 14.4px; line-height: 1.3; letter-spacing: 0.288px; color: var(--gs-card-green); }
+  .drop-sheet__dot {
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    border: 0;
+    border-radius: 12px;
+    background: var(--color-accent-blonde);
+    cursor: pointer;
+    transition: width 200ms ease-out, background-color 200ms ease-out;
+  }
+  .drop-sheet__dot.is-active { width: 24px; background: var(--color-accent-yellow); }
+  .drop-sheet__dot:focus-visible { outline: 2px solid #687144; outline-offset: 2px; }
+
+  /* ---------- Footer: the Figma "Mobile Footer" component stretched to the landscape width ---------- */
+  /* 48px of page between the FAQ band and the grass. The strip is three copies of the
+     grass art, each 42.06% wide x 44.92px, at 0%, 28.94% and 57.94% across (the middle
+     one on top). Figma mirrors the left copy; a background layer can't be flipped. */
+  .footer-grass {
+    margin-top: 0;
+    height: 44.92px;
+    background-color: var(--color-bg);
+    background-image: url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg');
+    background-size: 42.06% 44.92px;
+    background-position: 49.95% bottom, 0% bottom, 100% bottom;
+  }
+  .site-footer { background: #def3ff; }
+  /* 817px tall at 853px: link columns from 61px down, dinos and flowers on the bottom edge */
+  .footer-content { padding: 61px 21px 131px; }
+  .footer-columns {
+    display: grid;
+    grid-template-columns: 163px 161px;
+    gap: 60px 32px;
+    margin-bottom: 80px;
+  }
+  .footer-column__title { margin-bottom: 12px; font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; }
+  .footer-column__links a { font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; }
+  /* Figma stacks each side as its own column, so the rows don't line up exactly:
+     Home's links sit 8px under the title, DinoDex/About Us sit 4px higher than the
+     grid row would put them, and Rules is centred in its 161px column (8px in). */
+  .footer-column:nth-child(1) .footer-column__title { margin-bottom: 8px; }
+  .footer-column:nth-child(3),
+  .footer-column:nth-child(5) { margin-top: -4px; }
+  .footer-column:nth-child(4) { margin-left: 8px; }
+  /* Social icons above the copyright, which wraps at 323px */
+  .footer-bottom { flex-direction: column-reverse; align-items: flex-start; gap: 12px; max-width: 323px; }
+  .footer-copyright { line-height: 1.5; letter-spacing: 0.32px; }
+  .footer-social__icon { width: 40px; height: 40px; }
+
+  /* Placements from the frame (the "front" cloud files include their shadow, hence the offsets).
+     Asset names are misleading: dino-single is the blue one, dino-duo the green. */
+  .footer-deco--flower-tl,
+  .footer-deco--flower-mid { display: none; }
+  .footer-deco--cloud1-back  { left: -30px;    right: auto; top: 19.46px;  width: 65.11px; height: 34.47px; }
+  .footer-deco--cloud1-front { left: -33.84px; right: auto; top: 16.02px;  width: 74.04px; height: 44.27px; }
+  .footer-deco--cloud2-back  { left: 264px;    right: auto; top: 355.92px; width: 85px;    height: 45px; }
+  .footer-deco--cloud2-front { left: 261.1px;  right: auto; top: 352.02px; width: 93.66px; height: 54.8px; }
+  .footer-deco--cloud3-back  { left: 352px;    right: auto; top: 153.37px; width: 61.49px; height: 32.55px; }
+  .footer-deco--cloud3-front { left: 347.99px; right: auto; top: 150.02px; width: 70.47px; height: 42.35px; }
+  .footer-deco--dino-single  { left: 21px;     right: auto; top: auto; bottom: 0;      width: 60.6px; height: auto; }
+  .footer-deco--dino-duo     { left: 86.47px;  right: auto; bottom: 1.55px;  width: 58.1px; height: auto; }
+  .footer-deco--flower-small-2 { left: 164.09px; right: auto; bottom: 0; width: 20.8px; height: auto; } /* pink */
+  .footer-deco--flower-small-1 { left: 187.08px; right: auto; bottom: 0; width: 28px;   height: auto; } /* blue */
+}
+
+/* ============================================================
+   MOBILE — 640px and below, from the Figma "Mobile Vertical Page"
+   frame (393px wide, 24px side margins). Header, nav menu and footer
+   come from styles.css / nav.js.
+============================================================ */
 @media (max-width: 640px) {
-  .gs-stack { padding-top: 48px; }
-  .hero--getting-started { height: 340px; }
-  .flash__title { font-size: 40px; }
-  .flash__sub { font-size: 22px; }
-  .flash__image { transform: scale(0.7); transform-origin: top center; margin-bottom: -140px; }
-  .types__banner { width: 100%; max-width: 525px; }
-  .types__panel { padding: 16px; flex-direction: column; align-items: center; }
-  .faq-wrap { padding: 48px 20px; }
-  .faq { padding: 24px 16px; }
-  .faq__title h2 { font-size: 28px; }
-  .faq-item__q { padding-left: 16px; padding-right: 16px; }
-  .faq-item__a-body { padding-left: 16px; padding-right: 16px; }
+  .gs-desktop-only { display: none; }
+  .gs-mobile-only { display: inline; }
+
+  /* ---------- Hero ---------- */
+  .hero--getting-started { height: 244px; padding: 10px; justify-content: center; }
+  .hero--getting-started .hero__bg img { object-position: center; }
+  .hero--getting-started .hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 345px;
+    max-width: 100%;
+    padding: 0;
+  }
+  .hero--getting-started .hero__title { margin: 0; font-size: 40px; line-height: 1.2; letter-spacing: 0.8px; }
+  .hero--getting-started .hero__subtitle { font-size: 12px; line-height: 1.3; letter-spacing: 0.24px; }
+
+  /* ---------- Shared section pieces ---------- */
+  .gs-stack { padding: 48px 24px 0; gap: 48px; }
+  .gs-heading { gap: 16px; }
+  .gs-heading__title,
+  #during-drops .gs-heading__title { gap: 24px; }
+  .gs-heading__title h2 { font-size: 26px; line-height: 1.2; letter-spacing: 0.52px; text-wrap: balance; } /* the comp breaks two-line titles near the middle */
+  .gs-heading__sub { font-size: 16px; line-height: 1.3; letter-spacing: 0.32px; }
+
+  /* ---------- Drop notifications: screenshot, numbered picker, active step ---------- */
+  .steps { flex-direction: column; align-items: stretch; gap: 16px; }
+  .steps__images {
+    order: 1;
+    flex: none;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 345 / 259;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  }
+  .steps__nums { order: 2; display: flex; justify-content: space-between; }
+  .steps__list { order: 3; gap: 0; }
+  .step { display: none; color: var(--gs-body); }
+  .step.is-active { display: flex; }
+  .step__bar { display: none; }
+  .step__body { flex: 1 1 auto; }
+  .step__title { font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; }
+  .step__text { font-size: 20px; line-height: 1.5; letter-spacing: 0.4px; }
+
+  .steps__num {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    overflow: hidden;
+    border: 2px solid var(--gs-body);
+    border-radius: 100px;
+    background: var(--gs-gray);
+    cursor: pointer;
+  }
+  .steps__num-fill { /* fills left to right over the 5s step timer */
+    position: absolute;
+    inset: 0;
+    background: var(--gs-pastel-green);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  .steps__num-label { position: relative; font-weight: 700; font-size: 16px; line-height: 1.3; letter-spacing: 0.8px; color: var(--gs-body); }
+  .steps__num:focus-visible { outline: 3px solid var(--gs-pastel-green); outline-offset: 2px; }
+
+  /* ---------- Join Discord CTA ---------- */
+  .gs-cta__title { max-width: 297px; font-size: 26px; letter-spacing: 0.52px; }
+  .gs-cta .btn-discord { padding: 12px 24px; font-size: 18px; line-height: 1.3; letter-spacing: 0.9px; }
+
+  /* ---------- When & where ---------- */
+  #when-and-where { gap: 48px; } /* the comp leaves 48px between this heading and its cards */
+  .info-cards { gap: 24px; padding: 0; }
+  /* 12px + the 4px border = the comp's 16px inset (its stroke doesn't take up layout space) */
+  .info-card { min-height: 0; padding: 12px; font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; }
+  .info-card__head img { height: 63.4px; }
+  .info-card__head h3 { font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; }
+  .info-card--yellow .info-card__head { justify-content: center; } /* centred in the comp */
+
+  .gs-doodle,
+  .gs-doodle img { height: 129.68px; } /* half-size doodles */
+
+  /* ---------- What happens during drops ---------- */
+  #during-drops .gs-heading { gap: 24px; }
+  .gs-heading__copy { font-size: 16px; letter-spacing: 0.32px; }
+  .gs-heading__copy p { margin-bottom: 24px; }
+
+  .do-dont { gap: 24px; justify-items: center; }
+  .do-card { width: 312px; max-width: 100%; }
+  .do-card--do .do-card__head,
+  .do-card--dont .do-card__head { height: 67px; padding: 0 27px; gap: 16px; border-width: 2px; }
+  .do-card__head img { width: 28px; height: 28px; }
+  .do-card__head h3 { font-size: 26px; letter-spacing: 0.52px; }
+  .do-card--do .do-card__body,
+  .do-card--dont .do-card__body { margin-top: -2px; padding: 16px 28.5px; gap: 16px; border-width: 2px; border-radius: 0 0 20px 20px; }
+  .do-card__art { width: 238px; height: 218px; }
+  .do-card__list li {
+    position: relative;
+    padding: 16px 0;
+    border-top: 0;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.32px;
+  }
+  .do-card__list li + li::before { /* 4px rounded rule in the card's colour */
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--gs-pastel-green);
+  }
+  .do-card--dont .do-card__list li + li::before { background: var(--gs-pink); }
+
+  /* ---------- Dino limits ---------- */
+  #dino-limits { gap: 16px; }
+  #dino-limits .gs-heading__sub { font-size: 20px; letter-spacing: 0.4px; }
+  #dino-limits .gs-line { margin-top: 1.3em; } /* blank line between the two sentences */
+  .limits__row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 16px 0;
+    border-top-color: var(--gs-pastel-green);
+    font-size: 16px;
+    letter-spacing: 0.32px;
+  }
+
+  /* ---------- After finding a dino ---------- */
+  #after-finding .gs-heading__title { gap: 16px; }
+  .after-find { gap: 24px; }
+  .after-find__item h3 { font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; }
+  .after-find__item p,
+  .after-find__item:first-child p { font-size: 16px; letter-spacing: 0.32px; }
+  .after-find__item:first-child strong { font-weight: 400; } /* not bolded in the mobile comp */
+  .after-find__item:first-child .after-find__shot { height: 310px; }
+
+  /* ---------- Flash sales: text and button only ---------- */
+  .flash { gap: 0; padding: 58px 10px 10px; }
+  .flash__image { display: none; }
+  .flash__text { gap: 4px; padding: 4px 10px; }
+  .flash__title { font-size: 26px; line-height: 1.2; letter-spacing: 0.52px; text-align: right; }
+  .flash__sub { margin: 0 0 14px; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; text-align: center; }
+
+  /* ---------- Discover drop types: cards in swipeable rows at 75% size ---------- */
+  .types { margin-top: 48px; padding: 16px 0; gap: 16px; }
+  .types__flowers { left: -194px; top: 232.74px; width: 590.375px; transform: none; }
+  .types__heading { padding: 0 24px; }
+  .types__intro { font-weight: 600; font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; }
+  .types__intro strong { font-weight: inherit; }
+  .gs-line--mobile { display: block; margin-top: 1.3em; }
+
+  .types__group { width: 100%; gap: 14px; }
+  .types__banner { width: 295.3px; height: 43.9px; gap: 6.75px; }
+  .types__banner h3 { font-size: 20.25px; letter-spacing: 0.405px; }
+  .types__sprout { width: 22.5px; height: 22.5px; }
+  .types__panel,
+  .types__panel--common,
+  .types__panel--rare {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 24px;
+    width: 100%;
+    padding: 4px 26px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 26px;
+    scrollbar-width: none;
+    background: none;
+    border-radius: 0;
+    filter: none;
+  }
+  .types__panel::-webkit-scrollbar { display: none; }
+  .common-card,
+  .rare-card {
+    zoom: 0.75; /* the mobile cards are the desktop cards at 223.5 x 307.5 */
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+  .common-card { border-color: #76c03a; box-shadow: 0 1.33px 2.67px rgba(125, 86, 24, 0.4); }
+  .rare-card { box-shadow: 0 1.33px 5.33px rgba(125, 86, 24, 0.4); }
+
+  /* ---------- Drop type pop-ups: the mobile card replaces the desktop binder ---------- */
+  /* Same <dialog>, backdrop (rgba(38,38,38,.4)), scroll lock and close behaviour as desktop.
+     Card is 354 wide (393 − 2 × 19.5) and hugs its content. */
+  .drop-overlay__stage { display: none; }
+  .drop-sheet {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 354px;
+    max-width: calc(100vw - 24px);
+    max-height: calc(100dvh - 24px);
+    overflow: hidden auto;
+    padding: 16px 18px;
+    background: var(--color-bg);
+    border-radius: 16px;
+  }
+  .drop-sheet__close { /* 27px X rotated 45° in a 38px corner box */
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38.18px;
+    height: 38.18px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+  }
+  .drop-sheet__close img { display: block; width: 27px; height: 27px; transform: rotate(-45deg); }
+  .drop-sheet__close:focus-visible { outline: 3px solid #687144; outline-offset: -2px; }
+
+  .drop-sheet__photo {
+    position: relative;
+    flex-shrink: 0;
+    height: 158px;
+    overflow: hidden;
+    border: 4px solid #687144;
+    border-radius: 8px;
+  }
+  .drop-sheet__photo img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; }
+  .drop-sheet__photo img.is-cropped { bottom: auto; object-fit: fill; } /* height/top set per drop from Figma */
+
+  .drop-sheet__info { position: relative; display: flex; flex-direction: column; gap: 8px; touch-action: pan-y; }
+  /* Leaf accent pinned to the top-left corner of the title's first letter (both pages),
+     tucked behind the lettering */
+  .drop-sheet__title { position: relative; isolation: isolate; }
+  .drop-sheet__title::before {
+    content: '';
+    position: absolute;
+    left: -9px;
+    top: -4px;
+    width: 19.22px;
+    height: 17.01px;
+    background: url('assets/getting-started/overlay/sprout.svg') center / contain no-repeat;
+    transform: rotate(-30deg);
+    pointer-events: none;
+    z-index: -1;
+  }
+  .drop-sheet__page { display: flex; flex-direction: column; gap: 8px; }
+  .drop-sheet__page[hidden] { display: none; }
+  .drop-sheet__heading { padding: 2px 4px; }
+  .drop-sheet__title { margin: 0; font-family: var(--font-heading); font-weight: 400; font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; color: #687144; }
+  .drop-sheet__desc { margin: 0; padding: 2px 4px; font-weight: 600; font-size: 12px; line-height: 1.3; letter-spacing: 0.24px; color: #676767; }
+  .drop-sheet__bullets { display: flex; flex-direction: column; gap: 8px; }
+  .drop-sheet__bullets li { display: flex; align-items: flex-start; gap: 10px; padding: 2px 4px; }
+  .drop-sheet__bullets img { flex: 0 0 17.06px; width: 17.06px; height: 17.06px; padding: 1.5px; }
+  .drop-sheet__bullets p { flex: 1; min-width: 0; margin: 0; font-weight: 600; font-size: 12px; line-height: 1.3; letter-spacing: 0.24px; color: var(--gs-body); }
+  .drop-sheet__cta { /* Figma "Secondary CTA" */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    padding: 6px 12px;
+    background: var(--color-bg);
+    border: 0.5px solid #649d35;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 9px;
+    line-height: 1.3;
+    letter-spacing: 0.45px;
+    color: #4b7d22;
+  }
+  .drop-sheet__cta[hidden] { display: none; }
+
+  .drop-sheet__swipe { display: flex; align-items: center; justify-content: center; gap: 5px; padding: 4px 10px; }
+  .drop-sheet__swipe span { font-weight: 600; font-size: 12px; line-height: 1.3; letter-spacing: 0.24px; color: var(--gs-card-green); }
+  .drop-sheet__dot { /* inactive: blonde dot; active: yellow pill */
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border: 0;
+    border-radius: 12px;
+    background: var(--color-accent-blonde);
+    cursor: pointer;
+    transition: width 200ms ease-out, background-color 200ms ease-out;
+  }
+  .drop-sheet__dot.is-active { width: 20px; background: var(--color-accent-yellow); }
+  .drop-sheet__dot:focus-visible { outline: 2px solid #687144; outline-offset: 2px; }
+
+  /* ---------- FAQ: full-width band, one column ---------- */
+  .faq-wrap { margin-top: 48px; padding: 0; }
+  .faq { padding: 19px 24px; gap: 24px; border-radius: 0; }
+  .faq__title { gap: 8px; }
+  .faq__title img { width: 53.27px; height: 46.65px; }
+  .faq__title h2 { width: 256px; font-size: 26px; line-height: 1.2; letter-spacing: 0.52px; }
+  .faq__list,
+  .faq__col { gap: 24px; }
+  .faq__list { flex-direction: column; width: 100%; max-width: 343px; margin: 0; padding: 0; }
+  .faq-item,
+  .faq-item.is-open { filter: drop-shadow(0 4px 2px rgba(81, 81, 81, 0.16)); }
+  .faq-item__q { min-height: 76px; padding: 8px 19px; font-size: 16px; letter-spacing: 0.32px; }
+  .faq-item.is-open .faq-item__q { min-height: 64px; padding-top: 12px; }
+  .faq-item__icon { flex: 0 0 33px; height: 42px; }
+  .faq-item__plus { width: 33px; height: 42px; }
+  .faq-item__minus { left: 4.5px; top: 19.5px; width: 24.13px; height: 3px; }
+  .faq-item__a-body { padding: 4px 19px 20px; font-size: 16px; line-height: 1.5; }
+  .faq__more p { font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; }
+  .faq__more .gs-btn { line-height: 1.3; letter-spacing: 0.8px; }
+
+  /* No overlap on mobile: 48px of page between the FAQ band and the grass */
+  .faq-wrap { padding-bottom: 48px; }
+  .footer-grass { margin-top: 0; background-color: var(--color-bg); }
 }
