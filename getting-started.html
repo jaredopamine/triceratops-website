@@ -762,12 +762,12 @@
     (function () {
       var DROPS = [
         { group: 'common', label: 'COMMON 1/3', title: 'Find Me’s', desc: 'the classic hide-and-seek hunt',
-          photo: 'photo-common-1.jpg', crop: { h: '268.35%', top: '-134.45%' },
+          photo: 'photo-common-1.jpg', crop: { h: '268.35%', top: '-134.45%', focus: 'center 92%' },
           bullets: ['A dropper hides somewhere nearby and posts hints in #new-drop-notifs.',
                     'Hints might be an outfit photo taken at the location, or a Google Maps screenshot of a pathway.',
                     'First hunter to spot and approach the dropper gets rewarded.'] },
         { group: 'common', label: 'COMMON 2/3', title: 'Scavengers', desc: 'a wider search, no dropper to find',
-          photo: 'photo-common-2.jpg', crop: { h: '268.35%', top: '-66.05%' },
+          photo: 'photo-common-2.jpg', crop: { h: '268.35%', top: '-66.05%', focus: 'center 35%' },
           bullets: ['Droppers hide dinos across a general area instead of carrying them.',
                     'The search zone is shown as an outlined region on Google Maps in #new-drop-notifs.',
                     'Whoever spots a hidden dino first gets to keep it.'] },
@@ -778,7 +778,7 @@
                     'Winners pay $8 for a regular dino and $13 for a medium one.'],
           cta: { text: 'Flash Sales Guide', href: 'flash-sales.html' } },
         { group: 'rare', label: 'RARE 1/4', title: 'Trivia', desc: 'test your knowledge, win a dino',
-          photo: 'photo-rare-1.jpg', crop: { h: '170.15%', top: '-67.9%' },
+          photo: 'photo-rare-1.jpg', crop: { h: '170.15%', top: '-67.9%', focus: 'center 100%' },
           bullets: ['Held once a quarter, usually in the back half of the quarter.',
                     'Random mixed-topic questions, team up and answer fast and correctly.',
                     'The top two scoring teams each earn a trivia dino design.'] },
@@ -849,6 +849,8 @@
         sheetPhoto.classList.toggle('is-cropped', !!d.crop);
         sheetPhoto.style.height = d.crop ? d.crop.h : '';
         sheetPhoto.style.top = d.crop ? d.crop.top : '';
+        // Landscape card fills its squarer photo box instead (CSS), centred on the same spot
+        sheetPhoto.style.objectPosition = d.crop ? d.crop.focus : '';
         document.getElementById('drop-sheet-title').textContent = d.title;
         document.getElementById('drop-sheet-desc').textContent = d.desc;
         var intro = document.getElementById('drop-sheet-intro');

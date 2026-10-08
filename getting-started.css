@@ -1102,101 +1102,121 @@ html.has-overlay { overflow: hidden; }
   .faq__more p { font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; }
   .faq__more .gs-btn { line-height: 1.3; letter-spacing: 0.8px; }
 
-  /* ---------- Drop type pop-ups: the mobile photo card at 1.2x (Figma "… Horizontal" frames) ---------- */
-  /* Same <dialog>, markup and script as the vertical mobile card. The frame is 431.5px wide
-     with a 381.6px content column (21.6px in from the left), and grows past a 393px-tall
-     phone screen, so the card scrolls inside itself while the page stays locked. */
+  /* ---------- Drop type pop-ups: wide landscape card ---------- */
+  /* Photo on the left, text on the right, inside a 4px olive frame (from the landscape
+     hi-fi mock). Same <dialog>, markup and script as the vertical mobile card; it scrolls
+     inside itself if a page is ever taller than the screen, and the page stays locked. */
   .drop-overlay__stage { display: none; }
   .drop-sheet {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 7.2px;
-    width: 431.5px;
+    display: grid;
+    grid-template-columns: 206px minmax(0, 1fr);
+    align-items: start;
+    column-gap: 28px;
+    width: 606px;
     max-width: calc(100vw - 24px);
     max-height: calc(100dvh - 24px);
     overflow: hidden auto;
     overscroll-behavior: contain;
-    padding: 19.2px 28.3px 19.2px 21.6px;
+    padding: 18px 20px;
     background: var(--color-bg);
-    border-radius: 19.2px;
+    border: 4px solid #687144;
+    border-radius: 22px;
   }
-  .drop-sheet__close { /* 32.4px X rotated 45° in a 45.8px box, 6.5px in from the right edge */
+  .drop-sheet__close { /* green X in the top-right corner */
     position: absolute;
-    top: 0;
-    right: 6.48px;
+    top: 6px;
+    right: 6px;
     z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 45.82px;
-    height: 45.82px;
+    width: 34px;
+    height: 34px;
     padding: 0;
     border: 0;
     border-radius: 50%;
     background: none;
     cursor: pointer;
   }
-  .drop-sheet__close img { display: block; width: 32.4px; height: 32.4px; transform: rotate(-45deg); }
+  .drop-sheet__close img { display: block; width: 30px; height: 30px; transform: rotate(-45deg); }
   .drop-sheet__close:focus-visible { outline: 3px solid #687144; outline-offset: -2px; }
 
   .drop-sheet__photo {
     position: relative;
-    flex-shrink: 0;
-    height: 189.6px;
+    grid-column: 1;
+    height: 154px;
     overflow: hidden;
-    border: 4.8px solid #687144;
-    border-radius: 9.6px;
+    border: 4px solid #687144;
+    border-radius: 10px;
   }
   .drop-sheet__photo img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; }
-  .drop-sheet__photo img.is-cropped { bottom: auto; object-fit: fill; }
+  /* The Figma crops (inline height/top) are tuned for the wide mobile frame and would
+     squash the photo in this squarer box, so fill the box at the photo's own proportions;
+     the script centres each on the same spot via object-position. */
+  .drop-sheet__photo img.is-cropped { top: 0 !important; height: 100% !important; object-fit: cover; }
 
-  .drop-sheet__info { position: relative; display: flex; flex-direction: column; gap: 9.6px; touch-action: pan-y; }
-  /* Leaf on the corner of the title's first letter, behind the lettering (as on mobile) */
-  .drop-sheet__title { position: relative; isolation: isolate; }
+  .drop-sheet__info {
+    position: relative;
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-right: 28px; /* clear of the X */
+    touch-action: pan-y;
+  }
+  .drop-sheet__page { display: flex; flex-direction: column; gap: 10px; }
+  .drop-sheet__page[hidden] { display: none; }
+  .drop-sheet__heading { display: flex; flex-direction: column; gap: 6px; padding: 0; }
+  /* Leaf sits in front of the title, before its first letter */
+  .drop-sheet__title {
+    position: relative;
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.3;
+    letter-spacing: 1px;
+    color: #687144;
+  }
   .drop-sheet__title::before {
     content: '';
-    position: absolute;
-    left: -10.8px;
-    top: -4.8px;
-    width: 23.07px;
-    height: 20.41px;
+    display: inline-block;
+    width: 18px;
+    height: 16px;
+    margin-right: 10px;
+    vertical-align: -1px;
     background: url('assets/getting-started/overlay/sprout.svg') center / contain no-repeat;
     transform: rotate(-30deg);
-    pointer-events: none;
-    z-index: -1;
   }
-  .drop-sheet__page { display: flex; flex-direction: column; gap: 9.6px; }
-  .drop-sheet__page[hidden] { display: none; }
-  .drop-sheet__heading { padding: 2.4px 4.8px; }
-  .drop-sheet__title { margin: 0; font-family: var(--font-heading); font-weight: 400; font-size: 28.8px; line-height: 1.3; letter-spacing: 0.576px; color: #687144; }
-  .drop-sheet__desc { margin: 0; padding: 2.4px 4.8px; font-weight: 600; font-size: 17.28px; line-height: 1.3; letter-spacing: 0.3456px; color: #676767; }
-  .drop-sheet__bullets { display: flex; flex-direction: column; gap: 9.6px; }
-  .drop-sheet__bullets li { display: flex; align-items: flex-start; gap: 12px; padding: 2.4px 4.8px; }
-  .drop-sheet__bullets img { flex: 0 0 20.48px; width: 20.48px; height: 20.48px; padding: 1.8px; }
-  .drop-sheet__bullets p { flex: 1; min-width: 0; margin: 0; font-weight: 600; font-size: 17.28px; line-height: 1.3; letter-spacing: 0.3456px; color: var(--gs-body); }
-  .drop-sheet__cta { /* Figma "Secondary CTA" at 1.2x */
+  .drop-sheet__desc { margin: 0; padding: 0; font-weight: 400; font-size: 13px; line-height: 1.3; letter-spacing: 0.26px; color: #676767; }
+  .drop-sheet__bullets { display: flex; flex-direction: column; gap: 8px; }
+  .drop-sheet__bullets li { display: flex; align-items: flex-start; gap: 8px; padding: 0; }
+  .drop-sheet__bullets img { flex: 0 0 14px; width: 14px; height: 14px; margin-top: 3px; padding: 1px; }
+  .drop-sheet__bullets p { flex: 1; min-width: 0; margin: 0; font-weight: 500; font-size: 15px; line-height: 1.4; letter-spacing: 0.3px; color: var(--gs-body); }
+  .drop-sheet__cta { /* "Secondary CTA" */
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 28.8px;
-    padding: 7.2px 14.4px;
+    align-self: flex-start;
+    min-height: 26px;
+    padding: 6px 14px;
     background: var(--color-bg);
     border: 0.6px solid #649d35;
-    border-radius: 19.2px;
+    border-radius: 16px;
     font-weight: 700;
-    font-size: 10.8px;
+    font-size: 11px;
     line-height: 1.3;
-    letter-spacing: 0.54px;
+    letter-spacing: 0.55px;
     color: #4b7d22;
   }
   .drop-sheet__cta[hidden] { display: none; }
 
-  .drop-sheet__swipe { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 4.8px 12px; }
-  .drop-sheet__swipe span { font-weight: 600; font-size: 14.4px; line-height: 1.3; letter-spacing: 0.288px; color: var(--gs-card-green); }
+  .drop-sheet__swipe { display: flex; align-items: center; justify-content: flex-start; gap: 6px; padding: 2px 0 0; }
+  .drop-sheet__swipe span { margin-left: 2px; font-weight: 600; font-size: 14px; line-height: 1.3; letter-spacing: 0.28px; color: var(--gs-card-green); }
   .drop-sheet__dot {
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     padding: 0;
     border: 0;
     border-radius: 12px;
@@ -1204,7 +1224,7 @@ html.has-overlay { overflow: hidden; }
     cursor: pointer;
     transition: width 200ms ease-out, background-color 200ms ease-out;
   }
-  .drop-sheet__dot.is-active { width: 24px; background: var(--color-accent-yellow); }
+  .drop-sheet__dot.is-active { width: 26px; background: var(--color-accent-yellow); }
   .drop-sheet__dot:focus-visible { outline: 2px solid #687144; outline-offset: 2px; }
 
   /* ---------- Footer: the Figma "Mobile Footer" component stretched to the landscape width ---------- */
