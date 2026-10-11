@@ -8,7 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" integrity="sha384-MinO0mNliZ3vwppuPOUnGa+iq619pfMhLVUXfC4LHwSCvF9H+6P/KO4Q7qBOYV5V" crossorigin="">
   <link rel="stylesheet" href="home.css">
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" integrity="sha384-SYKAG6cglRMN0RVvhNeBY0r3FYKNOJtznwA0v7B5Vp9tr31xAHsZC0DqkQ/pZDmj" crossorigin="" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -296,7 +298,9 @@
 
           <div class="events__layout">
             <div class="events__calendar">
-              <img src="images/events-calendar.png" alt="Monthly calendar of upcoming Triceratops Club events">
+              <iframe src="https://calendar.google.com/calendar/embed?src=4c3e68254ae0c9d3205d24a6325a7234c16d164f1edeb9f59e47f5ed3b829834%40group.calendar.google.com&amp;ctz=America%2FLos_Angeles&amp;mode=MONTH&amp;showTitle=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0" title="Monthly calendar of upcoming Triceratops Club events" loading="lazy" tabindex="-1"></iframe>
+              <!-- Covers the live preview so a click anywhere on it opens the full calendar -->
+              <a class="events__calendar-link" href="https://calendar.google.com/calendar/u/0?cid=NGMzZTY4MjU0YWUwYzlkMzIwNWQyNGE2MzI1YTcyMzRjMTZkMTY0ZjFlZGViOWY1OWU0N2Y1ZWQzYjgyOTgzNEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t" target="_blank" rel="noopener noreferrer" aria-label="Open the Triceratops Club events calendar in Google Calendar (opens in a new tab)"></a>
             </div>
 
             <div class="events__notes">
@@ -318,6 +322,7 @@
                   <p class="sticky-note__body">No chance to earn a dino, but hang out and study with the community. Meet new people!</p>
                 </li>
               </ul>
+              <img class="events__notes-fade events__notes-fade--top" src="images/events-fade.png" alt="" aria-hidden="true">
               <img class="events__notes-fade" src="images/events-fade.png" alt="" aria-hidden="true">
             </div>
           </div>
@@ -360,7 +365,7 @@
           </header>
 
           <div class="heatmap__map">
-            <img src="images/heatmap-map.png" alt="Map of the UC Davis campus and downtown Davis showing where dinos have been dropped">
+            <img class="heatmap__image" src="images/heatmap-map.png" alt="Map of the UC Davis campus and downtown Davis showing where dinos have been dropped">
           </div>
         </div>
       </section>

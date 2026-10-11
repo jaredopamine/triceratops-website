@@ -88,6 +88,7 @@
   --radius-md: 16px;
   --shadow-gallery: drop-shadow(-1.462px 4.386px 0.439px rgba(0, 0, 0, 0.12));
   --shadow-note: drop-shadow(-1.741px 3.482px 1.741px rgba(0, 0, 0, 0.1));
+  --shadow-sticker: drop-shadow(0 4px 2px rgba(0, 0, 0, 0.25));
   --shadow-text: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -535,6 +536,7 @@ section[id] {
   right: 64.77px;
   width: 176.234px;
   height: 162.018px;
+  filter: var(--shadow-sticker);
 }
 
 .hero__sticker-dino img {
@@ -1327,23 +1329,27 @@ section[id] {
   background: var(--color-yellow);
 }
 
-/* Polaroids straighten on hover and open in the lightbox on click */
-.gallery .polaroid {
+/* Polaroids and the photo strip straighten on hover and open in the lightbox on click */
+.gallery .polaroid,
+.gallery .photo-strip {
   cursor: zoom-in;
   transition: rotate 0.3s ease;
 }
 
 .gallery .polaroid:hover,
-.gallery .polaroid:focus-visible {
+.gallery .polaroid:focus-visible,
+.gallery .photo-strip:hover,
+.gallery .photo-strip:focus-visible {
   rotate: 0deg;
 }
 
 /* Hidden while its enlarged copy is showing in the lightbox */
-.gallery .polaroid.is-inspected {
+.gallery .polaroid.is-inspected,
+.gallery .photo-strip.is-inspected {
   visibility: hidden;
 }
 
-/* Lightbox: script.js copies the clicked polaroid in here, enlarged, and
+/* Lightbox: script.js copies the clicked polaroid or photo strip in here, enlarged, and
    animates it to and from its place in the gallery. */
 .lightbox {
   position: fixed;
@@ -1377,7 +1383,8 @@ section[id] {
   cursor: zoom-out;
 }
 
-.lightbox .polaroid {
+.lightbox .polaroid,
+.lightbox .photo-strip {
   position: relative;
   left: auto;
   top: auto;
@@ -1401,6 +1408,7 @@ section[id] {
   right: 59.2px;
   width: 177.797px;
   height: 163.449px;
+  filter: var(--shadow-sticker);
 }
 
 .events__sticker-dino img {
@@ -1422,16 +1430,33 @@ section[id] {
 }
 
 .events__calendar {
+  position: relative;
   aspect-ratio: 903 / 625.03;
+  /* Set in script.js: grows the frame when the notes wrap onto more lines, so
+     the fourth sticky note still peeks out at the bottom as in the design. */
+  min-height: var(--events-peek-height, 0px);
+  width: 100%; /* keeps that min-height from widening the box via the aspect ratio */
+  min-width: 0;
   overflow: hidden;
   border: 1.596px solid var(--color-calendar-border);
   border-radius: 7.062px;
   box-shadow: 0 3.191px 4.787px rgba(0, 0, 0, 0.1);
 }
 
-.events__calendar img {
+.events__calendar iframe {
+  display: block;
   width: 100%;
   height: 100%;
+  border: 0;
+}
+
+.events__calendar-link {
+  position: absolute;
+  inset: 0;
+}
+
+.events__calendar-link:focus-visible {
+  outline-offset: -4px;
 }
 
 .events__notes {
@@ -1446,7 +1471,8 @@ section[id] {
   display: grid;
   align-content: start;
   gap: var(--space-3);
-  padding-left: 4px;
+  /* Bottom room lets the last note scroll clear of the fade */
+  padding: 0 0 40px 4px;
   overflow-x: hidden;
   overflow-y: auto;
   scrollbar-width: none;
@@ -1463,6 +1489,20 @@ section[id] {
   width: 100%;
   height: 40px;
   pointer-events: none;
+}
+
+/* The same fade flipped onto the top edge; script.js shows it once the notes
+   have been scrolled */
+.events__notes-fade--top {
+  top: -1px;
+  bottom: auto;
+  scale: 1 -1;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.events__notes.is-scrolled .events__notes-fade--top {
+  opacity: 1;
 }
 
 .sticky-note {
@@ -1607,8 +1647,8 @@ section[id] {
 }
 
 .heatmap__grass--2 {
-  left: calc(9.72% - 1px);
-  top: calc(97.64% - 3.28px);
+  left: calc(10.69% - 1px);
+  top: calc(96.52% - 3.28px);
 }
 
 .heatmap__grass--3 {
@@ -1707,11 +1747,13 @@ section[id] {
   aspect-ratio: 1344 / 620;
   margin-top: 44px;
   overflow: hidden;
+  isolation: isolate; /* keeps the map's own layers under the sticky header */
   border: 2px solid var(--color-off-white);
   border-radius: var(--radius-md);
 }
 
-.heatmap__map img {
+/* Static picture of the map: shown until script.js swaps in the live one */
+.heatmap__image {
   position: absolute;
   left: -0.149%;
   top: -3.571%;
@@ -1719,6 +1761,14 @@ section[id] {
   height: 106.981%;
   max-width: none;
   object-fit: contain;
+}
+
+.heatmap__map.is-interactive .heatmap__image {
+  display: none;
+}
+
+.heatmap__map.maplibregl-map {
+  font-family: inherit;
 }
 
 /* Closing */
@@ -1791,6 +1841,7 @@ section[id] {
   right: 56.76px;
   width: 172.237px;
   height: 156.823px;
+  filter: var(--shadow-sticker);
 }
 
 .closing__sticker img {
@@ -2182,9 +2233,13 @@ section[id] {
     margin-top: var(--space-10);
   }
 
+  .events__calendar {
+    min-height: 0;
+  }
+
   .events__notes-list {
     position: static;
-    padding-left: 0;
+    padding: 0;
     overflow: visible;
   }
 
