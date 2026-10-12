@@ -5,6 +5,10 @@
    this page needs. Values are from the Figma "Getting Started Page"
    frame (1440px desktop comp).
 ============================================================ */
+/* Mobile-only footer decoration scaffold — matches DinoDex's footer
+   exactly; see the true-mobile @media (max-width: 640px) block below. */
+.footer-deco-m { display: none; position: absolute; pointer-events: none; }
+
 :root {
   --gs-heading: #2d2d2d;
   --gs-body: #3d3d3d;
@@ -237,7 +241,7 @@ strong { font-weight: 700; }
 .do-card--dont .do-card__body { margin-top: -10px; }
 /* Portrait cutouts, centre-cropped to the comp's 285.6 x 261.6 frame */
 .do-card__art { width: 285.6px; height: 261.6px; max-width: 100%; object-fit: cover; flex-shrink: 0; }
-.do-card__list { width: 100%; max-width: 524px; }
+.do-card__list { width: 100%; max-width: none; }
 .do-card__list li {
   padding: 23px 7px; /* 23 + 2px rule + 23: the comp's zero-height lines sit in a 24px gap each side */
   border-top: 2px solid rgba(145, 145, 145, 0.5);
@@ -716,6 +720,16 @@ html.has-overlay { overflow: hidden; }
 /* Mobile pop-up card (the Figma "… Pop-up" frames); only shown at ≤640px */
 .drop-sheet { display: none; }
 
+/* Swipe transition between the card's two pages (Overview/Rules): only
+   one page is ever unhidden at a time (the layout doesn't support
+   stacking both to cross-slide), so this fades/slides the outgoing page
+   out, then the incoming page in from the opposite side — see showPage()
+   in the script below. Shared across both drop-sheet breakpoints since
+   the card itself only ever renders at ≤1200px. */
+.drop-sheet__page { transition: transform 180ms ease, opacity 180ms ease; }
+.drop-sheet__page.is-offset-left { transform: translateX(-18px); opacity: 0; }
+.drop-sheet__page.is-offset-right { transform: translateX(18px); opacity: 0; }
+
 .binder__holes {
   position: absolute;
   left: 436.63px;
@@ -732,7 +746,7 @@ html.has-overlay { overflow: hidden; }
 .binder__holes img { width: 57.75px; height: 19.5px; max-width: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .common-card, .rare-card, .drop-arrow, .drop-sheet__dot { transition: none; }
+  .common-card, .rare-card, .drop-arrow, .drop-sheet__dot, .drop-sheet__page, .drop-sheet { transition: none; }
   .rare-card:hover, .rare-card:focus-visible { animation: none; } /* shine stays put */
 }
 
@@ -905,9 +919,9 @@ html.has-overlay { overflow: hidden; }
     height: 44px;
     padding: 0;
     overflow: hidden;
-    border: 2px solid var(--gs-body);
+    border: 0;
     border-radius: 100px;
-    background: var(--gs-gray);
+    background: #e0e0e0;
     cursor: pointer;
   }
   .steps__num-fill { position: absolute; inset: 0; background: var(--gs-pastel-green); transform: scaleX(0); transform-origin: left; }
@@ -1122,6 +1136,12 @@ html.has-overlay { overflow: hidden; }
     background: var(--color-bg);
     border: 4px solid #687144;
     border-radius: 22px;
+    /* Lets the whole card (photo included) be swiped horizontally
+       without the browser treating it as a vertical scroll/pan. */
+    touch-action: pan-y;
+    /* Animates the card resizing to fit the incoming page's text, across
+       the whole swipe transition (both its phases) — see showPage(). */
+    transition: height 360ms ease;
   }
   .drop-sheet__close { /* green X in the top-right corner */
     position: absolute;
@@ -1150,7 +1170,7 @@ html.has-overlay { overflow: hidden; }
     border: 4px solid #687144;
     border-radius: 10px;
   }
-  .drop-sheet__photo img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; }
+  .drop-sheet__photo img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; -webkit-user-drag: none; user-select: none; }
   /* The Figma crops (inline height/top) are tuned for the wide mobile frame and would
      squash the photo in this squarer box, so fill the box at the photo's own proportions;
      the script centres each on the same spot via object-position. */
@@ -1260,7 +1280,6 @@ html.has-overlay { overflow: hidden; }
   /* Social icons above the copyright, which wraps at 323px */
   .footer-bottom { flex-direction: column-reverse; align-items: flex-start; gap: 12px; max-width: 323px; }
   .footer-copyright { line-height: 1.5; letter-spacing: 0.32px; }
-  .footer-social__icon { width: 40px; height: 40px; }
 
   /* Placements from the frame (the "front" cloud files include their shadow, hence the offsets).
      Asset names are misleading: dino-single is the blue one, dino-duo the green. */
@@ -1280,12 +1299,43 @@ html.has-overlay { overflow: hidden; }
 
 /* ============================================================
    MOBILE — 640px and below, from the Figma "Mobile Vertical Page"
-   frame (393px wide, 24px side margins). Header, nav menu and footer
-   come from styles.css / nav.js.
+   frame (393px wide, 24px side margins). Header and nav menu come
+   from styles.css / nav.js; the footer below matches DinoDex's
+   mobile footer exactly rather than styles.css's plainer shared
+   mobile rules.
 ============================================================ */
 @media (max-width: 640px) {
   .gs-desktop-only { display: none; }
   .gs-mobile-only { display: inline; }
+
+  .site-footer { margin-top: 64px; }
+  .footer-content { padding-bottom: 155px; }
+  .footer-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 32px;
+    row-gap: 60px;
+  }
+  .footer-column:nth-child(1) { grid-column: 1; grid-row: 1; }
+  .footer-column:nth-child(2) { grid-column: 2; grid-row: 1; }
+  .footer-column:nth-child(3) { grid-column: 1; grid-row: 2; }
+  .footer-column:nth-child(4) { grid-column: 2; grid-row: 2; }
+  .footer-column:nth-child(5) { grid-column: 1; grid-row: 3; }
+  .footer-grass {
+    height: 45px;
+    background-size: 195px 45px;
+    background-image: url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg');
+    background-position: -120px bottom, -10px bottom, 100px bottom, 210px bottom, 320px bottom;
+  }
+  .footer-deco { display: none; }
+  .footer-deco-m { display: block; }
+  .footer-deco-m--cloud1 { left: -30px; top: 18px; width: 42px; height: 47px; }
+  .footer-deco-m--cloud2 { left: 264px; top: 354px; width: 95px; height: 57px; }
+  .footer-deco-m--cloud3 { left: 352px; top: 152px; width: 46px; height: 45px; }
+  .footer-deco-m--dino-blue { left: 21px; bottom: 0; width: 62px; height: 94px; }
+  .footer-deco-m--dino-green { left: 86px; bottom: 1px; width: 59px; height: 77px; }
+  .footer-deco-m--flower1 { left: 187px; bottom: 0; width: 29px; height: 31px; }
+  .footer-deco-m--flower2 { left: 164px; bottom: 0; width: 21px; height: 23px; }
 
   /* ---------- Hero ---------- */
   .hero--getting-started { height: 244px; padding: 10px; justify-content: center; }
@@ -1299,7 +1349,8 @@ html.has-overlay { overflow: hidden; }
     padding: 0;
   }
   .hero--getting-started .hero__title { margin: 0; font-size: 40px; line-height: 1.2; letter-spacing: 0.8px; }
-  .hero--getting-started .hero__subtitle { font-size: 12px; line-height: 1.3; letter-spacing: 0.24px; }
+  /* Matches About Us's mobile hero subtitle size. */
+  .hero--getting-started .hero__subtitle { font-size: 16px; line-height: 1.3; letter-spacing: 0.02em; }
 
   /* ---------- Shared section pieces ---------- */
   .gs-stack { padding: 48px 24px 0; gap: 48px; }
@@ -1307,7 +1358,8 @@ html.has-overlay { overflow: hidden; }
   .gs-heading__title,
   #during-drops .gs-heading__title { gap: 24px; }
   .gs-heading__title h2 { font-size: 26px; line-height: 1.2; letter-spacing: 0.52px; text-wrap: balance; } /* the comp breaks two-line titles near the middle */
-  .gs-heading__sub { font-size: 16px; line-height: 1.3; letter-spacing: 0.32px; }
+  /* Matches About Us's mobile body-text size (18px), per request. */
+  .gs-heading__sub { font-size: 18px; line-height: 1.4; letter-spacing: 0.03em; }
 
   /* ---------- Drop notifications: screenshot, numbered picker, active step ---------- */
   .steps { flex-direction: column; align-items: stretch; gap: 16px; }
@@ -1337,9 +1389,9 @@ html.has-overlay { overflow: hidden; }
     height: 44px;
     padding: 0;
     overflow: hidden;
-    border: 2px solid var(--gs-body);
+    border: 0;
     border-radius: 100px;
-    background: var(--gs-gray);
+    background: #e0e0e0;
     cursor: pointer;
   }
   .steps__num-fill { /* fills left to right over the 5s step timer */
@@ -1488,6 +1540,12 @@ html.has-overlay { overflow: hidden; }
     padding: 16px 18px;
     background: var(--color-bg);
     border-radius: 16px;
+    /* Lets the whole card (photo included) be swiped horizontally
+       without the browser treating it as a vertical scroll/pan. */
+    touch-action: pan-y;
+    /* Animates the card resizing to fit the incoming page's text, across
+       the whole swipe transition (both its phases) — see showPage(). */
+    transition: height 360ms ease;
   }
   .drop-sheet__close { /* 27px X rotated 45° in a 38px corner box */
     position: absolute;
@@ -1516,7 +1574,7 @@ html.has-overlay { overflow: hidden; }
     border: 4px solid #687144;
     border-radius: 8px;
   }
-  .drop-sheet__photo img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; }
+  .drop-sheet__photo img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; -webkit-user-drag: none; user-select: none; }
   .drop-sheet__photo img.is-cropped { bottom: auto; object-fit: fill; } /* height/top set per drop from Figma */
 
   .drop-sheet__info { position: relative; display: flex; flex-direction: column; gap: 8px; touch-action: pan-y; }
@@ -1599,4 +1657,24 @@ html.has-overlay { overflow: hidden; }
   /* No overlap on mobile: 48px of page between the FAQ band and the grass */
   .faq-wrap { padding-bottom: 48px; }
   .footer-grass { margin-top: 0; background-color: var(--color-bg); }
+}
+
+/* ============================================================
+   DESKTOP-ONLY (>1800px — e.g. a 2560x1440 monitor). Placed at the
+   end of the file so it wins the cascade over the base rules above
+   it (same selectors/specificity — later in source wins). ============================================================ */
+@media (min-width: 1801px) {
+  /* +100px side margin, matching DinoDex. .gs-stack (body content,
+     also reused by Flash Sales since it loads this file too) and
+     the shared .hero__content (hero TEXT only — the hero photo
+     stays full-bleed) both read from --grid-margin, so overriding
+     it here moves both together on both pages without touching
+     styles.css. Nav/footer don't use this variable outside their
+     own ≤640px mobile rules, so they're unaffected. */
+  :root { --grid-margin: 148px; }
+  /* No hero height override needed here — 498px is already this
+     page's own native value, and it's now the sitewide target every
+     other page's hero is being matched to. */
+  /* Nudged down 70px per feedback. */
+  .hero--getting-started .hero__bg img { object-position: center calc(68% + 70px); }
 }

@@ -1,12 +1,433 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Triceratops</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DinoDex — UC Davis Triceratops Club</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="dinodex.css">
 </head>
 <body>
-    <h1>Dinodex Page</h1>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.html" class="site-logo">
+        <img src="assets/logo.png" alt="UC Davis Triceratops Club logo">
+      </a>
+
+      <nav class="main-nav" aria-label="Primary">
+        <a class="main-nav__link" href="index.html">Home</a>
+        <div class="nav-dropdown">
+          <a class="main-nav__link" href="getting-started.html">
+            Getting Started
+            <img class="main-nav__chevron" src="assets/chevron-down.svg" alt="">
+          </a>
+          <div class="nav-dropdown__panel">
+            <a href="flash-sales.html">Flash Sales</a>
+          </div>
+        </div>
+        <a class="main-nav__link main-nav__link--current" href="dinodex.html" aria-current="page">DinoDex</a>
+        <a class="main-nav__link" href="rules.html">Rules</a>
+        <a class="main-nav__link" href="about.html">About Us</a>
+      </nav>
+
+      <a href="https://discord.gg/MzDujDpgZ9" target="_blank" rel="noopener" class="btn btn-discord">
+        <img src="assets/discord-icon.svg" alt="">
+        Join Our Discord
+      </a>
+    </div>
+  </header>
+
+  <main class="page-content">
+
+    <section class="hero">
+      <div class="hero__bg">
+        <img class="hero__bg-img hero__bg-img--desktop" src="assets/hero.png" alt="">
+        <img class="hero__bg-img hero__bg-img--mobile" src="assets/hero-mobile.png" alt="">
+      </div>
+      <div class="hero__gradient"></div>
+      <div class="hero__content">
+        <h1 class="hero__title hero__title--desktop">Learn the Triceratops Universe</h1>
+        <h1 class="hero__title hero__title--mobile">Learn the<br>Dino Universe</h1>
+        <p class="hero__subtitle">Meet every dino in the club — their personalities, dino type, and what makes each one unique and worth hunting for.</p>
+      </div>
+    </section>
+
+    <!-- What is DinoDex? -->
+    <div class="info-banner reveal">
+      <img class="info-banner__sprout info-banner__sprout--desktop" src="assets/dinodex-sprout-pair.svg" alt="">
+      <img class="info-banner__sprout info-banner__sprout--mobile" src="assets/dinodex-sprout-pair-mobile.svg" alt="">
+      <img class="info-banner__flower info-banner__flower--yellow" src="assets/dinodex-flower-b.svg" alt="">
+      <img class="info-banner__flower info-banner__flower--pink" src="assets/dinodex-flower-a.svg" alt="">
+      <img class="info-banner__flower info-banner__flower--purple info-banner__flower--purple-desktop" src="assets/dinodex-flower-purple.svg" alt="">
+      <img class="info-banner__flower info-banner__flower--purple info-banner__flower--purple-mobile" src="assets/dinodex-flower-purple-mobile.svg" alt="">
+      <img class="info-banner__tick info-banner__tick--1" src="assets/dinodex-tick.svg" alt="">
+      <img class="info-banner__tick info-banner__tick--2" src="assets/dinodex-tick.svg" alt="">
+      <img class="info-banner__blade" src="assets/dinodex-blade.svg" alt="" aria-hidden="true">
+      <img class="info-banner__spark info-banner__spark--1" src="assets/dinodex-spark-1.svg" alt="" aria-hidden="true">
+      <img class="info-banner__spark info-banner__spark--2" src="assets/dinodex-spark-2.svg" alt="" aria-hidden="true">
+      <div class="info-banner__body">
+        <h2 class="text-h1 info-banner__title">What is DinoDex?<img class="info-banner__mascot" src="assets/dinodex-mascot-face.svg" alt=""></h2>
+        <p class="text-subtitle-1">DinoDex is a play on "Pokédex" from Pokémon. Think of it as your personal catalog of every dino that's ever roamed UC Davis campus — their types, personalities, and the details that make each one worth hunting for.</p>
+      </div>
+    </div>
+
+    <!-- Popular Dinos -->
+    <section class="dinodex-section" id="popular-dinos">
+      <img class="popular-dinos-cloud-pink" src="assets/dinodex-pink-circles.svg" alt="" aria-hidden="true">
+      <div class="dinodex-section__head reveal">
+        <div class="dinodex-section__header">
+          <span class="dino-bullet" aria-hidden="true"></span>
+          <h2 class="text-h1">Popular Dinos</h2>
+        </div>
+        <p class="dinodex-section__intro text-subtitle-1">The eight monthly dinos — one for each horn type — plus the five most sought after dinos in the club.</p>
+      </div>
+
+      <!-- Monthly Dinos -->
+      <div class="subsection-header">
+        <h3 class="text-h2 subsection-header__title">
+          <span class="dino-bullet" aria-hidden="true"></span>
+          Monthly Dinos
+          <span class="pill">8 Horn Types</span>
+        </h3>
+        <div class="subsection-header__spacer"></div>
+        <a href="#" class="btn btn-primary-icon catalog-btn catalog-btn--desktop">
+          View Full Catalog
+          <img src="assets/dinodex-arrow-right.svg" alt="">
+        </a>
+      </div>
+      <p class="subsection-caption text-subtitle-1">View the yearly Dino roster.</p>
+
+      <div class="dino-grid reveal">
+        <article class="dino-card">
+          <div class="dino-card__photo"><img src="assets/monthly-february.png" alt="February monthly dino"></div>
+          <div class="dino-card__info">
+            <p class="text-h3 dino-card__name">February</p>
+            <p class="text-subtitle-1 dino-card__horn">Light Pink Horn</p>
+          </div>
+        </article>
+        <article class="dino-card">
+          <div class="dino-card__photo"><img src="assets/monthly-march.png" alt="March monthly dino"></div>
+          <div class="dino-card__info">
+            <p class="text-h3 dino-card__name">March</p>
+            <p class="text-subtitle-1 dino-card__horn">Sparkly Green Horn</p>
+          </div>
+        </article>
+        <article class="dino-card">
+          <div class="dino-card__photo dino-card__photo--april"><img src="assets/monthly-april.png" alt="April monthly dino"></div>
+          <div class="dino-card__info">
+            <p class="text-h3 dino-card__name">April</p>
+            <p class="text-subtitle-1 dino-card__horn">Pastel Multi-Color Horn</p>
+          </div>
+        </article>
+        <article class="dino-card">
+          <div class="dino-card__photo"><img src="assets/monthly-may.png" alt="May monthly dino"></div>
+          <div class="dino-card__info">
+            <p class="text-h3 dino-card__name">May</p>
+            <p class="text-subtitle-1 dino-card__horn">Yellow Horn</p>
+          </div>
+        </article>
+        <article class="dino-card">
+          <div class="dino-card__photo"><img src="assets/monthly-summer.png" alt="Summer monthly dino"></div>
+          <div class="dino-card__info">
+            <p class="text-h3 dino-card__name">Summer</p>
+            <p class="text-subtitle-1 dino-card__horn">Lilac Horn</p>
+          </div>
+        </article>
+        <article class="dino-card">
+          <div class="dino-card__photo"><img src="assets/monthly-october.png" alt="October monthly dino"></div>
+          <div class="dino-card__info">
+            <p class="text-h3 dino-card__name">October</p>
+            <p class="text-subtitle-1 dino-card__horn">Orange Horn</p>
+          </div>
+        </article>
+        <article class="dino-card">
+          <div class="dino-card__photo"><img src="assets/monthly-november.png" alt="November monthly dino"></div>
+          <div class="dino-card__info">
+            <p class="text-h3 dino-card__name">November</p>
+            <p class="text-subtitle-1 dino-card__horn">Maroon Horn</p>
+          </div>
+        </article>
+        <article class="dino-card">
+          <div class="dino-card__photo"><img src="assets/monthly-winter.png" alt="Winter monthly dino"></div>
+          <div class="dino-card__info">
+            <p class="text-h3 dino-card__name">Winter</p>
+            <p class="text-subtitle-1 dino-card__horn">Light Blue Horn</p>
+          </div>
+        </article>
+      </div>
+
+      <a href="#" class="btn btn-primary-icon catalog-btn catalog-btn--mobile">
+        View Full Catalog
+        <img src="assets/dinodex-arrow-right.svg" alt="">
+      </a>
+
+      <!-- Most Sought After Dinos -->
+      <div class="sought-section reveal">
+      <img class="sought-section__blob sought-section__blob--green" src="assets/dinodex-cloud-green.svg" alt="" aria-hidden="true">
+      <img class="sought-section__blob sought-section__blob--yellow" src="assets/dinodex-cloud-yellow.svg" alt="" aria-hidden="true">
+      <img class="sought-section__blob sought-section__blob--teal" src="assets/dinodex-cloud-teal.svg" alt="" aria-hidden="true">
+      <img class="sought-section__blob sought-section__blob--periwinkle" src="assets/dinodex-cloud-periwinkle.svg" alt="" aria-hidden="true">
+      <img class="sought-section__blob sought-section__blob--pink" src="assets/dinodex-cloud-pink.svg" alt="" aria-hidden="true">
+      <img class="sought-cloud-m sought-cloud-m--teal" src="assets/sought-cloud-teal-big.svg" alt="" aria-hidden="true">
+      <div class="subsection-header subsection-header--sought">
+        <h3 class="text-h2 subsection-header__title">
+          <span class="dino-bullet" aria-hidden="true"></span>
+          Most Sought After Dinos
+          <span class="pill pill--gold">Top 5</span>
+        </h3>
+        <img class="subsection-header__accent" src="assets/dinodex-sought-accent.svg" alt="" aria-hidden="true">
+      </div>
+      <p class="subsection-caption text-subtitle-1">View which Dinos hunters want the most.</p>
+
+      <div class="sought-row-wrap">
+      <div class="sought-row sought-row--top">
+        <article class="dino-card">
+          <div class="dino-card__photo dino-card__photo--frankendino"><img src="assets/sought-frankendino.png" alt="Frankendino"></div>
+          <div class="dino-card__info">
+            <span class="tag tag--october">October 2023</span>
+            <p class="text-h3 dino-card__name">Frankendino</p>
+            <p class="text-subtitle-1 dino-card__horn">Orange Horn</p>
+          </div>
+        </article>
+        <article class="dino-card">
+          <div class="dino-card__photo dino-card__photo--gummy"><img src="assets/sought-gummyceratops.png" alt="Gummy-ceratops"></div>
+          <div class="dino-card__info">
+            <span class="tag tag--picnic">Picnic Day 2026</span>
+            <p class="text-h3 dino-card__name">Gummy-ceratops</p>
+            <p class="text-subtitle-1 dino-card__horn">Multi-Color Horn</p>
+          </div>
+        </article>
+        <article class="dino-card">
+          <div class="dino-card__photo dino-card__photo--aggie"><img src="assets/sought-aggieceratops.png" alt="Aggieceratops"></div>
+          <div class="dino-card__info">
+            <span class="tag tag--random">Random Drop</span>
+            <p class="text-h3 dino-card__name">Aggieceratops</p>
+            <p class="text-subtitle-1 dino-card__horn">Gold Horn</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="sought-row sought-row--bottom">
+        <article class="dino-card">
+          <div class="dino-card__photo"><img src="assets/sought-holidino.png" alt="Holidino"></div>
+          <div class="dino-card__info">
+            <span class="tag tag--holidino">January 2025</span>
+            <p class="text-h3 dino-card__name">Holidino</p>
+            <p class="text-subtitle-1 dino-card__horn">Multi-Color Horn</p>
+          </div>
+        </article>
+        <article class="dino-card">
+          <div class="dino-card__photo dino-card__photo--valendino"><img src="assets/sought-valendino.png" alt="Valendino"></div>
+          <div class="dino-card__info">
+            <span class="tag tag--valendino">February 2024</span>
+            <p class="text-h3 dino-card__name">Valendino</p>
+            <p class="text-subtitle-1 dino-card__horn">Light Pink Horn</p>
+          </div>
+        </article>
+      </div>
+      </div>
+      </div>
+    </section>
+
+    <!-- CTA banner -->
+    <div class="cta-banner reveal">
+      <img class="cta-banner__cloud cta-banner__cloud--blue" src="assets/cta-cloud-blue.svg" alt="" aria-hidden="true">
+      <img class="cta-banner__cloud cta-banner__cloud--purple" src="assets/cta-cloud-purple.svg" alt="" aria-hidden="true">
+      <img class="cta-banner__mascot" src="assets/cta-mascot.svg" alt="" aria-hidden="true">
+      <img class="cta-banner__sprout" src="assets/cta-sprout.svg" alt="" aria-hidden="true">
+      <img class="cta-banner__sprout--mobile" src="assets/dinodex-sprout-pair-mobile.svg" alt="" aria-hidden="true">
+      <div class="cta-banner__text">
+        <div>
+          <h3 class="text-h1 cta-banner__title">Interested to see more Dinos?</h3>
+          <p class="text-subtitle-1">Every dino ever logged lives in the club catalog sheet.</p>
+        </div>
+      </div>
+      <a href="https://docs.google.com/spreadsheets/d/1tXQKwV7cz0Sr5Jh5ofEQbhSVG9ofUGGs5iG0ag1HkjA/edit?gid=0#gid=0" class="btn btn-secondary" target="_blank" rel="noopener">Open Catalog Sheet</a>
+    </div>
+
+    <!-- Horn Colors / Yarn Types -->
+    <section class="dinodex-section">
+      <img class="horncolors-cloud-pink" src="assets/dinodex-pink-scallop.svg" alt="" aria-hidden="true">
+      <div class="split-row reveal">
+        <div class="split-row__body">
+          <div class="dinodex-section__header">
+            <span class="dino-bullet" aria-hidden="true"></span>
+            <h2 class="text-h1">Horn Colors</h2>
+          </div>
+          <p class="text-subtitle-1">Lorem Ipsum dolor sit amet, consectetur adipiscing elit. Lorem Ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <img class="split-row__photo split-row__photo--horn" src="assets/horn-colors-photo.png" alt="">
+      </div>
+
+      <div class="split-row split-row--reverse reveal">
+        <div class="split-row__body">
+          <div class="dinodex-section__header">
+            <h2 class="text-h1">Yarn Types</h2>
+            <span class="dino-bullet" aria-hidden="true"></span>
+          </div>
+          <p class="text-subtitle-1">Lorem Ipsum dolor sit amet, consectetur adipiscing elit. Lorem Ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <img class="split-row__photo split-row__photo--yarn" src="assets/yarn-types-photo.png" alt="">
+      </div>
+    </section>
+
+    <!-- Dino Types -->
+    <section class="dinodex-section dinodex-section--last" id="dino-types">
+      <div class="dinodex-section__head reveal">
+        <div class="dinodex-section__header">
+          <span class="dino-bullet" aria-hidden="true"></span>
+          <h2 class="text-h1">Dino Types</h2>
+        </div>
+        <p class="dinodex-section__intro text-subtitle-1">Every Triceratops dino is made with intention — from the yarn color of their body to the color of their horns. Understanding these details isn't just trivia, it's how seasoned hunters identify a dino mid-drop before anyone else does.</p>
+        <img class="type-vine" src="assets/dino-types-vine.svg" alt="" aria-hidden="true">
+        <img class="dinotypes-cloud-m" src="assets/dinotypes-cloud-wide.svg" alt="" aria-hidden="true">
+      </div>
+
+      <div class="type-grid-wrap reveal">
+      <div class="type-grid">
+        <img class="type-badge type-badge--monthly" src="assets/type-badge-monthly-final.svg" alt="" aria-hidden="true">
+        <img class="type-badge type-badge--flash" src="assets/type-badge-flashsales-final.svg" alt="" aria-hidden="true">
+        <img class="type-badge type-badge--event" src="assets/type-badge-event-final.svg" alt="" aria-hidden="true">
+        <div class="type-card type-card--monthly">
+          <div class="polaroid">
+            <div class="polaroid__art"><img src="assets/type-monthly.png" alt="Monthly dino type illustration"></div>
+            <p class="text-h3 polaroid__title">Monthly</p>
+          </div>
+          <p class="type-card__desc text-subtitle-1">Monthly Dinos are the most common dinos and are <strong>dropped by our staff members!</strong><br><br> While the dino's yarn type can vary in many colors, a dino will have a distinct horn color respective to the month of the year.</p>
+        </div>
+        <div class="type-card type-card--flash">
+          <div class="polaroid">
+            <div class="polaroid__art"><img src="assets/type-flashsales.png" alt="Flash Sales dino type illustration"></div>
+            <p class="text-h3 polaroid__title">Flash Sales</p>
+          </div>
+          <p class="type-card__desc text-subtitle-1">Flash Sale Dinos are dinos that are <strong>achievable through online giveaways on discord that usually occurs at the end of each month!</strong><br><br> These dino's body and horn colors work similarly with the Monthly Dino's colors, but these dinos will cost money!</p>
+        </div>
+        <div class="type-card type-card--event">
+          <div class="polaroid">
+            <div class="polaroid__art"><img src="assets/type-event.png" alt="Event dino type illustration"></div>
+            <p class="text-h3 polaroid__title">Event</p>
+          </div>
+          <p class="type-card__desc text-subtitle-1">Event Dinos are rare dinos <strong>attainable through events that we host online or on campus!</strong><br><br> The Event Dino's appearances are often rare and hard to come by, so keep an eye out for our upcoming events through the year!</p>
+        </div>
+      </div>
+
+      <img class="type-vine--bottom" src="assets/dino-types-vine-bottom.svg" alt="" aria-hidden="true">
+      <div class="type-grid type-grid--row2">
+        <img class="type-badge type-badge--aggie2" src="assets/type-badge-aggie-final.svg" alt="" aria-hidden="true">
+        <img class="type-badge type-badge--limited2" src="assets/type-badge-limited-final.svg" alt="" aria-hidden="true">
+        <div class="type-card type-card--aggie">
+          <div class="polaroid">
+            <div class="polaroid__art"><img src="assets/type-aggieceratops.png" alt="Aggieceratops dino type illustration"></div>
+            <p class="text-h3 polaroid__title">Aggieceratops</p>
+          </div>
+          <p class="type-card__desc text-subtitle-1">Aggieceratops are rare dinos <strong>attainable through time-extensive drops that may last throughout the day.</strong><br><br> Each Aggieceratops is a unique design that alters a certain appearance, and utilizes on-brand UC Davis colors as its yarn.</p>
+        </div>
+        <div class="type-card type-card--limited">
+          <div class="polaroid">
+            <div class="polaroid__art"><img src="assets/type-limited.png" alt="Limited dino type illustration"></div>
+            <p class="text-h3 polaroid__title">Limited</p>
+          </div>
+          <p class="type-card__desc text-subtitle-1">Limited Dinos are <strong>time-limited dinos made with specialty yarn textures.</strong><br><br> We cycle through certain limited dino types per year, so make sure to attain one before they become unavailable!</p>
+        </div>
+      </div>
+      </div>
+      <img class="dinotypes-cloud-teal" src="assets/dinodex-teal-cloud-end.svg" alt="" aria-hidden="true">
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grass" aria-hidden="true"></div>
+
+    <div class="footer-content">
+      <img class="footer-deco footer-deco--flower-tl" src="assets/flower-accent.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--flower-mid" src="assets/flower-accent.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud1-back" src="assets/cloud-1-back.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud1-front" src="assets/cloud-1-front.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud2-back" src="assets/cloud-2-back.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud2-front" src="assets/cloud-2-front.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud3-back" src="assets/cloud-3-back.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--cloud3-front" src="assets/cloud-3-front.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--dino-single" src="assets/dino-single.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--dino-duo" src="assets/dino-duo.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--flower-small-1" src="assets/flower-small-1.svg" alt="" aria-hidden="true">
+      <img class="footer-deco footer-deco--flower-small-2" src="assets/flower-small-2.svg" alt="" aria-hidden="true">
+
+      <!-- Mobile-only footer decorations (Figma node 4778:3836) —
+           exported as flat PNGs since the source vectors are each
+           built from 10-30 tiny primitives not worth hand-recreating. -->
+      <img class="footer-deco-m footer-deco-m--cloud1" src="assets/footer-cloud-1.png" alt="" aria-hidden="true">
+      <img class="footer-deco-m footer-deco-m--cloud2" src="assets/footer-cloud-2.png" alt="" aria-hidden="true">
+      <img class="footer-deco-m footer-deco-m--cloud3" src="assets/footer-cloud-3.png" alt="" aria-hidden="true">
+      <img class="footer-deco-m footer-deco-m--dino-blue" src="assets/footer-dino-blue.png" alt="" aria-hidden="true">
+      <img class="footer-deco-m footer-deco-m--dino-green" src="assets/footer-dino-green.png" alt="" aria-hidden="true">
+      <img class="footer-deco-m footer-deco-m--flower1" src="assets/footer-flower-1.png" alt="" aria-hidden="true">
+      <img class="footer-deco-m footer-deco-m--flower2" src="assets/footer-flower-2.png" alt="" aria-hidden="true">
+
+      <div class="footer-columns">
+        <div class="footer-column">
+          <p class="footer-column__title">Home</p>
+          <ul class="footer-column__links">
+            <li><a href="#">Testimonials</a></li>
+            <li><a href="#">Map</a></li>
+            <li><a href="#">Event Calendar</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <p class="footer-column__title">Getting Started</p>
+          <ul class="footer-column__links">
+            <li><a href="getting-started.html#set-up-notifs">Set Up Notifs</a></li>
+            <li><a href="getting-started.html#drop-types">Drop Types</a></li>
+            <li><a href="getting-started.html#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <p class="footer-column__title">Flash Sales</p>
+          <ul class="footer-column__links">
+            <li><a href="flash-sales.html#what-is">What Is A Flash Sale?</a></li>
+            <li><a href="flash-sales.html#pricing">Pricing</a></li>
+            <li><a href="flash-sales.html#pickup">How To Pick Up Dino</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <p class="footer-column__title">DinoDex</p>
+          <ul class="footer-column__links">
+            <li><a href="#popular-dinos">Popular Dinos</a></li>
+            <li><a href="#dino-types">Dino Types</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <p class="footer-column__title">Rules</p>
+          <ul class="footer-column__links">
+            <li><a href="rules.html#general-title">General Rules</a></li>
+            <li><a href="rules.html#hunt-title">Hunt Rules</a></li>
+            <li><a href="rules.html#flash-title">Flash Sale Rules</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <p class="footer-column__title">About Us</p>
+          <ul class="footer-column__links">
+            <li><a href="about.html#stay-involved">Get Involved</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2026 UC Davis Triceratops Club | All Rights Reserved</p>
+        <div class="footer-social">
+          <a href="https://discord.gg/MzDujDpgZ9" class="footer-social__icon" target="_blank" rel="noopener"><img src="assets/discord-social-icon.svg" alt="Discord"></a>
+          <a href="https://www.instagram.com/davis_triceratops/" class="footer-social__icon" target="_blank" rel="noopener"><img src="assets/instagram-social-icon.svg" alt="Instagram"></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="nav.js" defer></script>
+  <script src="reveal.js" defer></script>
 
 </body>
 </html>

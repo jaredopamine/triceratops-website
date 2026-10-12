@@ -21,9 +21,9 @@
       <nav class="main-nav" aria-label="Primary">
         <a class="main-nav__link" href="index.html">Home</a>
         <div class="nav-dropdown">
-          <a class="main-nav__link" href="getting-started.html">
+          <a class="main-nav__link main-nav__link--current" href="getting-started.html" aria-current="page">
             Getting Started
-            <img class="main-nav__chevron" src="assets/chevron-down.svg" alt="">
+            <img class="main-nav__chevron" src="assets/chevron-down-bold.svg" alt="">
           </a>
           <div class="nav-dropdown__panel">
             <a href="flash-sales.html">Flash Sales</a>
@@ -34,7 +34,7 @@
         <a class="main-nav__link" href="about.html">About Us</a>
       </nav>
 
-      <a href="#" class="btn btn-discord">
+      <a href="https://discord.gg/MzDujDpgZ9" target="_blank" rel="noopener" class="btn btn-discord">
         <img src="assets/discord-icon.svg" alt="">
         Join Our Discord
       </a>
@@ -46,7 +46,7 @@
     <!-- ===== Hero ===== -->
     <section class="hero hero--getting-started">
       <div class="hero__bg">
-        <img src="assets/getting-started/hero.png" alt="">
+        <img src="assets/getting-started/hero.webp" alt="">
       </div>
       <div class="hero__gradient"></div>
       <div class="hero__content">
@@ -58,7 +58,7 @@
     <div class="gs-stack">
 
       <!-- ===== Drop notifications on Discord ===== -->
-      <section class="gs-section" id="set-up-notifs">
+      <section class="gs-section reveal" id="set-up-notifs">
         <header class="gs-heading">
           <div class="gs-heading__title">
             <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
@@ -115,7 +115,7 @@
       </section>
 
       <!-- ===== Join Discord CTA ===== -->
-      <section class="gs-cta">
+      <section class="gs-cta reveal">
         <h2 class="text-h2 gs-cta__title">Join our Discord so you never miss a drop!</h2>
         <a href="#" class="btn btn-discord">
           <img src="assets/discord-icon.svg" alt="">
@@ -125,7 +125,7 @@
       </section>
 
       <!-- ===== When & where ===== -->
-      <section class="gs-section" id="when-and-where">
+      <section class="gs-section reveal" id="when-and-where">
         <header class="gs-heading">
           <div class="gs-heading__title">
             <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
@@ -169,7 +169,7 @@
       </div>
 
       <!-- ===== What happens during drops ===== -->
-      <section class="gs-section" id="during-drops">
+      <section class="gs-section reveal" id="during-drops">
         <header class="gs-heading">
           <div class="gs-heading__title">
             <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
@@ -222,7 +222,7 @@
       </div>
 
       <!-- ===== Dino limits ===== -->
-      <section class="gs-section" id="dino-limits">
+      <section class="gs-section reveal" id="dino-limits">
         <header class="gs-heading">
           <div class="gs-heading__title">
             <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
@@ -260,7 +260,7 @@
       </div>
 
       <!-- ===== After finding a dino ===== -->
-      <section class="gs-section" id="after-finding">
+      <section class="gs-section reveal" id="after-finding">
         <header class="gs-heading">
           <div class="gs-heading__title">
             <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
@@ -298,7 +298,7 @@
     </div>
 
     <!-- ===== Flash sales CTA ===== -->
-    <section class="flash">
+    <section class="flash reveal">
       <div class="flash__image">
         <img class="flash__photo" src="assets/getting-started/flash-photo.png" alt="A plush dino next to a small WALL-E building set">
         <img class="spark spark--1" src="assets/getting-started/spark-1.svg" alt="">
@@ -315,7 +315,7 @@
     </section>
 
     <!-- ===== Discover drop types ===== -->
-    <section class="types" id="drop-types">
+    <section class="types reveal" id="drop-types">
       <picture><source media="(max-width: 1200px)" srcset="assets/getting-started/flowers-bg-mobile.svg"><img class="types__flowers" src="assets/getting-started/flowers-bg.svg" alt=""></picture>
 
       <header class="gs-heading types__heading">
@@ -442,7 +442,7 @@
     </section>
 
     <!-- ===== FAQ ===== -->
-    <section class="faq-wrap" id="faq">
+    <section class="faq-wrap reveal" id="faq">
       <div class="faq">
         <div class="faq__title">
           <img src="assets/getting-started/faq-dino.svg" alt="">
@@ -627,6 +627,17 @@
       <img class="footer-deco footer-deco--flower-small-1" src="assets/flower-small-1.svg" alt="" aria-hidden="true">
       <img class="footer-deco footer-deco--flower-small-2" src="assets/flower-small-2.svg" alt="" aria-hidden="true">
 
+      <!-- Mobile-only footer decorations (Figma node 4778:3836) —
+           exported as flat PNGs since the source vectors are each
+           built from 10-30 tiny primitives not worth hand-recreating. -->
+      <img class="footer-deco-m footer-deco-m--cloud1" src="assets/footer-cloud-1.png" alt="" aria-hidden="true">
+      <img class="footer-deco-m footer-deco-m--cloud2" src="assets/footer-cloud-2.png" alt="" aria-hidden="true">
+      <img class="footer-deco-m footer-deco-m--cloud3" src="assets/footer-cloud-3.png" alt="" aria-hidden="true">
+      <img class="footer-deco-m footer-deco-m--dino-blue" src="assets/footer-dino-blue.png" alt="" aria-hidden="true">
+      <img class="footer-deco-m footer-deco-m--dino-green" src="assets/footer-dino-green.png" alt="" aria-hidden="true">
+      <img class="footer-deco-m footer-deco-m--flower1" src="assets/footer-flower-1.png" alt="" aria-hidden="true">
+      <img class="footer-deco-m footer-deco-m--flower2" src="assets/footer-flower-2.png" alt="" aria-hidden="true">
+
       <div class="footer-columns">
         <div class="footer-column">
           <p class="footer-column__title">Home</p>
@@ -645,23 +656,32 @@
           </ul>
         </div>
         <div class="footer-column">
+          <p class="footer-column__title">Flash Sales</p>
+          <ul class="footer-column__links">
+            <li><a href="flash-sales.html#what-is">What Is A Flash Sale?</a></li>
+            <li><a href="flash-sales.html#pricing">Pricing</a></li>
+            <li><a href="flash-sales.html#pickup">How To Pick Up Dino</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
           <p class="footer-column__title">DinoDex</p>
           <ul class="footer-column__links">
-            <li><a href="#">Popular Dinos</a></li>
-            <li><a href="#">Dino Types</a></li>
+            <li><a href="dinodex.html#popular-dinos">Popular Dinos</a></li>
+            <li><a href="dinodex.html#dino-types">Dino Types</a></li>
           </ul>
         </div>
         <div class="footer-column">
           <p class="footer-column__title">Rules</p>
           <ul class="footer-column__links">
-            <li><a href="#">Claiming Process</a></li>
+            <li><a href="rules.html#general-title">General Rules</a></li>
+            <li><a href="rules.html#hunt-title">Hunt Rules</a></li>
+            <li><a href="rules.html#flash-title">Flash Sale Rules</a></li>
           </ul>
         </div>
         <div class="footer-column">
           <p class="footer-column__title">About Us</p>
           <ul class="footer-column__links">
-            <li><a href="#">Get Involved</a></li>
-            <li><a href="#">Contact Form</a></li>
+            <li><a href="about.html#stay-involved">Get Involved</a></li>
           </ul>
         </div>
       </div>
@@ -669,9 +689,8 @@
       <div class="footer-bottom">
         <p class="footer-copyright">© 2026 UC Davis Triceratops Club | All Rights Reserved</p>
         <div class="footer-social">
-          <a href="#" class="footer-social__icon"><img src="assets/email-icon.svg" alt="Email"></a>
-          <a href="#" class="footer-social__icon"><img src="assets/discord-social-icon.svg" alt="Discord"></a>
-          <a href="#" class="footer-social__icon"><img src="assets/instagram-social-icon.svg" alt="Instagram"></a>
+          <a href="https://discord.gg/MzDujDpgZ9" class="footer-social__icon" target="_blank" rel="noopener"><img src="assets/discord-social-icon.svg" alt="Discord"></a>
+          <a href="https://www.instagram.com/davis_triceratops/" class="footer-social__icon" target="_blank" rel="noopener"><img src="assets/instagram-social-icon.svg" alt="Instagram"></a>
         </div>
       </div>
     </div>
@@ -818,6 +837,7 @@
       var sheetCta = document.getElementById('drop-sheet-cta');
       var sheetPages = [document.getElementById('drop-sheet-page-1'), document.getElementById('drop-sheet-page-2')];
       var sheetDots = Array.prototype.slice.call(dialog.querySelectorAll('.drop-sheet__dot'));
+      var sheetCard = dialog.querySelector('.drop-sheet');
       var sheetPage = 0;
 
       function bulletItem(text) {
@@ -832,14 +852,83 @@
         return li;
       }
 
-      function showPage(page) {
+      var SHEET_TRANSITION = 180; // ms — must match the CSS page transition duration
+      var SHEET_RESIZE = SHEET_TRANSITION * 2; // ms — must match the CSS height transition duration (spans both phases below)
+
+      // Animates between the two pages instead of snapping, so a swipe reads as
+      // "this card slid" rather than "the text just changed": the outgoing page
+      // slides/fades out in the swipe direction, then the incoming one slides/
+      // fades in from the opposite side. Only one page is ever unhidden at a
+      // time (the layout doesn't support stacking both to cross-slide), hence
+      // the two-step sequence rather than a true simultaneous slide. The card's
+      // height eases from its current size to the incoming page's natural size
+      // across that *whole* two-phase sequence (not just the second half) —
+      // doing it in one continuous resize rather than a static-then-sudden-
+      // change looked choppy, especially when shrinking.
+      function showPage(page, opts) {
+        var instant = (opts && opts.instant) || page === sheetPage;
+        var dir = page > sheetPage ? 1 : -1;
+        var prevPage = sheetPage;
         sheetPage = page;
-        sheetPages.forEach(function (el, i) { el.hidden = i !== page; });
+
         sheetDots.forEach(function (dot, i) {
           dot.classList.toggle('is-active', i === page);
           if (i === page) dot.setAttribute('aria-current', 'true');
           else dot.removeAttribute('aria-current');
         });
+
+        window.clearTimeout(showPage._t);
+        window.clearTimeout(showPage._tHeight);
+        sheetPages.forEach(function (el) { el.classList.remove('is-offset-left', 'is-offset-right'); });
+
+        if (instant) {
+          sheetPages.forEach(function (el, i) { el.hidden = i !== page; });
+          sheetCard.style.height = '';
+          sheetCard.style.overflowY = '';
+          return;
+        }
+
+        var fromEl = sheetPages[prevPage];
+        var toEl = sheetPages[page];
+
+        var startHeight = sheetCard.getBoundingClientRect().height;
+        // Measure the destination page's natural height by swapping which
+        // page is hidden for a moment, synchronously, before anything is
+        // painted or classed for the transition — invisible to the viewer,
+        // but means the resize can run for the full duration instead of
+        // waiting until the page-swap's own midpoint to find out how far
+        // it needs to go.
+        fromEl.hidden = true;
+        toEl.hidden = false;
+        var endHeight = sheetCard.scrollHeight;
+        toEl.hidden = true;
+        fromEl.hidden = false;
+
+        // overflow stays hidden for the whole resize so a scrollbar never
+        // has a chance to flash in/out as the height passes through
+        // whatever the content's natural size was a moment ago — that
+        // flicker was the main source of the choppiness.
+        sheetCard.style.overflowY = 'hidden';
+        sheetCard.style.height = startHeight + 'px';
+        void sheetCard.offsetHeight; // commit the locked starting height
+        sheetCard.style.height = endHeight + 'px'; // now ease across the full SHEET_RESIZE duration
+
+        fromEl.classList.add(dir > 0 ? 'is-offset-left' : 'is-offset-right');
+        showPage._t = window.setTimeout(function () {
+          fromEl.hidden = true;
+          fromEl.classList.remove('is-offset-left', 'is-offset-right');
+          toEl.classList.add(dir > 0 ? 'is-offset-right' : 'is-offset-left');
+          toEl.hidden = false;
+          void toEl.offsetWidth; // force the offset to paint before transitioning away from it
+          requestAnimationFrame(function () {
+            toEl.classList.remove('is-offset-left', 'is-offset-right');
+          });
+        }, SHEET_TRANSITION);
+
+        showPage._tHeight = window.setTimeout(function () {
+          sheetCard.style.height = ''; // release back to auto for future resizes
+          sheetCard.style.overflowY = '';
+        }, SHEET_RESIZE);
       }
 
       function renderSheet(d) {
@@ -861,7 +950,7 @@
         d.bullets.slice(1).forEach(function (text) { rules.appendChild(bulletItem(text)); });
         if (d.cta) { sheetCta.textContent = d.cta.text; sheetCta.href = d.cta.href; sheetCta.hidden = false; }
         else { sheetCta.hidden = true; }
-        showPage(0);
+        showPage(0, { instant: true });
       }
 
       function neighbour(step) {
@@ -928,21 +1017,23 @@
         else go(e.key === 'ArrowLeft' ? -1 : 1);
       });
 
-      // Mobile card: dots and horizontal swipes flip between the two pages
+      // Mobile card: dots and horizontal swipes flip between the two pages.
+      // The swipe listener lives on the whole card (not just the text info
+      // panel) so dragging over the photo works too.
       sheetDots.forEach(function (dot, i) { dot.addEventListener('click', function () { showPage(i); }); });
-      var info = dialog.querySelector('.drop-sheet__info');
       var startX = null, startY = null;
-      info.addEventListener('pointerdown', function (e) { startX = e.clientX; startY = e.clientY; });
-      info.addEventListener('pointerup', function (e) {
+      sheetCard.addEventListener('pointerdown', function (e) { startX = e.clientX; startY = e.clientY; });
+      sheetCard.addEventListener('pointerup', function (e) {
         if (startX === null) return;
         var dx = e.clientX - startX, dy = e.clientY - startY;
         startX = null;
         if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) showPage(dx < 0 ? 1 : 0);
       });
-      info.addEventListener('pointercancel', function () { startX = null; });
+      sheetCard.addEventListener('pointercancel', function () { startX = null; });
       window.addEventListener('resize', fit);
     })();
   </script>
   <script src="nav.js" defer></script>
+  <script src="reveal.js" defer></script>
 </body>
 </html>

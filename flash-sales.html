@@ -22,7 +22,7 @@
       <nav class="main-nav" aria-label="Primary">
         <a class="main-nav__link" href="index.html">Home</a>
         <div class="nav-dropdown">
-          <a class="main-nav__link" href="getting-started.html">
+          <a class="main-nav__link main-nav__link--current" href="getting-started.html" aria-current="page">
             Getting Started
             <img class="main-nav__chevron" src="assets/chevron-down.svg" alt="">
           </a>
@@ -35,7 +35,7 @@
         <a class="main-nav__link" href="about.html">About Us</a>
       </nav>
 
-      <a href="#" class="btn btn-discord">
+      <a href="https://discord.gg/MzDujDpgZ9" target="_blank" rel="noopener" class="btn btn-discord">
         <img src="assets/discord-icon.svg" alt="">
         Join Our Discord
       </a>
@@ -59,7 +59,7 @@
     <div class="gs-stack fs-stack">
 
       <!-- ===== What is a flash sale ===== -->
-      <section class="gs-section fs-section--tight" id="what-is">
+      <section class="gs-section fs-section--tight reveal" id="what-is">
         <header class="gs-heading">
           <div class="gs-heading__title">
             <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
@@ -81,7 +81,7 @@
       </section>
 
       <!-- ===== How to enter a giveaway ===== -->
-      <section class="gs-section fs-section--roomy" id="entering">
+      <section class="gs-section fs-section--roomy reveal" id="entering">
         <div class="gs-arrow" aria-hidden="true">
           <img src="assets/getting-started/arrow-pink.svg" alt="">
         </div>
@@ -148,7 +148,7 @@
       </div>
 
       <!-- ===== I won, what now? ===== -->
-      <section class="gs-section" id="i-won">
+      <section class="gs-section reveal" id="i-won">
         <header class="gs-heading">
           <div class="gs-heading__title">
             <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
@@ -166,7 +166,7 @@
       </section>
 
       <!-- ===== Payment methods ===== -->
-      <section class="fs-payment" id="payment" aria-label="Payment methods">
+      <section class="fs-payment reveal" id="payment" aria-label="Payment methods">
         <div class="info-cards">
           <article class="info-card info-card--blue">
             <div class="info-card__head">
@@ -207,7 +207,7 @@
         <img class="fs-cloud fs-cloud--left" src="assets/flash-sales/cloud-blue-left.svg" alt="" aria-hidden="true">
         <img class="fs-cloud fs-cloud--right" src="assets/flash-sales/cloud-blue-right.svg" alt="" aria-hidden="true">
 
-        <section class="gs-section fs-section--flush" id="pricing">
+        <section class="gs-section fs-section--flush reveal" id="pricing">
           <header class="gs-heading">
             <div class="gs-heading__title">
               <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
@@ -248,7 +248,7 @@
       </div>
 
       <!-- ===== How to pick up ===== -->
-      <section class="gs-section fs-section--tight" id="pickup">
+      <section class="gs-section fs-section--tight reveal" id="pickup">
         <header class="gs-heading">
           <div class="gs-heading__title">
             <img class="gs-heading__dot" src="assets/getting-started/bullet.svg" alt="">
@@ -331,6 +331,17 @@
       <img class="footer-deco footer-deco--flower-small-1" src="assets/flower-small-1.svg" alt="" aria-hidden="true">
       <img class="footer-deco footer-deco--flower-small-2" src="assets/flower-small-2.svg" alt="" aria-hidden="true">
 
+      <!-- Mobile-only footer decorations (Figma node 4778:3836) —
+           exported as flat PNGs since the source vectors are each
+           built from 10-30 tiny primitives not worth hand-recreating. -->
+      <img class="footer-deco-m footer-deco-m--cloud1" src="assets/footer-cloud-1.png" alt="" aria-hidden="true">
+      <img class="footer-deco-m footer-deco-m--cloud2" src="assets/footer-cloud-2.png" alt="" aria-hidden="true">
+      <img class="footer-deco-m footer-deco-m--cloud3" src="assets/footer-cloud-3.png" alt="" aria-hidden="true">
+      <img class="footer-deco-m footer-deco-m--dino-blue" src="assets/footer-dino-blue.png" alt="" aria-hidden="true">
+      <img class="footer-deco-m footer-deco-m--dino-green" src="assets/footer-dino-green.png" alt="" aria-hidden="true">
+      <img class="footer-deco-m footer-deco-m--flower1" src="assets/footer-flower-1.png" alt="" aria-hidden="true">
+      <img class="footer-deco-m footer-deco-m--flower2" src="assets/footer-flower-2.png" alt="" aria-hidden="true">
+
       <div class="footer-columns">
         <div class="footer-column">
           <p class="footer-column__title">Home</p>
@@ -349,23 +360,32 @@
           </ul>
         </div>
         <div class="footer-column">
+          <p class="footer-column__title">Flash Sales</p>
+          <ul class="footer-column__links">
+            <li><a href="#what-is">What Is A Flash Sale?</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#pickup">How To Pick Up Dino</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
           <p class="footer-column__title">DinoDex</p>
           <ul class="footer-column__links">
-            <li><a href="#">Popular Dinos</a></li>
-            <li><a href="#">Dino Types</a></li>
+            <li><a href="dinodex.html#popular-dinos">Popular Dinos</a></li>
+            <li><a href="dinodex.html#dino-types">Dino Types</a></li>
           </ul>
         </div>
         <div class="footer-column">
           <p class="footer-column__title">Rules</p>
           <ul class="footer-column__links">
-            <li><a href="#">Claiming Process</a></li>
+            <li><a href="rules.html#general-title">General Rules</a></li>
+            <li><a href="rules.html#hunt-title">Hunt Rules</a></li>
+            <li><a href="rules.html#flash-title">Flash Sale Rules</a></li>
           </ul>
         </div>
         <div class="footer-column">
           <p class="footer-column__title">About Us</p>
           <ul class="footer-column__links">
-            <li><a href="#">Get Involved</a></li>
-            <li><a href="#">Contact Form</a></li>
+            <li><a href="about.html#stay-involved">Get Involved</a></li>
           </ul>
         </div>
       </div>
@@ -373,9 +393,8 @@
       <div class="footer-bottom">
         <p class="footer-copyright">© 2026 UC Davis Triceratops Club | All Rights Reserved</p>
         <div class="footer-social">
-          <a href="#" class="footer-social__icon"><img src="assets/email-icon.svg" alt="Email"></a>
-          <a href="#" class="footer-social__icon"><img src="assets/discord-social-icon.svg" alt="Discord"></a>
-          <a href="#" class="footer-social__icon"><img src="assets/instagram-social-icon.svg" alt="Instagram"></a>
+          <a href="https://discord.gg/MzDujDpgZ9" class="footer-social__icon" target="_blank" rel="noopener"><img src="assets/discord-social-icon.svg" alt="Discord"></a>
+          <a href="https://www.instagram.com/davis_triceratops/" class="footer-social__icon" target="_blank" rel="noopener"><img src="assets/instagram-social-icon.svg" alt="Instagram"></a>
         </div>
       </div>
     </div>
@@ -447,5 +466,6 @@
     })();
   </script>
   <script src="nav.js" defer></script>
+  <script src="reveal.js" defer></script>
 </body>
 </html>

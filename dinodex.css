@@ -1,0 +1,1210 @@
+/* ============================================================
+   DINODEX PAGE — page-specific components
+   Built on top of the shared design-system tokens/classes in
+   styles.css, plus values pulled directly from the Figma
+   "DinoDex Page" frame (node 2271:4865) via get_design_context —
+   card borders, tag colors, polaroid card colors/rotation, and
+   real photo assets. Anything not explicitly confirmed in Figma
+   (the intro/CTA banner background, "8 Horn Types"/"Top 5" pill
+   styling) is a reasonable approximation from the reference
+   screenshot — flagged inline below.
+============================================================ */
+
+/* Wider side margins on this page's hero text than the shared
+   default (--grid-margin, 48px) — page-specific override, doesn't
+   affect the hero on other pages since styles.css is untouched. */
+.hero__content {
+  padding-left: 70px;
+  padding-right: 70px;
+}
+
+/* Figma crops this hero image starting 703px down (at the 1440px
+   reference width, where the cover-scaled image is 1440x1440) —
+   that's a fixed crop point, not a fixed CSS object-position percent,
+   since percent is relative to the container's own excess height.
+   At our 600px-tall hero, excess = 1440-600 = 840, so
+   703/840 ≈ 84% reproduces the same crop the Figma header uses. */
+.hero {
+  height: 700px;
+}
+
+.hero__bg img {
+  object-position: center 75%;
+}
+
+/* Figma's mobile hero (node 4337:5804) swaps in its own background
+   photo and headline copy ("Learn the Dino Universe", not
+   "Triceratops") rather than just restyling the desktop one — so
+   both get their own element, toggled by breakpoint. */
+.hero__bg-img--mobile, .hero__title--mobile { display: none; }
+
+/* Mobile-only decorative assets (exact-color/shape mobile variants
+   pasted straight from Figma dev mode) — hidden on desktop, shown
+   at the ≤600px breakpoint below. */
+.info-banner__sprout--mobile, .info-banner__flower--purple-mobile { display: none; }
+.catalog-btn--mobile { display: none; }
+.footer-deco-m { display: none; position: absolute; pointer-events: none; }
+.cta-banner__sprout--mobile { display: none; position: absolute; pointer-events: none; }
+.sought-cloud-m { display: none; position: absolute; pointer-events: none; z-index: -1; }
+.dinotypes-cloud-m { display: none; position: absolute; pointer-events: none; }
+
+.dinodex-section {
+  position: relative;
+  overflow-x: clip;
+  /* Matches the shared --grid-margin (48px) used by About/Getting
+     Started/Flash Sales at this width — this page had drifted to a
+     hardcoded 70px. */
+  padding: 96px var(--grid-margin) 0;
+}
+
+/* Three desktop decorations ported from Figma (nodes 3567:10104,
+   3567:10291, 3811:11235) — each was already live on every other
+   page but missing here. Positions are %/px derived from each
+   shape's Figma page-coordinates against the section's own box. */
+.popular-dinos-cloud-pink {
+  position: absolute;
+  z-index: -1;
+  left: 92.08%;
+  top: -4px;
+  width: 12.51%;
+  aspect-ratio: 180.147 / 199;
+  pointer-events: none;
+}
+
+.horncolors-cloud-pink {
+  position: absolute;
+  z-index: -1;
+  left: -6.6%;
+  top: 394px;
+  width: 19.51%;
+  aspect-ratio: 281 / 92;
+  pointer-events: none;
+}
+
+.dinotypes-cloud-teal {
+  position: absolute;
+  z-index: -1;
+  right: -7.9%;
+  bottom: 218px;
+  width: 13.65%;
+  aspect-ratio: 196.6 / 190.9;
+  pointer-events: none;
+}
+
+/* Figma "Frame 91": bullet + heading only, vertically centered
+   against each other (confirmed via node 3179:5790) — the paragraph
+   is a separate sibling below, not grouped with the bullet. */
+.dinodex-section__head {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 72px;
+}
+
+/* Dino Types vine (Figma node 3962:5200) — anchored to the head's own
+   bottom edge (top:100%) rather than a fixed section-height offset,
+   so it stays correctly placed regardless of how the intro text
+   wraps. left/width used to be % of the head (-4.02% / 108.57%,
+   tuned to just reach the screen edges at the 2560px desktop this
+   was built against) but that ratio only held at that one width —
+   .dinodex-section's side padding (--grid-margin) is a FIXED px, so
+   it eats a bigger share of the head's own box at narrower (laptop)
+   widths, making the head itself relatively narrower there and
+   leaving the same 108.57% short of the true screen edge. Since the
+   padding is a constant --grid-margin at every width down to the
+   600px mobile breakpoint (where this is hidden anyway), bleeding by
+   that same --grid-margin reaches the edge exactly, at any width in
+   between. */
+.type-vine {
+  position: absolute;
+  /* The -70px/+140px above lines the <img> BOX up with the screen
+     edges exactly, but the vine artwork itself is inset slightly
+     inside its own SVG canvas (the drawn curve starts/ends a touch
+     before the file's own edges — 0.11% in from the left, 0.69% in
+     from the right of the asset's width) so a small sliver of true
+     white still showed past the curve's tips. The extra vw nudges
+     below push the box that much further to compensate, so the
+     drawn curve itself — not just its invisible box — reaches edge
+     to edge. */
+  left: calc(-1 * var(--grid-margin) - 0.11vw);
+  top: calc(100% + 5px);
+  width: calc(100% + (var(--grid-margin) * 2) + 0.8vw);
+  max-width: none;
+  height: auto;
+  pointer-events: none;
+}
+
+.dinodex-section__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Figma: these section headings (Popular Dinos, Horn Colors, Yarn
+   Types, Dino Types) are #3D3D3D, not pure black like the "What is
+   DinoDex?" banner heading — confirmed via node 3179:5792. */
+.dinodex-section__header h2 {
+  margin: 0;
+  color: #3d3d3d;
+}
+
+.dino-bullet {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #52a7c2;
+  flex-shrink: 0;
+}
+
+/* The CSS gap between this and the heading is 10px per Figma, but
+   Pulang's line-height leaves a lot of empty space below the H1
+   glyphs, so a plain 10px gap renders as ~50px visually — this
+   negative margin pulls it back to match the Monthly Dinos
+   heading/caption gap (~12px rendered). */
+.dinodex-section__intro {
+  margin: 12px 0 0;
+  color: var(--color-text-secondary);
+}
+
+/* ---- Intro banner ("What is DinoDex?") — Figma node 2271:4871.
+   Positions below are the exact Dev Mode px values against the
+   1342x176 reference frame; the banner is fixed-width-equivalent
+   at desktop sizes (matching the rest of this desktop-only design),
+   so absolute children just use those px values directly. ---- */
+.info-banner {
+  position: relative;
+  margin: 110px var(--grid-margin) 0;
+  padding: 28px 56px 28px 42px;
+  background: #acd87d;
+  border: 4px solid #acd87d;
+  border-radius: 27px;
+  overflow: visible;
+  isolation: isolate;
+}
+
+.info-banner__body {
+  position: relative;
+  z-index: 1;
+}
+
+.info-banner__title {
+  position: relative;
+  display: inline-block;
+  margin: 0 0 12px;
+}
+
+.info-banner p {
+  margin: 0;
+  width: 100%;
+  color: var(--color-text-secondary);
+}
+
+/* All decorative children below use `left` as a % of the banner's
+   1342px reference width (so they hold position at any viewport
+   width, not just ~1342-1440px) — a fixed-px left broke badly at
+   wider/narrower windows. Elements in the top half of the 176px-tall
+   reference frame stay `top`-anchored (fixed distance below the top
+   edge, stable regardless of how tall the box grows with real copy);
+   elements in the bottom half switch to `bottom`-anchored so they
+   stay pinned to the bottom edge instead of drifting if the box
+   grows taller than the reference. */
+
+/* Absolute overlay anchored to the HEADING TEXT's own box (which
+   shrinks to fit its content via display:inline-block above) rather
+   than the full-width banner — so it floats next to the text like the
+   flowers float on the banner, without stretching the heading's row
+   height or being thrown off by the banner's own width at different
+   viewport sizes. */
+.info-banner__mascot {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  margin-left: 30px;
+  width: 132px;
+  height: auto;
+  transform: translateY(-82%) rotate(-11.95deg);
+}
+
+.info-banner__sprout {
+  position: absolute;
+  z-index: 10;
+  left: 4.5%;
+  top: -74px;
+  width: 132px;
+  height: 80px;
+}
+
+.info-banner__flower {
+  position: absolute;
+  width: 54px;
+  height: auto;
+}
+
+.info-banner__flower--yellow { z-index: 9; left: 57.4%; top: -26px; transform: rotate(-30deg); }
+.info-banner__flower--pink   { z-index: 8; left: 96%; bottom: -8px; transform: rotate(-30deg); }
+/* Separate flower, bottom-left corner, poking below the box edge
+   (mirrors the pink one at bottom-right) — per reference screenshot. */
+.info-banner__flower--purple {
+  z-index: 7;
+  left: 5.5%;
+  bottom: -30px;
+  width: 54px;
+  transform: rotate(-25deg);
+}
+
+.info-banner__tick {
+  position: absolute;
+  width: 18px;
+  height: 13.5px;
+}
+
+.info-banner__tick--1 { z-index: 2; left: 90.2%; top: 31px; }
+.info-banner__tick--2 { z-index: 4; left: 10.4%; bottom: 7.5px; }
+
+/* Rectangle 1032 — lone green blade (real Figma export; rotation is
+   already baked into the asset, no CSS transform needed) */
+.info-banner__blade {
+  position: absolute;
+  z-index: 7;
+  left: 68.6%;
+  bottom: 20px;
+  width: 6.5px;
+  height: 15.5px;
+}
+
+/* Frame 633236 / Group 633236 — tiny 2-bar sparkle marks (real Figma
+   exports; shape/rotation baked in) */
+.info-banner__spark {
+  position: absolute;
+}
+
+.info-banner__spark--1 { z-index: 3; left: 46.5%; top: 51px; width: 9px; height: 10.5px; }
+.info-banner__spark--2 { z-index: 5; left: 23.7%; top: 20px; width: 8px; height: 10.5px; }
+
+/* ---- Subsection header row (Monthly Dinos / Most Sought After) ---- */
+.subsection-header {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 48px 0 24px;
+}
+
+.subsection-header__title {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 0;
+  color: #3d3d3d;
+}
+
+.subsection-header__title .dino-bullet {
+  margin-top: 0;
+}
+
+/* Wraps the whole Most Sought After subsection so the 5 pastel cloud
+   blobs (Figma nodes 3493:3505/3496/3498/3500/3503) can be absolutely
+   positioned behind it. z-index:0 opens a local stacking context so
+   the blobs' z-index:-1 only drops them behind this subsection's own
+   content, not behind unrelated page content above it. Positions
+   below are left% (scales with width, matches Figma's 1342px
+   reference frame) + fixed top/size (matches the other decorative
+   accents on this page). */
+.sought-section {
+  position: relative;
+  z-index: 0;
+}
+/* left/top/width are all % so the blobs scale and reposition with
+   the cards at any viewport width — fixed-px top previously placed
+   them correctly only at the one width they were tuned at, and threw
+   them off at narrower windows (cards shrink via aspect-ratio, but a
+   fixed-px blob position didn't shrink/move with them). Height comes
+   from aspect-ratio instead of a % value, since % height on an
+   abs-positioned child of an auto-height container is unreliable. */
+/* Figma's own per-node CSS gives these as width:218.3px
+   height:212.371px BEFORE the -30deg rotation (the 295x293 figures
+   used previously were the ROTATED bounding box Figma's metadata
+   reports, not the element's own size — confirmed by the box-rotation
+   math lining up exactly). left/top below are re-derived so each
+   blob's rotated visual center lands where it did before, just at
+   the correct (smaller) size. */
+.sought-section__blob {
+  position: absolute;
+  z-index: -1;
+  width: 16.27%;
+  aspect-ratio: 218.3 / 212.371;
+  pointer-events: none;
+  transform: rotate(-30deg);
+}
+.sought-section__blob--green      { left: 89.44%; top: -2.72%; }
+.sought-section__blob--yellow     { left: -7.57%; top: 4.62%; }
+.sought-section__blob--periwinkle { left: 51.88%; top: 29%; }
+.sought-section__blob--pink       { left: 76.79%; top: 59.54%; }
+.sought-section__blob--teal       { left: 10.72%; top: 76.38%; }
+
+/* Decorative yellow shard graphic next to the "Top 5" pill (Figma
+   node 3487:3480), positioned relative to the header row so it stays
+   put as the row's width changes; percentage left keeps it anchored
+   to the pill horizontally, fixed top/size keep the graphic's own
+   proportions intact. */
+.subsection-header--sought {
+  position: relative;
+}
+.subsection-header__accent {
+  position: absolute;
+  left: calc(42.8% - 120px);
+  top: -100px;
+  width: 100px;
+  height: 122px;
+  pointer-events: none;
+}
+
+.subsection-header__spacer {
+  flex: 1 1 auto;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  border-radius: 52px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.9px;
+  white-space: nowrap;
+  background: var(--color-bg);
+  border: 6px solid #000;
+  color: #000;
+}
+
+.pill--gold {
+  background: #ffc904;
+  border-color: #ffc904;
+  color: var(--color-text);
+}
+
+.subsection-caption {
+  margin: -12px 0 24px;
+  color: #262626;
+}
+
+/* ---- Dino card (shared by Monthly Dinos + Most Sought After) ----
+   Name = H3 (28px Pulang), horn label = Subtitle 1 (20px semibold),
+   both centered — confirmed via Figma node 3329:2447. ---- */
+.dino-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+/* aspect-ratio (not a fixed height) so the card keeps Figma's
+   309:228 proportions at any column width — a fixed 228px height
+   let wide browser windows stretch the width while height stayed
+   put, squashing the photo shorter than it should look. */
+.dino-card__photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 309 / 228;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-nav-bg);
+}
+
+.dino-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Figma gives this specific photo its own manual zoom/pan crop
+   instead of a plain cover-fit, to frame in tighter on the dino's
+   face. Percentage width/height on an absolutely-positioned child
+   of an aspect-ratio container didn't resolve correctly here, so
+   this uses transform:scale instead, which is computed against the
+   element's own already-correct laid-out box. */
+.dino-card__photo--april img {
+  transform: scale(1.38);
+  transform-origin: 38% 42%;
+}
+
+/* Figma crop for the Aggieceratops "Most Sought After" photo
+   (w-160% h-160.27% left--25.76% top--26.21%), same transform-scale
+   technique as the April card above. */
+.dino-card__photo--aggie img {
+  transform: scale(1.6, 1.6027);
+  transform-origin: 43% 43%;
+}
+
+/* Figma crop for Gummy-ceratops (w-103.19% h-103.37% left--1.48%
+   top--1.55%) — a subtle zoom, easy to miss, that plain object-fit
+   alone doesn't fully replicate, leaving a thin white sliver. */
+.dino-card__photo--gummy img {
+  transform: scale(1.0319, 1.0337);
+  transform-origin: 46.4% 46%;
+}
+
+/* Figma crop for Frankendino (w-126.17% h-126.39% left--13.04%
+   top--13.04%) — tightens the frame off the busy background. */
+.dino-card__photo--frankendino img {
+  transform: scale(1.2617, 1.2639);
+  transform-origin: 49.8% 49.4%;
+}
+
+/* Figma crop for Valendino (w-120.57% h-120.78% left--9.9%
+   top--10.47%). */
+.dino-card__photo--valendino img {
+  transform: scale(1.2057, 1.2078);
+  transform-origin: 48.1% 50.4%;
+}
+
+.dino-card__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.dino-card__name {
+  margin: 0;
+  text-align: center;
+}
+
+.dino-card__horn {
+  margin: 0;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+/* ---- Monthly Dinos grid — 4 cols, 36px gutter (Figma: gap-[36px]) ---- */
+.dino-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 90px;
+  row-gap: 76px;
+  margin-bottom: 211px;
+}
+
+.dino-grid .dino-card__photo { border: 6px solid; }
+.dino-grid .dino-card:nth-child(1) .dino-card__photo { border-color: #f0c0d9; }
+.dino-grid .dino-card:nth-child(2) .dino-card__photo { border-color: #6a9f7a; }
+.dino-grid .dino-card:nth-child(3) .dino-card__photo { border-color: #b5e7d2; }
+.dino-grid .dino-card:nth-child(4) .dino-card__photo { border-color: #f4f196; }
+.dino-grid .dino-card:nth-child(5) .dino-card__photo { border-color: #dbbdee; }
+.dino-grid .dino-card:nth-child(6) .dino-card__photo { border-color: #cf6144; }
+.dino-grid .dino-card:nth-child(7) .dino-card__photo { border-color: #671a32; }
+.dino-grid .dino-card:nth-child(8) .dino-card__photo { border-color: #8ac3eb; }
+
+/* ---- Most Sought After — row 1 (3, space-between), row 2 (2, centered).
+   All photos share the same gold border (Figma: border-[#ffc904]). ---- */
+.sought-row {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+/* Figma: literal 209px/216px flex gap, not space-between. Expressed
+   as a % of the row's own box (338px / 2420px reference content
+   width, matching the .dinodex-section padding at the 2560px
+   desktop this was tuned against) instead of a fixed px — a fixed
+   gap plus flex-shrink:0 cards meant any viewport narrower than that
+   one reference width couldn't fit all 3 cards + 2 gaps, so the
+   centered row overflowed and bled off both edges (laptop-width
+   screens, ~1300-1800px, were the worst hit). */
+.sought-row--top { justify-content: center; gap: 13.97%; margin-bottom: 100px; }
+/* Same gap as row 1 — with equal card widths and both rows centered,
+   matching the gap makes each row-2 card land centered under a
+   row-1 gap (solvable algebraically: the two conditions are
+   equivalent when both rows share a center axis). */
+.sought-row--bottom { justify-content: center; gap: 13.97%; }
+
+/* Same column-width formula as .dino-grid's 4 fr columns (36px gaps)
+   so these photos scale with the viewport identically to the
+   Monthly Dinos ones, instead of staying stuck at a fixed 309px. */
+.sought-row .dino-card {
+  flex: 0 0 calc((100% - 270px) / 4);
+  min-width: 0;
+}
+
+.sought-row .dino-card__photo { border: 6px solid var(--color-accent-yellow-strong, #ffc904); }
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.9px;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.tag--october    { background: #ffcf9f; }
+.tag--picnic      { background: #b5caff; }
+.tag--random      { background: #c1ffbb; }
+.tag--holidino    { background: #bbf6ff; }
+.tag--valendino   { background: #ffb4b4; }
+
+/* ---- CTA banner ("Interested to see more Dinos?") — Figma node
+   3410:3144's second "Frame 1249188114": unlike the intro banner,
+   this one has NO background fill — just the 4px #ACD87D border. ---- */
+.cta-banner {
+  position: relative;
+  z-index: 0;
+  margin: 220px var(--grid-margin) 100px;
+  padding: 28px 42px;
+  background: transparent;
+  border: 4px solid #acd87d;
+  border-radius: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.cta-banner__text {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cta-banner__title {
+  margin: 0 0 12px;
+}
+
+/* Decorative accents from Figma node 3410:3144 — the two flower
+   clouds sit behind the banner content (z-index:-1, contained by the
+   banner's own stacking context from z-index:0 above); the rest sit
+   on top like the matching accents in .info-banner. left is % of
+   banner width so it scales with it; top is fixed px since the
+   banner's own height barely changes across viewports. */
+.cta-banner__cloud {
+  position: absolute;
+  z-index: -1;
+  width: 54px;
+  height: 56.2px;
+  pointer-events: none;
+  transform: rotate(30deg);
+}
+.cta-banner__cloud--blue   { left: 12.20%; top: -21px; }
+.cta-banner__cloud--purple { left: 75.54%; top: 125px; }
+
+.cta-banner__sprout {
+  position: absolute;
+  left: 89.94%;
+  top: -80px;
+  width: 132px;
+  height: 80px;
+  pointer-events: none;
+}
+
+.cta-banner__mascot {
+  position: absolute;
+  left: 45.63%;
+  top: 13px;
+  width: 132px;
+  height: auto;
+  transform: rotate(-23.09deg);
+}
+
+.cta-banner p {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+/* ---- Horn Colors / Yarn Types split rows ----
+   Photos are pre-cut sticker-style PNGs (transparent background,
+   irregular silhouette already baked in) — no border/radius/crop,
+   placed at natural aspect. Yarn Types' photo is mirrored
+   horizontally per Figma (scale-y + rotate180 nets to a flip-X). ---- */
+.split-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 160px;
+}
+
+.split-row:last-child { margin-bottom: 0; }
+
+.split-row--reverse {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+/* width is a % of the row (450px / 2420px reference content width,
+   same 2560px-desktop reference as the sought-row gap above) instead
+   of a fixed px, so it shrinks together with the text column instead
+   of staying rigid while the column narrows — the fixed width plus a
+   fixed -210px nudge is what let the dino visually overlap the body
+   text at in-between (laptop) widths once the text column got
+   compressed enough. */
+.split-row__photo {
+  flex: 0 0 auto;
+  width: 18.6%;
+  height: auto;
+}
+
+.split-row--reverse .split-row__photo {
+  transform: scaleX(-1);
+}
+
+/* -210px was -46.67% of the photo's own 450px width — expressed as a
+   % of the photo's own box, this nudge now stays in the same visual
+   proportion to the (now fluid) photo at any width, instead of
+   eating a constant 210px regardless of how small the photo got. */
+.split-row__photo--horn { transform: translateX(-46.67%); }
+.split-row--reverse .split-row__photo--yarn { transform: scaleX(-1) translateX(-46.67%); }
+
+.split-row__body {
+  flex: 1 1 auto;
+  max-width: 900px;
+}
+
+.split-row__body .dinodex-section__header {
+  margin-bottom: 12px;
+}
+
+.split-row--reverse .dinodex-section__header {
+  flex-direction: row-reverse;
+}
+
+.split-row__body p {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+/* ---- Dino Types — tilted "polaroid" cards (Figma node 3962:4977 /
+   3962:5081): white-tinted card, 1px #b4b1ac border, 8px radius,
+   inner colored art tile, title inside the card, description
+   paragraph below/outside it. Each card has its own rotation. ---- */
+.type-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 63px;
+  max-width: 1404px;
+  margin: 0 auto;
+  padding: 24px 0 47px;
+}
+
+/* Row 1 only: wider gap around the middle (Flash Sales) card, and
+   shifted down as a unit (margin, not padding, so the badges —
+   absolutely positioned relative to this box — move down with their
+   cards instead of staying pinned to the vine). */
+.type-grid:not(.type-grid--row2) {
+  gap: 110px;
+  margin-top: 70px;
+}
+
+/* Dino-face badges hanging on the vine above each row-1 card (Figma
+   nodes 3962:5043/3567:10844/3962:5005). left is % of the row's own
+   width so they track the cards at any viewport; top is a fixed px
+   offset above the row since it's a small, viewport-stable accent. */
+.type-badge {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+}
+/* Exact Figma per-badge size + rotation (user-supplied, straight
+   from each node's own CSS) — these replace the earlier "all same
+   130x118" sizing with each badge's real dimensions and tilt. */
+.type-badge--monthly { left: 11.88%; top: -10px; width: 133px; height: 114px; transform: rotate(4.056deg); }
+.type-badge--flash   { left: 45.28%; top: -2px; width: 133px; height: 114px; display: block; transform: rotate(-2.13deg); }
+.type-badge--event   { left: 79.66%; top: -4px; width: 138px; height: 119px; transform: rotate(-7.35deg); }
+
+/* Row 2 badges (Figma nodes 3962:5100/3962:5138) — positioned
+   relative to .type-grid--row2, same left%/fixed-top approach as
+   row 1's badges above. */
+.type-badge--aggie2   { left: 16.33%; top: -69px; width: 138px; height: 119px; transform: rotate(2.457deg); }
+.type-badge--limited2 { left: 66.80%; top: -62px; width: 138px; height: 119px; transform: rotate(-5.539deg); }
+
+/* Second vine, above row 2 (Figma node 3962:5201) — a plain flow
+   element placed right before .type-grid--row2 in the DOM, so normal
+   paint order puts it behind the row-2 cards automatically (no
+   z-index needed). Negative bottom margin pulls row 2 up to overlap
+   the vine's lower half, the same "hanging on the vine" look as row
+   1; row 2's own margin-top pushes the cards back down to reveal it. */
+/* Same fixed-padding fix as .type-vine above: -3.95%/107.9% only
+   reached the screen edges at the 2560px reference width, so the
+   horizontal margin/width are now the constant --grid-margin that
+   actually matches .dinodex-section's own side padding at every
+   width. */
+.type-vine--bottom {
+  display: block;
+  /* Same small compensation as .type-vine above, for this asset's own
+     (roughly symmetric, ~0.1% each side) inset curve. */
+  width: calc(100% + (var(--grid-margin) * 2) + 0.22vw);
+  max-width: none;
+  margin: 54px calc(-1 * var(--grid-margin) - 0.11vw) -90px;
+  height: auto;
+  pointer-events: none;
+}
+
+.type-grid--row2 {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 74px;
+  max-width: 872px;
+  margin: 50px auto 0;
+}
+
+.type-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.polaroid {
+  width: 100%;
+  padding: 19px 12px 20px;
+  background: var(--color-bg);
+  border: 1px solid #b4b1ac;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.polaroid__art {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.polaroid__art img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.polaroid__title {
+  margin: 0;
+  text-align: center;
+}
+
+.type-card__desc {
+  margin: 24px 0 0;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.type-card--monthly .polaroid { background: #f8ebff; transform: translateY(43px) rotate(2.63deg); }
+.type-card--monthly .polaroid__art { background: rgba(205, 188, 255, 0.54); }
+.type-card--monthly .type-card__desc { transform: translateY(43px) rotate(2.63deg); }
+
+.type-card--flash .polaroid { background: #f3ffec; transform: translateY(51px); }
+.type-card--flash .polaroid__art { background: #c2ffad; }
+.type-card--flash .type-card__desc { transform: translateY(51px); }
+
+.type-card--event .polaroid { background: #ebfffe; transform: translateY(35px) rotate(-2.55deg); }
+.type-card--event .polaroid__art { background: #c3f5ff; }
+.type-card--event .type-card__desc { transform: translateY(35px) rotate(-2.55deg); }
+
+.type-card--aggie .polaroid { background: #fcffeb; transform: translateY(-8px) rotate(1.49deg); }
+.type-card--aggie .polaroid__art { background: #ffd186; }
+.type-card--aggie .type-card__desc { transform: translateY(-8px) rotate(1.49deg); }
+
+.type-card--limited .polaroid { background: #e9ebff; transform: rotate(-1.45deg); }
+.type-card--limited .polaroid__art { background: #a5ccff; }
+.type-card--limited .type-card__desc { transform: rotate(-1.45deg); }
+
+.dinodex-section--last {
+  padding-bottom: 96px;
+}
+
+@media (max-width: 900px) {
+  .dino-grid { grid-template-columns: repeat(2, 1fr); }
+  .sought-row { flex-wrap: wrap; justify-content: center !important; gap: 24px !important; }
+  .sought-row .dino-card { flex: 0 1 calc((100% - 24px) / 2); }
+  .type-grid, .type-grid--row2 { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
+  .split-row, .split-row--reverse { flex-direction: column; text-align: center; gap: 32px; }
+  .split-row--reverse .dinodex-section__header { flex-direction: row; }
+  .split-row__body { max-width: 100%; }
+  /* Stacked layout gives the photo the row to itself, so the 18.6%
+     meant for sitting beside the text column (above 900px) would
+     render too small here — restore a fixed size, still capped by
+     the global img{max-width:100%} on anything narrower. */
+  .split-row__photo { width: 300px; }
+}
+
+/* ============================================================
+   LAPTOP-ONLY DECORATIVE NUDGES (e.g. MacBook screens, up to
+   ~1800px — below this, above the 900px tablet breakpoint and the
+   600px mobile one). These five pixel nudges were requested while
+   reviewing on a laptop and must NOT affect the 2560px desktop this
+   was originally tuned against, so they live here instead of in the
+   base rules above. The desktop (>1800px) values above stay exactly
+   as they were. ============================================================ */
+@media (max-width: 1800px) {
+  .subsection-header__accent { left: calc(42.8% + 45px); }
+  .sought-section__blob--pink { left: 75.67%; }
+  .cta-banner__mascot { left: 60.51%; }
+  .type-grid:not(.type-grid--row2) { margin-top: -30px; }
+  .type-badge--monthly { left: 9.74%; }
+  .type-badge--flash   { top: -5px; }
+  .type-badge--event   { top: -17px; }
+}
+
+/* ============================================================
+   DESKTOP-ONLY (>1800px — the 2560x1440 monitor this page is
+   actually being reviewed on). +30px side margin on the page's
+   body content only — not the nav bar, hero image, or footer,
+   none of which use .dinodex-section/.info-banner/.cta-banner's
+   shared 70px side value anyway. The two full-bleed vine graphics
+   are the one exception that must move WITH this: they intentionally
+   ignore their container's padding to reach the true screen edge
+   (see the .type-vine/.type-vine--bottom comments above), so their
+   -70px/140px compensation has to track whatever the real padding
+   is at this width or a gap reopens on the side that grew. ============================================================ */
+@media (min-width: 1801px) {
+  /* 148px matches the +100px-over-48px side margin used sitewide
+     (About/Getting Started/Flash Sales/Rules all landed on 148px —
+     this page had drifted to 170px through its own earlier, separate
+     round of nudges). */
+  .dinodex-section { padding-left: 148px; padding-right: 148px; }
+  .info-banner { margin-left: 148px; margin-right: 148px; }
+  .cta-banner { margin-left: 148px; margin-right: 148px; }
+  .type-vine { left: calc(-148px - 0.11vw); width: calc(100% + 296px + 0.8vw); }
+  .type-vine--bottom { width: calc(100% + 296px + 0.22vw); margin-left: calc(-148px - 0.11vw); margin-right: calc(-148px - 0.11vw); }
+  /* Hero text column only — the hero photo itself stays full-bleed. */
+  .hero__content { padding-left: 148px; padding-right: 148px; }
+  /* All hero banners sitewide now match Getting Started's original
+     498px (this page's own base .hero is normally 700px). */
+  .hero { height: 498px; }
+  /* Nudged down 50px, then 50px more (100px total) per feedback. */
+  .hero__bg img { object-position: center calc(75% + 100px); }
+  /* Horn Colors / Yarn Types photos, enlarged a small amount. */
+  .split-row__photo { width: 25%; }
+  /* -50px, converted to % of the photo's own (now 25%-wide) box,
+     accounting for the scaleX(-1) mirror flipping translateX's
+     effective direction: less-negative = further left here. */
+  .split-row--reverse .split-row__photo--yarn { transform: scaleX(-1) translateX(-37.66%); }
+}
+
+/* ============================================================
+   MOBILE (Figma "DinoDex Mobile Vertical Page", node 4250:5129,
+   393px reference). Figma defines a separate mobile type scale
+   (Mobile H1 34 / H2 26 / H3 20 / Subtitle 1 12 / Button 16) and
+   turns the Monthly Dinos, Most Sought After, and Dino Types grids
+   into horizontally-scrolling single rows instead of wrapping —
+   so this replaces the grid/font rules instead of just shrinking
+   them. Per the user's note, Dino Types drops its vine + hanging
+   dino-face stickers on mobile, and the CTA banner drops its ticks/
+   spark/blade, keeping only the two flower blobs.
+   ============================================================ */
+@media (max-width: 600px) {
+  /* ---- Mobile type scale (overrides styles.css; same specificity,
+     later in cascade order wins) ---- */
+  /* Figma's mobile type tokens use a flat 2% letter-spacing rule
+     and their own line-heights, distinct from the desktop
+     --text-*-lh/-ls vars (tuned for the much larger desktop
+     sizes) — set all three explicitly rather than font-size alone. */
+  .text-h1 { font-size: 34px; line-height: 1.3; letter-spacing: 0.68px; }
+  .text-h2 { font-size: 26px; line-height: 1.2; letter-spacing: 0.52px; }
+  .text-h3 { font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; }
+  .text-subtitle-1 { font-size: 12px; line-height: 1.3; letter-spacing: 0.24px; }
+  /* Main descriptive paragraphs (not captions/card copy/labels) sized
+     to match About Us's mobile body-text size (18px), per request —
+     card-internal text and captions are intentionally left at 12px. */
+  .info-banner__body p,
+  .dinodex-section__intro,
+  .cta-banner__text p {
+    font-size: 18px;
+    line-height: 1.4;
+    letter-spacing: 0.03em;
+  }
+
+  /* These headings use whitespace-nowrap in Figma (one line even
+     if it would otherwise wrap at this width). */
+  .dinodex-section__header h2,
+  .subsection-header__title { white-space: nowrap; }
+
+  /* Figma's mobile hero (node 4337:5804) is a shorter 299px-tall
+     crop with its own photo — overrides both the 700px desktop
+     height set above (dinodex.css, unconditional) and the generic
+     340px fallback in styles.css's own old 640px breakpoint. */
+  /* --nav-height is no longer set here — now that this page loads
+     the shared nav.js, styles.css's own .has-mobile-menu rules own
+     --nav-height at this breakpoint (160px), so overriding it here
+     would just fight the shared system. */
+  .hero { height: 299px; }
+  .hero__content { padding-left: 20px; padding-right: 20px; }
+  .hero__bg-img--desktop, .hero__title--desktop { display: none; }
+  /* The mobile crop needs a pan/zoom object-fit:cover can't reach
+     (cover's minimum scale only shows the bottom ~77% of this
+     square photo; Figma's mobile crop is zoomed in further, onto
+     the mascots/lamppost with the left mascot's head cut at the
+     top edge) — background-image give an independent scale. */
+  .hero__bg-img--mobile { display: none; }
+  .hero__bg {
+    background-image: url('assets/hero-mobile.png');
+    background-repeat: no-repeat;
+    background-size: 180% auto;
+    background-position: -187px -345px;
+  }
+  /* Figma "Mobile Title"/"Mobile Subtitle 1" tokens — distinct
+     letter-spacing from the desktop --text-title-ls/--text-
+     subtitle1-ls vars (which are tuned for the much larger desktop
+     sizes), so set explicitly rather than inherited. */
+  .hero__title--mobile { display: block; font-size: 40px; line-height: 1.2; letter-spacing: 0.8px; }
+  /* Matches About Us's mobile hero subtitle size. */
+  .hero__subtitle { font-size: 16px; line-height: 1.3; letter-spacing: 0.02em; }
+  .dinodex-section { padding-top: 56px; padding-left: 20px; padding-right: 20px; }
+
+  /* ---- What is DinoDex banner (Figma mobile node 4337:5916) —
+     every decorative child repositioned/resized to its own mobile
+     node (coordinates converted from banner-relative px, 343px
+     reference width, to % so they track the real banner width):
+     sprout 4337:5966, mascot 4337:5922, flowers 4337:5963/5961/5959,
+     ticks 4337:5967/5972, blade 4337:5971, spark 4337:5968 (mobile
+     only needs one 2-bar spark mark, not desktop's two, so
+     spark--2 is dropped). ---- */
+  /* Side margin matches the rest of the page's mobile content
+     (.dinodex-section/.hero__content both use 20px) — the box was
+     sticking out past that shared margin at 12px. */
+  .info-banner { margin: 70px 20px 0; padding: 28px 42px; }
+  /* Figma forces this title onto one line (whitespace-nowrap on
+     4337:5917) rather than letting it wrap like the body copy. */
+  .info-banner__title { margin-bottom: 10px; white-space: nowrap; }
+  /* Exact sizes/rotations below are pasted straight from Figma dev
+     mode (mascot, sprout, 3 flowers) — positions are still the
+     visually-tuned corner placements, just rescaled for the larger
+     exact sizes. */
+  /* Sized to match the Interested-to-see-more-Dinos (CTA) banner's
+     equivalent decorations: mascot 80px, sprout 55x33, flowers/
+     clouds ~23px, per the user's explicit size-match request. */
+  .info-banner__mascot { left: auto; right: -43px; top: -66px; margin-left: 0; width: 80px; height: 70px; transform: rotate(15deg); }
+  .info-banner__sprout--desktop { display: none; }
+  .info-banner__sprout--mobile {
+    display: block;
+    position: absolute;
+    left: 10.2%; top: -35px; bottom: auto;
+    width: 55px; height: 33px;
+  }
+  .info-banner__flower { width: 26px; }
+  .info-banner__flower--pink   { left: 68.5%; top: -18px; bottom: auto; width: 23px; height: 22.08px; transform: rotate(0deg); }
+  .info-banner__flower--yellow { left: auto; right: 6%; bottom: -6px; top: auto; width: 23px; height: 23px; transform: rotate(-30deg); }
+  .info-banner__flower--purple-desktop { display: none; }
+  .info-banner__flower--purple-mobile {
+    display: block;
+    left: -6px; bottom: 16px; top: auto;
+    width: 23px; height: 22.16px;
+    transform: rotate(30deg);
+  }
+  .info-banner__tick { width: 14px; height: 10.5px; }
+  .info-banner__tick--1 { left: 73.2%; top: auto; bottom: 15.5px; }
+  .info-banner__tick--2 { left: 34.4%; top: 14px; bottom: auto; }
+  .info-banner__blade { left: 88.6%; top: 70px; bottom: auto; width: 5.56px; height: 12.3px; }
+  .info-banner__spark--1 { left: 5.8%; top: 103px; width: 6.4px; height: 7.7px; }
+  .info-banner__spark--2 { display: none; }
+
+  /* ---- Popular Dinos header ---- */
+  .dinodex-section__head { margin-bottom: 32px; }
+  .subsection-header { margin: 32px 0 16px; }
+  .subsection-caption { margin: -8px 0 16px; }
+  /* "8 Horn Types" / "Top 5" pills are hidden="true" on Figma's
+     mobile frames (4782:4423, 4782:4363) — dropped on mobile. */
+  .pill { display: none; }
+
+  /* ---- Monthly Dinos + Most Sought After: horizontal scroll.
+     Most Sought After is split into .sought-row--top (3 cards) and
+     .sought-row--bottom (2 cards) in the DOM, but Figma's mobile
+     design (node 4782:4370) shows all 5 as one continuous scroll —
+     same pattern as Dino Types, fixed the same way: the rows stop
+     being their own flex containers and pass their cards through
+     (display:contents) to the shared .sought-row-wrap scroller. ---- */
+  .dino-grid,
+  .sought-row-wrap {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: visible;
+    gap: 17px;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 7px 20px 12px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .dino-grid::-webkit-scrollbar, .sought-row-wrap::-webkit-scrollbar { display: none; }
+  .sought-row, .sought-row--top, .sought-row--bottom { display: contents; }
+  .dino-grid .dino-card,
+  .sought-row-wrap .dino-card {
+    flex: 0 0 241px;
+    width: 241px;
+  }
+  .dino-grid .dino-card__photo,
+  .sought-row-wrap .dino-card__photo {
+    width: 241px;
+    height: 178px;
+    aspect-ratio: auto;
+    border-width: 4px !important;
+  }
+  .dino-grid .dino-card__name, .sought-row-wrap .dino-card__name { font-size: 20px; }
+  .dino-grid .dino-card__horn, .sought-row-wrap .dino-card__horn,
+  .dino-grid .dino-card__desc { font-size: 12px; }
+  /* Figma mobile card info stack: 4px between name/horn (not
+     desktop's 8px) — the tag pill itself is "Mobile Subtitle 2"
+     (16px/1.3/0.32px), not the 12px subtitle-1 scale, and keeps a
+     visually-10px gap to the name below via its own margin since
+     the shared .dino-card__info gap is only 4px. */
+  .dino-grid .dino-card__info, .sought-row-wrap .dino-card__info { gap: 4px; }
+  .sought-row-wrap .tag { font-size: 16px; line-height: 1.3; letter-spacing: 0.32px; margin-bottom: 6px; }
+  .dino-grid { margin-bottom: 32px !important; }
+  .sought-section__blob { display: none; }
+  /* Figma node 4784:4917 (big teal cloud) — decorative texture
+     behind the Most Sought After cards, placed at the section's
+     lower-left corner. */
+  .sought-cloud-m { display: block; }
+  .sought-cloud-m--teal { left: -24px; bottom: -20px; width: 60px; height: 64px; }
+  .subsection-header__accent { display: none; }
+  .subsection-header__title { gap: 16px; }
+  /* "View Full Catalog" moves from inline with the subsection
+     header to below the Monthly Dinos carousel on mobile. */
+  .catalog-btn--desktop { display: none; }
+  .catalog-btn--mobile { display: flex; width: 100%; margin-top: 24px; }
+
+  /* ---- CTA banner: smaller mascot, clouds move to opposite
+     corners, sprout dropped per Figma's mobile node 4716:905 ---- */
+  .cta-banner { flex-direction: column; align-items: flex-start; text-align: left; margin: 105px 20px 50px; padding: 28px 42px; }
+  .cta-banner__mascot { width: 80px; top: auto; bottom: 78px; left: auto; right: -14px; transform: rotate(21.81deg); }
+  /* Figma's raw export for this title (4716:907) gives 1.2
+     line-height / 0.8px tracking, not the standard Mobile H1
+     1.3/0.68px used by every other section heading. */
+  .cta-banner__title { line-height: 1.2; letter-spacing: 0.8px; }
+  /* Exact Figma coords (nodes 4716:945/947, % of the 343px banner
+     reference width) replacing the earlier eyeballed corner
+     placement. */
+  .cta-banner__cloud--blue { left: 66%; right: auto; top: -9px; width: 23px; height: 23px; }
+  .cta-banner__cloud--purple { left: 1%; top: auto; bottom: -10px; width: 23px; height: 23px; }
+  .cta-banner__sprout { display: none; }
+  /* CTA banner sprout (Figma node 4974:3233 — same leaf-pair asset
+     as the What-is-DinoDex banner, poking up near the mascot). */
+  .cta-banner__sprout--mobile { display: block; left: calc(90% - 45px); top: -35px; width: 55px; height: 33px; transform: scaleX(-1); }
+  .cta-banner .btn-secondary { width: 100%; justify-content: center; }
+
+  /* ---- Horn Colors / Yarn Types: stack, cap photo size ---- */
+  .split-row, .split-row--reverse { flex-direction: column; text-align: center; gap: 16px; margin-bottom: 110px; }
+  /* Horn Colors specifically gets 20px more gap between its photo
+     and header than the shared 16px (Yarn Types keeps 16px). */
+  .split-row:not(.split-row--reverse) { gap: 36px; }
+  /* Yarn Types specifically gets 40px more clearance before Dino
+     Types than the shared 110px (Horn Colors keeps 110px). */
+  .split-row--reverse { margin-bottom: 40px !important; }
+  /* Yarn Types specifically: right-aligned text with the bullet
+     dot on the right of the heading (text-then-dot DOM order,
+     row direction, right-aligned block). */
+  .split-row--reverse { text-align: right; }
+  .split-row--reverse .dinodex-section__header { flex-direction: row; justify-content: flex-end; }
+  .split-row__body { max-width: 100%; }
+  .split-row__body .dinodex-section__header { margin-bottom: 10px; }
+  /* Horn Colors / Yarn Types / Dino Types headings use Mobile H2
+     (26px/1.2/0.52px), not the 34px Mobile H1 "Popular Dinos" and
+     "What is DinoDex?" use — confirmed on nodes 4716:978, 4716:1005
+     (both explicitly "Mobile H2", distinct from 4337:6109's H1). */
+  .split-row__body .text-h1,
+  .dinodex-section--last .text-h1 {
+    font-size: 26px;
+    line-height: 1.2;
+    letter-spacing: 0.52px;
+  }
+  .split-row__photo, .split-row__photo--horn, .split-row__photo--yarn {
+    width: 233px;
+    order: -1;
+    transform: translateY(-20px) !important;
+  }
+
+  /* ---- Dino Types: single horizontal-scroll polaroid carousel
+     spanning all 5 cards, no vine or hanging dino-face stickers
+     (matches Figma mobile node 4782:4795). .type-grid and
+     .type-grid--row2 stop being their own flex containers (and
+     with them, the desktop-only gap/margin rules that targeted
+     them become inert) and instead pass their cards straight
+     through to the shared .type-grid-wrap scroller. */
+  .type-vine, .type-vine--bottom, .type-badge { display: none; }
+  /* Figma node 4784:4928 — wide pink cloud bleeding off the left
+     edge near the Dino Types intro text. */
+  .dinotypes-cloud-m { display: block; left: -70px; top: -60px; width: 154px; height: 50px; z-index: -1; }
+  .type-grid-wrap {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 17px;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 7px 20px 12px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .type-grid-wrap::-webkit-scrollbar { display: none; }
+  .type-grid, .type-grid--row2 { display: contents; }
+  .type-card { flex: 0 0 246px; width: 246px; }
+  .type-card .polaroid { transform: none !important; width: 246px; }
+  .type-card .type-card__desc { transform: none !important; font-size: 12px; margin-top: 21px; }
+  .type-card .polaroid__title { font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; }
+
+  /* ---- Footer: Figma's Mobile Footer (node 4778:3836) groups the
+     5 columns into 2 explicit columns — Home/DinoDex/About Us on
+     the left, Getting Started/Rules on the right — not a simple
+     wrap of 5 equal-width columns, so each gets placed by hand. */
+  .footer-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 32px;
+    row-gap: 60px;
+  }
+  .footer-column:nth-child(1) { grid-column: 1; grid-row: 1; }
+  .footer-column:nth-child(2) { grid-column: 2; grid-row: 1; }
+  .footer-column:nth-child(3) { grid-column: 1; grid-row: 2; }
+  .footer-column:nth-child(4) { grid-column: 2; grid-row: 2; }
+  .footer-column:nth-child(5) { grid-column: 1; grid-row: 3; }
+
+  /* Grass strip shrinks from the desktop 152px-tall clump to
+     Figma's mobile 44.92px tufts (165.3px tile, overlapping ~52px
+     per repeat — same overlap idea as the desktop version, just
+     rescaled: ~0.296x the desktop tile/spacing). Denser overlap +
+     wider negative/positive overhang than a literal rescale so no
+     sliver of background shows through at the left/right edges. */
+  .footer-grass {
+    height: 45px;
+    background-size: 195px 45px;
+    background-image: url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg');
+    background-position: -120px bottom, -10px bottom, 100px bottom, 210px bottom, 320px bottom;
+  }
+
+  /* More breathing room above the footer. */
+  .site-footer { margin-top: 64px; }
+  /* The real column/copyright content is shorter than Figma's
+     817px mockup canvas (ends ~686px down, dinos need the
+     remaining ~131px below that) — add that clearance explicitly
+     so the bottom-anchored dinos/flowers don't sit on top of the
+     social icons and copyright line. */
+  .footer-content { padding-bottom: 155px; }
+
+  .footer-deco { display: none; }
+  .footer-deco-m { display: block; }
+  .footer-deco-m--cloud1 { left: -30px; top: 18px; width: 42px; height: 47px; }
+  .footer-deco-m--cloud2 { left: 264px; top: 354px; width: 95px; height: 57px; }
+  .footer-deco-m--cloud3 { left: 352px; top: 152px; width: 46px; height: 45px; }
+  /* bottom-anchored (not top) so these sit flush against the blue
+     background's REAL bottom edge — the real column content is
+     shorter than Figma's 817px mockup canvas, so a top offset
+     tuned to that mockup height pushed them below the actual blue
+     area, onto the plain page background. */
+  .footer-deco-m--dino-blue { left: 21px; bottom: 0; width: 62px; height: 94px; }
+  .footer-deco-m--dino-green { left: 86px; bottom: 1px; width: 59px; height: 77px; }
+  .footer-deco-m--flower1 { left: 187px; bottom: 0; width: 29px; height: 31px; }
+  .footer-deco-m--flower2 { left: 164px; bottom: 0; width: 21px; height: 23px; }
+}

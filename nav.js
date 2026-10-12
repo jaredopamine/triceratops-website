@@ -52,6 +52,15 @@
   panel.setAttribute('aria-modal', 'true');
   panel.setAttribute('aria-label', 'Site menu');
 
+  /* Cloned from the real header logo so it keeps working relative
+     links/assets, rather than hardcoding a path here. */
+  var siteLogo = document.querySelector('.site-logo');
+  if (siteLogo) {
+    var logo = siteLogo.cloneNode(true);
+    logo.classList.add('mobile-menu__logo');
+    panel.appendChild(logo);
+  }
+
   var close = document.createElement('button');
   close.type = 'button';
   close.className = 'mobile-menu__close';
@@ -74,33 +83,51 @@
       var group = document.createElement('div');
       group.className = 'mobile-menu__group';
 
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'mobile-menu__link mobile-menu__trigger';
-      btn.setAttribute('aria-expanded', 'false');
-      var label = document.createElement('span');
-      label.className = 'mobile-menu__label';
-      label.textContent = trigger.textContent.trim();
-      btn.appendChild(label);
+      /* Split button: the word itself is a real link to the trigger's
+         own page (e.g. Getting Started), so it no longer needs to be
+         duplicated inside the dropdown — only the chevron toggles the
+         sub-list, which now holds just its actual children. */
+      var row = document.createElement('div');
+      row.className = 'mobile-menu__trigger-row';
 
+      var mainLink = document.createElement('a');
+      mainLink.className = 'mobile-menu__link mobile-menu__trigger-link';
+      mainLink.href = trigger.getAttribute('href') || '#';
+      var mainLinkText = document.createElement('span');
+      mainLinkText.className = 'mobile-menu__link-text';
+      mainLinkText.textContent = trigger.textContent.trim();
+      mainLink.appendChild(mainLinkText);
+      if (trigger.hasAttribute('aria-current')) {
+        mainLink.setAttribute('aria-current', trigger.getAttribute('aria-current'));
+        mainLink.classList.add('mobile-menu__link--current');
+      }
+      row.appendChild(mainLink);
+
+      var chevBtn = document.createElement('button');
+      chevBtn.type = 'button';
+      chevBtn.className = 'mobile-menu__chevron-btn';
+      chevBtn.setAttribute('aria-expanded', 'false');
+      chevBtn.setAttribute('aria-label', 'Toggle ' + mainLink.textContent + ' submenu');
       var chev = document.createElement('img');
       chev.className = 'mobile-menu__chevron';
       chev.src = 'assets/chevron-down.svg';
       chev.alt = '';
-      btn.appendChild(chev);
-      group.appendChild(btn);
+      chevBtn.appendChild(chev);
+      row.appendChild(chevBtn);
+
+      group.appendChild(row);
 
       var subWrap = document.createElement('div');
       subWrap.className = 'mobile-menu__sub';
-      /* The trigger is a button here (it only expands the group), so the
-         trigger's own page goes first in the list, then its sub-pages —
-         otherwise "Getting Started" itself could never be reached. */
-      var subLinks = [trigger].concat(sub ? Array.prototype.slice.call(sub.querySelectorAll('a')) : []);
+      var subLinks = sub ? Array.prototype.slice.call(sub.querySelectorAll('a')) : [];
       subLinks.forEach(function (a) {
         var link = document.createElement('a');
         link.className = 'mobile-menu__link mobile-menu__sublink';
         link.href = a.getAttribute('href') || '#';
-        link.textContent = a.textContent.trim();
+        var subLinkText = document.createElement('span');
+        subLinkText.className = 'mobile-menu__link-text';
+        subLinkText.textContent = a.textContent.trim();
+        link.appendChild(subLinkText);
         if (a.hasAttribute('aria-current')) {
           link.setAttribute('aria-current', a.getAttribute('aria-current'));
           link.classList.add('mobile-menu__link--current');
@@ -109,9 +136,9 @@
       });
       group.appendChild(subWrap);
 
-      btn.addEventListener('click', function () {
-        var open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!open));
+      chevBtn.addEventListener('click', function () {
+        var open = chevBtn.getAttribute('aria-expanded') === 'true';
+        chevBtn.setAttribute('aria-expanded', String(!open));
         group.classList.toggle('is-open', !open);
         /* Animate to the measured height so the reveal eases like
            the rest of the menu; height:auto is not animatable. */
@@ -123,7 +150,10 @@
       var a = document.createElement('a');
       a.className = 'mobile-menu__link';
       a.href = child.getAttribute('href') || '#';
-      a.textContent = child.textContent.trim();
+      var linkText = document.createElement('span');
+      linkText.className = 'mobile-menu__link-text';
+      linkText.textContent = child.textContent.trim();
+      a.appendChild(linkText);
       if (child.hasAttribute('aria-current')) {
         a.setAttribute('aria-current', child.getAttribute('aria-current'));
         a.classList.add('mobile-menu__link--current');
@@ -132,13 +162,23 @@
     }
   });
 
-  /* Social icons, cloned from this page's footer if it has them. */
-  var social = document.querySelector('.footer-social');
-  if (social) {
-    var copy = social.cloneNode(true);
-    copy.classList.add('mobile-menu__social');
-    panel.appendChild(copy);
-  }
+  /* Discord/Instagram CTA buttons — same shape as Rules' mobile menu
+     buttons, replacing the small black footer-icon circles. */
+  var discordCta = document.createElement('a');
+  discordCta.className = 'mobile-menu__cta';
+  discordCta.href = 'https://discord.gg/MzDujDpgZ9';
+  discordCta.target = '_blank';
+  discordCta.rel = 'noopener';
+  discordCta.innerHTML = '<img src="assets/discord-icon.svg" alt="" aria-hidden="true">Join Our Discord';
+  panel.appendChild(discordCta);
+
+  var instagramCta = document.createElement('a');
+  instagramCta.className = 'mobile-menu__cta mobile-menu__cta--instagram';
+  instagramCta.href = 'https://www.instagram.com/davis_triceratops/';
+  instagramCta.target = '_blank';
+  instagramCta.rel = 'noopener';
+  instagramCta.innerHTML = '<img src="assets/instagram-social-icon.svg" alt="" aria-hidden="true">Follow Our Instagram';
+  panel.appendChild(instagramCta);
 
   document.body.appendChild(panel);
 

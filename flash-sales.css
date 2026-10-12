@@ -6,12 +6,15 @@
 ============================================================ */
 
 /* ---------- Hero ---------- */
+/* 498px is already this page's own native value, and it's now the
+   sitewide target every other page's hero is being matched to — no
+   desktop override needed here. */
 .hero--flash-sales { height: 498px; }
 .hero--flash-sales .hero__bg img { object-position: center 24.3%; } /* Figma crop */
 
 /* ---------- Layout ---------- */
 /* Blocks in this comp sit 20px apart (vs 48px on Getting Started). */
-.fs-stack { gap: 20px; padding-bottom: 68px; }
+.fs-stack { gap: 20px; padding-bottom: 68px; overflow-x: clip; }
 /* getting-started.css pulls the grass 130px up over its FAQ box; here it sits 68px below the claim card */
 .footer-grass { margin-top: 0; background-color: var(--color-bg); }
 
@@ -42,18 +45,6 @@
   overflow: hidden;
 }
 .fs-intro__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 78%; }
-/* Desktop: Figma's exact crop of the photo (full width, 227.86% tall, shifted up 100.36%) */
-@media (min-width: 1201px) {
-  .fs-intro__photo { position: relative; }
-  .fs-intro__photo img {
-    position: absolute;
-    left: 0;
-    top: -100.36%;
-    height: 227.86%;
-    max-width: none;
-    object-fit: fill;
-  }
-}
 .fs-intro__copy {
   flex: 1 1 0;
   min-width: 0;
@@ -138,6 +129,7 @@
 .fs-pin { width: 42.5px; height: 52px; }
 .fs-regular { font-weight: 400; }
 
+.fs-pickup .do-card__list { max-width: none; }
 .fs-pickup .do-card__list li,
 .fs-claim .do-card__list li { position: relative; padding-top: 24px; padding-bottom: 24px; border-top: 0; }
 .fs-pickup .do-card__list li:first-child,
@@ -161,12 +153,12 @@
 .fs-flowers { display: flex; justify-content: center; gap: 40px; padding: 12px 0; }
 .fs-flowers img { width: 80px; height: 77.83px; }
 
-.fs-claim { width: 100%; max-width: 666px; margin: 0 auto; }
+.fs-claim { width: 100%; max-width: 696px; margin: 0 auto; }
 .fs-claim .do-card__head { height: 85.41px; justify-content: center; padding: 16px 20px; background: var(--color-accent-lightblue); }
 .fs-claim .do-card__body { margin-top: -9.59px; }
 .fs-claim .do-card__head img { width: 50px; height: 50px; padding: 2.17px; }
 .fs-claim .do-card__head h2 { margin: 0; color: var(--gs-heading); line-height: 1.2; }
-.fs-claim .do-card__body { padding: 32px 25.5px; } /* 607px text column, as in the comp */
+.fs-claim .do-card__body { padding: 32px 50px; } /* matches the pickup cards' side margin above */
 .fs-claim .do-card__list { max-width: none; }
 .fs-claim .do-card__list li {
   padding-left: 0;
@@ -325,7 +317,8 @@
     padding: 0;
   }
   .hero--flash-sales .hero__title { margin: 0; font-size: 40px; line-height: 1.2; letter-spacing: 0.8px; }
-  .hero--flash-sales .hero__subtitle { font-size: 12px; line-height: 1.3; letter-spacing: 0.24px; }
+  /* Matches About Us's mobile hero subtitle size. */
+  .hero--flash-sales .hero__subtitle { font-size: 16px; line-height: 1.3; letter-spacing: 0.02em; }
 
   /* ---------- Layout: 48px between every block, no decorative spacers ---------- */
   .fs-stack { gap: 48px; padding-bottom: 48px; }
@@ -352,7 +345,8 @@
   /* ---------- What is a flash sale ---------- */
   .fs-intro { gap: 48px; }
   .fs-intro__photo img { object-position: center; }
-  .fs-intro__copy { gap: 24px; font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; }
+  /* Matches About Us's mobile body-text size (18px), per request. */
+  .fs-intro__copy { gap: 24px; font-size: 18px; line-height: 1.4; letter-spacing: 0.03em; }
 
   /* ---------- How to enter: screenshot, number picker, active step ---------- */
   #entering .gs-heading__title h2 { max-width: 170px; } /* two lines in the comp */
@@ -418,4 +412,9 @@
   .fs-claim .do-card__body { padding: 16px 28.5px; gap: 16px; border-width: 2px; border-radius: 0 0 20px 20px; }
   .fs-claim .do-card__list li { font-size: 16px; }
   .fs-claim .do-card__list p + p { margin-top: 24px; }
+}
+
+@media (min-width: 1801px) {
+  /* +100px per feedback. */
+  .fs-intro__photo { height: 450px; }
 }

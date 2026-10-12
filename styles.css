@@ -119,6 +119,12 @@ body {
   padding-top: var(--nav-height); /* compensates for the fixed nav bar below */
 }
 
+/* Keeps anchor-linked sections (e.g. from the footer) from scrolling
+   their heading up underneath the fixed nav bar. */
+section[id] {
+  scroll-margin-top: var(--nav-height);
+}
+
 img {
   display: block;
   max-width: 100%;
@@ -286,8 +292,17 @@ ul {
   letter-spacing: var(--text-body-ls);
   white-space: nowrap;
   border-bottom: 1px solid transparent;
+  transition: border-bottom-color 300ms ease;
 }
 .main-nav__link:hover {
+  border-bottom-color: var(--color-text);
+}
+
+/* Current-page indicator — same underline the hover state uses, just
+   permanently on, plus bold. */
+.main-nav__link--current,
+.nav-dropdown__panel a[aria-current="page"] {
+  font-weight: 700;
   border-bottom-color: var(--color-text);
 }
 
@@ -302,12 +317,12 @@ ul {
    HEADER / NAV
 ============================================================ */
 .site-header {
-  width: 100%;
   background: var(--color-nav-bg);
   flex-shrink: 0;
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
   z-index: 30;
 }
 
@@ -317,6 +332,8 @@ ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 8px;
   gap: 40px;
 }
 
@@ -331,6 +348,14 @@ ul {
   align-items: center;
   gap: 40px;
   flex-wrap: wrap;
+}
+
+/* Laptop range (1201-1800px, above the hamburger-menu breakpoint below) —
+   tighter gaps so the 5 nav links + Discord button always have room to
+   fit on one line without crowding the button past the page edge. */
+@media (min-width: 1201px) and (max-width: 1800px) {
+  .site-header__inner { gap: 24px; }
+  .main-nav { gap: 24px; }
 }
 
 /* "Getting Started" dropdown trigger + overlay */
@@ -372,6 +397,7 @@ ul {
   letter-spacing: var(--text-body-ls);
   white-space: nowrap;
   border-bottom: 1px solid transparent;
+  transition: border-bottom-color 300ms ease;
 }
 .nav-dropdown__panel a:hover {
   border-bottom-color: var(--color-text);
@@ -444,6 +470,7 @@ ul {
 .hero__title {
   margin: 0 0 8px;
   font-family: var(--font-heading);
+  font-weight: 400;
   font-size: var(--text-title-size);
   line-height: var(--text-title-lh);
   letter-spacing: var(--text-title-ls);
@@ -491,6 +518,9 @@ ul {
   background-position:
     -226px bottom, 226px bottom, 678px bottom, 1130px bottom, 1582px bottom, 2034px bottom,
     2486px bottom, 2938px bottom, 3390px bottom, 3842px bottom, 4294px bottom, 4746px bottom;
+  /* Forces its own pixel-snapped GPU layer — without this the tiled
+     SVG blades get a hairline rasterization seam at the top. */
+  transform: translateZ(0);
 }
 
 .footer-content {
@@ -522,6 +552,13 @@ ul {
 .footer-deco--cloud3-back  { right: 65px;  top: 78px;   width: 61px; height: 33px; }
 .footer-deco--cloud3-front { right: 62px;  top: 77px;   width: 61px; height: 33px; }
 .footer-deco--dino-single  { right: 213px; top: 173px;  width: 85px; height: 132px; }
+
+/* Laptop-size nudge only (1001-1800px) — the cloud nearest "About Us"
+   sat too high against the column header at this width. */
+@media (max-width: 1800px) {
+  .footer-deco--cloud1-back  { top: 111px; }
+  .footer-deco--cloud1-front { top: 109px; }
+}
 .footer-deco--dino-duo     { right: 126px; bottom: 9px; width: 81px; height: 107px; }
 .footer-deco--flower-small-1 { right: 28px; bottom: 7px; width: 39px; height: 43px; }
 .footer-deco--flower-small-2 { right: 70px; bottom: 7px; width: 29px; height: 32px; }
@@ -552,6 +589,7 @@ ul {
   font-size: 20px;
   letter-spacing: 0.4px;
   border-bottom: 1px solid transparent;
+  transition: border-bottom-color 300ms ease;
 }
 .footer-column__links a:hover {
   border-bottom-color: var(--color-text);
@@ -604,7 +642,17 @@ ul {
 ============================================================ */
 
 body {
-  overflow-x: hidden;
+  /* "clip" here, not "hidden" — hidden forces this element's own
+     overflow-y to compute as "auto" (CSS Overflow spec: any
+     overflow-x other than visible forces the other axis off
+     visible too), which makes body its own independent scroll
+     container. Any page whose content is even 1px taller than
+     body's own box (any content filling it, not just scrollbars)
+     then gets a second, body-level scrollbar nested next to the
+     page's real one. "clip" clips the same horizontal bleed but
+     doesn't force that — confirmed on the DinoDex page, which hit
+     exactly this with a 1px mismatch. */
+  overflow-x: clip;
 }
 
 .nav-toggle {
@@ -705,7 +753,10 @@ body {
 
   .mobile-menu__close {
     position: absolute;
-    top: 58px;
+    /* Matches the hamburger's own vertical center in the header, so the
+       X lands exactly where the hamburger was. Computed instead of a
+       flat value so it stays correct if --nav-height ever changes. */
+    top: calc((var(--nav-height) - 44px) / 2);
     right: 8px;
     width: 44px;
     height: 44px;
@@ -728,8 +779,29 @@ body {
   .mobile-menu__close::before { transform: translate(-50%, -50%) rotate(45deg); }
   .mobile-menu__close::after  { transform: translate(-50%, -50%) rotate(-45deg); }
 
+  /* Same centering formula as the close button, just for the logo's
+     own height, so the two land on the same row — the logo at the
+     panel's left edge, the X at its right. */
+  .mobile-menu__logo {
+    position: absolute;
+    top: calc((var(--nav-height) - 50px) / 2);
+    left: 20px;
+  }
+  .mobile-menu__logo img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+  }
+
+  /* margin-top is measured from the panel's own top edge, but the close
+     button is absolutely positioned and overlaps part of it, so the gap
+     actually visible below the close button is margin-top minus the
+     close button's own bottom edge (~63px at the 82px nav-height
+     baseline), not the full 116px. margin-bottom has no such overlap, so
+     it's set to that same visible amount (116 - 63 = 53px) to match. */
   .mobile-menu__nav {
     margin-top: 116px;
+    margin-bottom: 53px;
     display: flex;
     flex-direction: column;
   }
@@ -747,20 +819,60 @@ body {
     text-align: left;
     cursor: pointer;
     color: var(--color-text-secondary);
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
     font-weight: 400;
     font-size: 24px;
     line-height: 1.2;
     letter-spacing: 0.02em;
   }
 
-  .mobile-menu__label {
+  /* Current page: bold + underlined, same treatment as the desktop nav.
+     The border sits on the text span (a shrink-wrapped flex item), not
+     the link itself, so it hugs the word instead of the full row width. */
+  .mobile-menu__link--current {
+    font-weight: 700;
+  }
+
+  .mobile-menu__link--current .mobile-menu__link-text {
+    border-bottom: 3px solid currentColor;
+  }
+
+  /* Split button: the chevron button is a separate, independently-
+     tappable control from the link. justify-content (not flex-grow on
+     the link) pushes it to the row's end, so the link's own underline
+     hugs just its text instead of stretching across the empty space
+     between the text and the chevron. */
+  .mobile-menu__trigger-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .mobile-menu__trigger-link {
+    flex: none;
     border-bottom: 3px solid transparent;
   }
-  /* Expanded "Getting Started" is underlined — the text only, not the
-     chevron, which is why the label sits in its own span. */
-  .mobile-menu__trigger[aria-expanded="true"] .mobile-menu__label {
+  /* Expanded is underlined — keyed off the group's own open state
+     rather than the chevron button's, since the link and the toggle
+     are now two separate elements. Skipped when the trigger is also the
+     current-page link (e.g. opening "Getting Started" while on Flash
+     Sales): that case already gets its own text-hugging underline from
+     .mobile-menu__link--current below, and this border would stack a
+     second, lower one under the same word otherwise. */
+  .mobile-menu__group.is-open .mobile-menu__trigger-link:not(.mobile-menu__link--current) {
     border-bottom-color: currentColor;
+  }
+
+  .mobile-menu__chevron-btn {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
   }
 
   .mobile-menu__chevron {
@@ -770,7 +882,7 @@ body {
     transform: rotate(180deg);
     transition: transform 300ms ease-in-out;
   }
-  .mobile-menu__trigger[aria-expanded="true"] .mobile-menu__chevron {
+  .mobile-menu__chevron-btn[aria-expanded="true"] .mobile-menu__chevron {
     transform: rotate(0deg);
   }
 
@@ -780,17 +892,38 @@ body {
     transition: max-height 300ms ease-in-out;
   }
 
-  /* Children sit at the same indent and size as top-level items, just
-     closer together (52px pitch in the frame, versus 72px). */
+  /* Indented under its parent to read as a sub-item, now that it's the
+     dropdown's only entry rather than a duplicate of the trigger. */
   .mobile-menu__sublink {
-    padding: 11px 0;
+    padding: 11px 0 11px 32px;
   }
 
-  .mobile-menu__social {
-    margin-top: auto;
-    padding-top: 40px;
-    justify-content: flex-end;
+  /* Shape matches Rules' mobile-menu CTA buttons. */
+  .mobile-menu__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    align-self: flex-start;
+    height: 48px;
+    padding: 12px 16px;
+    border-radius: 16px;
+    background: var(--color-discord-default);
+    color: var(--color-text-on-dark);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.3;
+    letter-spacing: 0.8px;
+    text-decoration: none;
+    white-space: nowrap;
   }
+  .mobile-menu__cta img { width: 24px; height: 24px; }
+  .mobile-menu__cta + .mobile-menu__cta { margin-top: 12px; }
+  .mobile-menu__cta:last-of-type { margin-bottom: 40px; }
+  /* Same shape as the Discord button, just a red matching Instagram's
+     own brand gradient (the red stop between its orange and pink). */
+  .mobile-menu__cta--instagram { background: rgb(240, 49, 77); }
 
   body.menu-open {
     overflow: hidden;
@@ -823,13 +956,17 @@ body {
   }
 
   /* ---------- Header ---------- */
+  /* Was a flat 160px that centered the logo, splitting the space evenly
+     above and below — but the notch/Dynamic Island only needs clearance
+     at the TOP, so that symmetric bottom padding was pure excess height.
+     Now: real safe-area inset at the top, a thin 16px everywhere else. */
   .has-mobile-menu {
-    --nav-height: 160px;
+    --nav-height: calc(env(safe-area-inset-top, 0px) + 82px);
   }
 
   .has-mobile-menu .site-header__inner {
     height: var(--nav-height);
-    padding: 0 var(--grid-margin);
+    padding: calc(env(safe-area-inset-top, 0px) + 16px) var(--grid-margin) 16px;
     gap: 0;
   }
 
@@ -882,6 +1019,35 @@ body {
     align-items: flex-start;
     gap: 16px;
   }
+
+  /* Small black icon-only circles become the same Discord/Instagram pill
+     CTA buttons used in the mobile nav overlay (.mobile-menu__cta),
+     stacked instead of side-by-side. The label text is CSS-generated so
+     the shared HTML doesn't need touching — only this breakpoint sees
+     it, desktop keeps the plain icon circles. */
+  .footer-social {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .footer-social__icon {
+    width: auto;
+    height: 48px;
+    padding: 12px 16px;
+    border-radius: 16px;
+    gap: 8px;
+    background: var(--color-discord-default);
+    color: var(--color-text-on-dark);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.3;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+  }
+  .footer-social__icon[href*="instagram"] { background: rgb(240, 49, 77); }
+  .footer-social__icon[href*="discord"]::after { content: "Join Our Discord"; }
+  .footer-social__icon[href*="instagram"]::after { content: "Follow Our Instagram"; }
 
   /* Mobile placements from the 393 frame. Note the asset names are
      misleading: dino-single is the blue one, dino-duo the green. */
@@ -946,4 +1112,37 @@ body {
 .footer-social__icon img {
   width: 24px;
   height: 24px;
+}
+
+/* ============================================================
+   SCROLL-REVEAL (fade + rise as content enters the viewport)
+   Shared across every page. A page only needs:
+
+       <script src="reveal.js" defer></script>
+
+   then add class="reveal" to whatever content blocks should fade
+   in (section headers, card grids, etc. — see reveal.js for the
+   exact mechanism). Ported from the Rules page, which keeps its
+   own copy of this same CSS/JS rather than loading these shared
+   files, so its existing behavior is untouched.
+
+   Scoped under html.js (added by reveal.js) so a page that hasn't
+   added the script tag yet — or has JS disabled — shows .reveal
+   content normally instead of leaving it invisible forever. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

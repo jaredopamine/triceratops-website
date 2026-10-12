@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -83,112 +83,119 @@
 
     /* ---------- Nav ---------------------------------------------- */
 
-    .nav {
+    /* Nav bar — ported directly from the shared site-header/main-nav
+       system (styles.css, as used on DinoDex/Getting Started/Flash
+       Sales/About Us) so this page's nav stops drifting out of sync
+       with the others. */
+    .site-header {
+      width: 100%;
+      background: var(--nav-bg);
+      flex-shrink: 0;
       position: sticky;
       top: 0;
       z-index: 100;
-      background: var(--nav-bg);
-      transition: box-shadow 0.2s ease;
     }
-    .nav.is-scrolled { box-shadow: 0 2px 14px rgba(0, 0, 0, 0.12); }
-
-    .nav__inner {
-      width: min(var(--container), 100% - (var(--gutter) * 2));
-      margin-inline: auto;
+    .site-header__inner {
+      width: 100%;
+      padding: 12px 40px;
       min-height: 104px;
+      box-sizing: border-box;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
-      padding-block: 12px;
-    }
-
-    .nav__logo { width: 80px; height: 80px; flex: none; }
-    .nav__logo img { width: 100%; height: 100%; object-fit: contain; }
-
-    .nav__links {
-      display: flex;
-      align-items: center;
       gap: 40px;
-      list-style: none;
-      margin: 0;
-      padding: 0;
     }
-    .nav__links a,
-    .nav__links button {
-      font: inherit;
-      font-size: 20px;
-      letter-spacing: 0.02em;
-      color: var(--ink);
-      background: none;
-      border: 0;
-      padding: 4px 0;
-      cursor: pointer;
-      text-decoration: none;
+    .site-logo img { width: 80px; height: 80px; object-fit: cover; }
+
+    /* Keeps anchor-linked headings (e.g. from the footer) from
+       scrolling up underneath the sticky nav bar. */
+    .section__title[id] {
+      scroll-margin-top: 104px;
+    }
+
+    .main-nav { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
+    /* Matches the shared nav's laptop-range gap (1201-1800px). */
+    @media (min-width: 1201px) and (max-width: 1800px) {
+      .site-header__inner { gap: 24px; }
+      .main-nav { gap: 24px; }
+    }
+    .main-nav__link {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      font-size: 20px;
+      letter-spacing: 0.02em;
       white-space: nowrap;
-      border-bottom: 2px solid transparent;
-      /* underline slides in (Figma "Link" hover: 0.3s, ease-out) */
-      background: linear-gradient(var(--ink), var(--ink)) no-repeat left bottom / 0 2px border-box;
-      transition: background-size 0.3s ease-out;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-bottom-color 300ms ease;
     }
-    .nav__links a:hover,
-    .nav__links button:hover,
-    .nav__links a:focus-visible,
-    .nav__links button:focus-visible { background-size: 100% 2px; }
-    .nav__links a[aria-current="page"] { font-weight: 700; background-size: 100% 2px; }
-    /* chevron flips up on hover / when open (Figma: rotate 180deg, 0.3s ease-out) */
-    .nav__chevron { width: 18px; height: 18px; transform: rotate(180deg); transition: transform 0.3s ease-out; }
-    .nav__links button:hover .nav__chevron,
-    .nav__links button:focus-visible .nav__chevron,
-    .nav__links button[aria-expanded="true"] .nav__chevron,
-    .nav__drop:hover .nav__chevron,
-    .nav__drop:focus-within .nav__chevron { transform: rotate(0deg); }
-    /* "Getting Started" dropdown — same panel as the shared nav in styles.css */
-    .nav__drop { position: relative; }
-    .nav__drop-panel {
+    .main-nav__link:hover { border-bottom-color: var(--ink); }
+    .main-nav__link--current,
+    .nav-dropdown__panel a[aria-current="page"] {
+      font-weight: 700;
+      border-bottom-color: var(--ink);
+    }
+    .main-nav__chevron { width: 24px; height: 24px; transform: rotate(180deg); transition: transform 0.15s ease; }
+
+    .nav-dropdown { position: relative; }
+    .nav-dropdown:hover .main-nav__link { border-bottom-color: var(--ink); }
+    .nav-dropdown:hover .main-nav__chevron { transform: rotate(0deg); }
+    .nav-dropdown__panel {
       position: absolute;
       top: 100%;
       left: 0;
-      z-index: 5;
-      min-width: 100%;
       width: max-content;
-      padding: 12px;
+      min-width: 100%;
       background: var(--nav-bg);
+      padding: 12px;
       border-radius: 0 0 16px 0;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.15s ease;
     }
-    .nav__drop:hover .nav__drop-panel,
-    .nav__drop:focus-within .nav__drop-panel { opacity: 1; visibility: visible; }
+    .nav-dropdown:hover .nav-dropdown__panel,
+    .nav-dropdown:focus-within .nav-dropdown__panel { opacity: 1; visibility: visible; }
+    .nav-dropdown__panel a {
+      display: block;
+      font-size: 20px;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-bottom-color 300ms ease;
+    }
+    .nav-dropdown__panel a:hover { border-bottom-color: var(--ink); }
 
-    .nav__cta {
-      flex: none;
+    .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      height: 48px;
-      padding: 12px 16px;
+      padding: 12px 24px;
+      border: none;
       border-radius: 16px;
-      background: var(--discord);
-      color: var(--off-white);
       font-family: var(--font-body);
       font-weight: 700;
       font-size: 18px;
+      line-height: 1.3;
       letter-spacing: 0.05em;
-      text-decoration: none;
       white-space: nowrap;
-      transition: transform 0.4s ease-in-out, filter 0.4s ease-in-out;
+      cursor: pointer;
+      text-decoration: none;
     }
-    .nav__cta:hover { filter: brightness(1.07); transform: translateY(-1px); }
-    .nav__cta img { width: 24px; height: 24px; }
-
-    .nav__toggle { display: none; }
+    .btn-discord {
+      height: 48px;
+      min-height: 48px;
+      padding: 12px 16px;
+      background: var(--discord);
+      color: var(--off-white);
+      transition: background-color 300ms ease;
+    }
+    .btn-discord:hover { background: #5569ae; }
+    .btn-discord:active { background: #4559a0; }
+    .btn-discord img { width: 24px; height: 24px; }
 
     /* ---------- Hero ------------------------------------------- */
 
@@ -197,8 +204,7 @@
       min-height: clamp(360px, 40vw, 518px);
       display: flex;
       align-items: flex-end;
-      background-image: linear-gradient(to bottom, rgba(0,0,0,0.05) 35%, rgba(0,0,0,0.5)),
-                        url("assets/hero-forest.png");
+      background-image: url("assets/hero-forest.webp");
       background-size: cover;
       background-position: center 78%;
       color: var(--off-white);
@@ -206,7 +212,12 @@
     .hero__inner {
       width: min(1280px, 100% - (var(--gutter) * 2));
       margin-inline: auto;
-      padding-block: 32px;
+      /* Was 32px top+bottom; the shared hero system the other 4 pages
+         use (styles.css's .hero__content) is 16px — only the bottom
+         value is actually visible here (the text sits flush against
+         the hero's bottom edge via align-items:flex-end on .hero), so
+         this was sitting 16px higher than everywhere else. */
+      padding-block: 16px;
     }
     .hero h1 {
       font-size: clamp(38px, 5vw, 64px);
@@ -371,6 +382,18 @@
 
     /* decorative blob behind General Rules */
     .section--general { overflow-x: clip; }
+    /* Heading-to-content gap, tuned down in several passes, for the
+       1001-1800px range (the >1800px monitor already has its own
+       tuned value below). Matched across General/Hunt/Flash Sale
+       Rules for consistency. */
+    @media (max-width: 1800px) {
+      .section--general .section__head,
+      .section--hunt .section__head,
+      .section--flash .section__head { margin-bottom: -10px; }
+      .section--general .section__dino,
+      .section--hunt .section__dino,
+      .section--flash .section__dino { transform: translateY(-15px); }
+    }
     .blob {
       position: absolute;
       right: 6%;
@@ -474,7 +497,10 @@
     .grass-divider {
       position: absolute;
       z-index: 0;
-      bottom: 100%;
+      /* shifted 5px into the green section below — the blade valleys
+         near the tile's own bottom edge don't reach full height, so
+         flush (100%) left a hairline of white showing above the green */
+      bottom: calc(100% - 5px);
       left: 0;
       width: 100%;
       height: 72px;
@@ -484,6 +510,10 @@
       background-repeat: repeat-x, repeat-x;
       background-size: 280px 72px, 280px 72px;
       background-position: 0 100%, 140px 100%;
+      /* forces its own pixel-snapped GPU layer — without this the SVG
+         background tiles get rasterized with a hairline seam where the
+         costume strip overlaps it above */
+      transform: translateZ(0);
     }
 
     .claim-steps {
@@ -729,8 +759,8 @@
 
     .section--cta { overflow-x: clip; }
     .blob-edge--teal {
-      right: calc(var(--fu) * -102);
-      top: calc(100% - 114px);
+      right: calc(var(--fu) * -102 - 30px);
+      top: calc(100% - 219px);
       width: calc(var(--fu) * 200.84);
       height: calc(var(--fu) * 204.6);
     }
@@ -803,83 +833,123 @@
     }
     .cta-banner__btn:hover { filter: brightness(1.07); transform: translateY(-1px); }
 
-    /* ---------- Footer ------------------------------------------ */
-
-    /* gradient runs lavender (bottom) -> cyan (top), as in the Figma footer */
+    /* ---------- Footer (ported from DinoDex's shared footer structure,
+       since this page doesn't load styles.css) ------------------- */
     .site-footer {
-      position: relative;
+      width: 100%;
+      flex-shrink: 0;
       background: linear-gradient(to top, #e6f0ff, #d8f5ff);
     }
-    /* The grass sits entirely ABOVE the footer fill (bottom edge flush with
-       the footer's top edge) on a transparent background, so only the page's
-       white shows between blades — none of the footer's tint. */
-    .site-footer__grass {
-      position: absolute;
-      bottom: 100%;
-      left: 0;
+    /* Figma built the grass strip from 3 overlapping copies rather than a
+       seamless tile — stacked background layers reproduce that overlap
+       instead of showing a seam where the footer's blue would peek through. */
+    .footer-grass {
       width: 100%;
-      height: 72px;
-      background-color: transparent;
-      /* Each tile has slanted left/right edges, so plain repeat-x leaves a
-         notch at every seam. Two copies offset by half a tile put a tile
-         body behind every seam of the other layer, so the blades overlap
-         into one continuous strip. */
-      background-image: url("assets/grass.svg"), url("assets/grass.svg");
-      background-repeat: repeat-x, repeat-x;
-      background-size: 280px 72px, 280px 72px;
-      background-position: 0 100%, 140px 100%;
+      height: 152px;
+      background-color: var(--off-white);
+      background-repeat: no-repeat;
+      background-size: 657px 152px;
+      background-image:
+        url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg'),
+        url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg'),
+        url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg'),
+        url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg');
+      background-position:
+        -226px bottom, 226px bottom, 678px bottom, 1130px bottom, 1582px bottom, 2034px bottom,
+        2486px bottom, 2938px bottom, 3390px bottom, 3842px bottom, 4294px bottom, 4746px bottom;
+      /* same pixel-snapped-layer fix as .grass-divider — without it the
+         tiled SVG blades get a hairline rasterization seam at the top */
+      transform: translateZ(0);
     }
-    .site-footer__inner { padding-block: 40px; }
-    /* extra room so the 72px grass strip above the footer clears the banner */
+    /* extra room so the grass strip above the CTA/footer clears the banner */
     .section--cta { padding-bottom: 144px; }
 
-    .footer-cols {
+    .footer-content {
+      position: relative;
+      width: 100%;
+      padding: 40px 28px;
+      /* Other pages' footer inherits the browser's 16px default body
+         size/line-height; this page's own body sets 20px/1.5, so the
+         ported footer needs its own reset to match. */
+      font-size: 16px;
+      line-height: normal;
+    }
+    .footer-deco { position: absolute; pointer-events: none; }
+    .footer-deco-m { display: none; position: absolute; pointer-events: none; }
+    .footer-deco--flower-tl    { left: 0px;   top: 0px;   width: 40px; height: 40px; }
+    .footer-deco--flower-mid   { left: 478px; top: 226px; width: 40px; height: 40px; }
+    .footer-deco--cloud1-back  { right: 294px; top: 61px;   width: 65px; height: 34px; }
+    .footer-deco--cloud1-front { right: 292px; top: 59px;   width: 64px; height: 34px; }
+    .footer-deco--cloud2-back  { right: 165px; top: 20px;   width: 85px; height: 45px; }
+    .footer-deco--cloud2-front { right: 162px; top: 18px;   width: 84px; height: 45px; }
+    .footer-deco--cloud3-back  { right: 65px;  top: 78px;   width: 61px; height: 33px; }
+    .footer-deco--cloud3-front { right: 62px;  top: 77px;   width: 61px; height: 33px; }
+    .footer-deco--dino-single  { right: 213px; top: 173px;  width: 85px; height: 132px; }
+    /* Laptop-size nudge only (1001-1800px), matching styles.css's shared
+       footer — the cloud nearest "About Us" sat too high at this width. */
+    @media (max-width: 1800px) {
+      .footer-deco--cloud1-back  { top: 111px; }
+      .footer-deco--cloud1-front { top: 109px; }
+    }
+    .footer-deco--dino-duo     { right: 126px; bottom: 9px; width: 81px; height: 107px; }
+    .footer-deco--flower-small-1 { right: 28px; bottom: 7px; width: 39px; height: 43px; }
+    .footer-deco--flower-small-2 { right: 70px; bottom: 7px; width: 29px; height: 32px; }
+
+    .footer-columns {
+      position: relative;
+      z-index: 1;
       display: flex;
       flex-wrap: wrap;
-      gap: 40px;
-      padding-bottom: 32px;
+      gap: 57px;
+      margin-bottom: 48px;
     }
-    .footer-col { flex: 1 1 140px; min-width: 140px; }
-    .footer-col h3 {
+    .footer-column__title {
+      margin: 0 0 12px;
       font-family: var(--font-head);
       font-weight: 400;
       font-size: 20px;
-      margin-bottom: 12px;
+      color: #000;
     }
-    .footer-col h3 a { text-decoration: none; }
-    .footer-col h3 a:hover { text-decoration: underline; }
-    .footer-col ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
+    .footer-column__links {
       display: flex;
       flex-direction: column;
       gap: 12px;
-      font-size: 20px;
-      color: var(--ink);
+      list-style: none;
+      margin: 0;
+      padding: 0;
     }
+    .footer-column__links a {
+      font-size: 20px;
+      letter-spacing: 0.4px;
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-bottom-color 300ms ease;
+    }
+    .footer-column__links a:hover { border-bottom-color: #000; }
 
     .footer-bottom {
+      position: relative;
+      z-index: 1;
+      max-width: 822px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 16px;
-      padding-top: 24px;
-      border-top: 1px solid rgba(61, 61, 61, 0.15);
     }
-    .footer-bottom p { margin: 0; font-size: 16px; }
-    .footer-social { display: flex; gap: 8px; }
-    .footer-social a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+    .footer-copyright { margin: 0; font-size: 16px; color: #1e1e1e; }
+    .footer-social { display: flex; align-items: center; gap: 8px; }
+    .footer-social__icon {
       width: 32px;
       height: 32px;
-      border-radius: 50%;
+      border-radius: 100px;
       background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .footer-social img { width: 18px; height: 18px; }
+    .footer-social__icon img { width: 24px; height: 24px; }
 
     /* ---------- Reveal animation (only when JS is active) ---- */
     .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -910,43 +980,73 @@
 
     @media (max-width: 860px) {
       body { font-size: 18px; }
-      .nav__inner { flex-wrap: wrap; }
-      .nav__toggle {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 44px; height: 44px;
-        border: 2px solid var(--ink);
-        border-radius: 12px;
-        background: var(--off-white);
-        font-size: 20px;
-        cursor: pointer;
-        order: 3;
-      }
-      .nav__cta { order: 2; }
-      .nav__links {
-        order: 4;
-        flex-basis: 100%;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
-        padding: 8px 0 16px;
-        display: none;
-      }
-      .nav__links.is-open { display: flex; }
-      /* In the stacked menu, show Flash Sales as an indented link under Getting Started */
-      .nav__drop-panel { position: static; opacity: 1; visibility: visible; padding: 8px 0 0 16px; background: none; box-shadow: none; }
       .section__head { flex-direction: column; }
       .section__dino { align-self: flex-end; margin-top: -12px; }
       .claim-step { flex-direction: column; text-align: center; gap: 16px; }
       .footer-bottom { flex-direction: column; align-items: flex-start; }
     }
 
+    /* Footer at mobile width — matches DinoDex's mobile footer exactly
+       (same 2-column explicit grid, grass tiling, flat-PNG decorations
+       and stacked Discord/Instagram pill buttons used everywhere else
+       on mobile), now that this is the one footer used at every width
+       instead of a separate hand-built mobile block. */
+    @media (max-width: 600px) {
+      .site-footer { margin-top: 64px; }
+      .footer-content { padding-bottom: 155px; }
+      .footer-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 32px;
+        row-gap: 60px;
+      }
+      .footer-column:nth-child(1) { grid-column: 1; grid-row: 1; }
+      .footer-column:nth-child(2) { grid-column: 2; grid-row: 1; }
+      .footer-column:nth-child(3) { grid-column: 1; grid-row: 2; }
+      .footer-column:nth-child(4) { grid-column: 2; grid-row: 2; }
+      .footer-column:nth-child(5) { grid-column: 1; grid-row: 3; }
+      .footer-grass {
+        height: 45px;
+        background-size: 195px 45px;
+        background-image: url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg');
+        background-position: -120px bottom, -10px bottom, 100px bottom, 210px bottom, 320px bottom;
+      }
+      .footer-deco { display: none; }
+      .footer-deco-m { display: block; }
+      .footer-deco-m--cloud1 { left: -30px; top: 18px; width: 42px; height: 47px; }
+      .footer-deco-m--cloud2 { left: 264px; top: 354px; width: 95px; height: 57px; }
+      .footer-deco-m--cloud3 { left: 352px; top: 152px; width: 46px; height: 45px; }
+      .footer-deco-m--dino-blue { left: 21px; bottom: 0; width: 62px; height: 94px; }
+      .footer-deco-m--dino-green { left: 86px; bottom: 1px; width: 59px; height: 77px; }
+      .footer-deco-m--flower1 { left: 187px; bottom: 0; width: 29px; height: 31px; }
+      .footer-deco-m--flower2 { left: 164px; bottom: 0; width: 21px; height: 23px; }
+
+      .footer-social { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .footer-social__icon {
+        width: auto;
+        height: 48px;
+        padding: 12px 16px;
+        border-radius: 16px;
+        gap: 8px;
+        background: var(--discord);
+        color: var(--off-white);
+        font-family: var(--font-body);
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 1.3;
+        letter-spacing: 0.8px;
+        white-space: nowrap;
+        text-decoration: none;
+      }
+      .footer-social__icon[href*="instagram"] { background: rgb(240, 49, 77); }
+      .footer-social__icon[href*="discord"]::after { content: "Join Our Discord"; }
+      .footer-social__icon[href*="instagram"]::after { content: "Follow Our Instagram"; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .reveal { opacity: 1; transform: none; transition: none; }
-      .nav__cta:hover { transform: none; }
-      .nav__links a, .nav__links button, .nav__chevron { transition: none; }
+      .main-nav__link, .main-nav__chevron { transition: none; }
     }
 
     /* =====================================================================
@@ -969,7 +1069,7 @@
     .m-page {
       position: relative;
       width: 393px;
-      height: 7217px;
+      height: 6472px; /* was 7217px (footer no longer a child canvas, -862px), then 6355px (+196px for larger .m-sub body text), then 6551px (-79px: nav bar shortened from 161px to 82px, shifting all content up) */
       margin: 0 auto;
       overflow: hidden;
       zoom: var(--mz, 1);
@@ -983,28 +1083,54 @@
     .m-page b { font-weight: 700; }
     .m-p { position: absolute; left: calc(var(--x) * 1px); top: calc(var(--y) * 1px); }
 
-    /* nav (closed state) */
-    .m-nav { position: absolute; left: 0; top: 0; width: 393px; height: 161px; background: var(--off-white); z-index: 5; }
-    .m-nav__logo { position: absolute; left: 12px; top: 54.5px; width: 52px; height: 52px; display: block; }
+    /* nav (closed state) — matches the shared mobile header's bar height
+       (82px), logo size (50px) and hamburger icon/button exactly, in
+       place of this page's old standalone 161px bar with a 52px logo and
+       an image-based toggle icon. Vertically centered at 82/2 = 41px:
+       logo top = 41 - 50/2 = 16px; toggle top = 41 - 44/2 = 19px. */
+    .m-nav { position: absolute; left: 0; top: 0; width: 393px; height: 82px; background: var(--off-white); z-index: 5; }
+    .m-nav__logo { position: absolute; left: 20px; top: 16px; width: 50px; height: 50px; display: block; }
     .m-nav__logo img { width: 100%; height: 100%; object-fit: cover; }
-    .m-nav__toggle { position: absolute; left: 349px; top: 64.5px; width: 32px; height: 32px; padding: 0; border: 0; background: none; cursor: pointer; }
-    .m-nav__toggle img { width: 100%; height: 100%; }
+    .m-nav__toggle { position: absolute; right: 20px; top: 19px; width: 44px; height: 44px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; padding: 0; border: 0; background: none; cursor: pointer; }
+    .m-nav__toggle span { display: block; width: 26px; height: 3px; border-radius: 2px; background: var(--ink); }
     .m-nav__toggle:focus-visible, .m-menu__close:focus-visible, .m-menu a:focus-visible, .m-menu button:focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; border-radius: 8px; }
 
-    /* hero (Frame 54 is 599px wide, offset -99px, so only its middle shows) */
-    .m-hero { position: absolute; left: 0; top: 161px; width: 393px; height: 218px; overflow: hidden; }
-    .m-hero__bg { position: absolute; left: -99px; top: 0; width: 599px; height: 218px; }
+    /* hero (Frame 54 is 599px wide, offset -99px, so only its middle shows).
+       Height matches DinoDex's mobile hero (299px, was 218px) — the text
+       block is bottom-anchored (like the landscape .h-page override below)
+       rather than kept at a fixed top offset, so it still sits flush
+       against the hero's bottom edge instead of floating in the middle
+       of the now-taller banner. */
+    .m-hero { position: absolute; left: 0; top: 82px; width: 393px; height: 299px; overflow: hidden; }
+    .m-hero__bg { position: absolute; left: -99px; top: 0; width: 599px; height: 299px; }
     .m-hero__bg img { position: absolute; height: 198.59%; left: 15.79%; top: -92.17%; width: 68.68%; }
     .m-hero__shade { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(102, 102, 102, 0), rgba(0, 0, 0, 0.7) 75%); }
-    .m-hero__text { position: absolute; left: 23px; top: 78px; width: 356px; color: var(--off-white); text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25); }
+    .m-hero__text { position: absolute; left: 23px; top: auto; bottom: 16px; width: 356px; color: var(--off-white); text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25); }
     .m-hero h1 { margin: 0; font-family: var(--font-head); font-weight: 400; font-size: 40px; line-height: 1.2; letter-spacing: 0.8px; }
     .m-hero p { margin: 0; font-weight: 600; font-size: 12px; line-height: 1.3; letter-spacing: 0.24px; }
+    /* True mobile only — matches About Us's mobile hero subtitle size.
+       Plenty of clearance in the hero's fixed height for the extra
+       ~10px this adds, nothing else sits below it in the banner. */
+    #mobile .m-hero p { font-size: 16px; line-height: 1.3; letter-spacing: 0.02em; }
 
     /* section headings */
     .m-head { width: 360px; }
     .m-title { display: flex; align-items: center; gap: 16px; margin: 0; font-family: var(--font-head); font-weight: 400; font-size: 26px; line-height: 1.2; letter-spacing: 0.52px; color: var(--ink); white-space: nowrap; }
     .m-title__dot { flex: none; width: 12px; height: 12px; border-radius: 50%; background: var(--dot); }
+    /* True mobile only — matches About Us's dot size (20px). Still
+       smaller than the heading text's own line-height (31.2px), so
+       the row doesn't grow and nothing below needs to shift. */
+    #mobile .m-title__dot { width: 20px; height: 20px; }
     .m-sub { margin: 16px 0 0; width: 360px; font-weight: 600; font-size: 12px; line-height: 1.3; letter-spacing: 0.24px; }
+    /* True mobile only — matches the body text size used everywhere else
+       (About Us, DinoDex, Getting Started, Flash Sales). Every element
+       below each of the 3 .m-sub instances on this page has its --y
+       shifted down to match the measured height increase (General/Hunt
+       Rules: +57px each; Flash Sale Rules: +82px, since its text wraps
+       to an extra line) — see .m-page's height comment above for the
+       running total. Scoped to #mobile only: the landscape .h-page
+       layout keeps the original 12px size and positions untouched. */
+    #mobile .m-sub { font-size: 18px; line-height: 1.4; letter-spacing: 0.03em; }
     .m-sec-gfx { width: 114.69px; height: 114px; }
     .m-sec-gfx img { position: absolute; display: block; max-width: none; }
     .m-scenery { width: 394px; height: 71.06px; overflow: hidden; pointer-events: none; }
@@ -1083,61 +1209,75 @@
     .m-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; border-radius: 16px; background: var(--green); color: var(--off-white); font-family: var(--font-body); font-weight: 700; font-size: 16px; line-height: 1.3; letter-spacing: 0.8px; text-decoration: none; white-space: nowrap; transition: filter 0.4s ease-in-out, transform 0.4s ease-in-out; }
     .m-btn:hover { filter: brightness(1.07); transform: translateY(-1px); }
 
-    /* footer */
-    .m-footer { position: absolute; left: 0; top: 6355px; width: 394px; height: 862px; }
-    .m-footer__grass { position: relative; height: 44.924px; }
-    .m-footer__grass img { position: absolute; top: 0; width: 165.307px; height: 44.924px; }
     .m-flipx { transform: scaleX(-1); }
-    .m-footer__block { position: relative; height: 817px; overflow: hidden; background: #def3ff; }
-    .m-footer__decor { position: absolute; inset: 0; }
-    .m-fp { position: absolute; max-width: none; height: auto; }
-    .m-footer__nav { position: absolute; left: 21px; top: 61px; width: 356px; display: flex; justify-content: space-between; align-items: flex-start; }
-    .m-footer__col { display: flex; flex-direction: column; gap: 60px; }
-    .m-footer__col--a { width: 163px; }
-    .m-footer__col--b { width: 161px; }
-    .m-footer__group h3 { margin: 0 0 12px; height: 25px; font-family: var(--font-head); font-weight: 400; font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; color: #000; white-space: nowrap; }
-    .m-footer__col--a .m-footer__group:first-child h3 { margin-bottom: 8px; }
-    .m-footer__group h3 a { color: inherit; text-decoration: none; }
-    .m-footer__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
-    .m-footer__list--g12 { gap: 12px; }
-    .m-footer__list li { padding-right: 8px; font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; color: #000; white-space: nowrap; }
-    .m-footer__bottom { position: absolute; left: 21px; top: 584px; width: 323px; display: flex; flex-direction: column; gap: 12px; }
-    .m-footer__social { display: flex; gap: 8px; }
-    .m-footer__social a { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 100px; background: #000; }
-    .m-footer__social img { width: 24px; height: 24px; }
-    .m-footer__bottom p { margin: 0; font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; color: #1e1e1e; }
 
     /* hamburger overlay: slides in from the right, 200ms ease-in-out (the Figma prototype's
        "Open overlay · Move in Right · Ease in and out · 200ms") */
     .m-menu { position: fixed; inset: 0; z-index: 1000; display: flex; flex-direction: column; background: var(--off-white); transform: translateX(100%); visibility: hidden; transition: transform 0.2s ease-in-out, visibility 0s linear 0.2s; overflow-y: auto; }
     .m-menu.is-open { transform: none; visibility: visible; transition: transform 0.2s ease-in-out; }
     .m-menu__bar { display: flex; align-items: center; justify-content: space-between; box-sizing: border-box; height: 76px; padding: 12px; flex: none; }
-    .m-menu__bar .m-nav__logo { position: static; }
-    .m-menu__close { position: relative; width: 32px; height: 32px; padding: 0; border: 0; background: none; cursor: pointer; }
-    .m-menu__close span { position: absolute; left: 4px; right: 4px; top: 15px; height: 2px; border-radius: 1px; background: var(--ink); transition: transform 0.2s ease-in-out; }
-    .m-menu__close span:first-child { transform: rotate(45deg); }
-    .m-menu__close span:last-child { transform: rotate(-45deg); }
-    .m-menu__links { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 24px; }
-    .m-menu__links a, .m-menu__drop { position: relative; display: inline-flex; align-items: center; gap: 6px; padding: 4px 0; border: 0; background: none; cursor: pointer; font-family: var(--font-body); font-size: 20px; line-height: 1.5; letter-spacing: 0.4px; color: var(--ink); text-decoration: none; }
-    .m-menu__links a::after, .m-menu__drop::after { content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: var(--ink); transition: width 0.2s ease-in-out; }
-    .m-menu__links a:hover::after, .m-menu__drop:hover::after, .m-menu__links a[aria-current="page"]::after { width: 100%; }
+    /* Absolutely positioned (relative to .m-menu, same reference as the
+       close button below) and pinned to the closed .m-nav bar's own
+       centered logo position (top:16px, now that bar is 82px tall) so
+       logo and X line up with where they sat before the menu opened,
+       instead of the bar's own shorter flex-centering. */
+    .m-menu__bar .m-nav__logo { position: absolute; top: 16px; left: 20px; }
+    /* Absolutely positioned (relative to .m-menu, which starts flush at
+       the screen top like .m-nav does) and pinned to top:19px — same
+       size and position as the closed bar's hamburger toggle — so the
+       X lands exactly where it was, same tap target. */
+    .m-menu__close { position: absolute; top: 19px; right: 20px; width: 44px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer; }
+    .m-menu__close::before,
+    .m-menu__close::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 22px;
+      height: 3px;
+      border-radius: 2px;
+      background: var(--ink);
+    }
+    .m-menu__close::before { transform: translate(-50%, -50%) rotate(45deg); }
+    .m-menu__close::after  { transform: translate(-50%, -50%) rotate(-45deg); }
+    /* Row size/font matches the shared mobile-menu (styles.css) used by
+       the other four pages — large touch targets instead of the former
+       compact desktop-style list. */
+    .m-menu__links { display: flex; flex-direction: column; align-items: flex-start; padding: 73px 24px 24px; }
+    .m-menu__links a, .m-menu__trigger-link { position: relative; display: inline-flex; align-items: center; padding: 21px 0; border: 0; background: none; cursor: pointer; font-family: var(--font-body); font-size: 24px; line-height: 1.2; letter-spacing: 0.02em; color: var(--ink); text-decoration: none; }
+    .m-menu__links a::after, .m-menu__trigger-link::after { content: ""; position: absolute; left: 0; bottom: 21px; height: 3px; width: 0; background: var(--ink); transition: width 0.2s ease-in-out; }
+    .m-menu__links a:hover::after, .m-menu__trigger-link:hover::after, .m-menu__links a[aria-current="page"]::after, .m-menu__group.is-open .m-menu__trigger-link::after { width: 100%; }
     .m-menu__links a[aria-current="page"] { font-weight: 700; }
-    .m-menu__chev { opacity: 0; transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out; }
-    .m-menu__drop:hover .m-menu__chev, .m-menu__drop[aria-expanded="true"] .m-menu__chev { opacity: 1; }
-    .m-menu__drop[aria-expanded="false"] .m-menu__chev { transform: rotate(180deg); }
-    .m-menu__sub { display: none; flex-direction: column; gap: 4px; padding: 4px 0 4px 16px; }
-    .m-menu__sub a { font-size: 16px; }
-    .m-menu__drop[aria-expanded="true"] + .m-menu__sub { display: flex; }
-    .m-menu__cta { align-self: flex-start; margin: 8px 24px 24px; height: 48px; padding: 12px 16px; background: var(--discord); }
+    /* Split button: the word is a real link to its own page, so it no
+       longer needs to be duplicated inside the dropdown — only the
+       chevron toggles the sub-list, same pattern as the shared menu. */
+    .m-menu__trigger-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .m-menu__chevron-btn { flex: none; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: none; background: none; cursor: pointer; color: var(--ink); }
+    .m-menu__chev { transform: rotate(180deg); transition: transform 0.2s ease-in-out; }
+    .m-menu__chevron-btn[aria-expanded="true"] .m-menu__chev { transform: rotate(0deg); }
+    .m-menu__sub { display: flex; flex-direction: column; max-height: 0; overflow: hidden; padding-left: 32px; transition: max-height 0.2s ease-in-out; }
+    .m-menu__sub a { padding: 11px 0; }
+    .m-menu__sub a::after { bottom: 11px; }
+    .m-menu__cta { align-self: flex-start; margin: 29px 24px 12px; height: 48px; padding: 12px 16px; background: var(--discord); }
     .m-menu__cta img { width: 24px; height: 24px; }
-    @media (prefers-reduced-motion: reduce) { .m-menu, .m-menu.is-open, .m-menu__chev, .m-menu__links a::after, .m-btn { transition: none; } }
+    /* Same shape as the Discord button, just a red matching Instagram's
+       own brand gradient (the red stop between its orange and pink). */
+    .m-menu__cta--instagram { margin-bottom: 24px; background: rgb(240, 49, 77); }
+    @media (prefers-reduced-motion: reduce) { .m-menu, .m-menu.is-open, .m-menu__chev, .m-menu__links a::after, .m-menu__sub, .m-btn { transition: none; } }
 
     /* ===== HORIZONTAL (the 852px landscape Figma frame, shown at 601-1000px) ===== */
     @media (min-width: 601px) and (max-width: 1000px) { body { background: #fff; } }
     .h-only img { max-width: none; }
-    .h-page { width: 852px; height: 5206px; zoom: var(--hz, 1); }
+    .h-page { width: 852px; height: 4831px; zoom: var(--hz, 1); } /* was 5206px — the footer (375px) is now a shared sibling, not part of this canvas */
     .h-page .m-nav { width: 852px; height: 160px; }
-    .h-page .m-nav__toggle { left: 808px; }
+    /* Full restatements, not partial overrides — the base .m-nav__logo/
+       .m-nav__toggle rules above were changed to match the shared 82px
+       mobile bar (portrait only); landscape keeps its own original
+       160px-centered values and image-based toggle icon untouched. */
+    .h-page .m-nav__logo { top: 54.5px; left: 12px; width: 52px; height: 52px; }
+    .h-page .m-nav__logo img { width: 100%; height: 100%; object-fit: cover; }
+    .h-page .m-nav__toggle { left: 808px; top: 64.5px; width: 32px; height: 32px; display: block; }
+    .h-page .m-nav__toggle img { width: 100%; height: 100%; }
     .h-page .m-hero { top: 160px; width: 852px; height: 308px; }
     .h-page .m-hero__bg { left: 0; width: 856px; height: 308px; }
     .h-page .m-hero__bg img { position: absolute; display: block; height: 196.98%; left: 0.01%; top: -96.9%; width: 100%; }
@@ -1154,14 +1294,134 @@
     .h-page .m-steps { margin-left: 28px; width: 774px; }
     .h-page .m-cta__box { width: 736px; height: 185px; padding-top: 0; }
     .h-page .m-cta__text { width: 521.86px; height: 52px; margin: 29.5px 0 31.5px; padding: 0; }
-    .h-page .m-footer--h { width: 852px; height: auto; }
-    .h-page .m-footer--h .m-footer__block { height: 330px; }
-    .h-page .m-footer--h .m-footer__nav { width: auto; gap: 40px; justify-content: flex-start; }
-    .h-page .m-footer--h .m-footer__col { flex-direction: row; gap: 40px; width: auto; }
-    .h-page .m-footer--h .m-footer__col--a .m-footer__group:first-child h3 { margin-bottom: 12px; }
-    .h-page .m-footer--h .m-footer__bottom { top: 214px; width: 600px; }
     @media (min-width: 1001px) { .m-menu { display: none; } }
     /* ===== /HORIZONTAL ===== */
+
+    /* ============================================================
+       DESKTOP-ONLY (>1800px — e.g. a 2560x1440 monitor). Matches the
+       same consistency pass done on DinoDex/About/Getting Started/
+       Flash Sales: side margins on nav + body content, hero text
+       aligned with them (hero photo itself stays full-bleed), and
+       the hero banner's height matched to Getting Started's 498px.
+       This page doesn't share styles.css/--grid-margin with those
+       four — it's a fully self-contained stylesheet with a different
+       layout model (a max-width column centered with auto margins,
+       vs. the other pages' full-width-minus-padding approach) — so
+       getting an actually-matching 148px/40px visual margin means
+       switching .nav__inner/.container/.hero__inner over to that
+       same full-width-plus-padding model here, not just adjusting
+       the existing centered column's width (that was tried first;
+       at 2560px it still left a ~600-700px centered gap, nowhere
+       close to the other pages' 148px/40px). The footer no longer uses
+       .container at all — it was replaced outright with DinoDex's own
+       footer markup/CSS (.footer-content etc.), which already carries
+       its own flat 28px side padding unconditionally, so it needs no
+       entry in this desktop-only block. ============================================================ */
+    @media (min-width: 1801px) {
+      .container {
+        width: 100%;
+        max-width: none;
+        margin-inline: 0;
+        padding-inline: 148px;
+        box-sizing: border-box;
+      }
+      .hero__inner {
+        width: 100%;
+        max-width: none;
+        margin-inline: 0;
+        padding-inline: 148px;
+        box-sizing: border-box;
+      }
+      .hero {
+        min-height: 498px;
+        /* Nudged up 80px then 60px more (140px total) per feedback. */
+        background-position: center calc(78% - 140px);
+      }
+      /* The costume-walk strip is object-fit:cover + bottom-anchored
+         (object-position: 65% 100%) so feet stay grounded in the
+         grass, but the image itself is very wide-and-short (2880x745)
+         and the wrapper spans the full viewport width — the taller
+         the viewport gets relative to the clamp's 280px ceiling, the
+         more gets cropped off the TOP, cutting into the characters'
+         heads/props. 280px was only ever enough up to ~1400px wide;
+         removing the ceiling here lets it keep scaling at the same
+         20vw the design already uses below that cap, which clears
+         even the tallest prop (the wizard's staff) with room to
+         spare at 2560px. */
+      .scenery-strip { height: 20vw; }
+      /* The lone leaf/stem sprite was baked into scenery-costumes.png
+         itself (confirmed via elementFromPoint, not post-claim-
+         graphic.svg as first assumed). A CSS overlay patch here never
+         reliably rendered above the image in this environment (tried
+         both a ::after pseudo-element and a real div, both with
+         verified-correct geometry — this environment's hit-testing/
+         paint just didn't put either above an object-fit:cover img),
+         so it was removed directly from the source PNG instead
+         (scanned + erased the matching green pixels, confirmed clean
+         with the surrounding rocks/characters untouched). */
+      /* Heading-to-content gap: 40px -> 24px (matched Getting Started) ->
+         12px (halved) -> 6px (halved again, per direct request). Applies
+         to General Rules and Flash Sale Rules, which intentionally stay
+         matched to each other via this one shared rule. */
+      .section__head { margin-bottom: -9px; }
+      /* Claim section's gap is +60px on top of the shared -9px
+         (back to having its own override — this time at a direct
+         request for this specific gap, not "match the rest"). */
+      .section--claim .section__head { margin-bottom: 51px; }
+      /* FAQ heading ("Common Rules Questions") -> .faq-list gap,
+         brought in line with the same -9px for full-page consistency. */
+      .faq-heading { margin-bottom: -9px; }
+      /* Hunt Rules' .section__head LOOKED like a smaller gap than
+         General/Flash Sale Rules even with the identical -9px margin,
+         because margin-bottom is measured from the .section__head
+         BOX's own bottom edge, not the subtitle text — and General
+         Rules' dino illustration (assets/rules-professor-dino) is
+         taller relative to its subtitle than Hunt's (assets/rules-hunt)
+         is relative to its own, by ~7.8px. Same box-relative margin,
+         different subtitle-relative visual gap. Compensating by that
+         same 7.8px here brings the two to the same visual gap. */
+      .section--hunt .section__head { margin-bottom: -1.2px; }
+      /* Hero -> General Rules gap: was this page's own base 72px
+         section padding-top (clamp(48px,8vw,72px) capped at 72 past
+         ~900px wide) — Getting Started's equivalent hero->content gap
+         (.gs-stack's padding-top) is 100px, so bumping this +28px to
+         match. Only General Rules needs it — Hunt/Flash Sale Rules
+         come after another .section, which already zeroes its own
+         padding-top via ".section + .section". */
+      .section--general { padding-top: 100px; }
+      /* General/Hunt/Flash Sale Rules' dino illustrations are already
+         box-top-aligned with the heading (align-items:flex-start put
+         the image's own top flush with the title's top), but each
+         image is much taller than the title line alone, so the
+         character's face sits well below it rather than "in line"
+         with the text. Shifting up by a % of each image's own height
+         (not a fixed px) keeps the three differently-sized images
+         (166/240/170px wide) proportionally consistent. */
+      .section__dino { transform: translateY(-20%); }
+      /* The yellow AND white flower sprites both sit baked into the same
+         post-claim-graphic.svg repeat-y background tile (not separately
+         positionable elements), so shifting this one background-position
+         moves every motif in it together — including both flowers, plus
+         the sparse scattered blobs/sparkles elsewhere in the section.
+         Current total shift: 80px left (-50 then -30 more), 90px down
+         (+30 then +60 more). It's a sparse, non-grid pattern, so nothing
+         else in it depends on the exact position; the newly exposed
+         edges just show the section's own solid green, matching the
+         tile's own background. */
+      .section.section--claim {
+        background: var(--green) url("assets/post-claim-graphic.svg") repeat-y calc(50% - 80px) 90px / 100% auto;
+      }
+      /* FAQ cards are sized off --fu (100vw/1440 — the full viewport,
+         not this container's own width), so once the container is
+         narrower than the viewport they no longer fill its row width;
+         with align-items:flex-start that left them hugging the left
+         edge with a visible gap on the right. Centering them doesn't
+         fix the underlying viewport-vs-container sizing mismatch, but
+         it does correct exactly the visual symptom here. */
+      .faq-list { align-items: center; }
+      /* Nudged per feedback: 70px left, 200px right, 70px left (net 60px right), 120px up then 70px up (net 190px up) from its Figma position. */
+      .blob-edge--teal { right: -205px; top: 113px; }
+    }
   </style>
 </head>
 
@@ -1169,35 +1429,33 @@
 
 <div class="d-only">
   <!-- ============ NAV ============ -->
-  <header class="nav" id="nav">
-    <nav class="nav__inner" aria-label="Primary">
-      <a class="nav__logo" href="index.html" aria-label="Triceratops Club home">
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.html" class="site-logo">
         <img src="assets/logo.png" alt="UC Davis Triceratops Club logo">
       </a>
 
-      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle menu">&#9776;</button>
-
-      <ul class="nav__links" id="navLinks">
-        <li><a href="index.html">Home</a></li>
-        <li class="nav__drop">
-          <a href="getting-started.html">
+      <nav class="main-nav" aria-label="Primary">
+        <a class="main-nav__link" href="index.html">Home</a>
+        <div class="nav-dropdown">
+          <a class="main-nav__link" href="getting-started.html">
             Getting Started
-            <img class="nav__chevron" src="assets/icons/chevron.svg" alt="" aria-hidden="true">
+            <img class="main-nav__chevron" src="assets/chevron-down.svg" alt="">
           </a>
-          <div class="nav__drop-panel">
+          <div class="nav-dropdown__panel">
             <a href="flash-sales.html">Flash Sales</a>
           </div>
-        </li>
-        <li><a href="dinodex.html">DinoDex</a></li>
-        <li><a href="rules.html" aria-current="page">Rules</a></li>
-        <li><a href="about.html">About Us</a></li>
-      </ul>
+        </div>
+        <a class="main-nav__link" href="dinodex.html">DinoDex</a>
+        <a class="main-nav__link main-nav__link--current" href="rules.html" aria-current="page">Rules</a>
+        <a class="main-nav__link" href="about.html">About Us</a>
+      </nav>
 
-      <a class="nav__cta" href="https://discord.gg/" target="_blank" rel="noopener">
-        <img src="assets/icons/discord.svg" alt="" aria-hidden="true">
+      <a href="https://discord.gg/MzDujDpgZ9" target="_blank" rel="noopener" class="btn btn-discord">
+        <img src="assets/discord-icon.svg" alt="" aria-hidden="true">
         Join Our Discord
       </a>
-    </nav>
+    </div>
   </header>
 
   <main>
@@ -1431,7 +1689,7 @@
         <img class="claim-dino" src="assets/post-claim-dino.svg" alt="" aria-hidden="true">
         <div class="section__head reveal">
           <div class="section__head-text">
-            <h2 class="section__title" id="claim-title">Claimed a dino? Here are your next steps:</h2>
+            <h2 class="section__title" id="claim-title">Claimed a dino?<br>Here are your next steps:</h2>
             <p class="section__subtitle">The next actionable steps post-claim!</p>
           </div>
         </div>
@@ -1527,72 +1785,13 @@
 
   </main>
 
-  <!-- ============ FOOTER ============ -->
-  <footer class="site-footer">
-    <div class="site-footer__grass" aria-hidden="true"></div>
-    <div class="site-footer__inner container">
-      <div class="footer-cols">
-        <div class="footer-col">
-          <h3><a href="index.html">Home</a></h3>
-          <ul>
-            <li>Testimonials</li>
-            <li>Map</li>
-            <li>Event Calendar</li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h3><a href="getting-started.html">Getting Started</a></h3>
-          <ul>
-            <li>Set Up Notifs</li>
-            <li>Drop Types</li>
-            <li>FAQ</li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h3><a href="dinodex.html">DinoDex</a></h3>
-          <ul>
-            <li>Popular Dinos</li>
-            <li>Dino Types</li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h3><a href="rules.html" aria-current="page">Rules</a></h3>
-          <ul>
-            <li>Claiming Process</li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h3><a href="about.html">About Us</a></h3>
-          <ul>
-            <li>Get Involved</li>
-            <li>Contact Form</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <p>&copy; 2026 UC Davis Triceratops Club | All Rights Reserved</p>
-        <div class="footer-social">
-          <a href="mailto:hello@ucdavistriceratops.org" aria-label="Email us">
-            <img src="assets/icons/email.svg" alt="">
-          </a>
-          <a href="https://discord.gg/" target="_blank" rel="noopener" aria-label="Join our Discord">
-            <img src="assets/icons/discord.svg" alt="">
-          </a>
-          <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Follow us on Instagram">
-            <img src="assets/icons/instagram.svg" alt="">
-          </a>
-        </div>
-      </div>
-    </div>
-  </footer>
 </div>
 
 <div class="m-only" id="mobile">
 <div class="m-page" id="mPage">
   <header class="m-nav" id="mNav">
     <a class="m-nav__logo" href="index.html" aria-label="Triceratops Club home"><img src="assets/mobile/logo.png" alt="UC Davis Triceratops Club logo"></a>
-    <button class="m-nav__toggle" id="mMenuOpen" type="button" aria-expanded="false" aria-controls="mMenu" aria-label="Open menu"><img src="assets/mobile/menu-open.svg" alt=""></button>
+    <button class="m-nav__toggle" id="mMenuOpen" type="button" aria-expanded="false" aria-controls="mMenu" aria-label="Open menu"><span></span><span></span><span></span></button>
   </header>
 
   <section class="m-hero" aria-label="Rules">
@@ -1603,14 +1802,14 @@
     </div>
   </section>
 
-  <div class="m-sec-gfx m-p" style="--x:141.66;--y:411"><img src="assets/mobile/general-graphic.png" alt="A triceratops reading the rules" style="left:4.27px;top:7.22px;width:108.19px;height:105.15px"></div>
+  <div class="m-sec-gfx m-p" style="--x:141.66;--y:332"><img src="assets/mobile/general-graphic.png" alt="A triceratops reading the rules" style="left:4.27px;top:7.22px;width:108.19px;height:105.15px"></div>
 
-  <div class="m-head m-p" style="--x:19;--y:558;">
+  <div class="m-head m-p" style="--x:19;--y:479;">
     <h2 class="m-title" id="m-general-title"><span class="m-title__dot"></span>General Rules</h2>
     <p class="m-sub">Triceratops&rsquo; #1 priority is safe Discord behavior and community conduct. Please read over the following for general Behavior &amp; Conduct rules.</p>
   </div>
 
-    <article class="m-card m-p" style="--x:38;--y:683;--accent:#ACD87D">
+    <article class="m-card m-p" style="--x:38;--y:661;--accent:#ACD87D">
       <div class="m-card__head">
         <span class="m-card__ic" style="width:28px"><img src="assets/mobile/ic-check.svg" alt="" style="width:28px;height:28px"></span>
         <h3 class="m-card__title m-card__title--lg">Always</h3>
@@ -1618,7 +1817,7 @@
       <div class="m-card__body m-card__body--lined" style="height:237px"><p class="m-lined m-lh13"><b>Respectful behavior is expected at all times</b>, both in-person and within our online community.</p><span class="m-rule" style="--accent:#ACD87D"></span><p class="m-lined m-lh15"><b>Be respectful </b>to staff members during drops.</p><span class="m-rule" style="--accent:#ACD87D"></span><p class="m-lined m-lh13"><b>Keep DMs to the Instagram strictly related to Davis Triceratops</b>, do not send personal DMs to our official club Instagram.</p></div>
     </article>
 
-    <article class="m-card m-p" style="--x:39;--y:1009;--accent:#F8C9DC">
+    <article class="m-card m-p" style="--x:39;--y:987;--accent:#F8C9DC">
       <div class="m-card__head">
         <span class="m-card__ic" style="width:24px"><img src="assets/mobile/ic-x.svg" alt="" style="width:28px;height:28px"></span>
         <h3 class="m-card__title m-card__title--lg">Never</h3>
@@ -1626,14 +1825,14 @@
       <div class="m-card__body m-card__body--lined" style="height:287px"><p class="m-lined m-lh13"><b>Do not post NSFW content in the server. </b>This is an immediately bannable offense.</p><span class="m-rule" style="--accent:#F8C9DC"></span><p class="m-lined m-lh15"><b>No rude, slanderous, offensive, or hateful comments, </b>indecent or inappropriate content, or slurs of any kind.</p><span class="m-rule" style="--accent:#F8C9DC"></span><p class="m-lined m-lh13"><b>Do not reveal staff location </b>during drops or their individual time.</p><span class="m-rule" style="--accent:#F8C9DC"></span><p class="m-lined m-lh13"><b>Do not DM staff </b>unless given explicit permission by staff.</p></div>
     </article>
 
-  <div class="m-sec-gfx m-p" style="--x:141.66;--y:1393"><img src="assets/mobile/hunt-graphic.png" alt="A triceratops peeking out of a bush" style="left:-19.76px;top:9.88px;width:156.23px;height:99.84px"></div>
+  <div class="m-sec-gfx m-p" style="--x:141.66;--y:1371"><img src="assets/mobile/hunt-graphic.png" alt="A triceratops peeking out of a bush" style="left:-19.76px;top:9.88px;width:156.23px;height:99.84px"></div>
 
-  <div class="m-head m-p" style="--x:24;--y:1540;">
+  <div class="m-head m-p" style="--x:24;--y:1518;">
     <h2 class="m-title" id="m-hunt-title"><span class="m-title__dot"></span>Hunt Rules</h2>
     <p class="m-sub">Any confusion on how a scavenger works and operates? Read the following to prepare yourself with these hunt rules so your hunt can go smoothly.</p>
   </div>
 
-    <article class="m-card m-p" style="--x:39;--y:1662;--accent:#ACD87D">
+    <article class="m-card m-p" style="--x:39;--y:1697;--accent:#ACD87D">
       <div class="m-card__head">
         <span class="m-card__ic" style="width:24.39px"><img src="assets/mobile/ic-loc.svg" alt="" style="width:24.8px;height:30.21px"></span>
         <h3 class="m-card__title ">Outdoors Only</h3>
@@ -1641,7 +1840,7 @@
       <div class="m-card__body " style="height:218px"><p class="m-lead ">Most dinos or event materials will be hidden outdoors.</p><ul class="m-list"><li class="m-li"><span class="m-dot"></span><p>Dinos will only be <b>hidden inside</b> if stated specifically by the dropper.</p></li><li class="m-li"><span class="m-dot"></span><p><b>Be respectful </b>to those around you. The goal is safety and giving others space.</p></li><li class="m-li"><span class="m-dot"></span><p>If dinos are hidden inside, <b>be mindful </b>of your surroundings and other people.</p></li></ul></div>
     </article>
 
-    <article class="m-card m-p" style="--x:39;--y:1969;--accent:#BDE6E6">
+    <article class="m-card m-p" style="--x:39;--y:2004;--accent:#BDE6E6">
       <div class="m-card__head">
         <span class="m-card__ic" style="width:24px"><img src="assets/mobile/ic-accessible.svg" alt="" style="width:26px;height:26px"></span>
         <h3 class="m-card__title ">Accessible Spots Only</h3>
@@ -1649,7 +1848,7 @@
       <div class="m-card__body " style="height:296px"><p class="m-lead m-lead--box">Never endanger yourself to access event materials.</p><ul class="m-list"><li class="m-li"><span class="m-dot"></span><p>Do not trample or damage plants or property of any sort.</p></li><li class="m-li"><span class="m-dot"></span><p>Dinos will not be placed deeply into bushes.</p></li><li class="m-li"><span class="m-dot"></span><p>If a dino is displaced somewhere hard to reach, do not risk your personal safety to retrieve it.</p></li><li class="m-li"><span class="m-dot"></span><p>Stay on the path, <b>stay out of construction zones</b>, and leave campus spaces as you found them.</p></li></ul></div>
     </article>
 
-    <article class="m-card m-p" style="--x:39;--y:2354;--accent:#EBE6A0">
+    <article class="m-card m-p" style="--x:39;--y:2389;--accent:#EBE6A0">
       <div class="m-card__head">
         <span class="m-card__ic" style="width:24px"><img src="assets/mobile/ic-clock.svg" alt="" style="width:26px;height:26px"></span>
         <h3 class="m-card__title ">Random Timing</h3>
@@ -1657,7 +1856,7 @@
       <div class="m-card__body " style="height:171px"><p class="m-lead ">Daily dino drops occur at random.</p><ul class="m-list"><li class="m-li"><span class="m-dot"></span><p><b>Timing depends</b> on the Dropper&rsquo;s personal discretion, schedule, and time permitted.</p></li><li class="m-li"><span class="m-dot"></span><p>Drops will occur <b>only during daylight hours.</b></p></li></ul></div>
     </article>
 
-    <article class="m-card m-p" style="--x:39;--y:2614;--accent:#F8C9DC">
+    <article class="m-card m-p" style="--x:39;--y:2649;--accent:#F8C9DC">
       <div class="m-card__head">
         <span class="m-card__ic" style="width:24px"><img src="assets/mobile/ic-ask.svg" alt="" style="width:24px;height:24px"></span>
         <h3 class="m-card__title ">Don&rsquo;t Ask About Drops</h3>
@@ -1665,7 +1864,7 @@
       <div class="m-card__body " style="height:201px"><p class="m-lead m-lead--box">Do not ask when or where drops may occur.</p><ul class="m-list"><li class="m-li"><span class="m-dot"></span><p>Pleading and excessively requesting for drops <b>may result in corrective action.</b></p></li></ul><p class="m-note">Remember that each of our hardworking staff commits their personal time and effort to allow for drops to occur.</p></div>
     </article>
 
-    <article class="m-card m-p" style="--x:39;--y:2904;--accent:#ACD87D">
+    <article class="m-card m-p" style="--x:39;--y:2939;--accent:#ACD87D">
       <div class="m-card__head">
         <span class="m-card__ic" style="width:24px"><img src="assets/mobile/ic-limits.svg" alt="" style="width:24px;height:24px"></span>
         <h3 class="m-card__title ">Adhere to Dino Limits</h3>
@@ -1673,7 +1872,7 @@
       <div class="m-card__body " style="height:266px"><p class="m-lead m-lead--box">Each person is limited to:</p><div class="m-pills"><span>1 Monthly Dino per month</span><span>1 Milestone Dino</span><span>1 Aggieceratops Dino</span><span>1 of each type of Special Dino</span></div><ul class="m-list m-list--after-pills"><li class="m-li"><span class="m-dot"></span><p>These limits promote <b>fairness and equal opportunity</b> for all event participants.</p></li><li class="m-li"><span class="m-dot"></span><p>Anyone caught trying to bypass the dino limits will be <b>banned from the server.</b></p></li></ul></div>
     </article>
 
-    <article class="m-card m-p" style="--x:39;--y:3259;--accent:#BDE6E6">
+    <article class="m-card m-p" style="--x:39;--y:3294;--accent:#BDE6E6">
       <div class="m-card__head">
         <span class="m-card__ic" style="width:22px"><img src="assets/mobile/ic-flash.svg" alt="" style="width:22px;height:32px"></span>
         <h3 class="m-card__title ">Flash Sale Rules</h3>
@@ -1681,14 +1880,14 @@
       <div class="m-card__body " style="height:195px"><p class="m-lead m-lead--box">For EACH month&rsquo;s flash sale, you can buy one regular and one medium dino.</p><ul class="m-list"><li class="m-li"><span class="m-dot"></span><p>This rule <b>resets every year.</b></p></li></ul><p class="m-note">e.g. one regular and one medium dino in every flash sale of 2026 - that resets at the end of 2026 and starts over for 2027.</p></div>
     </article>
 
-  <div class="m-sec-gfx m-p" style="--x:141.66;--y:3551"><img src="assets/mobile/flash-graphic.png" alt="A triceratops at a laptop" style="left:2.89px;top:5.46px;width:110.93px;height:108.67px"></div>
+  <div class="m-sec-gfx m-p" style="--x:141.66;--y:3586"><img src="assets/mobile/flash-graphic.png" alt="A triceratops at a laptop" style="left:2.89px;top:5.46px;width:110.93px;height:108.67px"></div>
 
-  <div class="m-head m-p" style="--x:24;--y:3698;">
+  <div class="m-head m-p" style="--x:24;--y:3733;">
     <h2 class="m-title" id="m-flash-title"><span class="m-title__dot"></span>Flash Sale Rules</h2>
     <p class="m-sub">Flash sales are one of your only opportunities to directly purchase a dino from the club. To know more about how to obtain one, read the information below.</p>
   </div>
 
-  <div class="m-flash m-p" style="--x:30;--y:3819">
+  <div class="m-flash m-p" style="--x:30;--y:3936">
     <div class="m-listing">
       <h3>Listing Hours</h3>
       <div class="m-listing__times"><span>12am - 10am</span><span>5pm - 11:59pm</span></div>
@@ -1699,12 +1898,12 @@
     <div class="m-point" style="height:79px;padding-block:15px"><span class="m-num" style="--bg:#EBE6A0">3</span><p class="m-bold"><b>Behave respectfully and properly during flash sales! Do NOT</b> demand and force our staff to list sales.</p></div>
   </div>
 
-  <div class="m-flowers m-p" style="--x:30;--y:4406" aria-hidden="true"><img src="assets/mobile/flowers-trio.svg" alt=""><img src="assets/mobile/flowers-trio.svg" alt=""><img src="assets/mobile/flowers-trio.svg" alt=""></div>
+  <div class="m-flowers m-p" style="--x:30;--y:4523" aria-hidden="true"><img src="assets/mobile/flowers-trio.svg" alt=""><img src="assets/mobile/flowers-trio.svg" alt=""><img src="assets/mobile/flowers-trio.svg" alt=""></div>
   <section class="m-claim" aria-labelledby="m-claim-title">
     <img class="m-claim__grass" src="assets/grass.svg" alt="">
-    <img class="m-claim__bg m-p" style="--x:0;--y:4573.15" src="assets/mobile/claim-graphic.svg" alt="">
-    <div class="m-scenery m-p" style="--x:7;--y:4515"><img src="assets/mobile/scenery-costumes.png" alt="Triceratops club mascots in costume, walking through the grass"></div>
-    <div class="m-claim__body m-p" style="--x:16.04;--y:4609.51">
+    <img class="m-claim__bg m-p" style="--x:0;--y:4690.15" src="assets/mobile/claim-graphic.svg" alt="">
+    <div class="m-scenery m-p" style="--x:7;--y:4632"><img src="assets/mobile/scenery-costumes.png" alt="Triceratops club mascots in costume, walking through the grass"></div>
+    <div class="m-claim__body m-p" style="--x:16.04;--y:4726.51">
       <h2 class="m-title m-title--claim" id="m-claim-title"><span class="m-title__dot"></span><span>Claimed a Dino? Here are<br>your next steps:</span></h2>
       <ol class="m-steps">
         <li><span class="m-step__n"><img src="assets/step-found.png" alt=""></span><p>After finding a monthly triceratops, make a post in the <b>#found-triceratops</b> text channel. This post should include a photo proof of the triceratops.</p></li>
@@ -1715,68 +1914,36 @@
   </section>
 
   <section class="m-faq" aria-labelledby="m-faq-title">
-    <div class="m-faq__decor m-p" style="--x:352;--y:5109" aria-hidden="true"><img src="assets/mobile/faq-decor.svg" alt=""></div>
-    <img class="m-faq__cloud m-p" style="--x:25;--y:5110" src="assets/mobile/faq-cloud.svg" alt="" aria-hidden="true">
-    <h2 class="m-title m-p m-faq__title" id="m-faq-title" style="--x:76;--y:5207"><span class="m-title__dot"></span>Common Rules FAQ</h2>
-    <img class="m-faq__bee m-faq__bee--flip m-p" style="--x:11;--y:5340" src="assets/bee-dino.png" alt="">
+    <div class="m-faq__decor m-p" style="--x:352;--y:5226" aria-hidden="true"><img src="assets/mobile/faq-decor.svg" alt=""></div>
+    <img class="m-faq__cloud m-p" style="--x:25;--y:5227" src="assets/mobile/faq-cloud.svg" alt="" aria-hidden="true">
+    <h2 class="m-title m-p m-faq__title" id="m-faq-title" style="--x:76;--y:5324"><span class="m-title__dot"></span>Common Rules FAQ</h2>
+    <img class="m-faq__bee m-faq__bee--flip m-p" style="--x:11;--y:5457" src="assets/bee-dino.png" alt="">
     
-    <img class="m-faq__bubble m-p" style="--x:83;--y:5317.19" src="assets/mobile/faq-bubble-1.svg" alt="">
-    <h3 class="m-faq__q m-p" style="--x:110.55;--y:5331.19">What if I miss a monthly dino drop? Will I have more chances to hunt for more?</h3>
-    <div class="m-faq__a m-p" style="--x:112.55;--y:5417.19;--accent:#ACD87D;--lh:99"><span class="m-faq__line" style="height:99px"></span><p style="height:99px">If you<b> miss a monthly dino drop,</b> do not worry; there will certainly be more to come! Dino drops of a certain month will <b>last until the</b> <b>second to last day of the month</b>, so be on the lookout for more drops from our staff.</p></div>
+    <img class="m-faq__bubble m-p" style="--x:83;--y:5434.19" src="assets/mobile/faq-bubble-1.svg" alt="">
+    <h3 class="m-faq__q m-p" style="--x:110.55;--y:5448.19">What if I miss a monthly dino drop? Will I have more chances to hunt for more?</h3>
+    <div class="m-faq__a m-p" style="--x:112.55;--y:5534.19;--accent:#ACD87D;--lh:99"><span class="m-faq__line" style="height:99px"></span><p style="height:99px">If you<b> miss a monthly dino drop,</b> do not worry; there will certainly be more to come! Dino drops of a certain month will <b>last until the</b> <b>second to last day of the month</b>, so be on the lookout for more drops from our staff.</p></div>
     
-    <img class="m-faq__bubble m-p" style="--x:29;--y:5556.19" src="assets/mobile/faq-bubble-2.svg" alt="">
-    <h3 class="m-faq__q m-p" style="--x:51;--y:5571.19">Staff often drop different types of dinos within a hunt. What if I find a dino type that I already have or am not searching for?</h3>
-    <div class="m-faq__a m-p" style="--x:54;--y:5698.19;--accent:#BDE6E6;--lh:85"><span class="m-faq__line" style="height:85px"></span><p style="height:85px">If you find a dino you do not want, <b>carefully hide the dino in the same place.</b> If you are unable to, you may also <b>return the dino</b> to the staff who is in charge of the current hunt.</p></div>
-    <img class="m-faq__bee m-p" style="--x:321;--y:5598" src="assets/bee-dino.png" alt="">
+    <img class="m-faq__bubble m-p" style="--x:29;--y:5673.19" src="assets/mobile/faq-bubble-2.svg" alt="">
+    <h3 class="m-faq__q m-p" style="--x:51;--y:5688.19">Staff often drop different types of dinos within a hunt. What if I find a dino type that I already have or am not searching for?</h3>
+    <div class="m-faq__a m-p" style="--x:54;--y:5815.19;--accent:#BDE6E6;--lh:85"><span class="m-faq__line" style="height:85px"></span><p style="height:85px">If you find a dino you do not want, <b>carefully hide the dino in the same place.</b> If you are unable to, you may also <b>return the dino</b> to the staff who is in charge of the current hunt.</p></div>
+    <img class="m-faq__bee m-p" style="--x:321;--y:5715" src="assets/bee-dino.png" alt="">
     
-    <img class="m-faq__bubble m-p" style="--x:95;--y:5821.19" src="assets/mobile/faq-bubble-3.svg" alt="">
-    <h3 class="m-faq__q m-p" style="--x:122.55;--y:5835.19">Any questions on these rules, or about anything at all?</h3>
-    <div class="m-faq__a m-p" style="--x:125;--y:5893.19;--accent:#F8C9DC;--lh:70"><span class="m-faq__line" style="height:70px"></span><p style="height:68px">Open a ticket in the <b>#modmail </b>channel, and <b>use the command /tickets</b> open to ask our staff any questions!</p></div>
-    <img class="m-faq__bee m-faq__bee--flip m-p" style="--x:9;--y:5869" src="assets/bee-dino.png" alt="">
+    <img class="m-faq__bubble m-p" style="--x:95;--y:5938.19" src="assets/mobile/faq-bubble-3.svg" alt="">
+    <h3 class="m-faq__q m-p" style="--x:122.55;--y:5952.19">Any questions on these rules, or about anything at all?</h3>
+    <div class="m-faq__a m-p" style="--x:125;--y:6010.19;--accent:#F8C9DC;--lh:70"><span class="m-faq__line" style="height:70px"></span><p style="height:68px">Open a ticket in the <b>#modmail </b>channel, and <b>use the command /tickets</b> open to ask our staff any questions!</p></div>
+    <img class="m-faq__bee m-faq__bee--flip m-p" style="--x:9;--y:5986" src="assets/bee-dino.png" alt="">
   </section>
 
   <section class="m-cta" aria-labelledby="m-cta-title">
-    <img class="m-p m-cta__daisy" style="--x:43;--y:6043" src="assets/mobile/cta-daisy.svg" alt="" aria-hidden="true">
-    <img class="m-p m-cta__sprouts" style="--x:267.93;--y:6016" src="assets/mobile/cta-sprouts.svg" alt="" aria-hidden="true">
-    <img class="m-p" style="--x:-32;--y:5986;width:73.33px;height:81px" src="assets/mobile/cta-blobs.svg" alt="" aria-hidden="true">
-    <img class="m-p" style="--x:19.8;--y:6044.38;width:21.82px;height:22.67px" src="assets/mobile/cta-flower.svg" alt="" aria-hidden="true">
-    <div class="m-cta__box m-p" style="--x:21;--y:6083">
+    <img class="m-p m-cta__daisy" style="--x:43;--y:6160" src="assets/mobile/cta-daisy.svg" alt="" aria-hidden="true">
+    <img class="m-p m-cta__sprouts" style="--x:267.93;--y:6133" src="assets/mobile/cta-sprouts.svg" alt="" aria-hidden="true">
+    <img class="m-p" style="--x:-32;--y:6103;width:73.33px;height:81px" src="assets/mobile/cta-blobs.svg" alt="" aria-hidden="true">
+    <img class="m-p" style="--x:19.8;--y:6161.38;width:21.82px;height:22.67px" src="assets/mobile/cta-flower.svg" alt="" aria-hidden="true">
+    <div class="m-cta__box m-p" style="--x:21;--y:6200">
       <p class="m-cta__text" id="m-cta-title">Have more questions or need clarification? Ask in <a href="https://discord.gg/" target="_blank" rel="noopener">#rules-help</a> on Discord.</p>
       <a class="m-btn" href="https://discord.gg/" target="_blank" rel="noopener">Join the Discord!</a>
     </div>
   </section>
-
-  <footer class="m-footer">
-    <div class="m-footer__grass" aria-hidden="true"><img style="left:227.69px" src="assets/mobile/footer-grass-a.svg" alt=""><img class="m-flipx" style="left:0" src="assets/mobile/footer-grass-b.svg" alt=""><img style="left:113.72px" src="assets/mobile/footer-grass-a.svg" alt=""></div>
-    <div class="m-footer__block">
-      <div class="m-footer__decor" aria-hidden="true">
-        <img class="m-fp" style="left:86.47px;bottom:1.55px;width:58.1px" src="assets/mobile/footer-dino-1.png" alt="">
-        <img class="m-fp" style="left:21px;top:723px;width:61.2px" src="assets/mobile/footer-dino-2.png" alt="">
-        <img class="m-fp" style="left:187.08px;bottom:-0.14px;width:28px" src="assets/mobile/footer-sprout-1.png" alt="">
-        <img class="m-fp" style="left:164.09px;bottom:-0.08px;width:21px" src="assets/mobile/footer-sprout-2.png" alt="">
-        <img class="m-fp" style="left:-30px;top:19.46px;width:65.106px;height:34.468px" src="assets/mobile/footer-cloud-1a.svg" alt=""><span class="m-fp" style="left:-26.94px;top:17.92px;width:64.235px;height:34.468px"><img style="position:absolute;inset:-5.51% -4.51% -22.92% -10.74%;max-width:none;width:auto;height:auto" src="assets/mobile/footer-cloud-1b.svg" alt=""></span><img class="m-fp" style="left:264px;top:355.92px;width:85px;height:45px" src="assets/mobile/footer-cloud-2a.svg" alt=""><span class="m-fp" style="left:268px;top:353.92px;width:83.863px;height:45px"><img style="position:absolute;inset:-4.22% -3.46% -17.56% -8.23%;max-width:none;width:auto;height:auto" src="assets/mobile/footer-cloud-2b.svg" alt=""></span><img class="m-fp" style="left:352px;top:153.37px;width:61.489px;height:32.553px" src="assets/mobile/footer-cloud-3a.svg" alt=""><span class="m-fp" style="left:354.89px;top:151.92px;width:60.667px;height:32.553px"><img style="position:absolute;inset:-5.84% -4.78% -24.27% -11.37%;max-width:none;width:auto;height:auto" src="assets/mobile/footer-cloud-3b.svg" alt=""></span>
-      </div>
-      <nav class="m-footer__nav" aria-label="Footer">
-        <div class="m-footer__col m-footer__col--a">
-          <div class="m-footer__group"><h3><a href="index.html">Home</a></h3><ul class="m-footer__list m-footer__list--g12"><li>Testimonials</li><li>Map</li><li>Event Calendar</li></ul></div>
-          <div class="m-footer__group"><h3><a href="dinodex.html">DinoDex</a></h3><ul class="m-footer__list m-footer__list--g12"><li>Popular Dinos</li><li>Dino Types</li></ul></div>
-          <div class="m-footer__group"><h3><a href="about.html">About Us</a></h3><ul class="m-footer__list m-footer__list--g12"><li>Get Involved</li><li>Contact Form</li></ul></div>
-        </div>
-        <div class="m-footer__col m-footer__col--b">
-          <div class="m-footer__group"><h3><a href="getting-started.html">Getting Started</a></h3><ul class="m-footer__list m-footer__list--g12"><li>Set Up Notifs</li><li>Drop Types</li><li>FAQ</li></ul></div>
-          <div class="m-footer__group"><h3><a href="rules.html" aria-current="page">Rules</a></h3><ul class="m-footer__list"><li>Claiming Process</li></ul></div>
-        </div>
-      </nav>
-      <div class="m-footer__bottom">
-        <div class="m-footer__social">
-          <a href="mailto:hello@ucdavistriceratops.org" aria-label="Email us"><img src="assets/icons/email.svg" alt=""></a>
-          <a href="https://discord.gg/" target="_blank" rel="noopener" aria-label="Join our Discord"><img src="assets/icons/discord.svg" alt=""></a>
-          <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><img src="assets/icons/instagram.svg" alt=""></a>
-        </div>
-        <p>&copy; 2026 UC Davis Triceratops Club | All Rights Reserved</p>
-      </div>
-    </div>
-  </footer>
 </div>
 
 </div>
@@ -1784,19 +1951,23 @@
 <div class="m-menu" id="mMenu" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true">
   <div class="m-menu__bar">
     <a class="m-nav__logo" href="index.html" aria-label="Triceratops Club home"><img src="assets/mobile/logo.png" alt=""></a>
-    <button class="m-menu__close" id="mMenuClose" type="button" aria-label="Close menu"><span></span><span></span></button>
+    <button class="m-menu__close" id="mMenuClose" type="button" aria-label="Close menu"></button>
   </div>
   <nav class="m-menu__links" aria-label="Primary">
     <a href="index.html">Home</a>
     <div class="m-menu__group">
-      <button type="button" class="m-menu__drop" aria-expanded="false" aria-controls="mSubGs">Getting Started <svg class="m-menu__chev" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 15l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <div class="m-menu__sub" id="mSubGs"><a href="getting-started.html">Getting Started</a><a href="flash-sales.html">Flash Sales</a></div>
+      <div class="m-menu__trigger-row">
+        <a class="m-menu__trigger-link" href="getting-started.html">Getting Started</a>
+        <button type="button" class="m-menu__chevron-btn" aria-expanded="false" aria-controls="mSubGs" aria-label="Toggle Getting Started submenu"><svg class="m-menu__chev" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M6 15l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <div class="m-menu__sub" id="mSubGs"><a href="flash-sales.html">Flash Sales</a></div>
     </div>
     <a href="dinodex.html">DinoDex</a>
     <a href="rules.html" aria-current="page">Rules</a>
     <a href="about.html">About Us</a>
   </nav>
-  <a class="m-btn m-menu__cta" href="https://discord.gg/" target="_blank" rel="noopener"><img src="assets/icons/discord.svg" alt="" aria-hidden="true">Join Our Discord</a>
+  <a class="m-btn m-menu__cta" href="https://discord.gg/MzDujDpgZ9" target="_blank" rel="noopener"><img src="assets/icons/discord.svg" alt="" aria-hidden="true">Join Our Discord</a>
+  <a class="m-btn m-menu__cta m-menu__cta--instagram" href="https://www.instagram.com/davis_triceratops/" target="_blank" rel="noopener"><img src="assets/instagram-social-icon.svg" alt="" aria-hidden="true">Follow Our Instagram</a>
 </div>
 
 <div class="h-only" id="horizontal">
@@ -1959,42 +2130,102 @@
       <a class="m-btn" href="https://discord.gg/" target="_blank" rel="noopener">Join the Discord!</a>
     </div>
   </section>
-
-  <footer class="m-footer m-footer--h" style="top:4831px">
-    <div class="m-footer__grass" aria-hidden="true"><img class="m-flipx" style="left:0.0px" src="assets/mobile/footer-grass-b.svg" alt=""><img style="left:113.72px" src="assets/mobile/footer-grass-a.svg" alt=""><img style="left:227.44px" src="assets/mobile/footer-grass-a.svg" alt=""><img class="m-flipx" style="left:341.16px" src="assets/mobile/footer-grass-b.svg" alt=""><img style="left:454.88px" src="assets/mobile/footer-grass-a.svg" alt=""><img style="left:568.6px" src="assets/mobile/footer-grass-a.svg" alt=""><img class="m-flipx" style="left:682.32px" src="assets/mobile/footer-grass-b.svg" alt=""><img style="left:796.04px" src="assets/mobile/footer-grass-a.svg" alt=""><img style="left:909.76px" src="assets/mobile/footer-grass-a.svg" alt=""></div>
-    <div class="m-footer__block">
-      <div class="m-footer__decor" aria-hidden="true">
-        <img class="m-fp" style="left:690px;bottom:1.55px;width:58.1px" src="assets/mobile/footer-dino-1.png" alt="">
-        <img class="m-fp" style="left:790px;top:250px;width:61.2px" src="assets/mobile/footer-dino-2.png" alt="">
-        <img class="m-fp" style="left:770px;bottom:-0.14px;width:28px" src="assets/mobile/footer-sprout-1.png" alt="">
-        <img class="m-fp" style="left:747px;bottom:-0.08px;width:21px" src="assets/mobile/footer-sprout-2.png" alt="">
-        <img class="m-fp" style="left:-30px;top:19.46px;width:65.106px;height:34.468px" src="assets/mobile/footer-cloud-1a.svg" alt=""><span class="m-fp" style="left:-26.94px;top:17.92px;width:64.236px;height:34.468px"><img style="position:absolute;inset:-5.51% -4.51% -22.92% -10.74%;max-width:none;width:auto;height:auto" src="assets/mobile/footer-cloud-1b.svg" alt=""></span>
-        <img class="m-fp" style="left:470px;top:205px;width:85px;height:45px" src="assets/mobile/footer-cloud-2a.svg" alt=""><span class="m-fp" style="left:474.00px;top:203.00px;width:83.860px;height:45px"><img style="position:absolute;inset:-4.22% -3.46% -17.56% -8.23%;max-width:none;width:auto;height:auto" src="assets/mobile/footer-cloud-2b.svg" alt=""></span>
-        <img class="m-fp" style="left:600px;top:150px;width:61.489px;height:32.553px" src="assets/mobile/footer-cloud-3a.svg" alt=""><span class="m-fp" style="left:602.89px;top:148.55px;width:60.669px;height:32.553px"><img style="position:absolute;inset:-5.84% -4.78% -24.27% -11.37%;max-width:none;width:auto;height:auto" src="assets/mobile/footer-cloud-3b.svg" alt=""></span>
-      </div>
-      <nav class="m-footer__nav" aria-label="Footer">
-        <div class="m-footer__col m-footer__col--a">
-          <div class="m-footer__group"><h3><a href="index.html">Home</a></h3><ul class="m-footer__list m-footer__list--g12"><li>Testimonials</li><li>Map</li><li>Event Calendar</li></ul></div>
-          <div class="m-footer__group"><h3><a href="dinodex.html">DinoDex</a></h3><ul class="m-footer__list m-footer__list--g12"><li>Popular Dinos</li><li>Dino Types</li></ul></div>
-          <div class="m-footer__group"><h3><a href="about.html">About Us</a></h3><ul class="m-footer__list m-footer__list--g12"><li>Get Involved</li><li>Contact Form</li></ul></div>
-        </div>
-        <div class="m-footer__col m-footer__col--b">
-          <div class="m-footer__group"><h3><a href="getting-started.html">Getting Started</a></h3><ul class="m-footer__list m-footer__list--g12"><li>Set Up Notifs</li><li>Drop Types</li><li>FAQ</li></ul></div>
-          <div class="m-footer__group"><h3><a href="rules.html" aria-current="page">Rules</a></h3><ul class="m-footer__list"><li>Claiming Process</li></ul></div>
-        </div>
-      </nav>
-      <div class="m-footer__bottom">
-        <div class="m-footer__social">
-          <a href="mailto:hello@ucdavistriceratops.org" aria-label="Email us"><img src="assets/icons/email.svg" alt=""></a>
-          <a href="https://discord.gg/" target="_blank" rel="noopener" aria-label="Join our Discord"><img src="assets/icons/discord.svg" alt=""></a>
-          <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><img src="assets/icons/instagram.svg" alt=""></a>
-        </div>
-        <p>&copy; 2026 UC Davis Triceratops Club | All Rights Reserved</p>
-      </div>
-    </div>
-  </footer>
 </div>
 </div><!-- /h-only -->
+
+<!-- ============ FOOTER ============
+     One shared footer for every breakpoint — matches DinoDex's footer
+     exactly (same structure/classes About/Getting Started/Flash Sales
+     also use) instead of the three separate hand-built footers this
+     page used to duplicate across desktop/portrait/landscape. This page
+     doesn't load styles.css, so the CSS for these classes is ported
+     into this page's own <style> block above instead of relying on the
+     shared file. -->
+<footer class="site-footer">
+  <div class="footer-grass" aria-hidden="true"></div>
+
+  <div class="footer-content">
+    <img class="footer-deco footer-deco--flower-tl" src="assets/flower-accent.svg" alt="" aria-hidden="true">
+    <img class="footer-deco footer-deco--flower-mid" src="assets/flower-accent.svg" alt="" aria-hidden="true">
+    <img class="footer-deco footer-deco--cloud1-back" src="assets/cloud-1-back.svg" alt="" aria-hidden="true">
+    <img class="footer-deco footer-deco--cloud1-front" src="assets/cloud-1-front.svg" alt="" aria-hidden="true">
+    <img class="footer-deco footer-deco--cloud2-back" src="assets/cloud-2-back.svg" alt="" aria-hidden="true">
+    <img class="footer-deco footer-deco--cloud2-front" src="assets/cloud-2-front.svg" alt="" aria-hidden="true">
+    <img class="footer-deco footer-deco--cloud3-back" src="assets/cloud-3-back.svg" alt="" aria-hidden="true">
+    <img class="footer-deco footer-deco--cloud3-front" src="assets/cloud-3-front.svg" alt="" aria-hidden="true">
+    <img class="footer-deco footer-deco--dino-single" src="assets/dino-single.svg" alt="" aria-hidden="true">
+    <img class="footer-deco footer-deco--dino-duo" src="assets/dino-duo.svg" alt="" aria-hidden="true">
+    <img class="footer-deco footer-deco--flower-small-1" src="assets/flower-small-1.svg" alt="" aria-hidden="true">
+    <img class="footer-deco footer-deco--flower-small-2" src="assets/flower-small-2.svg" alt="" aria-hidden="true">
+
+    <!-- Mobile-only footer decorations (Figma node 4778:3836) —
+         exported as flat PNGs since the source vectors are each
+         built from 10-30 tiny primitives not worth hand-recreating. -->
+    <img class="footer-deco-m footer-deco-m--cloud1" src="assets/footer-cloud-1.png" alt="" aria-hidden="true">
+    <img class="footer-deco-m footer-deco-m--cloud2" src="assets/footer-cloud-2.png" alt="" aria-hidden="true">
+    <img class="footer-deco-m footer-deco-m--cloud3" src="assets/footer-cloud-3.png" alt="" aria-hidden="true">
+    <img class="footer-deco-m footer-deco-m--dino-blue" src="assets/footer-dino-blue.png" alt="" aria-hidden="true">
+    <img class="footer-deco-m footer-deco-m--dino-green" src="assets/footer-dino-green.png" alt="" aria-hidden="true">
+    <img class="footer-deco-m footer-deco-m--flower1" src="assets/footer-flower-1.png" alt="" aria-hidden="true">
+    <img class="footer-deco-m footer-deco-m--flower2" src="assets/footer-flower-2.png" alt="" aria-hidden="true">
+
+    <div class="footer-columns">
+      <div class="footer-column">
+        <p class="footer-column__title">Home</p>
+        <ul class="footer-column__links">
+          <li><a href="#">Testimonials</a></li>
+          <li><a href="#">Map</a></li>
+          <li><a href="#">Event Calendar</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <p class="footer-column__title">Getting Started</p>
+        <ul class="footer-column__links">
+          <li><a href="getting-started.html#set-up-notifs">Set Up Notifs</a></li>
+          <li><a href="getting-started.html#drop-types">Drop Types</a></li>
+          <li><a href="getting-started.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <p class="footer-column__title">Flash Sales</p>
+        <ul class="footer-column__links">
+          <li><a href="flash-sales.html#what-is">What Is A Flash Sale?</a></li>
+          <li><a href="flash-sales.html#pricing">Pricing</a></li>
+          <li><a href="flash-sales.html#pickup">How To Pick Up Dino</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <p class="footer-column__title">DinoDex</p>
+        <ul class="footer-column__links">
+          <li><a href="dinodex.html#popular-dinos">Popular Dinos</a></li>
+          <li><a href="dinodex.html#dino-types">Dino Types</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <p class="footer-column__title">Rules</p>
+        <ul class="footer-column__links">
+          <li><a href="#general-title">General Rules</a></li>
+          <li><a href="#hunt-title">Hunt Rules</a></li>
+          <li><a href="#flash-title">Flash Sale Rules</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <p class="footer-column__title">About Us</p>
+        <ul class="footer-column__links">
+          <li><a href="about.html#stay-involved">Get Involved</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copyright">&copy; 2026 UC Davis Triceratops Club | All Rights Reserved</p>
+      <div class="footer-social">
+        <a href="https://discord.gg/MzDujDpgZ9" class="footer-social__icon" target="_blank" rel="noopener"><img src="assets/discord-social-icon.svg" alt="Discord"></a>
+        <a href="https://www.instagram.com/davis_triceratops/" class="footer-social__icon" target="_blank" rel="noopener"><img src="assets/instagram-social-icon.svg" alt="Instagram"></a>
+      </div>
+    </div>
+  </div>
+</footer>
 
 
   <script>
@@ -2002,28 +2233,6 @@
       "use strict";
 
       document.documentElement.classList.add("js");
-
-      /* nav: shadow on scroll */
-      var nav = document.getElementById("nav");
-      var onScroll = function () {
-        nav.classList.toggle("is-scrolled", window.scrollY > 8);
-      };
-      onScroll();
-      window.addEventListener("scroll", onScroll, { passive: true });
-
-      /* nav: mobile menu toggle */
-      var toggle = document.getElementById("navToggle");
-      var links = document.getElementById("navLinks");
-      toggle.addEventListener("click", function () {
-        var open = links.classList.toggle("is-open");
-        toggle.setAttribute("aria-expanded", String(open));
-      });
-      links.addEventListener("click", function (e) {
-        if (e.target.closest("a") && links.classList.contains("is-open")) {
-          links.classList.remove("is-open");
-          toggle.setAttribute("aria-expanded", "false");
-        }
-      });
 
       /* reveal-on-scroll */
       var reveals = document.querySelectorAll(".reveal");
@@ -2079,9 +2288,14 @@
         var a = e.target.closest("a");
         if (a && a.getAttribute("href") === "rules.html") setOpen(false);
       });
-      var drop = menu.querySelector(".m-menu__drop");
-      if (drop) drop.addEventListener("click", function () {
-        drop.setAttribute("aria-expanded", String(drop.getAttribute("aria-expanded") !== "true"));
+      var chevBtn = menu.querySelector(".m-menu__chevron-btn");
+      var group = chevBtn && chevBtn.closest(".m-menu__group");
+      var subWrap = group && group.querySelector(".m-menu__sub");
+      if (chevBtn && subWrap) chevBtn.addEventListener("click", function () {
+        var subOpen = chevBtn.getAttribute("aria-expanded") === "true";
+        chevBtn.setAttribute("aria-expanded", String(!subOpen));
+        group.classList.toggle("is-open", !subOpen);
+        subWrap.style.maxHeight = subOpen ? "" : subWrap.scrollHeight + "px";
       });
     })();
   </script>
