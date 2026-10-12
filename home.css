@@ -1,9 +1,10 @@
-/* Pulang (the design's display font) is not on Google Fonts. It is used when
-   installed locally; to self-host it, add the font file to the project and a
-   url() to this src list. Chewy is the Google Fonts fallback. */
+/* Pulang (the design's display font) is not on Google Fonts, so it is served
+   from the fonts folder. Chewy is the Google Fonts fallback while it loads. */
 @font-face {
   font-family: "Pulang";
-  src: local("Pulang"), local("Pulang Regular"), local("Pulang-Regular");
+  src: local("Pulang"), local("Pulang Regular"), local("Pulang-Regular"),
+    url("fonts/Pulang.otf") format("opentype"),
+    url("fonts/Pulang.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -12,6 +13,8 @@
 :root {
   /* Colors */
   --color-text: #3d3d3d;
+  --color-heading: #2d2d2d;
+  --color-subtitle: #636363;
   --color-black: #000000;
   --color-white: #ffffff;
   --color-off-white: #fffdfd;
@@ -46,7 +49,10 @@
   --color-calendar-border: rgba(61, 61, 61, 0.08);
   --color-footer-top: #d8f5ff;
   --color-footer-bottom: #e6f0ff;
+  --color-footer-flat: #def3ff;
+  --color-track: #dcdcdc;
   --color-overlay: rgba(0, 0, 0, 0.2);
+  --color-overlay-strong: rgba(0, 0, 0, 0.25);
   --color-scrim: rgba(0, 0, 0, 0.6);
 
   /* Fonts */
@@ -61,6 +67,7 @@
   --text-body: 20px;
   --text-button: 18px;
   --text-small: 16px;
+  --text-caption: 12px;
 
   --leading-display: 1.2;
   --leading-heading: 1.3;
@@ -193,6 +200,20 @@ section[id] {
   color: #649D35;
 }
 
+/* Scroll reveal: content fades and rises into place as it is scrolled to, the
+   same as on the other pages (reveal.js adds .js and .is-visible). Without the
+   script everything is simply visible. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
 /* Buttons */
 .btn {
   display: inline-flex;
@@ -307,6 +328,11 @@ section[id] {
 .sticker img {
   grid-area: 1 / 1;
   max-width: none;
+}
+
+/* Some stickers swap artwork on phones through a <picture> */
+.sticker picture {
+  display: contents;
 }
 
 /* Section headers */
@@ -431,35 +457,6 @@ section[id] {
   place-items: center;
 }
 
-.nav-toggle__bars,
-.nav-toggle__bars::before,
-.nav-toggle__bars::after {
-  display: block;
-  width: 28px;
-  height: 3px;
-  border-radius: 3px;
-  background: var(--color-black);
-}
-
-.nav-toggle__bars {
-  position: relative;
-}
-
-.nav-toggle__bars::before,
-.nav-toggle__bars::after {
-  content: "";
-  position: absolute;
-  left: 0;
-}
-
-.nav-toggle__bars::before {
-  top: -9px;
-}
-
-.nav-toggle__bars::after {
-  top: 9px;
-}
-
 /* Hero */
 .hero {
   position: relative;
@@ -529,6 +526,11 @@ section[id] {
 .hero__cta-note {
   font-weight: 600;
   line-height: var(--leading-heading);
+}
+
+/* Decorations of the green card the CTA becomes on phones */
+.hero__cta-decor {
+  display: none;
 }
 
 .hero__sticker-dino {
@@ -1329,6 +1331,11 @@ section[id] {
   background: var(--color-yellow);
 }
 
+/* Swipeable row of polaroids: the gallery on phones */
+.reel {
+  display: none;
+}
+
 /* Polaroids and the photo strip straighten on hover and open in the lightbox on click */
 .gallery .polaroid,
 .gallery .photo-strip {
@@ -1545,6 +1552,21 @@ section[id] {
   --note-dark: var(--color-note-blue-dark);
 }
 
+/* Each note is a <details> so phones can use it as an accordion; here it is
+   always open (script.js) and its summary is just a heading. */
+.sticky-note__summary {
+  list-style: none;
+  pointer-events: none;
+}
+
+.sticky-note__summary::-webkit-details-marker {
+  display: none;
+}
+
+.sticky-note__icon {
+  display: none;
+}
+
 .sticky-note__title {
   font-size: var(--text-body);
   font-weight: 600;
@@ -1598,6 +1620,11 @@ section[id] {
 
 .heatmap__decor img {
   max-width: none;
+}
+
+/* One drawing of every decoration, used on phones in place of the pieces below */
+.heatmap__accessories {
+  display: none;
 }
 
 .heatmap__flower-sticker {
@@ -1769,6 +1796,19 @@ section[id] {
 
 .heatmap__map.maplibregl-map {
   font-family: inherit;
+}
+
+/* The map's "how to zoom" hint: the library shows its touch wording in any
+   narrow window, so a narrowed desktop window would be told to use two fingers.
+   Choose by input instead: a mouse always gets the Ctrl/Cmd + scroll wording. */
+@media (hover: hover) {
+  .heatmap__map .maplibregl-cooperative-gesture-screen .maplibregl-desktop-message {
+    display: block;
+  }
+
+  .heatmap__map .maplibregl-cooperative-gesture-screen .maplibregl-mobile-message {
+    display: none;
+  }
 }
 
 /* Closing */
@@ -2223,18 +2263,730 @@ section[id] {
     top: min(calc(100vh - 118px), calc(var(--header-height) + 602px));
   }
 
-  .events__inner {
-    padding-bottom: 96px;
+  .closing {
+    height: 720px;
   }
 
+  .closing__inner {
+    padding-top: 120px;
+  }
+}
+
+/* Phones, held either way. These are the pieces the upright (393px-wide) and
+   sideways (852px-wide) designs share, laid out for upright; the two blocks
+   after this one hold what is specific to each. */
+@media (max-width: 960px) {
+  :root {
+    --text-title: 40px;
+    --text-h1: 34px;
+    --text-h2: 26px;
+    --text-h3: 20px;
+    --text-subtitle-lg: 16px;
+    --text-body: 16px;
+    --text-button: 16px;
+    --section-top: 80px;
+    --header-height: 82px;
+
+    /* One design pixel scaled to the screen's width, for pieces that span it */
+    --vw-unit: calc(100vw / 393);
+    /* The same, but never larger than a real pixel: artwork shrinks to fit
+       narrow phones without growing on wide ones */
+    --art-unit: min(1px, var(--vw-unit));
+  }
+
+  /* Header */
+  .site-header,
+  .nav {
+    background: var(--color-off-white);
+  }
+
+  .site-header__inner {
+    padding: var(--space-3);
+  }
+
+  .site-header__logo img {
+    width: 52px;
+    height: 52px;
+  }
+
+  .site-header__cta {
+    display: none;
+  }
+
+  /* The icon lines up with the page edge; the button keeps its 48px tap area */
+  .nav-toggle {
+    margin-left: auto;
+    margin-right: calc(-1 * var(--space-2));
+  }
+
+  /* Hero: the artwork fills the top 428px and the Discord CTA becomes a green
+     card underneath it */
+  .hero__image,
+  .hero::after {
+    top: 0;
+    height: 428px;
+  }
+
+  .hero__image {
+    object-position: 44% 50%;
+  }
+
+  .hero::after {
+    background: var(--color-overlay-strong);
+  }
+
+  /* Ends 80px below the green card, which is where the next section starts */
+  .hero__inner {
+    height: 731px;
+    padding-top: 53px;
+  }
+
+  /* Three lines: "Welcome to", "Triceratops", "at UC Davis!" */
+  .hero__title br {
+    display: none;
+  }
+
+  .hero__title-line {
+    display: block;
+  }
+
+  .hero__eyebrow {
+    display: block;
+    font-size: var(--text-h3);
+    line-height: var(--leading-heading);
+  }
+
+  .hero__subtitle {
+    margin-top: var(--space-2);
+    font-weight: 600;
+  }
+
+  .hero__cta {
+    position: absolute;
+    top: 452px;
+    left: var(--page-gutter);
+    right: var(--page-gutter);
+    flex-direction: column-reverse;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: var(--space-4);
+    height: 199px;
+    margin-top: 0;
+    border-radius: var(--radius-sm);
+    background: var(--color-grass);
+    color: var(--color-text);
+  }
+
+  .hero__cta .btn,
+  .hero__cta-note {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero__cta .btn--shadow {
+    filter: none;
+  }
+
+  .hero__cta .btn--shadow:hover {
+    filter: brightness(0.94);
+  }
+
+  /* Reads "For the latest events and news," above the button */
+  .hero__cta-note {
+    white-space: nowrap;
+  }
+
+  .hero__cta-note::first-letter {
+    text-transform: uppercase;
+  }
+
+  .hero__cta-note::after {
+    content: ",";
+  }
+
+  .hero__cta-decor {
+    display: block;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .hero__cta-decor img {
+    max-width: none;
+  }
+
+  .hero__cta-flower,
+  .hero__cta-grass {
+    position: absolute;
+  }
+
+  .hero__cta-flower {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+  }
+
+  .hero__cta-flower--white {
+    left: 8px;
+    top: 2px;
+  }
+
+  .hero__cta-flower--white img {
+    transform: rotate(30deg) translate(-0.94px, 2.1px);
+  }
+
+  .hero__cta-flower--yellow {
+    right: 2px;
+    top: 80px;
+  }
+
+  .hero__cta-flower--yellow img {
+    transform: rotate(-30deg) translate(-0.94px, 2.1px);
+  }
+
+  .hero__cta-grass--1 {
+    left: 106.2px;
+    top: 173.3px;
+  }
+
+  .hero__cta-grass--2 {
+    right: 88px;
+    top: 7.2px;
+  }
+
+  .hero__cta-blade--1 {
+    left: auto;
+    right: 47.35px;
+    top: 157.35px;
+    width: 2.9px;
+    height: 13.5px;
+    translate: none;
+  }
+
+  /* Extra decorations of the sideways card */
+  .hero__cta-blade--2,
+  .hero__cta-decor .tuft,
+  .hero__cta-daisy {
+    display: none;
+  }
+
+  .hero__cta-sticker {
+    left: -19px;
+    top: 133px;
+    width: 93.084px;
+    height: 86.331px;
+  }
+
+  .hero__cta-sticker img {
+    rotate: -15.39deg;
+  }
+
+  .hero__sticker-dino {
+    display: grid;
+    top: 11px;
+    right: 12.2px;
+    width: 94.796px;
+    height: 86.145px;
+    filter: none;
+  }
+
+  .hero__sticker-dino img {
+    rotate: 9.17deg;
+  }
+
+  .hero__sticker-flower {
+    display: grid;
+    top: 98px;
+    right: 0;
+    width: 72.6px;
+    height: 72.5px;
+  }
+
+  /* Sits in the page under the green card instead of following the screen */
+  .hero__scroll {
+    position: absolute;
+    top: 667px;
+    left: 50%;
+    right: auto;
+    width: 20px;
+    height: 11.5px;
+    margin-left: -10px;
+    scale: none;
+  }
+
+  .hero__scroll img {
+    position: static;
+  }
+
+  /* Info: each feature is its artwork with the text centred underneath */
+  .info__inner {
+    gap: 0;
+    padding: 0 var(--page-gutter);
+  }
+
+  .info__flower,
+  .info__cloud-pink {
+    display: none;
+  }
+
+  .feature {
+    gap: 0;
+    text-align: center;
+  }
+
+  .feature__text {
+    width: 100%;
+  }
+
+  .feature__body {
+    margin-top: var(--space-3);
+  }
+
+  .feature--events .feature__art {
+    width: calc(379.5 * var(--art-unit));
+    height: calc(268.29 * var(--art-unit));
+  }
+
+  .feature--events .feature__shape {
+    left: calc(45.88 * var(--art-unit));
+    top: calc(36.54 * var(--art-unit));
+    width: calc(287.749 * var(--art-unit));
+    height: calc(194.522 * var(--art-unit));
+  }
+
+  .feature--events .feature__text {
+    margin-top: var(--space-2);
+  }
+
+  .feature--events .feature__body {
+    margin-top: 9px;
+  }
+
+  /* Short highlights stay on one line */
+  .mark--pink,
+  .mark--yellow {
+    white-space: nowrap;
+  }
+
+  .feature--commitment,
+  .feature--luck {
+    margin-top: 64px;
+  }
+
+  .feature--commitment .feature__art {
+    width: calc(288.59 * var(--art-unit));
+    height: calc(214.87 * var(--art-unit));
+  }
+
+  .feature--commitment .feature__shape {
+    width: 100%;
+    height: 100%;
+  }
+
+  .feature--commitment .feature__image-crop {
+    left: calc(53.7 * var(--art-unit));
+    top: calc(8.68 * var(--art-unit));
+    width: calc(179.52 * var(--art-unit));
+    height: calc(198.2 * var(--art-unit));
+  }
+
+  .feature--commitment .feature__image {
+    width: calc(410.854 * var(--art-unit));
+    height: calc(378.926 * var(--art-unit));
+  }
+
+  .feature--commitment .feature__text {
+    margin-top: var(--space-6);
+  }
+
+  .feature--luck .feature__art {
+    width: calc(288.59 * var(--art-unit));
+    height: calc(246.84 * var(--art-unit));
+  }
+
+  .feature--luck .feature__shape-wrap {
+    left: 0;
+    align-content: center; /* the rotated shape is taller than this box */
+    top: calc(3.86 * var(--art-unit));
+    width: calc(288.59 * var(--art-unit));
+    height: calc(240.92 * var(--art-unit));
+  }
+
+  .feature--luck .feature__shape {
+    width: calc(240.92 * var(--art-unit));
+    height: calc(288.59 * var(--art-unit));
+  }
+
+  .feature--luck .feature__image {
+    inset: 0 auto auto calc(20.87 * var(--art-unit));
+    width: calc(246.84 * var(--art-unit));
+    height: calc(246.84 * var(--art-unit));
+  }
+
+  .feature--luck .feature__text {
+    margin-top: var(--space-6);
+  }
+
+  .info__ctas {
+    flex-direction: column;
+    gap: var(--space-6);
+    margin-top: 64px;
+  }
+
+  /* Section headers: no bullet, and the title shrinks to stay on one line */
+  .section-header {
+    gap: var(--space-2);
+  }
+
+  .section-header__heading img {
+    display: none;
+  }
+
+  .section-header__title {
+    font-size: min(var(--text-h1), calc(34 * var(--vw-unit)));
+    line-height: var(--leading-heading);
+    color: var(--color-heading);
+  }
+
+  .section-header__subtitle {
+    color: var(--color-subtitle);
+  }
+
+  /* Community: the collage gives way to a swipeable row of polaroids */
+  .community__inner {
+    padding: var(--section-top) 0 0;
+  }
+
+  .community .section-header {
+    padding-inline: var(--page-gutter);
+  }
+
+  .gallery {
+    display: none;
+  }
+
+  .reel {
+    display: block;
+    margin-top: var(--space-6);
+  }
+
+  /* The padding leaves room for the polaroids' drop shadow */
+  .reel__track {
+    display: flex;
+    gap: var(--space-6);
+    padding: 3px var(--page-gutter) 27px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--page-gutter);
+    scrollbar-width: none;
+  }
+
+  .reel__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Dragging with a mouse (script.js); touch screens swipe it natively */
+  .reel__track {
+    cursor: grab;
+  }
+
+  .reel__track.is-dragging {
+    cursor: grabbing;
+    scroll-snap-type: none;
+    user-select: none;
+  }
+
+  .reel__track li {
+    flex: none;
+    scroll-snap-align: start;
+  }
+
+  .reel .polaroid {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 280px;
+    height: 434px;
+    rotate: 1.06deg;
+    font-size: var(--text-h3);
+    color: var(--color-black);
+    transition: rotate 0.3s ease;
+  }
+
+  /* The leftmost photo (tracked in script.js) straightens up */
+  .reel .is-current .polaroid {
+    rotate: none;
+  }
+
+  .reel .polaroid__photo {
+    inset: 4.38% 7.5% 18.2% 7.86%;
+  }
+
+  .reel .polaroid__photo img {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .reel .polaroid__caption {
+    top: 88.02%;
+  }
+
+  .reel .crop--reel-bonding {
+    object-position: 71% 50%;
+  }
+
+  .reel .crop--reel-picnic {
+    object-position: bottom;
+  }
+
+  /* The bar fills with yellow as the row is scrolled: --reel-progress (set in
+     script.js) is how much of the row has been seen so far, from 0 to 1. */
+  .reel__indicator {
+    height: 8px;
+    margin-inline: var(--page-gutter);
+    border-radius: var(--radius-md);
+    background: var(--color-track);
+  }
+
+  .reel__thumb {
+    display: block;
+    width: calc(var(--reel-progress, 0.2) * 100%);
+    height: 100%;
+    border-radius: inherit;
+    background: var(--color-yellow);
+  }
+
+  .reel__quote {
+    margin: var(--space-6) var(--page-gutter) 0;
+  }
+
+  .reel__author {
+    color: var(--color-muted);
+  }
+
+  .events__inner {
+    padding-bottom: 80px;
+  }
+
+  .sprouts {
+    display: none;
+  }
+
+  /* Heatmap */
+  .heatmap__inner {
+    padding: 60px var(--page-gutter) 57px;
+  }
+
+  .heatmap__decor > :not(picture) {
+    display: none;
+  }
+
+  /* Starts above the green, where the sprouts poke out */
+  .heatmap__decor .heatmap__accessories {
+    display: block;
+    position: absolute;
+    left: calc(-21 * var(--vw-unit));
+    top: calc(-43 * var(--vw-unit));
+    width: calc(396.251 * var(--vw-unit));
+    height: auto;
+  }
+
+  .heatmap .section-header__subtitle {
+    text-wrap: balance;
+  }
+
+  .heatmap__map {
+    aspect-ratio: 345 / 617;
+    margin-top: var(--space-6);
+    border-width: 1.25px;
+    border-radius: 10px;
+  }
+
+  .heatmap__image {
+    left: -156.88%;
+    top: 0;
+    width: 369.35%;
+    height: 100%;
+  }
+
+  /* Closing */
+  .closing {
+    height: 854px;
+  }
+
+  .closing__image {
+    object-position: 36.5% 50%;
+  }
+
+  .closing__inner {
+    padding-top: 68px;
+  }
+
+  .closing__title {
+    max-width: 286px;
+  }
+
+  .closing__ctas {
+    width: auto;
+    margin-top: var(--space-6);
+  }
+
+  .closing__discord {
+    gap: var(--space-3);
+  }
+
+  .closing__note {
+    max-width: 200px;
+    font-size: var(--text-caption);
+    font-weight: 600;
+    line-height: var(--leading-heading);
+  }
+
+  .closing__note-line {
+    white-space: nowrap;
+  }
+
+  .btn--instagram {
+    width: 236px;
+  }
+
+  /* Footer */
+  .grass {
+    height: calc(44.924 * var(--vw-unit));
+    margin-top: calc(-44.924 * var(--vw-unit));
+  }
+
+  .grass__tuft {
+    width: calc(165.307 * var(--vw-unit));
+    height: calc(44.924 * var(--vw-unit));
+  }
+
+  .grass__tuft--right {
+    left: calc(227.69 * var(--vw-unit));
+  }
+
+  .grass__tuft--left {
+    left: 0;
+  }
+
+  .grass__tuft--center {
+    left: calc(113.72 * var(--vw-unit));
+  }
+
+  .site-footer__body {
+    background: var(--color-footer-flat);
+  }
+
+  .site-footer__inner {
+    gap: 80px;
+    padding: 61px 16px 131px 21px;
+  }
+
+  .site-footer__asterisk {
+    display: none;
+  }
+
+  .cloud {
+    display: block;
+  }
+
+  .cloud--1 {
+    left: -30px;
+    right: auto;
+    top: 19px;
+  }
+
+  .cloud--2 {
+    right: 41px;
+    top: 356px;
+  }
+
+  .cloud--3 {
+    right: -22px;
+    top: 153px;
+  }
+
+  .site-footer__dino-green {
+    left: 21px;
+    right: auto;
+    top: auto;
+    bottom: 0;
+    width: 61.2px;
+  }
+
+  .site-footer__dino-blue {
+    left: 86.5px;
+    right: auto;
+    bottom: 1.5px;
+    width: 58.1px;
+  }
+
+  .site-footer__flower-red {
+    left: 164px;
+    right: auto;
+    bottom: 0;
+    width: 20.9px;
+  }
+
+  .site-footer__flower-blue {
+    left: 187px;
+    right: auto;
+    bottom: 0;
+    width: 28px;
+  }
+
+  /* Two columns: Home, DinoDex and About Us down the left, the rest down the right */
+  .footer-nav {
+    display: grid;
+    grid-template-columns: minmax(0, 163px) minmax(0, 161px);
+    justify-content: space-between;
+    gap: 60px 0;
+    width: 100%;
+  }
+
+  .footer-nav__column {
+    width: auto;
+  }
+
+  .footer-nav__title {
+    font-size: var(--text-h3);
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking);
+  }
+
+  .footer-nav__column--home .footer-nav__title {
+    margin-bottom: var(--space-2);
+  }
+
+  .site-footer__bottom {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: var(--space-3);
+    width: 323px;
+  }
+
+  .site-footer__copyright {
+    line-height: var(--leading-body);
+    letter-spacing: var(--tracking);
+  }
+
+  .social-links__link {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Phones held upright only */
+@media (max-width: 640px) {
+  /* Events: calendar on top, the event types as an accordion underneath */
   .events__layout {
     grid-template-columns: 1fr;
     gap: var(--space-6);
-    margin-top: var(--space-10);
-  }
-
-  .events__calendar {
-    min-height: 0;
+    margin-top: var(--space-6);
   }
 
   .events__notes-list {
@@ -2247,30 +2999,427 @@ section[id] {
     display: none;
   }
 
-  .closing {
-    height: 720px;
+  .events__calendar {
+    aspect-ratio: 345 / 615;
+    min-height: 0;
+    border-width: 1px;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 1.5px 2.5px rgba(0, 0, 0, 0.1);
   }
 
-  .closing__inner {
-    padding-top: 120px;
+  .sticky-note {
+    padding: 0;
+    border-width: 1px;
+    border-radius: 2px;
+    filter: none;
   }
-}
 
-@media (max-width: 560px) {
-  .site-header__cta {
+  .sticky-note::after {
     display: none;
   }
 
-  .nav-toggle {
-    margin-left: auto;
+  .sticky-note__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: 17px 15px 16px 14px;
+    cursor: pointer;
+    pointer-events: auto;
   }
 
-  .feature__art {
-    zoom: 0.75;
+  .sticky-note__title {
+    color: var(--color-black);
   }
 
-  .closing__ctas {
-    max-width: 100%;
+  .sticky-note__icon {
+    display: block;
+    flex: none;
+    transition: rotate 0.2s ease;
+  }
+
+  .sticky-note__details[open] .sticky-note__icon {
+    rotate: 45deg;
+  }
+
+  .sticky-note__body {
+    margin-top: 0;
+    padding: 0 15px 18px 14px;
+  }
+}
+
+/* Phones on their side, and small tablets: the 852px-wide design */
+@media (min-width: 641px) and (max-width: 960px) {
+  :root {
+    --page-gutter: 56px;
+    --vw-unit: calc(100vw / 852);
+  }
+
+  /* Hero: a 232px strip of the artwork with the green card underneath */
+  .hero__image,
+  .hero::after {
+    height: 232px;
+  }
+
+  .hero__image {
+    object-position: 50% 100%;
+  }
+
+  /* Ends where the info artwork starts, below the card's dino sticker */
+  .hero__inner {
+    height: 534px;
+    padding-top: 35px;
+  }
+
+  .hero__cta {
+    top: 256px;
+    height: 211px;
+  }
+
+  .hero__cta .btn {
+    width: 242px;
+  }
+
+  /* Left-hand pieces are placed by percentage so they keep clear of the button
+     on narrower screens */
+  .hero__cta-flower--white {
+    left: 16.05%;
+    top: 114px;
+  }
+
+  .hero__cta-flower--yellow {
+    right: 60.2px;
+    top: 14px;
+  }
+
+  .hero__cta-grass--1 {
+    left: 23.54%;
+    top: 154.4px;
+  }
+
+  .hero__cta-grass--2 {
+    right: 14px;
+    top: 60.4px;
+  }
+
+  .hero__cta-blade--1 {
+    right: 118.4px;
+    top: 166.2px;
+  }
+
+  .hero__cta-blade--2 {
+    display: block;
+    left: 25.7px;
+    top: 21.6px;
+    width: 2.9px;
+    height: 13.5px;
+    translate: none;
+  }
+
+  .hero__cta-decor .tuft {
+    display: block;
+  }
+
+  .hero__cta-decor .tuft--1 {
+    left: 18.08%;
+    top: 48.5px;
+  }
+
+  .hero__cta-decor .tuft--2 {
+    left: auto;
+    right: 221.2px;
+    top: 28.2px;
+  }
+
+  .hero__cta-daisy {
+    display: block;
+    position: absolute;
+    right: 13.3px;
+    top: 132.1px;
+  }
+
+  .hero__cta-sticker {
+    left: -28px;
+    top: 178.6px;
+  }
+
+  .hero__sticker-dino {
+    top: 35px;
+    right: 39.5px;
+  }
+
+  .hero__sticker-flower {
+    top: 138px;
+    right: 39.3px;
+  }
+
+  /* Back inside the artwork, in white */
+  .hero__scroll {
+    top: 210px;
+    filter: brightness(0) invert(1);
+  }
+
+  /* Info: the three features side by side, their text lined up on one row */
+  .info__inner {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 233px));
+    justify-content: space-between;
+    align-items: start;
+  }
+
+  .feature--commitment,
+  .feature--luck {
+    margin-top: 0;
+  }
+
+  .feature--events .feature__text,
+  .feature--commitment .feature__text,
+  .feature--luck .feature__text {
+    margin-top: 0;
+  }
+
+  .feature__body,
+  .feature--events .feature__body {
+    margin-top: var(--space-2);
+  }
+
+  .feature--events .feature__body {
+    padding-inline: 9px;
+  }
+
+  /* Each artwork's margins add up to the same height, which is what lines the
+     three titles up */
+  .feature--events .feature__art {
+    width: calc(256.16 * var(--art-unit));
+    height: calc(181.1 * var(--art-unit));
+    margin: calc(18.89 * var(--art-unit)) 0 calc(36.84 * var(--art-unit));
+  }
+
+  .feature--events .feature__shape {
+    left: calc(24.27 * var(--art-unit));
+    top: calc(13.48 * var(--art-unit));
+    width: calc(208 * var(--art-unit));
+    height: calc(154.97 * var(--art-unit));
+  }
+
+  .feature--commitment .feature__art {
+    width: calc(208 * var(--art-unit));
+    height: calc(170.68 * var(--art-unit));
+    margin: calc(25.86 * var(--art-unit)) 0 calc(40.29 * var(--art-unit));
+  }
+
+  .feature--commitment .feature__image-crop {
+    left: calc(31.45 * var(--art-unit));
+    top: calc(5.79 * var(--art-unit));
+    width: calc(143.62 * var(--art-unit));
+    height: calc(158.56 * var(--art-unit));
+  }
+
+  .feature--commitment .feature__image {
+    width: calc(328.68 * var(--art-unit));
+    height: calc(303.14 * var(--art-unit));
+  }
+
+  .feature--luck .feature__art {
+    width: calc(234.5 * var(--art-unit));
+    height: calc(234.5 * var(--art-unit));
+    margin: 0 0 calc(2.33 * var(--art-unit));
+  }
+
+  .feature--luck .feature__shape-wrap {
+    left: calc(12.8 * var(--art-unit));
+    top: calc(27.92 * var(--art-unit));
+    width: calc(207.53 * var(--art-unit));
+    height: calc(177.46 * var(--art-unit));
+  }
+
+  .feature--luck .feature__shape {
+    width: calc(177.46 * var(--art-unit));
+    height: calc(207.53 * var(--art-unit));
+  }
+
+  .feature--luck .feature__image {
+    inset: 0 auto auto 0;
+    width: calc(234.5 * var(--art-unit));
+    height: calc(234.5 * var(--art-unit));
+  }
+
+  /* "New To Triceratops?" comes first here */
+  .info__ctas {
+    grid-column: 1 / -1;
+    flex-direction: row-reverse;
+    justify-content: center;
+  }
+
+  /* Community: smaller, untilted polaroids, most of them on screen at once */
+  .reel .polaroid,
+  .reel .polaroid__photo {
+    border-radius: 4.8px;
+  }
+
+  .reel .polaroid {
+    width: 168px;
+    height: 260.4px;
+    rotate: none;
+    font-size: var(--text-caption);
+  }
+
+  .reel__quote p,
+  .reel__author {
+    display: inline;
+  }
+
+  /* Events: calendar and scrolling sticky notes side by side, as on desktop */
+  .events__sticker-dino {
+    display: grid;
+    top: 48px;
+    right: 34.66px;
+    width: 106.68px;
+    height: 98.07px;
+  }
+
+  .events__sticker-dino img:first-child {
+    width: 91.43px;
+  }
+
+  .events__sticker-dino img:last-child {
+    width: 83.11px;
+  }
+
+  .events__sticker-flower {
+    display: block;
+    top: 88.74px;
+    right: 166.4px;
+    width: 71.6px;
+  }
+
+  .events__layout {
+    grid-template-columns: 438fr 286fr;
+    margin-top: var(--space-6);
+  }
+
+  .events__calendar {
+    aspect-ratio: 438 / 345;
+    min-height: 0;
+    border-width: 1px;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 1.5px 2.5px rgba(0, 0, 0, 0.1);
+  }
+
+  .sticky-note {
+    padding: 16px 14px 24px 13px;
+    border-width: 1px;
+    border-radius: 2px 2px 2px 22.7px;
+  }
+
+  .sticky-note::after {
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 0 1.5px 0 18px;
+  }
+
+  .sticky-note__body {
+    margin-top: 7.56px;
+  }
+
+  /* Heatmap. The closing section below starts with 42px of clear space, so
+     together they keep the usual 80px between sections. */
+  .heatmap {
+    margin-bottom: 38px;
+  }
+
+  .heatmap__inner {
+    padding: 20px var(--page-gutter) 37px;
+  }
+
+  .heatmap__decor .heatmap__accessories {
+    left: calc(-15 * var(--vw-unit));
+    width: calc(860.25 * var(--vw-unit));
+  }
+
+  .heatmap__map {
+    aspect-ratio: 740 / 332;
+  }
+
+  .heatmap__image {
+    left: 0;
+    top: -3.76%;
+    width: 114.8%;
+    height: 123.9%;
+  }
+
+  /* Closing: the top 42px stay clear so the dino sticker can peek over the
+     artwork, which is clipped to start below them */
+  .closing {
+    height: 480px;
+  }
+
+  .closing__image {
+    top: -168px;
+    width: 1174.78px;
+    height: 672px;
+    max-width: none;
+    clip-path: inset(210px 0 0 0);
+  }
+
+  .closing::after {
+    top: 42px;
+    height: 438px;
+  }
+
+  .closing__inner {
+    padding-top: 92px;
+  }
+
+  .closing__sticker {
+    display: grid;
+    top: 0;
+    right: 49.1px;
+    width: 106.83px;
+    height: 97.56px;
+  }
+
+  .closing__sticker img:first-child {
+    width: 94.2px;
+  }
+
+  .closing__sticker img:last-child {
+    width: 85.64px;
+  }
+
+  /* Footer: the phone footer, kept to the left */
+  .grass {
+    height: 45px;
+    margin-top: -45px;
+    background:
+      url("images/mobile/grass.svg") 0 100% / 165.307px 44.924px repeat-x,
+      url("images/mobile/grass.svg") -82px 100% / 165.307px 44.924px repeat-x;
+  }
+
+  .grass__inner {
+    display: none;
+  }
+
+  .cloud--2 {
+    left: 264px;
+    right: auto;
+  }
+
+  .cloud--3 {
+    left: 352px;
+    right: auto;
+  }
+
+  .footer-nav {
+    width: 356px;
+  }
+}
+
+/* Narrower sideways phones: no room for the flower sticker beside the events subtitle */
+@media (min-width: 641px) and (max-width: 800px) {
+  .events__sticker-flower {
+    display: none;
   }
 }
 
@@ -2281,6 +3430,11 @@ section[id] {
 
   * {
     transition: none !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
   }
 
   .hero__scroll {

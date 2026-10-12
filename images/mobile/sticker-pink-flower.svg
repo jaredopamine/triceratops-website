@@ -1,0 +1,18 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="59.6535" height="59.2149" viewBox="0 0 59.6535 59.2149" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="sticker" filter="url(#filter0_d_0_620)">
+<path id="Union" d="M19.0997 11.0268C23.6076 8.42439 29.3132 9.78772 32.1864 14.0315C35.8792 10.4769 41.7453 10.3307 45.6139 13.814C49.4826 17.2974 49.949 23.1458 46.7996 27.1899C51.3216 29.6034 53.2743 35.1358 51.1571 39.8916C49.0396 44.6475 43.621 46.899 38.8015 45.1532C37.9034 50.1996 33.2451 53.7663 28.0679 53.2222C22.8909 52.6778 19.0752 48.2207 19.2458 43.0981C14.1692 43.8029 9.33789 40.4746 8.2556 35.3828C7.17327 30.2908 10.2334 25.2846 15.1582 23.8639C12.9189 19.2534 14.5915 13.6296 19.0997 11.0268Z" fill="#FFFDFD"/>
+<path id="Union_2" d="M20.8871 14.124C24.6439 11.955 29.3996 13.0911 31.7938 16.6282C34.871 13.6661 39.759 13.5433 42.9829 16.4457C46.2067 19.3485 46.5952 24.2225 43.9709 27.5926C47.7394 29.6038 49.3674 34.215 47.6028 38.1782C45.8383 42.1414 41.3223 44.0172 37.3061 42.5624C36.5576 46.7676 32.676 49.7404 28.3617 49.2871C24.0472 48.8336 20.867 45.1185 21.0094 40.8494C16.7789 41.4367 12.7527 38.663 11.8508 34.4199C10.9492 30.1769 13.499 26.0057 17.6025 24.8216C15.7365 20.9796 17.1305 16.293 20.8871 14.124Z" fill="#F8C9DC"/>
+</g>
+<defs>
+<filter id="filter0_d_0_620" x="6.03814" y="9.70479" width="47.9735" height="47.5722" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="2"/>
+<feGaussianBlur stdDeviation="1"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_620"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_620" result="shape"/>
+</filter>
+</defs>
+</svg>

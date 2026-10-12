@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="home.css">
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" integrity="sha384-SYKAG6cglRMN0RVvhNeBY0r3FYKNOJtznwA0v7B5Vp9tr31xAHsZC0DqkQ/pZDmj" crossorigin="" defer></script>
   <script src="script.js" defer></script>
+  <script src="reveal.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -25,7 +26,7 @@
 
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
           <span class="visually-hidden">Menu</span>
-          <span class="nav-toggle__bars" aria-hidden="true"></span>
+          <img src="images/mobile/icon-menu.svg" alt="" width="32" height="32">
         </button>
 
         <nav class="nav" id="site-nav" aria-label="Main">
@@ -65,7 +66,7 @@
         <div class="hero__inner">
           <h1 class="hero__title" id="hero-title">
             <span class="hero__eyebrow">Welcome to</span><br>
-            Triceratops at UC Davis!
+            Triceratops <span class="hero__title-line">at UC Davis!</span>
           </h1>
           <p class="hero__subtitle">Come join us on a scavenger hunt!</p>
           <div class="hero__cta">
@@ -74,24 +75,54 @@
               Join Our Discord
             </a>
             <p class="hero__cta-note">for the latest events and news</p>
+
+            <!-- Decorations of the green card this becomes on phones -->
+            <div class="hero__cta-decor" aria-hidden="true">
+              <div class="hero__cta-flower hero__cta-flower--white"><img src="images/mobile/cta-flower-white.svg" alt=""></div>
+              <div class="hero__cta-flower hero__cta-flower--yellow"><img src="images/mobile/cta-flower-yellow.svg" alt=""></div>
+              <img class="hero__cta-grass hero__cta-grass--1" src="images/mobile/cta-grass.svg" alt="">
+              <img class="hero__cta-grass hero__cta-grass--2" src="images/mobile/cta-grass.svg" alt="">
+              <span class="blade hero__cta-blade--1"></span>
+              <!-- The next four only show when a phone is on its side -->
+              <span class="blade hero__cta-blade--2"></span>
+              <span class="tuft tuft--1"></span>
+              <span class="tuft tuft--2"></span>
+              <img class="hero__cta-daisy" src="images/mobile/cta-daisy.svg" alt="">
+              <div class="sticker hero__cta-sticker">
+                <img src="images/mobile/sticker-yellow-dino-outline.svg" alt="">
+                <img src="images/mobile/sticker-yellow-dino.svg" alt="">
+              </div>
+            </div>
           </div>
 
           <div class="sticker hero__sticker-dino" aria-hidden="true">
-            <img src="images/sticker-green-dino-outline.svg" alt="">
-            <img src="images/sticker-green-dino.svg" alt="">
+            <picture>
+              <source media="(max-width: 960px)" srcset="images/mobile/sticker-blue-dino-outline.svg">
+              <img src="images/sticker-green-dino-outline.svg" alt="">
+            </picture>
+            <picture>
+              <source media="(max-width: 960px)" srcset="images/mobile/sticker-blue-dino.svg">
+              <img src="images/sticker-green-dino.svg" alt="">
+            </picture>
           </div>
           <div class="sticker hero__sticker-flower" aria-hidden="true">
-            <img src="images/sticker-yellow-flower.svg" alt="">
+            <picture>
+              <source media="(max-width: 960px)" srcset="images/mobile/sticker-pink-flower.svg">
+              <img src="images/sticker-yellow-flower.svg" alt="">
+            </picture>
           </div>
 
           <a class="hero__scroll" href="#about">
-            <img src="images/hero-arrow.svg" alt="Scroll down to learn more">
+            <picture>
+              <source media="(max-width: 960px)" srcset="images/mobile/hero-arrow.svg">
+              <img src="images/hero-arrow.svg" alt="Scroll down to learn more">
+            </picture>
           </a>
         </div>
       </section>
 
       <!-- Info -->
-      <section class="info" id="about" aria-labelledby="info-title">
+      <section class="info reveal" id="about" aria-labelledby="info-title">
         <div class="info__inner">
           <h2 class="visually-hidden" id="info-title">What to expect</h2>
 
@@ -155,7 +186,7 @@
       </section>
 
       <!-- Community -->
-      <section class="community" id="community" aria-labelledby="community-title">
+      <section class="community reveal" id="community" aria-labelledby="community-title">
         <div class="community__inner">
           <header class="section-header">
             <div class="section-header__heading">
@@ -276,11 +307,70 @@
               </div>
             </div>
           </div>
+
+          <!-- Phones get a swipeable row of polaroids in place of the collage above -->
+          <div class="reel">
+            <ul class="reel__track" tabindex="0" aria-label="Community photos">
+              <li class="is-current">
+                <figure class="polaroid">
+                  <div class="polaroid__photo">
+                    <img class="crop--reel-bonding" src="images/gallery-polaroid.jpg" alt="Club members gathered around an outdoor table of crocheted dinos, one flashing a peace sign" loading="lazy">
+                  </div>
+                  <figcaption class="polaroid__caption">Spring Bonding</figcaption>
+                </figure>
+              </li>
+              <li>
+                <figure class="polaroid">
+                  <div class="polaroid__photo">
+                    <img src="images/mobile/gallery-flash-sale-pickup.jpg" alt="Hands holding up a stack of crocheted dinos at an outdoor table on campus" loading="lazy">
+                  </div>
+                  <figcaption class="polaroid__caption">Flash Sale Pickup</figcaption>
+                </figure>
+              </li>
+              <li>
+                <figure class="polaroid">
+                  <div class="polaroid__photo">
+                    <img src="images/gallery-polaroid-big-drop.jpg" alt="Club members sitting on outdoor steps, smiling up at the camera" loading="lazy">
+                  </div>
+                  <figcaption class="polaroid__caption">Big Drop Hangout</figcaption>
+                </figure>
+              </li>
+              <li>
+                <figure class="polaroid">
+                  <div class="polaroid__photo">
+                    <img src="images/gallery-polaroid-sleepover.jpg" alt="Club members gathered around a table of food, smiling at the camera" loading="lazy">
+                  </div>
+                  <figcaption class="polaroid__caption">Fall Sleepover Social</figcaption>
+                </figure>
+              </li>
+              <li>
+                <figure class="polaroid">
+                  <div class="polaroid__photo">
+                    <img src="images/gallery-polaroid-3a.png" alt="A member winding yarn at a table covered in crocheted dinos" loading="lazy">
+                  </div>
+                  <figcaption class="polaroid__caption">Prod Team Pickup</figcaption>
+                </figure>
+              </li>
+              <li>
+                <figure class="polaroid">
+                  <div class="polaroid__photo">
+                    <img class="crop--reel-picnic" src="images/gallery-polaroid-3b.png" alt="Three members giving thumbs up at a picnic table in the park" loading="lazy">
+                  </div>
+                  <figcaption class="polaroid__caption">Earth Day Event</figcaption>
+                </figure>
+              </li>
+            </ul>
+            <div class="reel__indicator" aria-hidden="true"><span class="reel__thumb"></span></div>
+            <blockquote class="reel__quote">
+              <p>“I initially joined triceratops as a member with my friends on a whim—not knowing whether I wanted to continue doing club activities at all in college. Looking back on that, I am so glad that I joined as I made so many memories that I will forever cherish!!”</p>
+              <footer class="reel__author">— UC Davis Senior</footer>
+            </blockquote>
+          </div>
         </div>
       </section>
 
       <!-- Events -->
-      <section class="events" id="events" aria-labelledby="events-title">
+      <section class="events reveal" id="events" aria-labelledby="events-title">
         <div class="events__inner">
           <header class="section-header">
             <div class="section-header__heading">
@@ -306,20 +396,40 @@
             <div class="events__notes">
               <ul class="events__notes-list" tabindex="0" aria-label="Event types">
                 <li class="sticky-note sticky-note--teal">
-                  <h3 class="sticky-note__title">Dino Drops</h3>
-                  <p class="sticky-note__body">Almost-daily random chances to win a regular monthly triceratops</p>
+                  <details class="sticky-note__details" open>
+                    <summary class="sticky-note__summary">
+                      <h3 class="sticky-note__title">Dino Drops</h3>
+                      <img class="sticky-note__icon" src="images/mobile/icon-plus.svg" alt="" width="14" height="14">
+                    </summary>
+                    <p class="sticky-note__body">Almost-daily random chances to win a regular monthly triceratops</p>
+                  </details>
                 </li>
                 <li class="sticky-note sticky-note--yellow">
-                  <h3 class="sticky-note__title">Trivia Events</h3>
-                  <p class="sticky-note__body">Chances to earn an exclusive and rare dino towards the second half of each quarter</p>
+                  <details class="sticky-note__details" open>
+                    <summary class="sticky-note__summary">
+                      <h3 class="sticky-note__title">Trivia Events</h3>
+                      <img class="sticky-note__icon" src="images/mobile/icon-plus.svg" alt="" width="14" height="14">
+                    </summary>
+                    <p class="sticky-note__body">Chances to earn an exclusive and rare dino towards the second half of each quarter</p>
+                  </details>
                 </li>
                 <li class="sticky-note sticky-note--pink">
-                  <h3 class="sticky-note__title">Flash Sales</h3>
-                  <p class="sticky-note__body">Purchase a dino from the #listings channel in our Discord on the last day of each month</p>
+                  <details class="sticky-note__details" open>
+                    <summary class="sticky-note__summary">
+                      <h3 class="sticky-note__title">Flash Sales</h3>
+                      <img class="sticky-note__icon" src="images/mobile/icon-plus.svg" alt="" width="14" height="14">
+                    </summary>
+                    <p class="sticky-note__body">Purchase a dino from the #listings channel in our Discord on the last day of each month</p>
+                  </details>
                 </li>
                 <li class="sticky-note sticky-note--blue">
-                  <h3 class="sticky-note__title">Study Events</h3>
-                  <p class="sticky-note__body">No chance to earn a dino, but hang out and study with the community. Meet new people!</p>
+                  <details class="sticky-note__details" open>
+                    <summary class="sticky-note__summary">
+                      <h3 class="sticky-note__title">Study Events</h3>
+                      <img class="sticky-note__icon" src="images/mobile/icon-plus.svg" alt="" width="14" height="14">
+                    </summary>
+                    <p class="sticky-note__body">No chance to earn a dino, but hang out and study with the community. Meet new people!</p>
+                  </details>
                 </li>
               </ul>
               <img class="events__notes-fade events__notes-fade--top" src="images/events-fade.png" alt="" aria-hidden="true">
@@ -336,8 +446,12 @@
 
       <!-- Heatmap -->
       <section class="heatmap" id="heatmap" aria-labelledby="heatmap-title">
-        <div class="heatmap__inner">
+        <div class="heatmap__inner reveal">
           <div class="heatmap__decor" aria-hidden="true">
+            <picture>
+              <source media="(min-width: 641px)" srcset="images/mobile/heatmap-accessories-landscape.svg">
+              <img class="heatmap__accessories" src="images/mobile/heatmap-accessories.svg" alt="">
+            </picture>
             <img class="heatmap__flower-sticker" src="images/heatmap-flower-sticker.svg" alt="">
             <div class="heatmap__flower heatmap__flower--yellow"><img src="images/heatmap-flower-yellow.svg" alt=""></div>
             <div class="heatmap__flower heatmap__flower--white"><img src="images/heatmap-flower-white.svg" alt=""></div>
@@ -373,7 +487,7 @@
       <!-- Closing -->
       <section class="closing" id="socials" aria-labelledby="closing-title">
         <img class="closing__image" src="images/closing.png" alt="A blue triceratops inspecting a small purple dino with a magnifying glass under the trees">
-        <div class="closing__inner">
+        <div class="closing__inner reveal">
           <h2 class="closing__title" id="closing-title">Check out our socials to stay up to date!</h2>
           <div class="closing__ctas">
             <div class="closing__discord">
@@ -381,7 +495,7 @@
                 <img src="images/icon-discord.svg" alt="" width="24" height="24">
                 Join Our Discord
               </a>
-              <p class="closing__note">Join our Discord to get notified of every drop and more!</p>
+              <p class="closing__note">Join our Discord to get <span class="closing__note-line">notified of every drop and more!</span></p>
             </div>
             <a class="btn btn--instagram" href="https://www.instagram.com/davis_triceratops?psln=NTc4MTIwNjQ2YQ==" target="_blank" rel="noopener noreferrer">
               <span class="btn--instagram__gradients" aria-hidden="true">
@@ -408,9 +522,18 @@
     <footer class="site-footer">
       <div class="grass" aria-hidden="true">
         <div class="grass__inner">
-          <img class="grass__tuft grass__tuft--right" src="images/grass.svg" alt="">
-          <img class="grass__tuft grass__tuft--left" src="images/grass.svg" alt="">
-          <img class="grass__tuft grass__tuft--center" src="images/grass.svg" alt="">
+          <picture>
+            <source media="(max-width: 640px)" srcset="images/mobile/grass.svg">
+            <img class="grass__tuft grass__tuft--right" src="images/grass.svg" alt="">
+          </picture>
+          <picture>
+            <source media="(max-width: 640px)" srcset="images/mobile/grass.svg">
+            <img class="grass__tuft grass__tuft--left" src="images/grass.svg" alt="">
+          </picture>
+          <picture>
+            <source media="(max-width: 640px)" srcset="images/mobile/grass.svg">
+            <img class="grass__tuft grass__tuft--center" src="images/grass.svg" alt="">
+          </picture>
         </div>
       </div>
 
