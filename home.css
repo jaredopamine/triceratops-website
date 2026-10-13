@@ -1980,9 +1980,15 @@ section[id] {
   .footer-social__icon[href*="instagram"]::after { content: "Check Our Instagram"; }
 
   /* Community: the desktop collage gives way to a swipeable photo carousel,
-     with the testimonial text swapping to match whichever photo is in view. */
+     with the testimonial text swapping to match whichever photo is in view.
+     Padding lives on .gallery-mobile itself (not inherited from
+     .community__inner) since that parent's own inline padding is zeroed
+     out for the full-bleed reel carousel elsewhere in this stylesheet. */
   .gallery { display: none; }
-  .gallery-mobile { display: block; }
+  .gallery-mobile {
+    display: block;
+    padding-inline: var(--page-gutter);
+  }
 
   .gallery-mobile__quote {
     margin: 24px 0 0;
