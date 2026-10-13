@@ -1,3 +1,10 @@
+// The upright-phone layout in home.css starts at this width (a phone on its
+// side gets the layout above it, which behaves like the desktop one here)
+const phoneLayout = window.matchMedia('(max-width: 640px)');
+
+// Mobile menu and "Getting Started" dropdown are handled by nav.js (the
+// shared system every other page uses), not page-specific code here.
+
 // Hero scroll arrow: fades out once the page is scrolled, returns at the very top
 const heroScroll = document.querySelector('.hero__scroll');
 
@@ -38,6 +45,98 @@ if (eventNotesList) {
 
   eventNotesList.addEventListener('scroll', updateNotesFade, { passive: true });
   updateNotesFade();
+}
+
+// Event types: always-open sticky notes on wide screens, an accordion on phones
+const eventDetails = Array.from(document.querySelectorAll('.sticky-note__details'));
+
+if (eventDetails.length) {
+  const syncEventDetails = () => {
+    eventDetails.forEach((details) => {
+      const summary = details.querySelector('summary');
+      details.open = !phoneLayout.matches;
+
+      // An always-open note is not a control, so keep it out of the tab order
+      if (phoneLayout.matches) {
+        summary.removeAttribute('tabindex');
+      } else {
+        summary.tabIndex = -1;
+      }
+    });
+  };
+
+  phoneLayout.addEventListener('change', syncEventDetails);
+  syncEventDetails();
+}
+
+// Phone gallery: the bar under the polaroids fills up as the row is scrolled through
+const reelTrack = document.querySelector('.reel__track');
+
+if (reelTrack) {
+  const reel = reelTrack.parentElement;
+  const photos = Array.from(reelTrack.children);
+
+  // The photo whose resting place is closest to the row's left edge
+  const leftmostPhoto = () => {
+    const gutter = parseFloat(getComputedStyle(reelTrack).paddingLeft);
+    const offsets = photos.map((photo) => (
+      Math.abs(photo.offsetLeft - reelTrack.offsetLeft - gutter - reelTrack.scrollLeft)
+    ));
+    return photos[offsets.indexOf(Math.min(...offsets))];
+  };
+
+  const updateReel = () => {
+    // How much of the row has been seen so far: what is on screen plus what was scrolled past
+    const seen = (reelTrack.scrollLeft + reelTrack.clientWidth) / reelTrack.scrollWidth;
+    reel.style.setProperty('--reel-progress', Math.min(seen, 1));
+
+    // The leftmost photo straightens up; the rest stay tilted (see home.css)
+    const current = leftmostPhoto();
+    photos.forEach((photo) => photo.classList.toggle('is-current', photo === current));
+  };
+
+  reelTrack.addEventListener('scroll', updateReel, { passive: true });
+
+  // Touch screens swipe the row natively; this lets a mouse drag it too
+  let dragStartX = 0;
+  let dragStartScroll = 0;
+  let settleTimer = 0;
+  let isDragging = false;
+
+  const dragReel = (event) => {
+    reelTrack.scrollLeft = dragStartScroll - (event.clientX - dragStartX);
+  };
+
+  // Glide to the nearest photo, then hand snapping back to the CSS
+  const endDrag = () => {
+    if (!isDragging) return;
+    isDragging = false;
+    window.removeEventListener('pointermove', dragReel);
+
+    const gutter = parseFloat(getComputedStyle(reelTrack).paddingLeft);
+    const nearest = leftmostPhoto().offsetLeft - reelTrack.offsetLeft - gutter;
+
+    reelTrack.scrollTo({ left: nearest, behavior: 'smooth' });
+    settleTimer = setTimeout(() => reelTrack.classList.remove('is-dragging'), 500);
+  };
+
+  reelTrack.addEventListener('pointerdown', (event) => {
+    if (event.pointerType !== 'mouse' || event.button !== 0) return;
+    clearTimeout(settleTimer);
+    dragStartX = event.clientX;
+    dragStartScroll = reelTrack.scrollLeft;
+    isDragging = true;
+    reelTrack.classList.add('is-dragging');
+    // On the window, so the drag carries on if the mouse leaves the row
+    window.addEventListener('pointermove', dragReel);
+  });
+
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
+
+  // Keep the browser from dragging a ghost copy of a photo instead
+  reelTrack.addEventListener('dragstart', (event) => event.preventDefault());
+  updateReel();
 }
 
 // Community gallery carousel
@@ -447,17 +546,21 @@ if (heatmapMap && window.maplibregl) {
   // The same stretch of campus and downtown Davis as the picture in the design,
   // as [longitude, latitude] of the south-west and north-east corners
   const DAVIS_VIEW = [[-121.7833, 38.5282], [-121.7277, 38.5483]];
+  // The phone's map is tall and narrow, so it opens on the campus core instead
+  const PHONE_VIEW = { center: [-121.7515, 38.5405], zoom: 13.6 };
 
   try {
     const map = new maplibregl.Map({
       container: heatmapMap,
       style: 'https://tiles.openfreemap.org/styles/positron',
-      bounds: DAVIS_VIEW,
+      ...(phoneLayout.matches ? PHONE_VIEW : { bounds: DAVIS_VIEW }),
       minZoom: 11,
       maxZoom: 18,
       // Plain scrolling keeps moving the page: zooming needs Ctrl (or Cmd) + scroll,
       // and on touch screens the map moves with two fingers
       cooperativeGestures: true,
+      // The hint shown on touch screens; mouse users keep the Ctrl/Cmd + scroll one
+      locale: { 'CooperativeGesturesHandler.MobileHelpText': 'Use two fingers to move and zoom the map' },
       dragRotate: false,
       pitchWithRotate: false,
       touchPitch: false,
