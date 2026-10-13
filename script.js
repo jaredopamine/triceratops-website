@@ -1,42 +1,3 @@
-// Mobile menu
-const navToggle = document.querySelector('.nav-toggle');
-const nav = document.querySelector('.nav');
-
-if (navToggle && nav) {
-  navToggle.addEventListener('click', () => {
-    const isOpen = nav.classList.toggle('is-open');
-    navToggle.setAttribute('aria-expanded', String(isOpen));
-  });
-}
-
-// "Getting Started" dropdown
-const dropdownToggle = document.querySelector('.nav__dropdown-toggle');
-const dropdown = dropdownToggle && document.getElementById(dropdownToggle.getAttribute('aria-controls'));
-
-function setDropdownOpen(isOpen) {
-  dropdown.hidden = !isOpen;
-  dropdownToggle.setAttribute('aria-expanded', String(isOpen));
-}
-
-if (dropdownToggle && dropdown) {
-  dropdownToggle.addEventListener('click', () => {
-    setDropdownOpen(dropdown.hidden);
-  });
-
-  document.addEventListener('click', (event) => {
-    if (!dropdown.hidden && !event.target.closest('.nav__item--dropdown')) {
-      setDropdownOpen(false);
-    }
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && !dropdown.hidden) {
-      setDropdownOpen(false);
-      dropdownToggle.focus();
-    }
-  });
-}
-
 // Hero scroll arrow: fades out once the page is scrolled, returns at the very top
 const heroScroll = document.querySelector('.hero__scroll');
 
@@ -249,6 +210,104 @@ if (polaroids.length) {
   });
 
   lightbox.addEventListener('close', finishClosing);
+}
+
+// Mobile community carousel — built from the desktop gallery slides above so
+// the photos and testimonials only need to be authored once (same approach
+// as nav.js's mobile menu).
+const galleryMobile = document.querySelector('.gallery-mobile');
+
+if (galleryMobile && gallery) {
+  const slideEls = Array.from(gallery.querySelectorAll('.gallery__slide'));
+  const quoteEl = galleryMobile.querySelector('.gallery-mobile__quote');
+  const track = galleryMobile.querySelector('.gallery-mobile__track');
+  const list = galleryMobile.querySelector('.gallery-mobile__list');
+  const fill = galleryMobile.querySelector('.gallery-mobile__indicator-fill');
+
+  const testimonials = slideEls.map((slide) => ({
+    quote: slide.querySelector('.index-card__quote p').textContent,
+    author: slide.querySelector('.index-card__author').textContent,
+  }));
+
+  const cards = [];
+  slideEls.forEach((slide, slideIndex) => {
+    slide.querySelectorAll('.polaroid').forEach((polaroid) => {
+      const card = polaroid.cloneNode(true);
+      card.classList.add('gallery-mobile__card');
+      card.removeAttribute('tabindex');
+      const date = card.querySelector('.polaroid__date');
+      if (date) date.remove();
+
+      const li = document.createElement('li');
+      li.className = 'gallery-mobile__item';
+      li.dataset.group = String(slideIndex);
+      li.appendChild(card);
+      list.appendChild(li);
+      cards.push(li);
+    });
+  });
+
+  function setGroup(index) {
+    const testimonial = testimonials[index];
+    quoteEl.innerHTML = '';
+    const p = document.createElement('p');
+    p.textContent = testimonial.quote;
+    const footer = document.createElement('footer');
+    footer.textContent = testimonial.author;
+    quoteEl.append(p, footer);
+  }
+
+  let activeGroup = -1;
+
+  function updateFromScroll() {
+    if (cards.length < 2) return;
+    const first = cards[0].getBoundingClientRect();
+    const second = cards[1].getBoundingClientRect();
+    const stride = second.left - first.left;
+    if (!stride) return; // the track is hidden (desktop width) — nothing to measure
+
+    const index = Math.min(cards.length - 1, Math.max(0, Math.round(track.scrollLeft / stride)));
+
+    fill.style.width = `${((index + 1) / cards.length) * 100}%`;
+
+    const group = Number(cards[index].dataset.group);
+    if (group !== activeGroup) {
+      activeGroup = group;
+      setGroup(group);
+    }
+  }
+
+  setGroup(0);
+  updateFromScroll();
+
+  let ticking = false;
+  track.addEventListener(
+    'scroll',
+    () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        updateFromScroll();
+        ticking = false;
+      });
+    },
+    { passive: true }
+  );
+
+  window.addEventListener('resize', updateFromScroll);
+
+  const reduceMotionMobileGallery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  track.addEventListener('keydown', (event) => {
+    if (cards.length < 2) return;
+    const stride = cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left;
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      track.scrollBy({ left: -stride, behavior: reduceMotionMobileGallery.matches ? 'auto' : 'smooth' });
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      track.scrollBy({ left: stride, behavior: reduceMotionMobileGallery.matches ? 'auto' : 'smooth' });
+    }
+  });
 }
 
 // Dino drops counted per area of campus. Each area is drawn as heat around one or

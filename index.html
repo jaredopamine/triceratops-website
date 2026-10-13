@@ -7,8 +7,9 @@
   <meta name="description" content="Triceratops Club at UC Davis: collect dinos through scavenger hunts, trivia, flash sales, and more.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" integrity="sha384-MinO0mNliZ3vwppuPOUnGa+iq619pfMhLVUXfC4LHwSCvF9H+6P/KO4Q7qBOYV5V" crossorigin="">
+  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="home.css">
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" integrity="sha384-SYKAG6cglRMN0RVvhNeBY0r3FYKNOJtznwA0v7B5Vp9tr31xAHsZC0DqkQ/pZDmj" crossorigin="" defer></script>
   <script src="script.js" defer></script>
@@ -19,40 +20,28 @@
   <div class="page">
     <header class="site-header">
       <div class="site-header__inner">
-        <a class="site-header__logo" href="index.html">
-          <img src="images/logo.png" alt="Triceratops Club at UC Davis home" width="80" height="80">
+        <a href="index.html" class="site-logo">
+          <img src="images/logo.png" alt="UC Davis Triceratops Club logo">
         </a>
 
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
-          <span class="visually-hidden">Menu</span>
-          <span class="nav-toggle__bars" aria-hidden="true"></span>
-        </button>
-
-        <nav class="nav" id="site-nav" aria-label="Main">
-          <ul class="nav__list">
-            <li><a class="nav__link" href="index.html" aria-current="page">Home</a></li>
-            <li class="nav__item--dropdown">
-              <button class="nav__link nav__dropdown-toggle" type="button" aria-expanded="false" aria-controls="getting-started-menu">
-                Getting Started
-                <img class="nav__chevron" src="images/icon-chevron-up.svg" alt="" width="24" height="24">
-              </button>
-              <ul class="nav__dropdown" id="getting-started-menu" hidden>
-                <li><a href="getting-started.html">Getting Started</a></li>
-                <li><a href="getting-started.html#set-up-notifs">Set Up Notifs</a></li>
-                <li><a href="getting-started.html#drop-types">Drop Types</a></li>
-                <li><a href="getting-started.html#faq">FAQ</a></li>
-                <li><a href="flash-sales.html">Flash Sales</a></li>
-              </ul>
-            </li>
-            <li><a class="nav__link" href="dinodex.html">DinoDex</a></li>
-            <li><a class="nav__link" href="rules.html">Rules</a></li>
-            <li><a class="nav__link" href="about.html">About Us</a></li>
-          </ul>
+        <nav class="main-nav" aria-label="Primary">
+          <a class="main-nav__link main-nav__link--current" href="index.html" aria-current="page">Home</a>
+          <div class="nav-dropdown">
+            <a class="main-nav__link" href="getting-started.html">
+              Getting Started
+              <img class="main-nav__chevron" src="assets/chevron-down.svg" alt="">
+            </a>
+            <div class="nav-dropdown__panel">
+              <a href="flash-sales.html">Flash Sales</a>
+            </div>
+          </div>
+          <a class="main-nav__link" href="dinodex.html">DinoDex</a>
+          <a class="main-nav__link" href="rules.html">Rules</a>
+          <a class="main-nav__link" href="about.html">About Us</a>
         </nav>
 
-        <!-- TODO: replace href="#" on the Discord / Instagram / email links with the club's real URLs -->
-        <a class="btn btn--discord site-header__cta" href="https://discord.gg/7vWUbw9fS" target="_blank" rel="noopener noreferrer">
-          <img src="images/icon-discord.svg" alt="" width="24" height="24">
+        <a href="https://discord.gg/7vWUbw9fS" target="_blank" rel="noopener" class="btn btn-discord">
+          <img src="assets/discord-icon.svg" alt="">
           Join Our Discord
         </a>
       </div>
@@ -276,6 +265,21 @@
               </div>
             </div>
           </div>
+
+          <!-- Mobile carousel: built at runtime from the slides above (see
+               script.js), so the photos and testimonials only live in one place. -->
+          <div class="gallery-mobile">
+            <div class="gallery-mobile__track" role="region" aria-roledescription="carousel" aria-label="Community photos" tabindex="0">
+              <ul class="gallery-mobile__list"></ul>
+            </div>
+            <div class="gallery-mobile__indicator" aria-hidden="true">
+              <span class="gallery-mobile__indicator-fill"></span>
+            </div>
+            <blockquote class="gallery-mobile__quote" aria-live="polite">
+              <p></p>
+              <footer></footer>
+            </blockquote>
+          </div>
         </div>
       </section>
 
@@ -406,88 +410,89 @@
     </main>
 
     <footer class="site-footer">
-      <div class="grass" aria-hidden="true">
-        <div class="grass__inner">
-          <img class="grass__tuft grass__tuft--right" src="images/grass.svg" alt="">
-          <img class="grass__tuft grass__tuft--left" src="images/grass.svg" alt="">
-          <img class="grass__tuft grass__tuft--center" src="images/grass.svg" alt="">
-        </div>
-      </div>
+      <div class="footer-grass" aria-hidden="true"></div>
 
-      <div class="site-footer__body">
-        <div class="site-footer__inner">
-          <div class="site-footer__decor" aria-hidden="true">
-            <img class="site-footer__asterisk site-footer__asterisk--1" src="images/footer-asterisk.svg" alt="">
-            <img class="site-footer__asterisk site-footer__asterisk--2" src="images/footer-asterisk.svg" alt="">
-            <img class="site-footer__dino-blue" src="images/footer-dino-blue.svg" alt="">
-            <img class="site-footer__flower-blue" src="images/footer-flower-blue.svg" alt="">
-            <img class="site-footer__flower-red" src="images/footer-flower-red.svg" alt="">
-            <img class="site-footer__dino-green" src="images/footer-dino-green.svg" alt="">
-            <div class="cloud cloud--1">
-              <img class="cloud__shadow" src="images/cloud-1-shadow.svg" alt="">
-              <img class="cloud__body" src="images/cloud-1.svg" alt="">
-            </div>
-            <div class="cloud cloud--2">
-              <img class="cloud__shadow" src="images/cloud-2-shadow.svg" alt="">
-              <img class="cloud__body" src="images/cloud-2.svg" alt="">
-            </div>
-            <div class="cloud cloud--3">
-              <img class="cloud__shadow" src="images/cloud-3-shadow.svg" alt="">
-              <img class="cloud__body" src="images/cloud-3.svg" alt="">
-            </div>
-          </div>
+      <div class="footer-content">
+        <img class="footer-deco footer-deco--flower-tl" src="assets/flower-accent.svg" alt="" aria-hidden="true">
+        <img class="footer-deco footer-deco--flower-mid" src="assets/flower-accent.svg" alt="" aria-hidden="true">
+        <img class="footer-deco footer-deco--cloud1-back" src="assets/cloud-1-back.svg" alt="" aria-hidden="true">
+        <img class="footer-deco footer-deco--cloud1-front" src="assets/cloud-1-front.svg" alt="" aria-hidden="true">
+        <img class="footer-deco footer-deco--cloud2-back" src="assets/cloud-2-back.svg" alt="" aria-hidden="true">
+        <img class="footer-deco footer-deco--cloud2-front" src="assets/cloud-2-front.svg" alt="" aria-hidden="true">
+        <img class="footer-deco footer-deco--cloud3-back" src="assets/cloud-3-back.svg" alt="" aria-hidden="true">
+        <img class="footer-deco footer-deco--cloud3-front" src="assets/cloud-3-front.svg" alt="" aria-hidden="true">
+        <img class="footer-deco footer-deco--dino-single" src="assets/dino-single.svg" alt="" aria-hidden="true">
+        <img class="footer-deco footer-deco--dino-duo" src="assets/dino-duo.svg" alt="" aria-hidden="true">
+        <img class="footer-deco footer-deco--flower-small-1" src="assets/flower-small-1.svg" alt="" aria-hidden="true">
+        <img class="footer-deco footer-deco--flower-small-2" src="assets/flower-small-2.svg" alt="" aria-hidden="true">
 
-          <nav class="footer-nav" aria-label="Footer">
-            <div class="footer-nav__column footer-nav__column--home">
-              <h2 class="footer-nav__title"><a href="index.html">Home</a></h2>
-              <ul class="footer-nav__list">
-                <li><a href="#community">Testimonials</a></li>
-                <li><a href="#heatmap">Map</a></li>
-                <li><a href="#events">Event Calendar</a></li>
-              </ul>
-            </div>
-            <div class="footer-nav__column footer-nav__column--getting-started">
-              <h2 class="footer-nav__title"><a href="getting-started.html">Getting Started</a></h2>
-              <ul class="footer-nav__list">
-                <li><a href="getting-started.html#set-up-notifs">Set Up Notifs</a></li>
-                <li><a href="getting-started.html#drop-types">Drop Types</a></li>
-                <li><a href="getting-started.html#faq">FAQ</a></li>
-                <li><a href="flash-sales.html">Flash Sales</a></li>
-              </ul>
-            </div>
-            <div class="footer-nav__column footer-nav__column--dinodex">
-              <h2 class="footer-nav__title"><a href="dinodex.html">DinoDex</a></h2>
-              <ul class="footer-nav__list">
-                <li><a href="dinodex.html#popular">Popular Dinos</a></li>
-                <li><a href="dinodex.html#types">Dino Types</a></li>
-              </ul>
-            </div>
-            <div class="footer-nav__column footer-nav__column--rules">
-              <h2 class="footer-nav__title"><a href="rules.html">Rules</a></h2>
-              <ul class="footer-nav__list">
-                <li><a href="rules.html#claim-title">Claiming Process</a></li>
-              </ul>
-            </div>
-            <div class="footer-nav__column">
-              <h2 class="footer-nav__title"><a href="about.html">About Us</a></h2>
-              <ul class="footer-nav__list">
-                <li><a href="about.html#get-involved">Get Involved</a></li>
-                <li><a href="about.html#contact">Contact Form</a></li>
-              </ul>
-            </div>
-          </nav>
+        <img class="footer-deco-m footer-deco-m--cloud1" src="assets/footer-cloud-1.png" alt="" aria-hidden="true">
+        <img class="footer-deco-m footer-deco-m--cloud2" src="assets/footer-cloud-2.png" alt="" aria-hidden="true">
+        <img class="footer-deco-m footer-deco-m--cloud3" src="assets/footer-cloud-3.png" alt="" aria-hidden="true">
+        <img class="footer-deco-m footer-deco-m--dino-blue" src="assets/footer-dino-blue.png" alt="" aria-hidden="true">
+        <img class="footer-deco-m footer-deco-m--dino-green" src="assets/footer-dino-green.png" alt="" aria-hidden="true">
+        <img class="footer-deco-m footer-deco-m--flower1" src="assets/footer-flower-1.png" alt="" aria-hidden="true">
+        <img class="footer-deco-m footer-deco-m--flower2" src="assets/footer-flower-2.png" alt="" aria-hidden="true">
 
-          <div class="site-footer__bottom">
-            <p class="site-footer__copyright">© 2026 UC Davis Triceratops Club | All Rights Reserved</p>
-            <ul class="social-links">
-              <li><a class="social-links__link" href="#" aria-label="Email us"><img src="images/icon-email.svg" alt="" width="24" height="24"></a></li>
-              <li><a class="social-links__link" href="https://discord.gg/7vWUbw9fS" target="_blank" rel="noopener noreferrer" aria-label="Discord"><img src="images/icon-discord-footer.svg" alt="" width="24" height="24"></a></li>
-              <li><a class="social-links__link" href="https://www.instagram.com/davis_triceratops?psln=NTc4MTIwNjQ2YQ==" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img src="images/icon-instagram-footer.svg" alt="" width="24" height="24"></a></li>
+        <div class="footer-columns">
+          <div class="footer-column">
+            <p class="footer-column__title">Home</p>
+            <ul class="footer-column__links">
+              <li><a href="#community">Testimonials</a></li>
+              <li><a href="#heatmap">Map</a></li>
+              <li><a href="#events">Event Calendar</a></li>
             </ul>
+          </div>
+          <div class="footer-column">
+            <p class="footer-column__title">Getting Started</p>
+            <ul class="footer-column__links">
+              <li><a href="getting-started.html#set-up-notifs">Set Up Notifs</a></li>
+              <li><a href="getting-started.html#drop-types">Drop Types</a></li>
+              <li><a href="getting-started.html#faq">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <p class="footer-column__title">Flash Sales</p>
+            <ul class="footer-column__links">
+              <li><a href="flash-sales.html#what-is">What Is A Flash Sale?</a></li>
+              <li><a href="flash-sales.html#pricing">Pricing</a></li>
+              <li><a href="flash-sales.html#pickup">How To Pick Up Dino</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <p class="footer-column__title">DinoDex</p>
+            <ul class="footer-column__links">
+              <li><a href="dinodex.html#popular-dinos">Popular Dinos</a></li>
+              <li><a href="dinodex.html#dino-types">Dino Types</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <p class="footer-column__title">Rules</p>
+            <ul class="footer-column__links">
+              <li><a href="rules.html#general-title">General Rules</a></li>
+              <li><a href="rules.html#hunt-title">Hunt Rules</a></li>
+              <li><a href="rules.html#flash-title">Flash Sale Rules</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <p class="footer-column__title">About Us</p>
+            <ul class="footer-column__links">
+              <li><a href="about.html#stay-involved">Get Involved</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p class="footer-copyright">© 2026 UC Davis Triceratops Club | All Rights Reserved</p>
+          <div class="footer-social">
+            <a href="https://discord.gg/7vWUbw9fS" class="footer-social__icon" target="_blank" rel="noopener noreferrer"><img src="assets/discord-social-icon.svg" alt="Discord"></a>
+            <a href="https://www.instagram.com/davis_triceratops?psln=NTc4MTIwNjQ2YQ==" class="footer-social__icon" target="_blank" rel="noopener noreferrer"><img src="assets/instagram-social-icon.svg" alt="Instagram"></a>
           </div>
         </div>
       </div>
     </footer>
   </div>
+
+  <script src="nav.js" defer></script>
 </body>
 </html>

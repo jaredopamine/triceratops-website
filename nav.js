@@ -177,7 +177,7 @@
   instagramCta.href = 'https://www.instagram.com/davis_triceratops/';
   instagramCta.target = '_blank';
   instagramCta.rel = 'noopener';
-  instagramCta.innerHTML = '<img src="assets/instagram-social-icon.svg" alt="" aria-hidden="true">Follow Our Instagram';
+  instagramCta.innerHTML = '<img src="assets/instagram-social-icon.svg" alt="" aria-hidden="true">Check Our Instagram';
   panel.appendChild(instagramCta);
 
   document.body.appendChild(panel);

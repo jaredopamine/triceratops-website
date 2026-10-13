@@ -1,17 +1,13 @@
-/* Pulang (the design's display font) is not on Google Fonts. It is used when
-   installed locally; to self-host it, add the font file to the project and a
-   url() to this src list. Chewy is the Google Fonts fallback. */
-@font-face {
-  font-family: "Pulang";
-  src: local("Pulang"), local("Pulang Regular"), local("Pulang-Regular");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+/* Pulang (the design's display font) is not on Google Fonts. Every other
+   page loads it from cdnfonts; this page's @font-face had no url() and
+   only matched a locally-installed copy, so it was silently falling back
+   to Chewy (a cursive font) instead of rendering Pulang like every other
+   page's headings. */
+@import url('https://fonts.cdnfonts.com/css/pulang');
 
 :root {
   /* Colors */
-  --color-text: #3d3d3d;
+  --color-body-text: #3d3d3d;
   --color-black: #000000;
   --color-white: #ffffff;
   --color-off-white: #fffdfd;
@@ -50,7 +46,7 @@
   --color-scrim: rgba(0, 0, 0, 0.6);
 
   /* Fonts */
-  --font-display: "Pulang", "Chewy", cursive;
+  --font-display: "Pulang", "Nunito", sans-serif;
   --font-body: "Nunito", sans-serif;
 
   --text-title: 64px;
@@ -104,9 +100,15 @@ html {
 }
 
 body {
+  /* styles.css makes body a column flexbox so the shared footer can stick
+     to the bottom of short pages; home's own layout isn't built around
+     that (and flex-shrinking a tall .page was squashing the hero), so
+     it goes back to plain block flow here. */
+  display: block;
+  min-height: 0;
   margin: 0;
   background: var(--color-off-white);
-  color: var(--color-text);
+  color: var(--color-body-text);
   font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: var(--leading-body);
@@ -339,129 +341,15 @@ section[id] {
   line-height: var(--leading-heading);
 }
 
-/* Header */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: var(--color-header-bg);
-}
-
-.site-header__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: var(--content-max);
-  height: var(--header-height);
-  margin-inline: auto;
-  padding: var(--space-3) 27px;
-}
-
-.site-header__logo img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-}
-
-.nav__list {
-  display: flex;
-  align-items: center;
-  gap: var(--space-10);
-}
-
-.nav__link {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  color: var(--color-black);
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.nav__link:hover {
-  text-decoration: underline;
-  text-underline-offset: 6px;
-}
-
-.nav__item--dropdown {
-  position: relative;
-}
-
-.nav__dropdown-toggle {
-  padding-right: var(--space-2);
-}
-
-.nav__chevron {
-  rotate: 180deg;
-  transition: rotate 0.2s ease;
-}
-
-.nav__dropdown-toggle[aria-expanded="true"] .nav__chevron {
-  rotate: 0deg;
-}
-
-.nav__dropdown {
-  position: absolute;
-  top: calc(100% + var(--space-3));
-  left: calc(-1 * var(--space-4));
-  min-width: 100%;
-  padding: var(--space-2);
-  border-radius: var(--radius-md);
-  background: var(--color-off-white);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-}
-
-.nav__dropdown a {
-  display: block;
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-sm);
-  color: var(--color-black);
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.nav__dropdown a:hover {
-  background: var(--color-header-bg);
-}
-
-.nav-toggle {
-  display: none;
-  width: 48px;
-  height: 48px;
-  place-items: center;
-}
-
-.nav-toggle__bars,
-.nav-toggle__bars::before,
-.nav-toggle__bars::after {
-  display: block;
-  width: 28px;
-  height: 3px;
-  border-radius: 3px;
-  background: var(--color-black);
-}
-
-.nav-toggle__bars {
-  position: relative;
-}
-
-.nav-toggle__bars::before,
-.nav-toggle__bars::after {
-  content: "";
-  position: absolute;
-  left: 0;
-}
-
-.nav-toggle__bars::before {
-  top: -9px;
-}
-
-.nav-toggle__bars::after {
-  top: 9px;
-}
-
 /* Hero */
 .hero {
+  /* styles.css's shared .hero (a flat placeholder banner used by pages
+     like About/Rules) sets height/display/align-items for that simpler
+     layout; this page's hero is sized by its own content, so those get
+     reset back to normal block flow here. */
+  display: block;
+  width: auto;
+  height: auto;
   position: relative;
   overflow: hidden;
   color: var(--color-off-white);
@@ -1363,7 +1251,7 @@ section[id] {
   border: 0;
   overflow: hidden;
   background: none;
-  color: var(--color-text);
+  color: var(--color-body-text);
   touch-action: none;
 }
 
@@ -1393,6 +1281,12 @@ section[id] {
 
 .lightbox img {
   max-width: none;
+}
+
+/* Mobile community carousel — hidden until the 640px breakpoint swaps it in
+   for the desktop collage above (script.js builds its content). */
+.gallery-mobile {
+  display: none;
 }
 
 /* Events */
@@ -1579,7 +1473,6 @@ section[id] {
 
 /* Heatmap */
 .heatmap {
-  margin-bottom: 80px;
   background: var(--color-grass);
 }
 
@@ -1848,258 +1741,298 @@ section[id] {
   rotate: 9.73deg;
 }
 
-/* Footer */
-.grass {
-  position: relative;
-  z-index: 1;
-  height: 152px;
-  margin-top: -152px;
-  pointer-events: none;
-}
-
-.grass__inner {
-  position: relative;
-  max-width: var(--content-max);
-  height: 100%;
-  margin-inline: auto;
-}
-
-.grass__tuft {
-  position: absolute;
-  top: 0;
-  max-width: none;
-}
-
-.grass__tuft--right {
-  left: calc(58.33% + 4px);
-}
-
-.grass__tuft--left {
-  left: -61px;
-  scale: -1 1;
-}
-
-.grass__tuft--center {
-  left: calc(25% + 31px);
-}
-
-.site-footer__body {
-  background: linear-gradient(to top, var(--color-footer-bottom), var(--color-footer-top));
+/* Footer — matches the shared footer used on About/DinoDex/Flash Sales/
+   Getting Started/Rules exactly (same markup, assets and positions),
+   rather than this page's own one-off illustrations. */
+.site-footer {
+  width: 100%;
   color: var(--color-black);
 }
 
-.site-footer__inner {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-12);
-  max-width: var(--content-max);
-  margin-inline: auto;
-  padding: var(--space-10) 28px;
-  overflow: hidden;
+/* The grass art is a single ~657px-wide clump, not a seamless tile — built
+   from 3 overlapping copies 452px apart, repeated enough to cover very
+   wide screens via stacked background layers. */
+.footer-grass {
+  width: 100%;
+  height: 152px;
+  background-color: var(--color-off-white);
+  background-repeat: no-repeat;
+  background-size: 657px 152px;
+  background-image:
+    url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg'),
+    url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg'),
+    url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg'),
+    url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg');
+  background-position:
+    -226px bottom, 226px bottom, 678px bottom, 1130px bottom, 1582px bottom, 2034px bottom,
+    2486px bottom, 2938px bottom, 3390px bottom, 3842px bottom, 4294px bottom, 4746px bottom;
+  transform: translateZ(0);
 }
 
-.site-footer__decor {
+.footer-deco {
   position: absolute;
-  inset: 0;
   pointer-events: none;
 }
 
-.site-footer__decor img {
-  position: absolute;
-  max-width: none;
-}
+.footer-deco--flower-tl    { left: 0px;   top: 0px;   width: 40px; height: 40px; }
+.footer-deco--flower-mid   { left: 478px; top: 226px; width: 40px; height: 40px; }
 
-.site-footer__asterisk--1 {
-  left: 0;
-  top: 0;
-}
+.footer-deco--cloud1-back  { right: 294px; top: 61px;   width: 65px; height: 34px; }
+.footer-deco--cloud1-front { right: 292px; top: 59px;   width: 64px; height: 34px; }
+.footer-deco--cloud2-back  { right: 165px; top: 20px;   width: 85px; height: 45px; }
+.footer-deco--cloud2-front { right: 162px; top: 18px;   width: 84px; height: 45px; }
+.footer-deco--cloud3-back  { right: 65px;  top: 78px;   width: 61px; height: 33px; }
+.footer-deco--cloud3-front { right: 62px;  top: 77px;   width: 61px; height: 33px; }
+.footer-deco--dino-single  { right: 213px; top: 173px;  width: 85px; height: 132px; }
 
-.site-footer__asterisk--2 {
-  left: 477.92px;
-  top: 226.02px;
+@media (max-width: 1800px) {
+  .footer-deco--cloud1-back  { top: 111px; }
+  .footer-deco--cloud1-front { top: 109px; }
 }
+.footer-deco--dino-duo     { right: 126px; bottom: 9px; width: 81px; height: 107px; }
+.footer-deco--flower-small-1 { right: 28px; bottom: 7px; width: 39px; height: 43px; }
+.footer-deco--flower-small-2 { right: 70px; bottom: 7px; width: 29px; height: 32px; }
 
-.site-footer__dino-blue {
-  right: 126.17px;
-  bottom: 9.36px;
-}
+.footer-deco-m { display: none; position: absolute; pointer-events: none; }
 
-.site-footer__flower-blue {
-  right: 28px;
-  bottom: 7px;
-}
-
-.site-footer__flower-red {
-  right: 70px;
-  bottom: 7.08px;
-}
-
-.site-footer__dino-green {
-  right: 213px;
-  top: 173px;
-}
-
-.cloud {
-  position: absolute;
-}
-
-.cloud .cloud__shadow {
-  left: 0;
-}
-
-.cloud .cloud__body {
-  top: -1.9px;
-}
-
-.cloud--1 {
-  right: 291.7px;
-  top: 59px;
-  width: 67.3px;
-}
-
-.cloud--1 .cloud__shadow {
-  top: 1.53px;
-}
-
-.cloud--1 .cloud__body {
-  left: -3.84px;
-}
-
-.cloud--2 {
-  right: 162.14px;
-  top: 18px;
-  width: 87.86px;
-}
-
-.cloud--2 .cloud__shadow {
-  top: 2px;
-}
-
-.cloud--2 .cloud__body {
-  left: -2.9px;
-}
-
-.cloud--3 {
-  right: 62.44px;
-  top: 77px;
-  width: 63.56px;
-}
-
-.cloud--3 .cloud__shadow {
-  top: 1.45px;
-}
-
-.cloud--3 .cloud__body {
-  left: -4.01px;
-}
-
-.footer-nav {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: var(--space-6) 57px;
-}
-
-.footer-nav__column--home {
-  width: 153px;
-}
-
-.footer-nav__column--getting-started {
-  width: 139px;
-}
-
-.footer-nav__column--dinodex {
-  width: 120px;
-}
-
-.footer-nav__column--rules {
-  width: 145px;
-}
-
-.footer-nav__title {
-  height: 25px;
-  margin-bottom: var(--space-3);
+.footer-column__title {
+  margin: 0 0 var(--space-3);
   font-family: var(--font-display);
   font-size: var(--text-body);
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: normal;
-  white-space: nowrap;
+  color: var(--color-black);
 }
 
-.footer-nav__list {
+.footer-column__links {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: var(--space-3);
 }
 
-.footer-nav a {
-  color: var(--color-black);
-  text-decoration: none;
-  white-space: nowrap;
+.footer-column__links a {
+  font-size: var(--text-body);
+  letter-spacing: 0.4px;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom-color 300ms ease;
+}
+.footer-column__links a:hover {
+  border-bottom-color: currentColor;
 }
 
-.footer-nav a:hover {
-  text-decoration: underline;
-}
-
-.site-footer__bottom {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-4);
-  width: 822px;
-  max-width: 100%;
-}
-
-.site-footer__copyright {
-  font-size: var(--text-small);
-  line-height: normal;
-  letter-spacing: normal;
-  color: var(--color-footer-text);
-}
-
-.social-links {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-
-.social-links__link {
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 100px;
-  background: var(--color-black);
+/* A small hover flourish on top of styles.css's shared footer-social__icon. */
+.footer-social__icon {
   transition: scale 0.15s ease;
 }
-
-.social-links__link:hover {
+.footer-social__icon:hover {
   scale: 1.1;
 }
-
-/* Wider than the design: keep the grass running edge to edge */
-@media (min-width: 1441px) {
-  .grass {
-    background: url("images/grass.svg") center top repeat-x;
-  }
+.footer-social__icon img {
+  width: 24px;
+  height: 24px;
 }
 
-/* Narrower than the design */
-@media (max-width: 1320px) {
-  .cloud {
+/* Footer — mobile. Matches DinoDex's mobile footer exactly (same 2-column
+   grid, grass tiling and flat-PNG decorations), breakpoint matching every
+   other page. */
+@media (max-width: 640px) {
+  /* DinoDex's own content ends on a light background, so its footer wants
+     64px of breathing room above it; home's "closing" section is a full-
+     bleed dark photo right up to the footer, where that margin would just
+     show as a stray white gap before the grass. */
+  .footer-content { padding-bottom: 155px; }
+
+  /* Overlaps the grass into the closing photo above it instead of sitting
+     on its own white strip, so the gaps between blades show the photo
+     itself (not a flat color) and the blades read as growing out of it. */
+  .site-footer {
+    margin-top: -44px;
+  }
+  .footer-grass {
+    height: 45px;
+    background-color: transparent;
+    background-size: 195px 45px;
+    background-image: url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg'), url('assets/grass.svg');
+    background-position: -120px bottom, -10px bottom, 100px bottom, 210px bottom, 320px bottom;
+  }
+  .footer-deco { display: none; }
+  .footer-deco-m { display: block; }
+  .footer-deco-m--cloud1 { left: -30px; top: 18px; width: 42px; height: 47px; }
+  .footer-deco-m--cloud2 { left: 264px; top: 354px; width: 95px; height: 57px; }
+  .footer-deco-m--cloud3 { left: 352px; top: 152px; width: 46px; height: 45px; }
+  .footer-deco-m--dino-blue { left: 21px; bottom: 0; width: 62px; height: 94px; }
+  .footer-deco-m--dino-green { left: 86px; bottom: 1px; width: 59px; height: 77px; }
+  .footer-deco-m--flower1 { left: 187px; bottom: 0; width: 29px; height: 31px; }
+  .footer-deco-m--flower2 { left: 164px; bottom: 0; width: 21px; height: 23px; }
+
+  /* Social icons become the same Discord/Instagram pill CTA buttons used
+     in the mobile nav, stacked above the copyright. */
+  .footer-bottom {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+  .footer-social {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+  .footer-social__icon {
+    width: auto;
+    height: 48px;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    gap: var(--space-2);
+    background: var(--color-discord);
+    color: var(--color-off-white);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: var(--text-small);
+    line-height: 1.3;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+  }
+  .footer-social__icon[href*="instagram"] {
+    background:
+      radial-gradient(circle at 15% 20%, #0c6acf 0%, transparent 42%),
+      radial-gradient(circle at 35% 10%, #a139bf 0%, transparent 45%),
+      radial-gradient(circle at 55% 35%, #e732b1 0%, transparent 48%),
+      radial-gradient(circle at 75% 60%, #ff8f41 0%, transparent 50%),
+      radial-gradient(circle at 92% 85%, #ffde46 0%, transparent 55%),
+      #ff4c5b;
+  }
+  .footer-social__icon[href*="discord"]::after { content: "Join Our Discord"; }
+  .footer-social__icon[href*="instagram"]::after { content: "Check Our Instagram"; }
+
+  /* Community: the desktop collage gives way to a swipeable photo carousel,
+     with the testimonial text swapping to match whichever photo is in view. */
+  .gallery { display: none; }
+  .gallery-mobile { display: block; }
+
+  .gallery-mobile__quote {
+    margin: 24px 0 0;
+  }
+
+  .gallery-mobile__quote p {
+    margin: 0 0 4px;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: var(--text-small);
+    line-height: 1.5;
+    letter-spacing: 0.32px;
+    color: #3d3d3d;
+  }
+
+  .gallery-mobile__quote footer {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: var(--text-small);
+    line-height: 1.5;
+    letter-spacing: 0.32px;
+    color: var(--color-muted);
+  }
+
+  .gallery-mobile__track {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .gallery-mobile__track::-webkit-scrollbar {
     display: none;
+  }
+
+  .gallery-mobile__list {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .gallery-mobile__item {
+    flex: 0 0 280px;
+    scroll-snap-align: start;
+  }
+
+  .gallery-mobile__card.polaroid {
+    position: relative;
+    inset: auto;
+    left: auto;
+    top: auto;
+    width: 280px;
+    height: 434px;
+    rotate: none;
+  }
+
+  .gallery-mobile__card .polaroid__caption {
+    font-size: 20px;
+    letter-spacing: 0.4px;
+    color: #000;
+  }
+
+  /* The desktop crop--* classes hand-position each photo for that photo's
+     desktop frame proportions; the mobile card is a different shape, so
+     fall back to a plain cover crop instead of stretching them to fit. */
+  .gallery-mobile__card .polaroid__photo img {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .gallery-mobile__indicator {
+    margin-top: 16px;
+    height: 8px;
+    border-radius: 16px;
+    background: #dcdcdc;
+    overflow: hidden;
+  }
+
+  .gallery-mobile__indicator-fill {
+    display: block;
+    height: 100%;
+    width: 20%;
+    border-radius: 16px;
+    background: var(--color-yellow);
+    transition: width 0.25s ease;
+  }
+
+  /* Sprouts between Events and Heatmap: half size, tucked closer to the
+     right edge instead of spanning most of the width. */
+  .sprouts {
+    height: 70px;
+  }
+  .sprouts__large {
+    right: 24px;
+    width: 65.5px;
+    height: 58px;
+  }
+  .sprouts__small {
+    right: 92px;
+    width: 34.5px;
+    height: 30.5px;
+  }
+
+  /* Heatmap: a landscape crop reads as a thin strip on a phone, so swap it
+     for a tall crop that actually shows the campus layout. */
+  .heatmap__map {
+    aspect-ratio: 3 / 4;
+  }
+
+  .heatmap__image {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 }
 
 @media (max-width: 1200px) {
+  body.menu-open {
+    overflow: hidden;
+  }
+
   .info__inner {
     display: flex;
     flex-direction: column;
@@ -2151,15 +2084,6 @@ section[id] {
     flex-wrap: wrap;
     justify-content: center;
   }
-
-  .site-footer__inner {
-    padding-bottom: 170px;
-  }
-
-  .site-footer__dino-green {
-    top: auto;
-    bottom: 6px;
-  }
 }
 
 @media (max-width: 960px) {
@@ -2168,43 +2092,6 @@ section[id] {
     --text-title: 44px;
     --text-h1: 36px;
     --text-h2: 30px;
-  }
-
-  .nav-toggle {
-    display: grid;
-    order: 3;
-  }
-
-  .site-header__cta {
-    margin-left: auto;
-    margin-right: var(--space-2);
-  }
-
-  .nav {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    padding: var(--space-4) var(--space-6) var(--space-6);
-    background: var(--color-header-bg);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.08);
-  }
-
-  .nav.is-open {
-    display: block;
-  }
-
-  .nav__list {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-4);
-  }
-
-  .nav__dropdown {
-    position: static;
-    margin-top: var(--space-2);
-    box-shadow: none;
   }
 
   .hero__inner {
@@ -2256,15 +2143,15 @@ section[id] {
   }
 }
 
+/* A bit taller than the shared 720px tablet height above. Placed after
+   that 960px block so it wins the tie at mobile widths. */
+@media (max-width: 640px) {
+  .hero__inner {
+    height: 820px;
+  }
+}
+
 @media (max-width: 560px) {
-  .site-header__cta {
-    display: none;
-  }
-
-  .nav-toggle {
-    margin-left: auto;
-  }
-
   .feature__art {
     zoom: 0.75;
   }

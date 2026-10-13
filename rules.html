@@ -1038,9 +1038,17 @@
         white-space: nowrap;
         text-decoration: none;
       }
-      .footer-social__icon[href*="instagram"] { background: rgb(240, 49, 77); }
+      .footer-social__icon[href*="instagram"] {
+        background:
+          radial-gradient(circle at 15% 20%, #0c6acf 0%, transparent 42%),
+          radial-gradient(circle at 35% 10%, #a139bf 0%, transparent 45%),
+          radial-gradient(circle at 55% 35%, #e732b1 0%, transparent 48%),
+          radial-gradient(circle at 75% 60%, #ff8f41 0%, transparent 50%),
+          radial-gradient(circle at 92% 85%, #ffde46 0%, transparent 55%),
+          #ff4c5b;
+      }
       .footer-social__icon[href*="discord"]::after { content: "Join Our Discord"; }
-      .footer-social__icon[href*="instagram"]::after { content: "Follow Our Instagram"; }
+      .footer-social__icon[href*="instagram"]::after { content: "Check Our Instagram"; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1069,7 +1077,7 @@
     .m-page {
       position: relative;
       width: 393px;
-      height: 6472px; /* was 7217px (footer no longer a child canvas, -862px), then 6355px (+196px for larger .m-sub body text), then 6551px (-79px: nav bar shortened from 161px to 82px, shifting all content up) */
+      height: 6553px; /* was 7217px (footer no longer a child canvas, -862px), then 6355px (+196px for larger .m-sub body text), then 6551px (-79px: nav bar shortened from 161px to 82px), then 6472px, then +81px: the hero grew 218px->299px earlier but content below it was never cascaded down to match, so the first section graphic overlapped the hero — this restores that missing gap */
       margin: 0 auto;
       overflow: hidden;
       zoom: var(--mz, 1);
@@ -1180,7 +1188,7 @@
     /* post-claim */
     .m-flowers { display: flex; gap: 40px; }
     .m-flowers img { width: 80px; height: 77.83px; }
-    .m-claim__grass { position: absolute; left: -28px; top: 4512.97px; width: 459px; height: 73px; }
+    .m-claim__grass { position: absolute; left: -28px; top: 4713px; width: 459px; height: 73px; }
     .m-claim__bg { width: 393px; height: 506px; display: block; }
     .m-claim__body { width: 360.92px; display: flex; flex-direction: column; gap: 24px; }
     .m-title--claim { align-items: center; }
@@ -1191,7 +1199,7 @@
     .m-steps p { margin: 0; width: 273px; font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; }
 
     /* FAQ: bubbles are the exported shapes (they carry the tail + coloured stroke) */
-    .m-faq__cloud { position: absolute; left: 24px; top: 5109px; width: 345px; height: 185.19px; }
+    .m-faq__cloud { width: 345px; height: 185.19px; }
     .m-faq__title { white-space: nowrap; }
     .m-faq__decor { width: 63.9px; height: 68.65px; display: grid; place-items: center; }
     .m-faq__decor img { width: 68.075px; height: 63.273px; transform: rotate(89.47deg); }
@@ -1260,9 +1268,19 @@
     .m-menu__sub a::after { bottom: 11px; }
     .m-menu__cta { align-self: flex-start; margin: 29px 24px 12px; height: 48px; padding: 12px 16px; background: var(--discord); }
     .m-menu__cta img { width: 24px; height: 24px; }
-    /* Same shape as the Discord button, just a red matching Instagram's
-       own brand gradient (the red stop between its orange and pink). */
-    .m-menu__cta--instagram { margin-bottom: 24px; background: rgb(240, 49, 77); }
+    /* Same shape as the Discord button, recolored with the same gradient
+       blobs (blue/purple/pink/orange/yellow over a red base) as the
+       Instagram CTA on the home page's closing section. */
+    .m-menu__cta--instagram {
+      margin-bottom: 24px;
+      background:
+        radial-gradient(circle at 15% 20%, #0c6acf 0%, transparent 42%),
+        radial-gradient(circle at 35% 10%, #a139bf 0%, transparent 45%),
+        radial-gradient(circle at 55% 35%, #e732b1 0%, transparent 48%),
+        radial-gradient(circle at 75% 60%, #ff8f41 0%, transparent 50%),
+        radial-gradient(circle at 92% 85%, #ffde46 0%, transparent 55%),
+        #ff4c5b;
+    }
     @media (prefers-reduced-motion: reduce) { .m-menu, .m-menu.is-open, .m-menu__chev, .m-menu__links a::after, .m-menu__sub, .m-btn { transition: none; } }
 
     /* ===== HORIZONTAL (the 852px landscape Figma frame, shown at 601-1000px) ===== */
@@ -1802,14 +1820,14 @@
     </div>
   </section>
 
-  <div class="m-sec-gfx m-p" style="--x:141.66;--y:332"><img src="assets/mobile/general-graphic.png" alt="A triceratops reading the rules" style="left:4.27px;top:7.22px;width:108.19px;height:105.15px"></div>
+  <div class="m-sec-gfx m-p" style="--x:141.66;--y:413"><img src="assets/mobile/general-graphic.png" alt="A triceratops reading the rules" style="left:4.27px;top:7.22px;width:108.19px;height:105.15px"></div>
 
-  <div class="m-head m-p" style="--x:19;--y:479;">
+  <div class="m-head m-p" style="--x:19;--y:560;">
     <h2 class="m-title" id="m-general-title"><span class="m-title__dot"></span>General Rules</h2>
     <p class="m-sub">Triceratops&rsquo; #1 priority is safe Discord behavior and community conduct. Please read over the following for general Behavior &amp; Conduct rules.</p>
   </div>
 
-    <article class="m-card m-p" style="--x:38;--y:661;--accent:#ACD87D">
+    <article class="m-card m-p" style="--x:38;--y:742;--accent:#ACD87D">
       <div class="m-card__head">
         <span class="m-card__ic" style="width:28px"><img src="assets/mobile/ic-check.svg" alt="" style="width:28px;height:28px"></span>
         <h3 class="m-card__title m-card__title--lg">Always</h3>
@@ -1817,7 +1835,7 @@
       <div class="m-card__body m-card__body--lined" style="height:237px"><p class="m-lined m-lh13"><b>Respectful behavior is expected at all times</b>, both in-person and within our online community.</p><span class="m-rule" style="--accent:#ACD87D"></span><p class="m-lined m-lh15"><b>Be respectful </b>to staff members during drops.</p><span class="m-rule" style="--accent:#ACD87D"></span><p class="m-lined m-lh13"><b>Keep DMs to the Instagram strictly related to Davis Triceratops</b>, do not send personal DMs to our official club Instagram.</p></div>
     </article>
 
-    <article class="m-card m-p" style="--x:39;--y:987;--accent:#F8C9DC">
+    <article class="m-card m-p" style="--x:39;--y:1068;--accent:#F8C9DC">
       <div class="m-card__head">
         <span class="m-card__ic" style="width:24px"><img src="assets/mobile/ic-x.svg" alt="" style="width:28px;height:28px"></span>
         <h3 class="m-card__title m-card__title--lg">Never</h3>
@@ -1825,14 +1843,14 @@
       <div class="m-card__body m-card__body--lined" style="height:287px"><p class="m-lined m-lh13"><b>Do not post NSFW content in the server. </b>This is an immediately bannable offense.</p><span class="m-rule" style="--accent:#F8C9DC"></span><p class="m-lined m-lh15"><b>No rude, slanderous, offensive, or hateful comments, </b>indecent or inappropriate content, or slurs of any kind.</p><span class="m-rule" style="--accent:#F8C9DC"></span><p class="m-lined m-lh13"><b>Do not reveal staff location </b>during drops or their individual time.</p><span class="m-rule" style="--accent:#F8C9DC"></span><p class="m-lined m-lh13"><b>Do not DM staff </b>unless given explicit permission by staff.</p></div>
     </article>
 
-  <div class="m-sec-gfx m-p" style="--x:141.66;--y:1371"><img src="assets/mobile/hunt-graphic.png" alt="A triceratops peeking out of a bush" style="left:-19.76px;top:9.88px;width:156.23px;height:99.84px"></div>
+  <div class="m-sec-gfx m-p" style="--x:141.66;--y:1452"><img src="assets/mobile/hunt-graphic.png" alt="A triceratops peeking out of a bush" style="left:-19.76px;top:9.88px;width:156.23px;height:99.84px"></div>
 
-  <div class="m-head m-p" style="--x:24;--y:1518;">
+  <div class="m-head m-p" style="--x:24;--y:1599;">
     <h2 class="m-title" id="m-hunt-title"><span class="m-title__dot"></span>Hunt Rules</h2>
     <p class="m-sub">Any confusion on how a scavenger works and operates? Read the following to prepare yourself with these hunt rules so your hunt can go smoothly.</p>
   </div>
 
-    <article class="m-card m-p" style="--x:39;--y:1697;--accent:#ACD87D">
+    <article class="m-card m-p" style="--x:39;--y:1778;--accent:#ACD87D">
       <div class="m-card__head">
         <span class="m-card__ic" style="width:24.39px"><img src="assets/mobile/ic-loc.svg" alt="" style="width:24.8px;height:30.21px"></span>
         <h3 class="m-card__title ">Outdoors Only</h3>
@@ -1840,7 +1858,7 @@
       <div class="m-card__body " style="height:218px"><p class="m-lead ">Most dinos or event materials will be hidden outdoors.</p><ul class="m-list"><li class="m-li"><span class="m-dot"></span><p>Dinos will only be <b>hidden inside</b> if stated specifically by the dropper.</p></li><li class="m-li"><span class="m-dot"></span><p><b>Be respectful </b>to those around you. The goal is safety and giving others space.</p></li><li class="m-li"><span class="m-dot"></span><p>If dinos are hidden inside, <b>be mindful </b>of your surroundings and other people.</p></li></ul></div>
     </article>
 
-    <article class="m-card m-p" style="--x:39;--y:2004;--accent:#BDE6E6">
+    <article class="m-card m-p" style="--x:39;--y:2085;--accent:#BDE6E6">
       <div class="m-card__head">
         <span class="m-card__ic" style="width:24px"><img src="assets/mobile/ic-accessible.svg" alt="" style="width:26px;height:26px"></span>
         <h3 class="m-card__title ">Accessible Spots Only</h3>
@@ -1848,7 +1866,7 @@
       <div class="m-card__body " style="height:296px"><p class="m-lead m-lead--box">Never endanger yourself to access event materials.</p><ul class="m-list"><li class="m-li"><span class="m-dot"></span><p>Do not trample or damage plants or property of any sort.</p></li><li class="m-li"><span class="m-dot"></span><p>Dinos will not be placed deeply into bushes.</p></li><li class="m-li"><span class="m-dot"></span><p>If a dino is displaced somewhere hard to reach, do not risk your personal safety to retrieve it.</p></li><li class="m-li"><span class="m-dot"></span><p>Stay on the path, <b>stay out of construction zones</b>, and leave campus spaces as you found them.</p></li></ul></div>
     </article>
 
-    <article class="m-card m-p" style="--x:39;--y:2389;--accent:#EBE6A0">
+    <article class="m-card m-p" style="--x:39;--y:2470;--accent:#EBE6A0">
       <div class="m-card__head">
         <span class="m-card__ic" style="width:24px"><img src="assets/mobile/ic-clock.svg" alt="" style="width:26px;height:26px"></span>
         <h3 class="m-card__title ">Random Timing</h3>
@@ -1856,7 +1874,7 @@
       <div class="m-card__body " style="height:171px"><p class="m-lead ">Daily dino drops occur at random.</p><ul class="m-list"><li class="m-li"><span class="m-dot"></span><p><b>Timing depends</b> on the Dropper&rsquo;s personal discretion, schedule, and time permitted.</p></li><li class="m-li"><span class="m-dot"></span><p>Drops will occur <b>only during daylight hours.</b></p></li></ul></div>
     </article>
 
-    <article class="m-card m-p" style="--x:39;--y:2649;--accent:#F8C9DC">
+    <article class="m-card m-p" style="--x:39;--y:2730;--accent:#F8C9DC">
       <div class="m-card__head">
         <span class="m-card__ic" style="width:24px"><img src="assets/mobile/ic-ask.svg" alt="" style="width:24px;height:24px"></span>
         <h3 class="m-card__title ">Don&rsquo;t Ask About Drops</h3>
@@ -1864,7 +1882,7 @@
       <div class="m-card__body " style="height:201px"><p class="m-lead m-lead--box">Do not ask when or where drops may occur.</p><ul class="m-list"><li class="m-li"><span class="m-dot"></span><p>Pleading and excessively requesting for drops <b>may result in corrective action.</b></p></li></ul><p class="m-note">Remember that each of our hardworking staff commits their personal time and effort to allow for drops to occur.</p></div>
     </article>
 
-    <article class="m-card m-p" style="--x:39;--y:2939;--accent:#ACD87D">
+    <article class="m-card m-p" style="--x:39;--y:3020;--accent:#ACD87D">
       <div class="m-card__head">
         <span class="m-card__ic" style="width:24px"><img src="assets/mobile/ic-limits.svg" alt="" style="width:24px;height:24px"></span>
         <h3 class="m-card__title ">Adhere to Dino Limits</h3>
@@ -1872,7 +1890,7 @@
       <div class="m-card__body " style="height:266px"><p class="m-lead m-lead--box">Each person is limited to:</p><div class="m-pills"><span>1 Monthly Dino per month</span><span>1 Milestone Dino</span><span>1 Aggieceratops Dino</span><span>1 of each type of Special Dino</span></div><ul class="m-list m-list--after-pills"><li class="m-li"><span class="m-dot"></span><p>These limits promote <b>fairness and equal opportunity</b> for all event participants.</p></li><li class="m-li"><span class="m-dot"></span><p>Anyone caught trying to bypass the dino limits will be <b>banned from the server.</b></p></li></ul></div>
     </article>
 
-    <article class="m-card m-p" style="--x:39;--y:3294;--accent:#BDE6E6">
+    <article class="m-card m-p" style="--x:39;--y:3375;--accent:#BDE6E6">
       <div class="m-card__head">
         <span class="m-card__ic" style="width:22px"><img src="assets/mobile/ic-flash.svg" alt="" style="width:22px;height:32px"></span>
         <h3 class="m-card__title ">Flash Sale Rules</h3>
@@ -1880,14 +1898,14 @@
       <div class="m-card__body " style="height:195px"><p class="m-lead m-lead--box">For EACH month&rsquo;s flash sale, you can buy one regular and one medium dino.</p><ul class="m-list"><li class="m-li"><span class="m-dot"></span><p>This rule <b>resets every year.</b></p></li></ul><p class="m-note">e.g. one regular and one medium dino in every flash sale of 2026 - that resets at the end of 2026 and starts over for 2027.</p></div>
     </article>
 
-  <div class="m-sec-gfx m-p" style="--x:141.66;--y:3586"><img src="assets/mobile/flash-graphic.png" alt="A triceratops at a laptop" style="left:2.89px;top:5.46px;width:110.93px;height:108.67px"></div>
+  <div class="m-sec-gfx m-p" style="--x:141.66;--y:3667"><img src="assets/mobile/flash-graphic.png" alt="A triceratops at a laptop" style="left:2.89px;top:5.46px;width:110.93px;height:108.67px"></div>
 
-  <div class="m-head m-p" style="--x:24;--y:3733;">
+  <div class="m-head m-p" style="--x:24;--y:3814;">
     <h2 class="m-title" id="m-flash-title"><span class="m-title__dot"></span>Flash Sale Rules</h2>
     <p class="m-sub">Flash sales are one of your only opportunities to directly purchase a dino from the club. To know more about how to obtain one, read the information below.</p>
   </div>
 
-  <div class="m-flash m-p" style="--x:30;--y:3936">
+  <div class="m-flash m-p" style="--x:30;--y:4017">
     <div class="m-listing">
       <h3>Listing Hours</h3>
       <div class="m-listing__times"><span>12am - 10am</span><span>5pm - 11:59pm</span></div>
@@ -1898,12 +1916,12 @@
     <div class="m-point" style="height:79px;padding-block:15px"><span class="m-num" style="--bg:#EBE6A0">3</span><p class="m-bold"><b>Behave respectfully and properly during flash sales! Do NOT</b> demand and force our staff to list sales.</p></div>
   </div>
 
-  <div class="m-flowers m-p" style="--x:30;--y:4523" aria-hidden="true"><img src="assets/mobile/flowers-trio.svg" alt=""><img src="assets/mobile/flowers-trio.svg" alt=""><img src="assets/mobile/flowers-trio.svg" alt=""></div>
+  <div class="m-flowers m-p" style="--x:30;--y:4604" aria-hidden="true"><img src="assets/mobile/flowers-trio.svg" alt=""><img src="assets/mobile/flowers-trio.svg" alt=""><img src="assets/mobile/flowers-trio.svg" alt=""></div>
   <section class="m-claim" aria-labelledby="m-claim-title">
     <img class="m-claim__grass" src="assets/grass.svg" alt="">
-    <img class="m-claim__bg m-p" style="--x:0;--y:4690.15" src="assets/mobile/claim-graphic.svg" alt="">
-    <div class="m-scenery m-p" style="--x:7;--y:4632"><img src="assets/mobile/scenery-costumes.png" alt="Triceratops club mascots in costume, walking through the grass"></div>
-    <div class="m-claim__body m-p" style="--x:16.04;--y:4726.51">
+    <img class="m-claim__bg m-p" style="--x:0;--y:4771.15" src="assets/mobile/claim-graphic.svg" alt="">
+    <div class="m-scenery m-p" style="--x:7;--y:4713"><img src="assets/mobile/scenery-costumes.png" alt="Triceratops club mascots in costume, walking through the grass"></div>
+    <div class="m-claim__body m-p" style="--x:16.04;--y:4807.51">
       <h2 class="m-title m-title--claim" id="m-claim-title"><span class="m-title__dot"></span><span>Claimed a Dino? Here are<br>your next steps:</span></h2>
       <ol class="m-steps">
         <li><span class="m-step__n"><img src="assets/step-found.png" alt=""></span><p>After finding a monthly triceratops, make a post in the <b>#found-triceratops</b> text channel. This post should include a photo proof of the triceratops.</p></li>
@@ -1914,32 +1932,32 @@
   </section>
 
   <section class="m-faq" aria-labelledby="m-faq-title">
-    <div class="m-faq__decor m-p" style="--x:352;--y:5226" aria-hidden="true"><img src="assets/mobile/faq-decor.svg" alt=""></div>
-    <img class="m-faq__cloud m-p" style="--x:25;--y:5227" src="assets/mobile/faq-cloud.svg" alt="" aria-hidden="true">
-    <h2 class="m-title m-p m-faq__title" id="m-faq-title" style="--x:76;--y:5324"><span class="m-title__dot"></span>Common Rules FAQ</h2>
-    <img class="m-faq__bee m-faq__bee--flip m-p" style="--x:11;--y:5457" src="assets/bee-dino.png" alt="">
+    <div class="m-faq__decor m-p" style="--x:352;--y:5307" aria-hidden="true"><img src="assets/mobile/faq-decor.svg" alt=""></div>
+    <img class="m-faq__cloud m-p" style="--x:25;--y:5308" src="assets/mobile/faq-cloud.svg" alt="" aria-hidden="true">
+    <h2 class="m-title m-p m-faq__title" id="m-faq-title" style="--x:76;--y:5405"><span class="m-title__dot"></span>Common Rules FAQ</h2>
+    <img class="m-faq__bee m-faq__bee--flip m-p" style="--x:11;--y:5538" src="assets/bee-dino.png" alt="">
     
-    <img class="m-faq__bubble m-p" style="--x:83;--y:5434.19" src="assets/mobile/faq-bubble-1.svg" alt="">
-    <h3 class="m-faq__q m-p" style="--x:110.55;--y:5448.19">What if I miss a monthly dino drop? Will I have more chances to hunt for more?</h3>
-    <div class="m-faq__a m-p" style="--x:112.55;--y:5534.19;--accent:#ACD87D;--lh:99"><span class="m-faq__line" style="height:99px"></span><p style="height:99px">If you<b> miss a monthly dino drop,</b> do not worry; there will certainly be more to come! Dino drops of a certain month will <b>last until the</b> <b>second to last day of the month</b>, so be on the lookout for more drops from our staff.</p></div>
+    <img class="m-faq__bubble m-p" style="--x:83;--y:5515.19" src="assets/mobile/faq-bubble-1.svg" alt="">
+    <h3 class="m-faq__q m-p" style="--x:110.55;--y:5529.19">What if I miss a monthly dino drop? Will I have more chances to hunt for more?</h3>
+    <div class="m-faq__a m-p" style="--x:112.55;--y:5615.19;--accent:#ACD87D;--lh:99"><span class="m-faq__line" style="height:99px"></span><p style="height:99px">If you<b> miss a monthly dino drop,</b> do not worry; there will certainly be more to come! Dino drops of a certain month will <b>last until the</b> <b>second to last day of the month</b>, so be on the lookout for more drops from our staff.</p></div>
     
-    <img class="m-faq__bubble m-p" style="--x:29;--y:5673.19" src="assets/mobile/faq-bubble-2.svg" alt="">
-    <h3 class="m-faq__q m-p" style="--x:51;--y:5688.19">Staff often drop different types of dinos within a hunt. What if I find a dino type that I already have or am not searching for?</h3>
-    <div class="m-faq__a m-p" style="--x:54;--y:5815.19;--accent:#BDE6E6;--lh:85"><span class="m-faq__line" style="height:85px"></span><p style="height:85px">If you find a dino you do not want, <b>carefully hide the dino in the same place.</b> If you are unable to, you may also <b>return the dino</b> to the staff who is in charge of the current hunt.</p></div>
-    <img class="m-faq__bee m-p" style="--x:321;--y:5715" src="assets/bee-dino.png" alt="">
+    <img class="m-faq__bubble m-p" style="--x:29;--y:5754.19" src="assets/mobile/faq-bubble-2.svg" alt="">
+    <h3 class="m-faq__q m-p" style="--x:51;--y:5769.19">Staff often drop different types of dinos within a hunt. What if I find a dino type that I already have or am not searching for?</h3>
+    <div class="m-faq__a m-p" style="--x:54;--y:5896.19;--accent:#BDE6E6;--lh:85"><span class="m-faq__line" style="height:85px"></span><p style="height:85px">If you find a dino you do not want, <b>carefully hide the dino in the same place.</b> If you are unable to, you may also <b>return the dino</b> to the staff who is in charge of the current hunt.</p></div>
+    <img class="m-faq__bee m-p" style="--x:321;--y:5796" src="assets/bee-dino.png" alt="">
     
-    <img class="m-faq__bubble m-p" style="--x:95;--y:5938.19" src="assets/mobile/faq-bubble-3.svg" alt="">
-    <h3 class="m-faq__q m-p" style="--x:122.55;--y:5952.19">Any questions on these rules, or about anything at all?</h3>
-    <div class="m-faq__a m-p" style="--x:125;--y:6010.19;--accent:#F8C9DC;--lh:70"><span class="m-faq__line" style="height:70px"></span><p style="height:68px">Open a ticket in the <b>#modmail </b>channel, and <b>use the command /tickets</b> open to ask our staff any questions!</p></div>
-    <img class="m-faq__bee m-faq__bee--flip m-p" style="--x:9;--y:5986" src="assets/bee-dino.png" alt="">
+    <img class="m-faq__bubble m-p" style="--x:95;--y:6019.19" src="assets/mobile/faq-bubble-3.svg" alt="">
+    <h3 class="m-faq__q m-p" style="--x:122.55;--y:6033.19">Any questions on these rules, or about anything at all?</h3>
+    <div class="m-faq__a m-p" style="--x:125;--y:6091.19;--accent:#F8C9DC;--lh:70"><span class="m-faq__line" style="height:70px"></span><p style="height:68px">Open a ticket in the <b>#modmail </b>channel, and <b>use the command /tickets</b> open to ask our staff any questions!</p></div>
+    <img class="m-faq__bee m-faq__bee--flip m-p" style="--x:9;--y:6067" src="assets/bee-dino.png" alt="">
   </section>
 
   <section class="m-cta" aria-labelledby="m-cta-title">
-    <img class="m-p m-cta__daisy" style="--x:43;--y:6160" src="assets/mobile/cta-daisy.svg" alt="" aria-hidden="true">
-    <img class="m-p m-cta__sprouts" style="--x:267.93;--y:6133" src="assets/mobile/cta-sprouts.svg" alt="" aria-hidden="true">
-    <img class="m-p" style="--x:-32;--y:6103;width:73.33px;height:81px" src="assets/mobile/cta-blobs.svg" alt="" aria-hidden="true">
-    <img class="m-p" style="--x:19.8;--y:6161.38;width:21.82px;height:22.67px" src="assets/mobile/cta-flower.svg" alt="" aria-hidden="true">
-    <div class="m-cta__box m-p" style="--x:21;--y:6200">
+    <img class="m-p m-cta__daisy" style="--x:43;--y:6241" src="assets/mobile/cta-daisy.svg" alt="" aria-hidden="true">
+    <img class="m-p m-cta__sprouts" style="--x:267.93;--y:6214" src="assets/mobile/cta-sprouts.svg" alt="" aria-hidden="true">
+    <img class="m-p" style="--x:-32;--y:6184;width:73.33px;height:81px" src="assets/mobile/cta-blobs.svg" alt="" aria-hidden="true">
+    <img class="m-p" style="--x:19.8;--y:6242.38;width:21.82px;height:22.67px" src="assets/mobile/cta-flower.svg" alt="" aria-hidden="true">
+    <div class="m-cta__box m-p" style="--x:21;--y:6281">
       <p class="m-cta__text" id="m-cta-title">Have more questions or need clarification? Ask in <a href="https://discord.gg/" target="_blank" rel="noopener">#rules-help</a> on Discord.</p>
       <a class="m-btn" href="https://discord.gg/" target="_blank" rel="noopener">Join the Discord!</a>
     </div>
@@ -1967,7 +1985,7 @@
     <a href="about.html">About Us</a>
   </nav>
   <a class="m-btn m-menu__cta" href="https://discord.gg/MzDujDpgZ9" target="_blank" rel="noopener"><img src="assets/icons/discord.svg" alt="" aria-hidden="true">Join Our Discord</a>
-  <a class="m-btn m-menu__cta m-menu__cta--instagram" href="https://www.instagram.com/davis_triceratops/" target="_blank" rel="noopener"><img src="assets/instagram-social-icon.svg" alt="" aria-hidden="true">Follow Our Instagram</a>
+  <a class="m-btn m-menu__cta m-menu__cta--instagram" href="https://www.instagram.com/davis_triceratops/" target="_blank" rel="noopener"><img src="assets/instagram-social-icon.svg" alt="" aria-hidden="true">Check Our Instagram</a>
 </div>
 
 <div class="h-only" id="horizontal">
@@ -2173,9 +2191,9 @@
       <div class="footer-column">
         <p class="footer-column__title">Home</p>
         <ul class="footer-column__links">
-          <li><a href="#">Testimonials</a></li>
-          <li><a href="#">Map</a></li>
-          <li><a href="#">Event Calendar</a></li>
+          <li><a href="index.html#community">Testimonials</a></li>
+          <li><a href="index.html#heatmap">Map</a></li>
+          <li><a href="index.html#events">Event Calendar</a></li>
         </ul>
       </div>
       <div class="footer-column">
