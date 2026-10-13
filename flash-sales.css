@@ -276,7 +276,7 @@
     border-width: 2px;
   }
   .fs-pickup .do-card__head img,
-  .fs-claim .do-card__head img { width: 28px; height: 28px; padding: 0; }
+  .fs-claim .do-card__head img { width: 28px; height: 28px; padding: 0; object-fit: contain; }
   .fs-pickup .do-card__head h3,
   .fs-claim .do-card__head h2 { font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; white-space: nowrap; }
 
@@ -386,19 +386,31 @@
   /* ---------- Pick up + claim: three 312px cards in one column ---------- */
   #pickup { gap: 10px; }
   .fs-pickup strong { font-weight: 400; }
-  /* 76px header, its content centred in the 65px left visible above the body */
+  /* Fixed-height header worked while every title fit on one line, but the
+     claim card's wraps to two (see its max-width below) and the top/bottom
+     padding is centered within the overall box height; always centered
+     content with a min-height instead gives every title even breathing
+     room whether it's one line or two. */
   .fs-pickup .do-card__head,
   .fs-claim .do-card__head {
-    height: 76px;
+    height: auto;
+    min-height: 76px;
     align-items: center;
     justify-content: flex-start;
     gap: 16px;
-    padding: 0 0 11px 27px; /* the title row runs to the card's right edge in the comp */
+    padding: 16px 20px 16px 27px; /* the title row runs to the card's right edge in the comp */
     border-width: 2px;
   }
   .fs-pickup .do-card__head h3 { white-space: nowrap; }
   .fs-pickup .do-card__head img,
-  .fs-claim .do-card__head img { width: 28px; height: 28px; padding: 0; }
+  .fs-claim .do-card__head img {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    /* The location icon isn't square (42.5 x 51.9 natural), so without this
+       it gets squished to fit the 28x28 box instead of staying proportional. */
+    object-fit: contain;
+  }
   .fs-pickup .do-card__head h3,
   .fs-claim .do-card__head h2 { font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; }
   .fs-pickup .do-card--do .do-card__body,
