@@ -2974,13 +2974,18 @@ section[id] {
     transition: rotate 0.2s ease;
   }
 
-  .sticky-note__details[open] .sticky-note__icon {
+  /* Tracks open/closed separately from the <details> "open" attribute
+     (see script.js) so the icon turns back in sync with the body closing,
+     instead of snapping back only once the close animation finishes. */
+  .sticky-note__details.is-open .sticky-note__icon {
     rotate: 45deg;
   }
 
   .sticky-note__body {
     margin-top: 0;
     padding: 0 15px 18px 14px;
+    overflow: hidden;
+    transition: max-height 250ms ease-in-out;
   }
 }
 

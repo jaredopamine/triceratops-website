@@ -54,7 +54,10 @@ if (eventDetails.length) {
   const syncEventDetails = () => {
     eventDetails.forEach((details) => {
       const summary = details.querySelector('summary');
+      const body = details.querySelector('.sticky-note__body');
       details.open = !phoneLayout.matches;
+      details.classList.toggle('is-open', details.open);
+      if (body) body.style.maxHeight = '';
 
       // An always-open note is not a control, so keep it out of the tab order
       if (phoneLayout.matches) {
@@ -67,6 +70,48 @@ if (eventDetails.length) {
 
   phoneLayout.addEventListener('change', syncEventDetails);
   syncEventDetails();
+
+  // Eases the accordion open/closed on phones instead of the native instant
+  // toggle: <details> stays open throughout the closing animation and only
+  // actually closes once the height has finished collapsing to 0.
+  eventDetails.forEach((details) => {
+    const summary = details.querySelector('summary');
+    const body = details.querySelector('.sticky-note__body');
+    if (!body) return;
+
+    summary.addEventListener('click', (event) => {
+      if (!phoneLayout.matches) return;
+      event.preventDefault();
+
+      if (details.open) {
+        details.classList.remove('is-open');
+        body.style.maxHeight = `${body.scrollHeight}px`;
+        body.offsetHeight; // force a reflow so this starting height is registered
+        requestAnimationFrame(() => {
+          body.style.maxHeight = '0px';
+        });
+      } else {
+        details.open = true;
+        details.classList.add('is-open');
+        const targetHeight = body.scrollHeight;
+        body.style.maxHeight = '0px';
+        body.offsetHeight;
+        requestAnimationFrame(() => {
+          body.style.maxHeight = `${targetHeight}px`;
+        });
+      }
+    });
+
+    body.addEventListener('transitionend', (event) => {
+      if (event.propertyName !== 'max-height') return;
+      if (body.style.maxHeight === '0px') {
+        details.open = false;
+        body.style.maxHeight = '';
+      } else if (details.classList.contains('is-open')) {
+        body.style.maxHeight = '';
+      }
+    });
+  });
 }
 
 // Phone gallery: the bar under the polaroids fills up as the row is scrolled through
