@@ -2987,6 +2987,22 @@ section[id] {
     overflow: hidden;
     transition: max-height 250ms ease-in-out;
   }
+
+  /* The tablet aspect ratio/crop above (max-width: 960px) also matches phone
+     widths and, being written first, loses the cascade tie here. Restate the
+     phone-only tall crop so it wins at phone widths. */
+  .heatmap__map {
+    aspect-ratio: 3 / 4;
+  }
+
+  .heatmap__image {
+    inset: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 /* A bit taller than the shared 720px tablet height above. Placed after
