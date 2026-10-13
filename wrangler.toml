@@ -1,3 +1,9 @@
 name = "triceratops-website"
 pages_build_output_dir = "."
 compatibility_date = "2026-01-01"
+
+# The dashboard's deploy command runs "wrangler deploy" (Workers), not
+# "wrangler pages deploy" (Pages) — this makes that command still work by
+# deploying this directory as static assets, no Worker script needed.
+[assets]
+directory = "."
