@@ -1827,7 +1827,7 @@ section[id] {
   /* Overlaps the grass into the closing photo above it instead of sitting
      on its own white strip, so the blades read as growing out of the
      photo rather than leaving a flat band behind them. */
-  margin-top: -130px;
+  margin-top: -145px;
 }
 
 /* The grass art is a single ~657px-wide clump, not a seamless tile — built
