@@ -402,6 +402,10 @@
     border-width: 2px;
   }
   .fs-pickup .do-card__head h3 { white-space: nowrap; }
+  /* "Can My Friend Pick Up?" is too long to stay on one line at this card
+     width; wrap it onto two lines like the claim card's title instead of
+     letting it overflow the header box. */
+  .fs-pickup .do-card--dont .do-card__head h3 { white-space: normal; max-width: 237px; }
   .fs-pickup .do-card__head img,
   .fs-claim .do-card__head img {
     width: 28px;
