@@ -394,6 +394,10 @@
       .section--general .section__dino,
       .section--hunt .section__dino,
       .section--flash .section__dino { transform: translateY(-15px); }
+      /* The sitewide 498px hero match below was scoped to >1800px only; a
+         laptop (e.g. MacBook, ~1512px) fell through to the clamp()'s own
+         up-to-518px value instead. Match it here too. */
+      .hero { min-height: 498px; }
     }
     .blob {
       position: absolute;

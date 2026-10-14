@@ -59,6 +59,13 @@
    dinos out of frame. Overridden here for this page only.
    ------------------------------------------------------------ */
 .hero { height: 476px; }
+/* The sitewide 498px hero match below was scoped to >1800px only; a
+   laptop (e.g. MacBook, ~1512px) fell through to the 476px base above
+   instead. Match it here too — placed after the base rule so it wins
+   the cascade tie at laptop widths. */
+@media (max-width: 1800px) {
+  .hero { height: 498px; }
+}
 
 /* --- Section rhythm ---------------------------------------- */
 .section              { padding: 72px 0; }

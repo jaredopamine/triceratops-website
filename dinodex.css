@@ -855,6 +855,10 @@
   .type-badge--monthly { left: 9.74%; }
   .type-badge--flash   { top: -5px; }
   .type-badge--event   { top: -17px; }
+  /* The sitewide 498px hero match below was scoped to >1800px only; a
+     laptop (e.g. MacBook, ~1512px) fell through to this page's own
+     700px base instead. Match it here too. */
+  .hero { height: 498px; }
 }
 
 /* ============================================================
