@@ -64,6 +64,12 @@ strong { font-weight: 700; }
   gap: 48px;
   padding: 100px var(--grid-margin) 0;
 }
+/* Matches DinoDex's 110px gap under its hero at laptop widths (e.g.
+   MacBook, ~1512px) — also covers Flash Sales, which shares .gs-stack
+   and doesn't override its padding-top at this width. */
+@media (max-width: 1800px) {
+  .gs-stack { padding-top: 110px; }
+}
 
 .gs-section { display: flex; flex-direction: column; gap: 24px; }
 

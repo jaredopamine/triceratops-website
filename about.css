@@ -71,6 +71,12 @@
 .section              { padding: 72px 0; }
 .section--mission     { padding-top: 64px; }
 .section--involved    { padding-bottom: 96px; }
+/* Matches DinoDex's 110px gap under its hero at laptop widths (e.g.
+   MacBook, ~1512px) — placed after the base rule so it wins the
+   cascade tie there. */
+@media (max-width: 1800px) {
+  .section--mission { padding-top: 110px; }
+}
 
 /* --- Section heading (dot + Pulang title + subtitle) -------- */
 .section-heading {

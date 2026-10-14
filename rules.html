@@ -398,6 +398,10 @@
          laptop (e.g. MacBook, ~1512px) fell through to the clamp()'s own
          up-to-518px value instead. Match it here too. */
       .hero { min-height: 498px; }
+      /* Hero -> General Rules gap: the >1800px override below matches
+         Getting Started's old 100px value, but the sitewide target is
+         now DinoDex's 110px. Match it here at laptop widths too. */
+      .section--general { padding-top: 110px; }
     }
     .blob {
       position: absolute;

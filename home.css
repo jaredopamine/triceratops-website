@@ -530,6 +530,11 @@ section[id] {
 .info {
   overflow: hidden;
 }
+/* Matches DinoDex's 110px gap under its hero at laptop widths (e.g.
+   MacBook, ~1512px) — Home has no gap here otherwise. */
+@media (max-width: 1800px) {
+  .info { margin-top: 110px; }
+}
 
 .info__inner {
   position: relative;
