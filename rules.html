@@ -615,7 +615,10 @@
       overflow: visible;
       display: flex;
       align-items: center;
-      justify-content: center;
+      /* Was center — fine when centered inside the cloud graphic, but now
+         that left:0 above means this box's own edge IS the page margin,
+         centering here pushes the text off of it instead of flush to it. */
+      justify-content: flex-start;
     }
     .faq-cloud .section__title {
       position: relative;
