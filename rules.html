@@ -46,8 +46,25 @@
       --font-body: "Nunito", "Segoe UI", system-ui, sans-serif;
 
       /* layout */
-      --container: 1344px;
+      /* Was 1344px, which combined with margin-inline:auto on .container
+         below to re-center the page and add extra margin beyond --gutter
+         at wide viewports — and since that math runs off the actual
+         available width, it also drifted slightly from the other pages'
+         flat margin whenever a scrollbar was present. Set high enough to
+         never actually cap anything at realistic widths, so --gutter
+         alone controls the side margin, matching how the other pages
+         work. */
+      --container: 5000px;
       --gutter: clamp(20px, 5vw, 48px);
+    }
+    /* Matches the rest of the site's side margin (shared --grid-margin)
+       at laptop widths (e.g. MacBook, ~1512px) — 84px. The >1800px
+       desktop monitor already gets its own flat 148px further down
+       (see the DESKTOP-ONLY block), which doesn't read --gutter, so it
+       isn't touched here. Placed before the narrower mobile overrides
+       below so those still win at their own widths. */
+    @media (max-width: 1800px) {
+      :root { --gutter: 84px; }
     }
 
     * { box-sizing: border-box; }
@@ -211,7 +228,12 @@
       color: var(--off-white);
     }
     .hero__inner {
-      width: min(1280px, 100% - (var(--gutter) * 2));
+      /* Was capped at 1280px (own cap, narrower than .container's
+         1344px/--container), which re-centered the text at a different
+         margin than the rest of the page once that cap kicked in. Use
+         --container instead so it matches .container exactly at every
+         width. */
+      width: min(var(--container), 100% - (var(--gutter) * 2));
       margin-inline: auto;
       /* Was 32px top+bottom; the shared hero system the other 4 pages
          use (styles.css's .hero__content) is 16px — only the bottom
@@ -402,10 +424,6 @@
          Getting Started's old 100px value, but the sitewide target is
          now DinoDex's 110px. Match it here at laptop widths too. */
       .section--general { padding-top: 110px; }
-      /* Hero text was capped at 1280px (116px margin at 1512px) while the
-         body content (.container) is capped at 1344px (84px margin) —
-         matches Home's side margin now instead of its own narrower cap. */
-      .hero__inner { width: min(var(--container), 100% - (var(--gutter) * 2)); }
     }
     .blob {
       position: absolute;
