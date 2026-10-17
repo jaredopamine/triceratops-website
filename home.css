@@ -2282,7 +2282,7 @@ section[id] {
     padding-top: 53px;
   }
 
-  /* Three lines: "Welcome to", "Triceratops", "at UC Davis!" */
+  /* Three lines: "Welcome to", "Davis", "Triceratops!" */
   .hero__title br {
     display: none;
   }
