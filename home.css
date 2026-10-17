@@ -404,6 +404,18 @@ section[id] {
   object-position: 27% 50%;
 }
 
+/* At very wide (desktop monitor) widths, the hero's fixed-height box gets
+   proportionally much wider than the artwork, so cover has to crop it
+   vertically to fill the box. Centered (50%) trims evenly off the top and
+   bottom; anchoring to the bottom instead crops only from the top (sky)
+   so nothing is lost off the bottom. No effect at laptop widths and
+   narrower, where the box never needs a vertical crop. */
+@media (min-width: 1801px) {
+  .hero__image {
+    object-position: 27% 100%;
+  }
+}
+
 .hero::after {
   content: "";
   background: linear-gradient(to bottom, var(--color-overlay) 20%, rgba(102, 102, 102, 0) 100%);
