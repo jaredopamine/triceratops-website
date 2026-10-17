@@ -593,11 +593,14 @@
        cloud graphic + scattered decorations). With those removed, the
        heading is just a line of text now, so this sizes to its content
        instead of leaving ~250px of empty leftover space above the FAQ
-       cards. margin-bottom matches the other sections' heading-to-content
-       gap (.section__head below). */
+       cards. Unlike .section__head below, this heading has no side
+       illustration to hold the box open, and the first FAQ card's bee
+       mascot is pulled up over the list's own top edge (see --lift on
+       .faq-card__mascot), so this needs more clearance than .section__head's
+       own margin-bottom to actually clear it instead of overlapping. */
     .faq-heading {
       position: relative;
-      margin-bottom: 40px;
+      margin-bottom: 70px;
     }
     .faq-cloud {
       display: flex;
@@ -1363,9 +1366,12 @@
          (back to having its own override — this time at a direct
          request for this specific gap, not "match the rest"). */
       .section--claim .section__head { margin-bottom: 51px; }
-      /* FAQ heading ("Common Rules Questions") -> .faq-list gap,
-         brought in line with the same -9px for full-page consistency. */
-      .faq-heading { margin-bottom: -9px; }
+      /* Was brought in line with the sitewide -9px above, back when the
+         cloud graphic + decorations held this box open. Now that it's
+         just text, -9px overlapped the first FAQ card's bee mascot
+         (pulled up by --lift, which scales up at this width) by ~117px.
+         Needs its own larger clearance instead. */
+      .faq-heading { margin-bottom: 160px; }
       /* Hunt Rules' .section__head LOOKED like a smaller gap than
          General/Flash Sale Rules even with the identical -9px margin,
          because margin-bottom is measured from the .section__head
