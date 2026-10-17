@@ -97,6 +97,18 @@
   --text-button-size: 18px;  --text-button-lh: 1.3; --text-button-ls: 0.05em;
 }
 
+/* Matches Home's side margin at laptop widths (e.g. MacBook, ~1512px):
+   Home centers a 1440px-max content box with 48px of padding inside it,
+   which works out to 84px from the true edge at 1512px. This page's
+   --grid-margin is a flat padding (no centering), so bump it to the same
+   84px here. Placed before the phone block below so that one still wins
+   at ≤640px. Covers .grid-12 (body content) and .hero__content (hero
+   text) — nav/footer only read --grid-margin at ≤640px, so they're
+   unaffected. */
+@media (max-width: 1800px) {
+  :root { --grid-margin: 84px; }
+}
+
 /* ============================================================
    BASE / RESET
 ============================================================ */

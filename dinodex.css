@@ -859,6 +859,9 @@
      laptop (e.g. MacBook, ~1512px) fell through to this page's own
      700px base instead. Match it here too. */
   .hero { height: 498px; }
+  /* Hero text's own 70px base fell through here too (only >1800px and
+     ≤600px are overridden below); match Home's side margin instead. */
+  .hero__content { padding-left: 84px; padding-right: 84px; }
 }
 
 /* ============================================================

@@ -402,6 +402,10 @@
          Getting Started's old 100px value, but the sitewide target is
          now DinoDex's 110px. Match it here at laptop widths too. */
       .section--general { padding-top: 110px; }
+      /* Hero text was capped at 1280px (116px margin at 1512px) while the
+         body content (.container) is capped at 1344px (84px margin) —
+         matches Home's side margin now instead of its own narrower cap. */
+      .hero__inner { width: min(var(--container), 100% - (var(--gutter) * 2)); }
     }
     .blob {
       position: absolute;
