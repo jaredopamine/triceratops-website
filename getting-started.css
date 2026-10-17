@@ -231,7 +231,9 @@ strong { font-weight: 700; }
 .do-card__head img { width: 48px; height: 48px; }
 .do-card__head h3 { margin: 0; color: var(--gs-body); line-height: 1.2; }
 .do-card--do .do-card__head { height: 101.64px; background: var(--gs-pastel-green); }
-.do-card--dont .do-card__head { height: 89px; background: var(--gs-pink); }
+/* Matched to the "What To Do" header's 101.64px so both headers are the same
+   height at desktop (2560px) and laptop (1512px) widths — was 89px. */
+.do-card--dont .do-card__head { height: 101.64px; background: var(--gs-pink); }
 .do-card__body {
   display: flex;
   flex-direction: column;
@@ -244,7 +246,7 @@ strong { font-weight: 700; }
   border-radius: 12px 12px 20px 20px;
 }
 .do-card--do .do-card__body { margin-top: -11.42px; }
-.do-card--dont .do-card__body { margin-top: -10px; }
+.do-card--dont .do-card__body { margin-top: -11.42px; }
 /* Portrait cutouts, centre-cropped to the comp's 285.6 x 261.6 frame */
 .do-card__art { width: 285.6px; height: 261.6px; max-width: 100%; object-fit: cover; flex-shrink: 0; }
 .do-card__list { width: 100%; max-width: none; }
