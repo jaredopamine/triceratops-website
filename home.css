@@ -1871,7 +1871,10 @@ section[id] {
 .footer-deco--cloud2-front { right: 162px; top: 18px;   width: 84px; height: 45px; }
 .footer-deco--cloud3-back  { right: 65px;  top: 78px;   width: 61px; height: 33px; }
 .footer-deco--cloud3-front { right: 62px;  top: 77px;   width: 61px; height: 33px; }
-.footer-deco--dino-single  { right: 213px; top: 173px;  width: 85px; height: 132px; }
+/* Positioned from the bottom (not top: 173px) because Home's footer content
+   is a different height than the other pages', so a fixed top offset left
+   it short of the bottom edge instead of flush like the green dino. */
+.footer-deco--dino-single  { right: 213px; top: auto; bottom: 0; width: 85px; height: 132px; }
 
 @media (max-width: 1800px) {
   .footer-deco--cloud1-back  { top: 111px; }
@@ -1880,8 +1883,10 @@ section[id] {
 /* bottom: 0 (not 9px) so the green dino's feet sit flush with the
    footer's bottom edge, matching the blue dino (dino-single) above. */
 .footer-deco--dino-duo     { right: 126px; bottom: 0; width: 81px; height: 107px; }
-.footer-deco--flower-small-1 { right: 28px; bottom: 7px; width: 39px; height: 43px; }
-.footer-deco--flower-small-2 { right: 70px; bottom: 7px; width: 29px; height: 32px; }
+/* bottom: 0 (not 7px) to sit flush with the footer's bottom edge, matching
+   the dinos above instead of floating above it. */
+.footer-deco--flower-small-1 { right: 28px; bottom: 0; width: 39px; height: 43px; }
+.footer-deco--flower-small-2 { right: 70px; bottom: 0; width: 29px; height: 32px; }
 
 .footer-deco-m { display: none; position: absolute; pointer-events: none; }
 
