@@ -602,7 +602,11 @@
     }
     .faq-cloud {
       position: absolute;
-      left: 2.56%;
+      /* Was left: 2.56% (+ the title's own left padding below), which no
+         longer lines up with the page margin the way the other section
+         headings do now that the cloud graphic isn't there to justify the
+         offset. 0 flushes the heading text to the same margin. */
+      left: 0;
       top: 9.68%;
       width: 53.85%;
       height: 82.26%;
@@ -620,7 +624,7 @@
          the (now-removed) cloud outline graphic. Match the sitewide
          .section__title size instead. */
       font-size: clamp(32px, 4vw, 48px);
-      padding-inline: 4%;
+      padding-right: 4%;
       text-align: left;
       white-space: nowrap;
     }
