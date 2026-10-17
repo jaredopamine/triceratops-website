@@ -589,90 +589,33 @@
       overflow-x: clip;
     }
 
-    /* Everything in this heading is sized in % of .faq-heading itself
-       (rather than fixed px) so the whole composition scales together and
-       keeps the same proportions at any container width — fixed px here
-       previously looked right only near one specific viewport width and
-       shrank to a disproportionately small corner at wider ones. */
+    /* Was aspect-ratio: 780/310 (a fixed-proportion box sized to fit the
+       cloud graphic + scattered decorations). With those removed, the
+       heading is just a line of text now, so this sizes to its content
+       instead of leaving ~250px of empty leftover space above the FAQ
+       cards. margin-bottom matches the other sections' heading-to-content
+       gap (.section__head below). */
     .faq-heading {
       position: relative;
-      width: 100%;
-      aspect-ratio: 780 / 310;
-      margin-bottom: 32px;
+      margin-bottom: 40px;
     }
     .faq-cloud {
-      position: absolute;
-      /* Was left: 2.56% (+ the title's own left padding below), which no
-         longer lines up with the page margin the way the other section
-         headings do now that the cloud graphic isn't there to justify the
-         offset. 0 flushes the heading text to the same margin. */
-      left: 0;
-      top: 9.68%;
-      width: 53.85%;
-      height: 82.26%;
-      /* No longer cropping a background image here, so this can overflow
-         if the sitewide-size heading below needs more room than the box. */
-      overflow: visible;
       display: flex;
       align-items: center;
-      /* Was center — fine when centered inside the cloud graphic, but now
-         that left:0 above means this box's own edge IS the page margin,
-         centering here pushes the text off of it instead of flush to it. */
-      justify-content: flex-start;
     }
     .faq-cloud .section__title {
-      position: relative;
-      margin-top: 12%;
-      /* Was its own smaller clamp(18px, 2.5vw, 36px), sized to fit inside
-         the (now-removed) cloud outline graphic. Match the sitewide
-         .section__title size instead. */
       font-size: clamp(32px, 4vw, 48px);
-      padding-right: 4%;
       text-align: left;
       white-space: nowrap;
     }
-    /* small flower dots scattered inside the cloud outline, in a tight
-       triangle: pink at the apex, teal/yellow forming the base */
-    .faq-cloud__dot {
-      position: absolute;
-      /* same rendered size as the purple flower on the right: that one is
-         32.86% of the extras box (17.95% of the heading) = 5.9% of the
-         heading, and the cloud is 53.85% of the heading -> 10.95% of the cloud */
-      width: 10.95%;
-      height: auto;
-    }
-    .faq-cloud__dot--1 { top: 14%; left: 45.5%; }
-    .faq-cloud__dot--2 { top: 30.5%; left: 39.3%; }
-    .faq-cloud__dot--3 { top: 30.5%; left: 51.8%; }
-
-    /* pink squiggle arrow sitting on top of the cloud, right side */
-    .faq-heading__arrow {
-      position: absolute;
-      left: 47.44%;
-      top: 7%;
-      width: 5.13%;
-      height: auto;
-      pointer-events: none;
-    }
-    /* decorative cluster to the right of the cloud */
-    .faq-heading__extras {
-      position: absolute;
-      left: 78.21%;
-      top: 17.74%;
-      width: 17.95%;
-      height: 35.48%;
-      pointer-events: none;
-    }
-    .faq-heading__extras img { position: absolute; }
-    .faq-heading__extras .blob-purple { width: 32.86%; top: 0; left: 35%; }
-    .faq-heading__extras .face-blue   { width: 32.86%; top: 40.91%; left: 0; }
-    .faq-heading__extras .face-yellow { width: 32.86%; top: 40.91%; left: 64.29%; }
-    /* cream blob below the extras cluster */
+    /* Was positioned with top: 62.9% of the old tall .faq-heading box;
+       that box is gone, so anchor from the bottom instead — lands in
+       about the same spot, peeking in just above the first FAQ card. */
     .faq-heading__cream {
       position: absolute;
       left: 62.82%;
-      top: 62.9%;
-      width: 11.54%;
+      bottom: -40px;
+      width: 130px;
       height: auto;
       pointer-events: none;
       transform: rotate(-45deg);
