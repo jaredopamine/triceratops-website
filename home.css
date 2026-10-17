@@ -91,13 +91,7 @@
   --space-12: 48px;
   --page-gutter: 48px;
   --section-top: 69px;
-  /* Was 1440px, which combined with margin-inline:auto on sections below
-     to re-center the page and add EXTRA margin beyond --page-gutter at
-     wide viewports (608px total at a 2560px desktop monitor — way more
-     than the rest of the site's 148px). Set high enough to never actually
-     cap anything at realistic widths, so --page-gutter alone controls the
-     side margin here, matching how every other page works. */
-  --content-max: 5000px;
+  --content-max: 1440px;
   --header-height: 104px;
 
   /* Shapes and shadows */
@@ -109,15 +103,19 @@
   --shadow-text: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-/* Matches the rest of the site's side margin (shared --grid-margin):
-   84px at laptop widths (e.g. MacBook, ~1512px), 148px on the 2560px
-   desktop monitor. Placed before the narrower mobile overrides below so
-   those still win at their own widths. */
+/* Matches the rest of the site's side margin (shared --grid-margin) at
+   laptop widths (e.g. MacBook, ~1512px) — 84px. --content-max is also
+   disabled here (raised high enough to never cap anything) since it
+   would otherwise combine with margin-inline:auto on sections below to
+   add extra margin beyond --page-gutter; desktop monitor widths
+   (>1800px) are intentionally left on the original --content-max: 1440px
+   centering behavior above. Placed before the narrower mobile overrides
+   below so those still win at their own widths. */
 @media (max-width: 1800px) {
-  :root { --page-gutter: 84px; }
-}
-@media (min-width: 1801px) {
-  :root { --page-gutter: 148px; }
+  :root {
+    --page-gutter: 84px;
+    --content-max: 5000px;
+  }
 }
 
 /* Base */
