@@ -588,6 +588,15 @@
       padding-bottom: max(72px, calc(var(--fu) * 163));
       overflow-x: clip;
     }
+    /* The sitewide ".section + .section { padding-top: 0 }" rule (so
+       adjacent sections don't stack double padding) left almost no gap
+       between the Claim section's green background and this heading —
+       fine for a plain-background transition, but the hard color edge
+       here reads as cramped. Restore this section's own padding-top for
+       this one transition specifically. */
+    .section--claim + .section--faq {
+      padding-top: clamp(48px, 8vw, 72px);
+    }
 
     /* Was aspect-ratio: 780/310 (a fixed-proportion box sized to fit the
        cloud graphic + scattered decorations). With those removed, the
