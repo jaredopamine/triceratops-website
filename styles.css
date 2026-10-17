@@ -559,7 +559,9 @@ ul {
   .footer-deco--cloud1-back  { top: 111px; }
   .footer-deco--cloud1-front { top: 109px; }
 }
-.footer-deco--dino-duo     { right: 126px; bottom: 9px; width: 81px; height: 107px; }
+/* bottom: 0 (not 9px) so the green dino's feet sit flush with the
+   footer's bottom edge, matching the blue dino (dino-single) above. */
+.footer-deco--dino-duo     { right: 126px; bottom: 0; width: 81px; height: 107px; }
 .footer-deco--flower-small-1 { right: 28px; bottom: 7px; width: 39px; height: 43px; }
 .footer-deco--flower-small-2 { right: 70px; bottom: 7px; width: 29px; height: 32px; }
 

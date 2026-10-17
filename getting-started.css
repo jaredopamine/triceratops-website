@@ -1300,7 +1300,7 @@ html.has-overlay { overflow: hidden; }
   .footer-deco--cloud3-back  { left: 352px;    right: auto; top: 153.37px; width: 61.49px; height: 32.55px; }
   .footer-deco--cloud3-front { left: 347.99px; right: auto; top: 150.02px; width: 70.47px; height: 42.35px; }
   .footer-deco--dino-single  { left: 21px;     right: auto; top: auto; bottom: 0;      width: 60.6px; height: auto; }
-  .footer-deco--dino-duo     { left: 86.47px;  right: auto; bottom: 1.55px;  width: 58.1px; height: auto; }
+  .footer-deco--dino-duo     { left: 86.47px;  right: auto; bottom: 0;  width: 58.1px; height: auto; }
   .footer-deco--flower-small-2 { left: 164.09px; right: auto; bottom: 0; width: 20.8px; height: auto; } /* pink */
   .footer-deco--flower-small-1 { left: 187.08px; right: auto; bottom: 0; width: 28px;   height: auto; } /* blue */
 }
@@ -1341,7 +1341,7 @@ html.has-overlay { overflow: hidden; }
   .footer-deco-m--cloud2 { left: 264px; top: 354px; width: 95px; height: 57px; }
   .footer-deco-m--cloud3 { left: 352px; top: 152px; width: 46px; height: 45px; }
   .footer-deco-m--dino-blue { left: 21px; bottom: 0; width: 62px; height: 94px; }
-  .footer-deco-m--dino-green { left: 86px; bottom: 1px; width: 59px; height: 77px; }
+  .footer-deco-m--dino-green { left: 86px; bottom: 0; width: 59px; height: 77px; }
   .footer-deco-m--flower1 { left: 187px; bottom: 0; width: 29px; height: 31px; }
   .footer-deco-m--flower2 { left: 164px; bottom: 0; width: 21px; height: 23px; }
 
