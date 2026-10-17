@@ -600,34 +600,26 @@
       aspect-ratio: 780 / 310;
       margin-bottom: 32px;
     }
-    /* The cloud SVG's own viewBox has a lot of empty padding around the
-       drawn outline, which made it render tiny/cramped. Crop that padding
-       away with a fixed-aspect box + object-fit: cover instead of showing
-       the whole (mostly blank) square. */
     .faq-cloud {
       position: absolute;
       left: 2.56%;
       top: 9.68%;
       width: 53.85%;
       height: 82.26%;
-      overflow: hidden;
+      /* No longer cropping a background image here, so this can overflow
+         if the sitewide-size heading below needs more room than the box. */
+      overflow: visible;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .faq-cloud__img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-    }
     .faq-cloud .section__title {
       position: relative;
       margin-top: 12%;
-      /* Figma H2 token: 36px / 120% (line-height comes from the h2 base rule) */
-      font-size: clamp(18px, 2.5vw, 36px);
+      /* Was its own smaller clamp(18px, 2.5vw, 36px), sized to fit inside
+         the (now-removed) cloud outline graphic. Match the sitewide
+         .section__title size instead. */
+      font-size: clamp(32px, 4vw, 48px);
       padding-inline: 4%;
       text-align: left;
       white-space: nowrap;
@@ -1769,7 +1761,6 @@
       <div class="container">
         <div class="faq-heading reveal">
           <div class="faq-cloud">
-            <img class="faq-cloud__img" src="assets/cloud.svg" alt="" aria-hidden="true">
             <img class="faq-cloud__dot faq-cloud__dot--1" src="assets/sticker-flower-pink.svg" alt="" aria-hidden="true">
             <img class="faq-cloud__dot faq-cloud__dot--2" src="assets/sticker-flower-teal.svg" alt="" aria-hidden="true">
             <img class="faq-cloud__dot faq-cloud__dot--3" src="assets/sticker-flower-yellow.svg" alt="" aria-hidden="true">
@@ -1968,7 +1959,6 @@
 
   <section class="m-faq" aria-labelledby="m-faq-title">
     <div class="m-faq__decor m-p" style="--x:352;--y:5307" aria-hidden="true"><img src="assets/mobile/faq-decor.svg" alt=""></div>
-    <img class="m-faq__cloud m-p" style="--x:25;--y:5308" src="assets/mobile/faq-cloud.svg" alt="" aria-hidden="true">
     <h2 class="m-title m-p m-faq__title" id="m-faq-title" style="--x:76;--y:5405"><span class="m-title__dot"></span>Common Rules FAQ</h2>
     <img class="m-faq__bee m-faq__bee--flip m-p" style="--x:11;--y:5538" src="assets/bee-dino.png" alt="">
     
@@ -2152,7 +2142,6 @@
   <section class="m-faq" aria-labelledby="h-faq-title">
     <img class="m-p" style="--x:460.71;--y:3801.93;width:73.97px;height:68.75px;transform:rotate(89.47deg)" src="assets/mobile/h-blob-cream.svg" alt="" aria-hidden="true">
     <img class="m-p" style="--x:370.63;--y:3690.49;width:44.01px;height:36.91px;transform:rotate(300deg)" src="assets/mobile/h-arrow.svg" alt="" aria-hidden="true">
-    <img class="m-faq__cloud m-p" style="--x:62;--y:3708.2" src="assets/mobile/faq-cloud.svg" alt="" aria-hidden="true">
     <h2 class="m-title m-p m-faq__title" id="h-faq-title" style="--x:113;--y:3805"><span class="m-title__dot"></span>Common Rules FAQ</h2>
 
     <img class="m-faq__bee m-faq__bee--flip m-p" style="--x:86;--y:3946" src="assets/bee-dino.png" alt="">
