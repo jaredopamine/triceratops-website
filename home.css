@@ -1624,9 +1624,10 @@ section[id] {
 .heatmap__flower--pink {
   left: 73.89%;
   top: 96.18%;
-  /* Sits right at the seam with the next section, which paints over it
-     otherwise since it comes later in the DOM at the same stack level. */
-  z-index: 1;
+  /* Sits right at the seam with the next section; its content wrapper
+     (.closing__inner) is also z-index:1 and comes later in the DOM, so
+     this needs to win outright rather than tie. */
+  z-index: 2;
 }
 
 .heatmap__grass {
