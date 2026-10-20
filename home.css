@@ -1851,7 +1851,6 @@ section[id] {
   height: 100%;
   max-width: 100%;
   object-fit: contain;
-  rotate: 20deg;
 }
 
 /* Footer — matches the shared footer used on About/DinoDex/Flash Sales/
