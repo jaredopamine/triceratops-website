@@ -558,6 +558,16 @@
     .claim-step { display: flex; align-items: center; gap: 40px; }
     /* content block is ~988px and centered in the Figma, not full container width */
     .claim-container { position: relative; width: min(988px, 100% - (var(--gutter) * 2)); }
+    /* That 988px cap centers the whole block, so the heading drifts right of the
+       other sections' left margin at laptop widths. Past 1800px .container's own
+       desktop-only override (further down) removes the cap entirely, which
+       already puts the heading flush with the rest — this only needs to correct
+       the 1001-1800px range where the cap is still what's sizing the container. */
+    @media (min-width: 1001px) and (max-width: 1800px) {
+      .section--claim .section__head {
+        margin-left: calc((988px - 100vw + var(--gutter) * 2) / 2);
+      }
+    }
     /* the yellow dino is its own element (not baked into the background) so it
        can sit right of the heading, above the step text, at any viewport width */
     .claim-dino {
@@ -773,7 +783,12 @@
       left: calc(var(--u) * 978.8); top: calc(var(--u) * -99);
     }
     .cta-decor--flower-pink {
-      z-index: 2;
+      /* z-index:2 (just above .cta-banner's 1) isn't enough to actually paint on
+         top of it here — Chromium still squashes it under the banner's own
+         layer at that difference. A much larger gap forces it onto its own
+         layer so it paints above the banner's background like it's supposed
+         to, instead of getting its bottom clipped at the banner's edge. */
+      z-index: 100;
       width: calc(var(--u) * 119.13); height: calc(var(--u) * 115.38);
       /* sits on the corner/sprout base but ends above the text's first line (~46u) */
       left: calc(var(--u) * 1100); top: calc(var(--u) * -72);
