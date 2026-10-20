@@ -1624,10 +1624,16 @@ section[id] {
 .heatmap__flower--pink {
   left: 73.89%;
   top: 96.18%;
-  /* Sits right at the seam with the next section; its content wrapper
-     (.closing__inner) is also z-index:1 and comes later in the DOM, so
-     this needs to win outright rather than tie. */
-  z-index: 2;
+}
+
+/* This piece sits right at the seam with the next section, which has
+   overflow:hidden. A CSS transform here promotes the image to its own
+   compositing layer, and Chromium clips that layer to the next section's
+   overflow box during layer squashing, cutting the flower off. The
+   rotation is baked into the asset itself instead so no transform (and
+   no layer promotion) is needed. */
+.heatmap__flower--pink img {
+  transform: none;
 }
 
 .heatmap__grass {
