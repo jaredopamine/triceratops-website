@@ -1555,7 +1555,8 @@ html.has-overlay { overflow: hidden; }
        the whole swipe transition (both its phases) — see showPage(). */
     transition: height 360ms ease;
   }
-  .drop-sheet__close { /* 27px X rotated 45° in a 38px corner box */
+  .drop-sheet__close { /* 27px X rotated 45° in a 38px corner box (the
+       bigger box is just a larger tap target around the visible circle) */
     position: absolute;
     top: 0;
     right: 0;
@@ -1572,7 +1573,9 @@ html.has-overlay { overflow: hidden; }
     cursor: pointer;
   }
   .drop-sheet__close img { display: block; width: 27px; height: 27px; transform: rotate(-45deg); }
-  .drop-sheet__close:focus-visible { outline: 3px solid #687144; outline-offset: -2px; }
+  /* Hugs the 27px visible circle, not the larger 38.18px tap-target box:
+     offset = -(38.18 - 27) / 2 */
+  .drop-sheet__close:focus-visible { outline: 3px solid #687144; outline-offset: -5.59px; }
 
   .drop-sheet__photo {
     position: relative;
