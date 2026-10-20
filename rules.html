@@ -562,10 +562,14 @@
        other sections' left margin at laptop widths. Past 1800px .container's own
        desktop-only override (further down) removes the cap entirely, which
        already puts the heading flush with the rest — this only needs to correct
-       the 1001-1800px range where the cap is still what's sizing the container. */
+       the 1001-1800px range where the cap is still what's sizing the container.
+       Needs the section's actual available width (matching .container's own
+       "100% - gutter*2"), not 100vw, which runs wide by the scrollbar's width —
+       a container query on the section gives that without the scrollbar skew. */
+    .section--claim { container-type: inline-size; }
     @media (min-width: 1001px) and (max-width: 1800px) {
       .section--claim .section__head {
-        margin-left: calc((988px - 100vw + var(--gutter) * 2) / 2);
+        margin-left: calc((988px - 100cqw + var(--gutter) * 2) / 2);
       }
     }
     /* the yellow dino is its own element (not baked into the background) so it
