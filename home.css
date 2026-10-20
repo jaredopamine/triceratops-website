@@ -910,11 +910,10 @@ section[id] {
   background-color: var(--color-off-white);
   background-image:
     linear-gradient(var(--color-card-rule-red), var(--color-card-rule-red)),
-    linear-gradient(var(--color-card-rule-red), var(--color-card-rule-red)),
     repeating-linear-gradient(to bottom, var(--color-card-rule-blue) 0 1px, transparent 1px calc(26.6 * var(--u)));
   background-repeat: no-repeat;
-  background-size: 100% 1px, 100% 1px, 100% calc(214 * var(--u));
-  background-position: 0 calc(37.6 * var(--u)), 0 calc(42.4 * var(--u)), 0 calc(72 * var(--u));
+  background-size: 100% 1px, 100% calc(214 * var(--u));
+  background-position: 0 calc(42.4 * var(--u)), 0 calc(72 * var(--u));
 }
 
 .index-card__quote {
