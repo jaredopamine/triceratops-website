@@ -2090,8 +2090,13 @@ section[id] {
     padding: 0;
   }
 
-  .gallery-mobile__item:last-child {
-    margin-right: var(--page-gutter);
+  /* A real flex item (not a margin on the last card) so it reliably counts
+     toward the scrollable area; the negative margin cancels the list's own
+     gap before it, leaving just this element's own width as the trailing
+     space, matching the leading gutter before the first card. */
+  .gallery-mobile__spacer {
+    flex: 0 0 var(--page-gutter);
+    margin-left: -32px;
   }
 
   .gallery-mobile__item {

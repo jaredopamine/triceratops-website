@@ -409,6 +409,15 @@ if (galleryMobile && gallery) {
     });
   });
 
+  // Trailing space after the last card, matching the leading gutter before
+  // the first one. A margin on the last card (or trailing padding on the
+  // track/list) isn't reliably included in the scrollable area at the end
+  // of a flex row in every browser, so this is a real flex item instead.
+  const spacer = document.createElement('li');
+  spacer.className = 'gallery-mobile__spacer';
+  spacer.setAttribute('aria-hidden', 'true');
+  list.appendChild(spacer);
+
   function setGroup(index) {
     const testimonial = testimonials[index];
     quoteEl.innerHTML = '';
