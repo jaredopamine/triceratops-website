@@ -184,7 +184,12 @@
 
 .info-banner__body {
   position: relative;
-  z-index: 1;
+  /* Above every decorative sprout/flower/tick/blade/spark (highest is the
+     sprout at 10), so the mascot peeking out of the heading never gets a
+     stray decoration drawn over it — those are positioned as a % of the
+     banner's width, so at wide desktop windows they can drift into the
+     mascot's spot, which is fixed to the heading text instead. */
+  z-index: 11;
 }
 
 .info-banner__title {
