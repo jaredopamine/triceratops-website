@@ -787,12 +787,7 @@
       left: calc(var(--u) * 978.8); top: calc(var(--u) * -99);
     }
     .cta-decor--flower-pink {
-      /* z-index:2 (just above .cta-banner's 1) isn't enough to actually paint on
-         top of it here — Chromium still squashes it under the banner's own
-         layer at that difference. A much larger gap forces it onto its own
-         layer so it paints above the banner's background like it's supposed
-         to, instead of getting its bottom clipped at the banner's edge. */
-      z-index: 100;
+      z-index: 2;
       width: calc(var(--u) * 119.13); height: calc(var(--u) * 115.38);
       /* sits on the corner/sprout base but ends above the text's first line (~46u) */
       left: calc(var(--u) * 1100); top: calc(var(--u) * -72);
