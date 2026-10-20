@@ -921,6 +921,11 @@ section[id] {
   top: calc(76.6 * var(--u));
   left: calc(19.4 * var(--u));
   right: calc(12.5 * var(--u));
+  /* The body's default 1.5 line-height (30u at this 20u font-size) is taller
+     than the card's ruled-line spacing (26.6u), so each successive line
+     drifted further down and crossed the blue rules instead of sitting
+     between them. 1.33 (26.6/20) matches the rule spacing exactly. */
+  line-height: 1.33;
 }
 
 .index-card__author {
@@ -1628,7 +1633,7 @@ section[id] {
    re-promote the image to its own layer and risk the same clipping. */
 .heatmap__flower--pink {
   left: 73.89%;
-  top: 93.3%;
+  top: calc(93.3% - 20px);
 }
 
 .heatmap__flower--pink img {
