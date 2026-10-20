@@ -1621,17 +1621,17 @@ section[id] {
   transform: rotate(30deg) translate(-1.17px, 2.63px);
 }
 
+/* Originally top:96.18%, which overlapped the next section (overflow:hidden)
+   by ~20px. Crossing that seam got the sticker clipped by Chromium's layer
+   squashing against the next section's overflow box, so it's nudged up to
+   stay fully inside .heatmap instead. The rotation is also baked into the
+   asset rather than applied as a CSS transform, since a transform here would
+   re-promote the image to its own layer and risk the same clipping. */
 .heatmap__flower--pink {
   left: 73.89%;
-  top: 96.18%;
+  top: 93.3%;
 }
 
-/* This piece sits right at the seam with the next section, which has
-   overflow:hidden. A CSS transform here promotes the image to its own
-   compositing layer, and Chromium clips that layer to the next section's
-   overflow box during layer squashing, cutting the flower off. The
-   rotation is baked into the asset itself instead so no transform (and
-   no layer promotion) is needed. */
 .heatmap__flower--pink img {
   transform: none;
 }
