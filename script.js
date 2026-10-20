@@ -83,12 +83,22 @@ if (eventDetails.length) {
       if (!phoneLayout.matches) return;
       event.preventDefault();
 
+      // Scales with content so a tall note doesn't rush by in the same time
+      // as a short one, which is part of what read as choppy before.
+      const duration = Math.min(420, Math.max(220, body.scrollHeight * 1.1));
+      body.style.transitionDuration = `${duration}ms`;
+
       if (details.open) {
         details.classList.remove('is-open');
         body.style.maxHeight = `${body.scrollHeight}px`;
         body.offsetHeight; // force a reflow so this starting height is registered
+        // A single rAF can still land before the browser has painted the
+        // starting height, which snaps straight to closed instead of easing.
+        // Two rAFs guarantee that paint has happened first.
         requestAnimationFrame(() => {
-          body.style.maxHeight = '0px';
+          requestAnimationFrame(() => {
+            body.style.maxHeight = '0px';
+          });
         });
       } else {
         details.open = true;
@@ -97,7 +107,9 @@ if (eventDetails.length) {
         body.style.maxHeight = '0px';
         body.offsetHeight;
         requestAnimationFrame(() => {
-          body.style.maxHeight = `${targetHeight}px`;
+          requestAnimationFrame(() => {
+            body.style.maxHeight = `${targetHeight}px`;
+          });
         });
       }
     });

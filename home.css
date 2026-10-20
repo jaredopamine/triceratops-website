@@ -2036,6 +2036,7 @@ section[id] {
   .gallery { display: none; }
   .gallery-mobile {
     display: block;
+    margin-top: 20px;
     padding-inline: var(--page-gutter);
   }
 
@@ -2068,6 +2069,11 @@ section[id] {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    /* .gallery-mobile's own padding-inline would otherwise cap the
+       scrollable area short of the viewport edge; escape it here so the
+       carousel can scroll flush to the right edge of the page. */
+    margin-right: calc(-1 * var(--page-gutter));
+    padding-right: var(--page-gutter);
   }
 
   .gallery-mobile__track::-webkit-scrollbar {
@@ -2146,18 +2152,6 @@ section[id] {
     height: 30.5px;
   }
 
-  /* Heatmap: a landscape crop reads as a thin strip on a phone, so swap it
-     for a tall crop that actually shows the campus layout. */
-  .heatmap__map {
-    aspect-ratio: 3 / 4;
-  }
-
-  .heatmap__image {
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
 }
 
 @media (max-width: 1200px) {
@@ -3014,7 +3008,7 @@ section[id] {
   .sticky-note__icon {
     display: block;
     flex: none;
-    transition: rotate 0.2s ease;
+    transition: rotate 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* Tracks open/closed separately from the <details> "open" attribute
@@ -3028,31 +3022,39 @@ section[id] {
     margin-top: 0;
     padding: 0 15px 18px 14px;
     overflow: hidden;
-    transition: max-height 250ms ease-in-out;
+    transition: max-height 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: max-height;
   }
 
   /* The tablet aspect ratio/crop above (max-width: 960px) also matches phone
      widths and, being written first, loses the cascade tie here. Restate the
-     phone-only tall crop so it wins at phone widths. */
+     normal (desktop-style) crop so it wins at phone widths instead of the
+     tablet's taller one. */
   .heatmap__map {
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 1344 / 620;
   }
 
   .heatmap__image {
-    inset: 0;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    inset: auto;
+    left: -0.149%;
+    top: -3.571%;
+    width: 101.567%;
+    height: 106.981%;
+    object-fit: contain;
   }
 }
 
 /* A bit taller than the shared 720px tablet height above. Placed after
-   that 960px block so it wins the tie at mobile widths. */
+   that 960px block so it wins the tie at mobile widths. Trimmed from the
+   original 820px, which left dead space below the CTA card and pushed
+   the gap before "Various events" too far down. */
 @media (max-width: 640px) {
   .hero__inner {
-    height: 820px;
+    height: 735px;
+  }
+
+  .info {
+    margin-top: 55px;
   }
 }
 
