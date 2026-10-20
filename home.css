@@ -2071,9 +2071,11 @@ section[id] {
     scrollbar-width: none;
     /* .gallery-mobile's own padding-inline would otherwise cap the
        scrollable area short of the viewport edge; escape it here so the
-       carousel can scroll flush to the right edge of the page. */
+       carousel can scroll flush to the right edge of the page. Trailing
+       space after the last card comes from a margin on the item itself
+       (below) rather than padding here, which some browsers don't
+       reliably include in the scrollable area at the end of a flex row. */
     margin-right: calc(-1 * var(--page-gutter));
-    padding-right: var(--page-gutter);
   }
 
   .gallery-mobile__track::-webkit-scrollbar {
@@ -2086,6 +2088,10 @@ section[id] {
     list-style: none;
     margin: 0;
     padding: 0;
+  }
+
+  .gallery-mobile__item:last-child {
+    margin-right: var(--page-gutter);
   }
 
   .gallery-mobile__item {
@@ -2985,6 +2991,10 @@ section[id] {
     border-width: 1px;
     border-radius: 2px;
     filter: none;
+    /* Scopes layout recalculation to the note that's actually animating
+       instead of the whole notes list, so the open/close animation
+       doesn't have to re-layout its siblings every frame. */
+    contain: layout;
   }
 
   .sticky-note::after {
@@ -3028,19 +3038,20 @@ section[id] {
 
   /* The tablet aspect ratio/crop above (max-width: 960px) also matches phone
      widths and, being written first, loses the cascade tie here. Restate the
-     normal (desktop-style) crop so it wins at phone widths instead of the
-     tablet's taller one. */
+     phone-only taller crop so it wins at phone widths. The static image uses
+     cover + inset:0 so it always fills this box at any aspect ratio (no
+     stretching/gaps); script.js calls the live map's own resize() whenever
+     this box's size changes, since MapLibre otherwise keeps the canvas at
+     whatever size it was when the map first loaded. */
   .heatmap__map {
-    aspect-ratio: 1344 / 620;
+    aspect-ratio: 3 / 4;
   }
 
   .heatmap__image {
-    inset: auto;
-    left: -0.149%;
-    top: -3.571%;
-    width: 101.567%;
-    height: 106.981%;
-    object-fit: contain;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 }
 
@@ -3050,11 +3061,11 @@ section[id] {
    the gap before "Various events" too far down. */
 @media (max-width: 640px) {
   .hero__inner {
-    height: 735px;
+    height: 705px;
   }
 
   .info {
-    margin-top: 55px;
+    margin-top: 30px;
   }
 }
 

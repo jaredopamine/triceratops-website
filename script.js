@@ -26,7 +26,13 @@ const eventNotes = eventsLayout ? Array.from(eventsLayout.querySelectorAll('.sti
 if (eventNotes.length > 3 && 'ResizeObserver' in window) {
   const PEEK = 86; // how much of the fourth note shows in the design
 
+  // Only matters for the desktop/tablet 2-column layout (calendar + notes).
+  // On phones the notes are a stacked accordion instead, so this would
+  // otherwise keep recalculating (a forced layout read plus a style write)
+  // on every frame of the open/close animation for no visual benefit,
+  // which is part of what made that animation look choppy.
   const updateEventsPeek = () => {
+    if (phoneLayout.matches) return;
     eventsLayout.style.setProperty('--events-peek-height', `${eventNotes[3].offsetTop + PEEK}px`);
   };
 
@@ -630,6 +636,16 @@ if (heatmapMap && window.maplibregl) {
       addDropHeat(map);
       addCampusLabels(map);
     });
+
+    // MapLibre sizes its canvas once from the container's size at load time
+    // and otherwise only reacts to window resize events, not to the
+    // container itself changing size (e.g. a breakpoint changing its aspect
+    // ratio). Without this, the box can grow taller while the map canvas
+    // inside it stays the old size, leaving empty space below the map.
+    if ('ResizeObserver' in window) {
+      const mapResizeObserver = new ResizeObserver(() => map.resize());
+      mapResizeObserver.observe(heatmapMap);
+    }
 
     // The map credits are links; keep them from opening a new tab
     heatmapMap.addEventListener('click', (event) => {
