@@ -1086,7 +1086,7 @@
     .m-page {
       position: relative;
       width: 393px;
-      height: 6553px; /* was 7217px (footer no longer a child canvas, -862px), then 6355px (+196px for larger .m-sub body text), then 6551px (-79px: nav bar shortened from 161px to 82px), then 6472px, then +81px: the hero grew 218px->299px earlier but content below it was never cascaded down to match, so the first section graphic overlapped the hero — this restores that missing gap */
+      height: 6428px; /* was 7217px (footer no longer a child canvas, -862px), then 6355px (+196px for larger .m-sub body text), then 6551px (-79px: nav bar shortened from 161px to 82px), then 6472px, then +81px: the hero grew 218px->299px earlier but content below it was never cascaded down to match, so the first section graphic overlapped the hero — this restores that missing gap, then 6553px, then -125px: the FAQ header's gaps above and below it were shrunk (see .m-faq), pulling everything from the header through the CTA section up by the same amount */
       margin: 0 auto;
       overflow: hidden;
       zoom: var(--mz, 1);
@@ -1937,30 +1937,35 @@
   </section>
 
   <section class="m-faq" aria-labelledby="m-faq-title">
-    <h2 class="m-title m-p m-faq__title" id="m-faq-title" style="--x:76;--y:5405"><span class="m-title__dot"></span>Common Rules FAQ</h2>
-    <img class="m-faq__bee m-faq__bee--flip m-p" style="--x:11;--y:5538" src="assets/bee-dino.png" alt="">
-    
-    <img class="m-faq__bubble m-p" style="--x:83;--y:5515.19" src="assets/mobile/faq-bubble-1.svg" alt="">
-    <h3 class="m-faq__q m-p" style="--x:110.55;--y:5529.19">What if I miss a monthly dino drop? Will I have more chances to hunt for more?</h3>
-    <div class="m-faq__a m-p" style="--x:112.55;--y:5615.19;--accent:#ACD87D;--lh:99"><span class="m-faq__line" style="height:99px"></span><p style="height:99px">If you<b> miss a monthly dino drop,</b> do not worry; there will certainly be more to come! Dino drops of a certain month will <b>last until the</b> <b>second to last day of the month</b>, so be on the lookout for more drops from our staff.</p></div>
-    
-    <img class="m-faq__bubble m-p" style="--x:29;--y:5754.19" src="assets/mobile/faq-bubble-2.svg" alt="">
-    <h3 class="m-faq__q m-p" style="--x:51;--y:5769.19">Staff often drop different types of dinos within a hunt. What if I find a dino type that I already have or am not searching for?</h3>
-    <div class="m-faq__a m-p" style="--x:54;--y:5896.19;--accent:#BDE6E6;--lh:85"><span class="m-faq__line" style="height:85px"></span><p style="height:85px">If you find a dino you do not want, <b>carefully hide the dino in the same place.</b> If you are unable to, you may also <b>return the dino</b> to the staff who is in charge of the current hunt.</p></div>
-    <img class="m-faq__bee m-p" style="--x:321;--y:5796" src="assets/bee-dino.png" alt="">
-    
-    <img class="m-faq__bubble m-p" style="--x:95;--y:6019.19" src="assets/mobile/faq-bubble-3.svg" alt="">
-    <h3 class="m-faq__q m-p" style="--x:122.55;--y:6033.19">Any questions on these rules, or about anything at all?</h3>
-    <div class="m-faq__a m-p" style="--x:125;--y:6091.19;--accent:#F8C9DC;--lh:70"><span class="m-faq__line" style="height:70px"></span><p style="height:68px">Open a ticket in the <b>#modmail </b>channel, and <b>use the command /tickets</b> open to ask our staff any questions!</p></div>
-    <img class="m-faq__bee m-faq__bee--flip m-p" style="--x:9;--y:6067" src="assets/bee-dino.png" alt="">
+    <!-- Gap above this header (claim section -> here) was 127px, cut to 47px
+         (title moved up 80px). Gap below the header to the first bubble was
+         80px, cut to 35px (everything from the first bubble down, through
+         the CTA section after this one, moved up an additional 45px on top
+         of that so the cards' own spacing and the CTA gap stay unchanged). -->
+    <h2 class="m-title m-p m-faq__title" id="m-faq-title" style="--x:76;--y:5325"><span class="m-title__dot"></span>Common Rules FAQ</h2>
+    <img class="m-faq__bee m-faq__bee--flip m-p" style="--x:11;--y:5413" src="assets/bee-dino.png" alt="">
+
+    <img class="m-faq__bubble m-p" style="--x:83;--y:5390.19" src="assets/mobile/faq-bubble-1.svg" alt="">
+    <h3 class="m-faq__q m-p" style="--x:110.55;--y:5404.19">What if I miss a monthly dino drop? Will I have more chances to hunt for more?</h3>
+    <div class="m-faq__a m-p" style="--x:112.55;--y:5490.19;--accent:#ACD87D;--lh:99"><span class="m-faq__line" style="height:99px"></span><p style="height:99px">If you<b> miss a monthly dino drop,</b> do not worry; there will certainly be more to come! Dino drops of a certain month will <b>last until the</b> <b>second to last day of the month</b>, so be on the lookout for more drops from our staff.</p></div>
+
+    <img class="m-faq__bubble m-p" style="--x:29;--y:5629.19" src="assets/mobile/faq-bubble-2.svg" alt="">
+    <h3 class="m-faq__q m-p" style="--x:51;--y:5644.19">Staff often drop different types of dinos within a hunt. What if I find a dino type that I already have or am not searching for?</h3>
+    <div class="m-faq__a m-p" style="--x:54;--y:5771.19;--accent:#BDE6E6;--lh:85"><span class="m-faq__line" style="height:85px"></span><p style="height:85px">If you find a dino you do not want, <b>carefully hide the dino in the same place.</b> If you are unable to, you may also <b>return the dino</b> to the staff who is in charge of the current hunt.</p></div>
+    <img class="m-faq__bee m-p" style="--x:321;--y:5671" src="assets/bee-dino.png" alt="">
+
+    <img class="m-faq__bubble m-p" style="--x:95;--y:5894.19" src="assets/mobile/faq-bubble-3.svg" alt="">
+    <h3 class="m-faq__q m-p" style="--x:122.55;--y:5908.19">Any questions on these rules, or about anything at all?</h3>
+    <div class="m-faq__a m-p" style="--x:125;--y:5966.19;--accent:#F8C9DC;--lh:70"><span class="m-faq__line" style="height:70px"></span><p style="height:68px">Open a ticket in the <b>#modmail </b>channel, and <b>use the command /tickets</b> open to ask our staff any questions!</p></div>
+    <img class="m-faq__bee m-faq__bee--flip m-p" style="--x:9;--y:5942" src="assets/bee-dino.png" alt="">
   </section>
 
   <section class="m-cta" aria-labelledby="m-cta-title">
-    <img class="m-p m-cta__daisy" style="--x:43;--y:6241" src="assets/mobile/cta-daisy.svg" alt="" aria-hidden="true">
-    <img class="m-p m-cta__sprouts" style="--x:267.93;--y:6214" src="assets/mobile/cta-sprouts.svg" alt="" aria-hidden="true">
-    <img class="m-p" style="--x:-32;--y:6184;width:73.33px;height:81px" src="assets/mobile/cta-blobs.svg" alt="" aria-hidden="true">
-    <img class="m-p" style="--x:19.8;--y:6242.38;width:21.82px;height:22.67px" src="assets/mobile/cta-flower.svg" alt="" aria-hidden="true">
-    <div class="m-cta__box m-p" style="--x:21;--y:6281">
+    <img class="m-p m-cta__daisy" style="--x:43;--y:6116" src="assets/mobile/cta-daisy.svg" alt="" aria-hidden="true">
+    <img class="m-p m-cta__sprouts" style="--x:267.93;--y:6089" src="assets/mobile/cta-sprouts.svg" alt="" aria-hidden="true">
+    <img class="m-p" style="--x:-32;--y:6059;width:73.33px;height:81px" src="assets/mobile/cta-blobs.svg" alt="" aria-hidden="true">
+    <img class="m-p" style="--x:19.8;--y:6117.38;width:21.82px;height:22.67px" src="assets/mobile/cta-flower.svg" alt="" aria-hidden="true">
+    <div class="m-cta__box m-p" style="--x:21;--y:6156">
       <p class="m-cta__text" id="m-cta-title">Have more questions or need clarification? Ask in <a href="https://discord.gg/" target="_blank" rel="noopener">#rules-help</a> on Discord.</p>
       <a class="m-btn" href="https://discord.gg/" target="_blank" rel="noopener">Join the Discord!</a>
     </div>
