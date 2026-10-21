@@ -239,6 +239,12 @@ ul {
   white-space: nowrap;
   cursor: pointer;
   text-decoration: none;
+  /* Same smooth hover fade as .btn-discord (now shared from here instead of
+     duplicated on it) so every button variant — including DinoDex's View
+     Full Catalog/Open Catalog Sheet and the getting-started drop type
+     overlay's secondary CTA, which both use these shared classes — animates
+     its hover color instead of snapping instantly. */
+  transition: background-color 300ms ease;
 }
 
 .btn-primary {
@@ -282,7 +288,6 @@ ul {
   padding: 12px 16px;
   background: var(--color-discord-default);
   color: var(--color-text-on-dark);
-  transition: background-color 300ms ease;
 }
 .btn-discord:hover { background: var(--color-discord-hover); }
 .btn-discord:active { background: var(--color-discord-active); }
