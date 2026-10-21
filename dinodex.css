@@ -379,7 +379,7 @@
   letter-spacing: 0.9px;
   white-space: nowrap;
   background: var(--color-bg);
-  border: 6px solid #000;
+  border: 6px solid var(--color-text);
   color: var(--color-text);
 }
 
