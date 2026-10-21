@@ -401,7 +401,7 @@ strong { font-weight: 700; }
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  padding: 20px var(--grid-margin);
+  padding: 50px var(--grid-margin);
   background: linear-gradient(to bottom, #ebffd5 0%, #acd87d 45.673%);
 }
 .types__flowers {
@@ -1065,7 +1065,7 @@ html.has-overlay { overflow: hidden; }
   .flash__sub { margin: 0 0 14px; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; text-align: center; }
 
   /* ---------- Discover drop types: 75% cards; common row centred, rare row scrolls ---------- */
-  .types { margin-top: 48px; padding: 16px 0; gap: 16px; }
+  .types { margin-top: 48px; padding: 40px 0; gap: 16px; }
   .types__flowers { left: -194px; top: 232.74px; width: 590.375px; transform: none; }
   .types__heading { padding: 0 var(--gs-side); }
   .types__intro { font-weight: 600; font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; }
@@ -1507,7 +1507,7 @@ html.has-overlay { overflow: hidden; }
   .flash__sub { margin: 0 0 14px; font-weight: 400; font-size: 16px; line-height: 1.5; letter-spacing: 0.32px; text-align: center; }
 
   /* ---------- Discover drop types: cards in swipeable rows at 75% size ---------- */
-  .types { margin-top: 48px; padding: 16px 0; gap: 16px; }
+  .types { margin-top: 48px; padding: 40px 0; gap: 16px; }
   .types__flowers { left: -194px; top: 232.74px; width: 590.375px; transform: none; }
   .types__heading { padding: 0 24px; }
   .types__intro { font-weight: 600; font-size: 20px; line-height: 1.3; letter-spacing: 0.4px; }
