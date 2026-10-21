@@ -461,7 +461,9 @@ strong { font-weight: 700; }
   transition: transform 250ms ease-out, box-shadow 250ms ease-out;
 }
 .common-card:hover,
-.common-card:focus-visible { transform: scale(1.02); box-shadow: 0 4px 4px rgba(81, 81, 81, 0.4); }
+.common-card:focus-visible { transform: scale(1.02) rotate(-2deg); box-shadow: 0 4px 4px rgba(81, 81, 81, 0.4); }
+.common-card:nth-child(even):hover,
+.common-card:nth-child(even):focus-visible { transform: scale(1.02) rotate(2deg); }
 .common-card > * { width: 254px; flex-shrink: 0; }
 
 .common-card__type,
@@ -527,10 +529,12 @@ strong { font-weight: 700; }
 /* Figma "RHover": 2% bigger with a white glow, border unchanged (0.25s ease-out) */
 .rare-card:hover,
 .rare-card:focus-visible {
-  transform: scale(1.02);
+  transform: scale(1.02) rotate(-2deg);
   box-shadow: 0 4px 16px rgba(255, 255, 255, 0.7);
   animation: rare-shine 5.6s linear infinite;
 }
+.rare-card:nth-child(even):hover,
+.rare-card:nth-child(even):focus-visible { transform: scale(1.02) rotate(2deg); }
 
 /* "Card Shine": a white comet-tail light that travels clockwise around the border only.
    Figma steps it Lower Right -> Bottom Left -> Upper Left -> Upper Right, 1.4s each,
@@ -612,9 +616,34 @@ html.has-overlay { overflow: hidden; }
   border: 0;
   background: transparent;
   overflow: hidden;
+  /* Pops in/out like the community photo lightbox, scaling up from slightly
+     smaller + faded rather than just snapping open. allow-discrete lets the
+     transition pick up display/overlay's otherwise-instant none<->flex jump,
+     and this resting (closed) state is also the @starting-style for [open]
+     so it animates FROM here on open and back TO here on close. */
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 250ms ease-out, transform 250ms ease-out, display 250ms allow-discrete, overlay 250ms allow-discrete;
 }
-.drop-overlay[open] { display: flex; align-items: center; justify-content: center; }
-.drop-overlay::backdrop { background: rgba(38, 38, 38, 0.4); }
+.drop-overlay[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transform: scale(1);
+}
+@starting-style {
+  .drop-overlay[open] { opacity: 0; transform: scale(0.85); }
+}
+.drop-overlay::backdrop {
+  background: rgba(38, 38, 38, 0.4);
+  opacity: 0;
+  transition: opacity 250ms ease-out, display 250ms allow-discrete, overlay 250ms allow-discrete;
+}
+.drop-overlay[open]::backdrop { opacity: 1; }
+@starting-style {
+  .drop-overlay[open]::backdrop { opacity: 0; }
+}
 .drop-overlay__stage { display: flex; align-items: center; gap: 20px; flex-shrink: 0; }
 
 .drop-arrow {
@@ -754,7 +783,7 @@ html.has-overlay { overflow: hidden; }
 .binder__holes img { width: 57.75px; height: 19.5px; max-width: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .common-card, .rare-card, .drop-arrow, .drop-sheet__dot, .drop-sheet__page, .drop-sheet { transition: none; }
+  .common-card, .rare-card, .drop-arrow, .drop-sheet__dot, .drop-sheet__page, .drop-sheet, .drop-overlay, .drop-overlay::backdrop { transition: none; }
   .rare-card:hover, .rare-card:focus-visible { animation: none; } /* shine stays put */
 }
 
