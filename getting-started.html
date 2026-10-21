@@ -851,7 +851,7 @@
         dot.type = 'button';
         dot.className = 'drop-overlay__dot';
         dot.setAttribute('aria-label', d.title);
-        dot.addEventListener('click', function () { render(i); });
+        dot.addEventListener('click', function () { navigate(i, i > current ? 1 : -1); });
         dotGroups[d.group].appendChild(dot);
         return dot;
       });
@@ -865,6 +865,37 @@
           if (active) dot.setAttribute('aria-current', 'true');
           else dot.removeAttribute('aria-current');
         });
+      }
+
+      // Slides the binder's two pages out and the next drop type's in, instead of
+      // the content just snapping — same slide-and-fade pattern as the mobile
+      // card's Overview/Rules page flip (showPage below), reusing its
+      // is-offset-left/right classes and 180ms timing, just applied to
+      // .binder__page instead of .drop-sheet__page. Desktop only: nothing calls
+      // this for the mobile sheet, which keeps its own existing page-flip.
+      var BINDER_SLIDE_MS = 180; // ms — must match .binder__page's CSS transition duration
+      var binderPages = Array.prototype.slice.call(dialog.querySelectorAll('.binder__page'));
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var sliding = false;
+
+      function navigate(index, direction) {
+        if (index === current) return;
+        if (sliding) return;
+        if (reduceMotion.matches) { render(index); return; }
+        sliding = true;
+        binderPages.forEach(function (el) { el.classList.add(direction > 0 ? 'is-offset-left' : 'is-offset-right'); });
+        window.setTimeout(function () {
+          render(index);
+          binderPages.forEach(function (el) {
+            el.classList.remove('is-offset-left', 'is-offset-right');
+            el.classList.add(direction > 0 ? 'is-offset-right' : 'is-offset-left');
+          });
+          void dialog.offsetWidth; // commit that starting offset before transitioning away from it
+          requestAnimationFrame(function () {
+            binderPages.forEach(function (el) { el.classList.remove('is-offset-left', 'is-offset-right'); });
+          });
+          window.setTimeout(function () { sliding = false; }, BINDER_SLIDE_MS);
+        }, BINDER_SLIDE_MS);
       }
 
       // Mobile card — used by both the vertical (≤640px) and landscape (641–1200px) layouts
@@ -989,9 +1020,15 @@
         showPage(0, { instant: true });
       }
 
+      // Wraps within the current group instead of stopping at the ends, so the
+      // arrows (and Arrow key nav) always have somewhere to go: past the last
+      // Rare drop type, "next" loops back to the first, and vice versa.
       function neighbour(step) {
-        var i = current + step;
-        return DROPS[i] && DROPS[i].group === DROPS[current].group ? i : -1;
+        var group = DROPS[current].group;
+        var indices = [];
+        DROPS.forEach(function (d, i) { if (d.group === group) indices.push(i); });
+        var pos = indices.indexOf(current);
+        return indices[(pos + step + indices.length) % indices.length];
       }
 
       function fit() { // the overlay is designed at 1065x570; shrink it to fit smaller windows
@@ -1012,17 +1049,14 @@
         d.bullets.forEach(function (text) { list.appendChild(bulletItem(text)); });
         if (d.cta) { cta.textContent = d.cta.text; cta.href = d.cta.href; cta.hidden = false; }
         else { cta.hidden = true; }
-        prev.style.visibility = neighbour(-1) >= 0 ? '' : 'hidden';
-        next.style.visibility = neighbour(1) >= 0 ? '' : 'hidden';
         updateDots(index);
         renderSheet(d);
       }
 
+      // The arrows always have somewhere to go (neighbour wraps), so this always
+      // slides rather than sometimes being a no-op at the ends.
       function go(step) {
-        var i = neighbour(step);
-        if (i < 0) return;
-        render(i);
-        if (getComputedStyle(document.activeElement).visibility === 'hidden') close.focus();
+        navigate(neighbour(step), step > 0 ? 1 : -1);
       }
 
       function open(index) {
