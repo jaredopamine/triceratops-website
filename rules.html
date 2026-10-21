@@ -720,7 +720,13 @@
       content: "";
       position: absolute;
       top: 32px;
-      left: -13px;
+      /* -13px left a sliver of the border's open (non-mitered) end exposed
+         inside the bubble as a stray little nub, since it didn't fully
+         overlap the bubble's own straight border there. Pulling the whole
+         tail further out (toward the mascot it's pointing at) moves that
+         open end out past the bubble's edge entirely, where there's nothing
+         behind it to look like a stray mark. */
+      left: -16px;
       width: 22px;
       height: 22px;
       background: var(--off-white);
@@ -734,7 +740,7 @@
     }
     .faq-card--right .faq-card__bubble::before {
       left: auto;
-      right: -13px;
+      right: -16px;
       border-left: 0;
       border-bottom: 0;
       border-bottom-left-radius: 0;
