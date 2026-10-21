@@ -7,12 +7,10 @@
    should read colors/type from these variables instead of
    hardcoding values, so the whole site stays in sync.
 
-   NOTE — flagging so nobody re-derives this from scratch later:
-   the Color Palette page labels body text "#3D3D3D," but the
-   real nav/footer instances all use pure black. Kept black
-   (--color-text) since that's what's actually deployed, and
-   added #3D3D3D as --color-text-secondary in case it's
-   intentional for other page content — worth confirming.
+   NOTE: the Color Palette page labels body text "#3D3D3D," while the
+   real nav/footer instances (as originally deployed) used pure black.
+   Confirmed by direct request that #3D3D3D is correct everywhere —
+   --color-text now matches --color-text-secondary.
 
    The 12-column grid (node 855:512) doesn't show up as layers —
    it's a Figma layout-grid guide on the frame, not real content,
@@ -22,7 +20,7 @@
 :root {
   /* Core */
   --color-bg: #fffdfd;
-  --color-text: #000000;
+  --color-text: #3d3d3d;
   --color-text-secondary: #3d3d3d; /* documented "text-on-light" token — see note above */
   --color-text-muted: #1e1e1e; /* actual color used on the real footer copyright line */
   --color-text-on-dark: #fffdfd;

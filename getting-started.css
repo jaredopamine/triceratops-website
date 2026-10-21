@@ -841,7 +841,7 @@ html.has-overlay { overflow: hidden; }
   .faq-item, .faq-item__q, .faq-item__icon img, .faq-item__a { transition: none; }
 }
 .faq__more { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 4px 2px; }
-.faq__more p { margin: 0; font-size: 22px; color: #000; }
+.faq__more p { margin: 0; font-size: 22px; color: var(--color-text); }
 
 /* On this page the footer grass rises over the FAQ section, overlapping the box's bottom 30px */
 .footer-grass { position: relative; margin-top: -130px; background-color: transparent; }

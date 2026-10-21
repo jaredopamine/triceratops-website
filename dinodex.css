@@ -380,7 +380,7 @@
   white-space: nowrap;
   background: var(--color-bg);
   border: 6px solid #000;
-  color: #000;
+  color: var(--color-text);
 }
 
 .pill--gold {
@@ -391,7 +391,7 @@
 
 .subsection-caption {
   margin: -12px 0 24px;
-  color: #262626;
+  color: var(--color-text);
 }
 
 /* ---- Dino card (shared by Monthly Dinos + Most Sought After) ----

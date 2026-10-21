@@ -17,9 +17,9 @@
      and this page's body copy is a lighter gray than that shared value —
      a shared name here would leak this gray into the shared components. */
   --color-body-text: #3d3d3d;
-  --color-heading: #2d2d2d;
+  --color-heading: #3d3d3d;
   --color-subtitle: #636363;
-  --color-black: #000000;
+  --color-black: #3d3d3d; /* despite the name, this is the site's standard text color, not literal black */
   --color-white: #ffffff;
   --color-off-white: #fffdfd;
   --color-hero-eyebrow: #f5f5f5;
@@ -2130,7 +2130,7 @@ section[id] {
   .gallery-mobile__card .polaroid__caption {
     font-size: 20px;
     letter-spacing: 0.4px;
-    color: #000;
+    color: var(--color-body-text);
   }
 
   /* The desktop crop--* classes hand-position each photo for that photo's
