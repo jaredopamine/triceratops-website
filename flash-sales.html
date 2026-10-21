@@ -403,7 +403,7 @@
 
   <script>
     // Giveaway steps — same behaviour as the Discord steps on getting-started.html: the
-    // active step's bar fills over 5s, then the next step activates (4 -> back to 1).
+    // active step's bar fills over 6s, then the next step activates (4 -> back to 1).
     // Clicking a step jumps straight to it, and the screenshot dissolves to that step's image.
     (function () {
       var root = document.querySelector('.steps');
@@ -412,10 +412,10 @@
       var fills = steps.map(function (s) { return s.querySelector('.step__fill'); });
       var images = Array.prototype.slice.call(root.querySelectorAll('.steps__image'));
       var swapImages = images.length === steps.length;
-      // Mobile picker: the numbered circles fill left-to-right with the same 5s timer
+      // Mobile picker: the numbered circles fill left-to-right with the same 6s timer
       var nums = Array.prototype.slice.call(root.querySelectorAll('.steps__num'));
       var numFills = nums.map(function (n) { return n.querySelector('.steps__num-fill'); });
-      var duration = Number(root.dataset.duration) || 5000;
+      var duration = Number(root.dataset.duration) || 6000;
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var current = 0, elapsed = 0, last = null, raf = null;
 
