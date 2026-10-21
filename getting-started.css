@@ -671,18 +671,18 @@ html.has-overlay { overflow: hidden; }
 .drop-overlay__dots[hidden] { display: none; }
 
 .drop-overlay__dot {
-  width: 10px;
-  height: 10px;
+  width: 16px;
+  height: 16px;
   padding: 0;
   border: 0;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.5);
+  border-radius: 16px;
+  background: #ebe6a0; /* same pale-yellow dot/active-yellow pair as .gallery__dot's SVG/--color-yellow */
   cursor: pointer;
   transition: width 0.2s ease, background 0.2s ease;
 }
 .drop-overlay__dot.is-active {
-  width: 28px;
-  background: #fff;
+  width: 36px;
+  background: #f2e35d;
 }
 
 .drop-arrow {
