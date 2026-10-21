@@ -11,7 +11,7 @@
 <ellipse id="Ellipse 1747" cx="3.55241" cy="3.77443" rx="3.55241" ry="3.77443" transform="matrix(-1 0 0 1 53.1758 42.1858)" fill="#FFBCCE"/>
 <rect id="Rectangle 957" width="4.88456" height="8.88102" rx="2.44228" transform="matrix(-1 0 0 1 48.8447 36.7451)" fill="#1B1614"/>
 <path id="Rectangle 958" d="M34.4011 43.2726C35.008 42.4726 35.992 42.4726 36.5989 43.2726L39.5439 47.1547C40.3831 48.2609 40.01 50.1487 38.868 50.5745C38.868 50.5745 36.5989 51.6726 35.923 51.6726C35.2471 51.6726 35.077 51.6726 35.077 51.6726C34.2277 51.6726 32.132 50.5745 32.132 50.5745C30.99 50.1487 30.6169 48.2609 31.4561 47.1547L34.4011 43.2726Z" fill="#FCECC7"/>
-<ellipse id="Hand_left" cx="9" cy="47" rx="7" ry="6.5" fill="#8EEFF5" stroke="#6CB8E2" stroke-width="1.6"/>
-<ellipse id="Hand_right" cx="63.38" cy="47" rx="7" ry="6.5" fill="#8EEFF5" stroke="#6CB8E2" stroke-width="1.6"/>
+<ellipse id="Hand_left" cx="9" cy="49.5" rx="7" ry="6.5" fill="#8EEFF5" stroke="#6CB8E2" stroke-width="1.6"/>
+<ellipse id="Hand_right" cx="63.38" cy="49.5" rx="7" ry="6.5" fill="#8EEFF5" stroke="#6CB8E2" stroke-width="1.6"/>
 </g>
 </svg>

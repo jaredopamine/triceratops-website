@@ -749,10 +749,12 @@
       border-left: 4px solid var(--card-accent, var(--green));
       line-height: 1.5;
     }
-    /* small creature peeking out from behind each card */
+    /* small creature peeking out from behind each card. z-index:2 (above the
+       bubble's 1) so its paws show resting on top of the card's border
+       instead of being clipped off at the bubble's edge. */
     .faq-card__peek {
       position: absolute;
-      z-index: 0;
+      z-index: 2;
       top: calc(var(--fu) * -49);
       width: calc(var(--fu) * 72.4);
       height: auto;
