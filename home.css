@@ -280,6 +280,17 @@ section[id] {
   border: 1px solid var(--color-green-border);
   background: var(--color-off-white);
   color: var(--color-green-dark);
+  /* Same hover treatment as DinoDex's Open Catalog Sheet (.btn-secondary in
+     styles.css — same border/text colors under different variable names),
+     instead of the generic .btn:hover brightness dim: a background-color
+     swap plus an inset box-shadow that "thickens" the border, both eased
+     over 300ms so neither one snaps. */
+  transition: background-color 300ms ease, box-shadow 300ms ease;
+}
+.btn--secondary:hover {
+  filter: none;
+  background: #f2fff5;
+  box-shadow: inset 0 0 0 1px var(--color-green-border);
 }
 
 .btn--tertiary {
