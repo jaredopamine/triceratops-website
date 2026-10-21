@@ -1640,6 +1640,14 @@ section[id] {
   transform: none;
 }
 
+/* Hidden on desktop/laptop per request; mobile already hides it via
+   .heatmap__decor > :not(picture) in the max-width: 640px block. */
+@media (min-width: 641px) {
+  .heatmap__flower--pink {
+    display: none;
+  }
+}
+
 .heatmap__grass {
   position: absolute;
 }
