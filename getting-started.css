@@ -616,19 +616,29 @@ html.has-overlay { overflow: hidden; }
   border: 0;
   background: transparent;
   overflow: hidden;
-  /* Pops in/out like the community photo lightbox, scaling up from slightly
+  /* align/justify/flex-direction/gap live here unconditionally (not under
+     [open]) so they stay put for the whole close transition: the "open"
+     attribute is removed the instant close() is called, but allow-discrete
+     keeps display: flex a little longer below so opacity/transform can ease
+     out. If align/justify were only set under [open] they'd snap to their
+     (left-aligned) initial values at that same instant, so the content
+     visibly jumped to the left just before it faded out — this keeps it
+     centered for the whole close animation.
+     Pops in/out like the community photo lightbox, scaling up from slightly
      smaller + faded rather than just snapping open. allow-discrete lets the
      transition pick up display/overlay's otherwise-instant none<->flex jump,
      and this resting (closed) state is also the @starting-style for [open]
      so it animates FROM here on open and back TO here on close. */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
   opacity: 0;
   transform: scale(0.85);
   transition: opacity 250ms ease-out, transform 250ms ease-out, display 250ms allow-discrete, overlay 250ms allow-discrete;
 }
 .drop-overlay[open] {
   display: flex;
-  align-items: center;
-  justify-content: center;
   opacity: 1;
   transform: scale(1);
 }
@@ -645,6 +655,35 @@ html.has-overlay { overflow: hidden; }
   .drop-overlay[open]::backdrop { opacity: 0; }
 }
 .drop-overlay__stage { display: flex; align-items: center; gap: 20px; flex-shrink: 0; }
+
+/* Pagination dots for the common/rare carousels inside the overlay — same
+   dot-grows-into-a-pill pattern as .gallery__dot on the home page's Meet Our
+   Community carousel. Desktop/laptop only (the binder's prev/next arrows);
+   hidden at the ≤1200px .drop-sheet breakpoints below, which page between a
+   single card's two tabs with .drop-sheet__dot instead. Script.js populates
+   one button per drop type into whichever of the two groups matches it, and
+   toggles which group is visible to match the open card. */
+.drop-overlay__dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.drop-overlay__dots[hidden] { display: none; }
+
+.drop-overlay__dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: width 0.2s ease, background 0.2s ease;
+}
+.drop-overlay__dot.is-active {
+  width: 28px;
+  background: #fff;
+}
 
 .drop-arrow {
   position: relative;
@@ -783,7 +822,7 @@ html.has-overlay { overflow: hidden; }
 .binder__holes img { width: 57.75px; height: 19.5px; max-width: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .common-card, .rare-card, .drop-arrow, .drop-sheet__dot, .drop-sheet__page, .drop-sheet, .drop-overlay, .drop-overlay::backdrop { transition: none; }
+  .common-card, .rare-card, .drop-arrow, .drop-sheet__dot, .drop-sheet__page, .drop-sheet, .drop-overlay, .drop-overlay::backdrop, .drop-overlay__dot { transition: none; }
   .rare-card:hover, .rare-card:focus-visible { animation: none; } /* shine stays put */
 }
 
@@ -1165,6 +1204,7 @@ html.has-overlay { overflow: hidden; }
      hi-fi mock). Same <dialog>, markup and script as the vertical mobile card; it scrolls
      inside itself if a page is ever taller than the screen, and the page stays locked. */
   .drop-overlay__stage { display: none; }
+  .drop-overlay__dots { display: none; }
   .drop-sheet {
     position: relative;
     display: grid;
@@ -1579,6 +1619,7 @@ html.has-overlay { overflow: hidden; }
   /* Same <dialog>, backdrop (rgba(38,38,38,.4)), scroll lock and close behaviour as desktop.
      Card is 354 wide (393 − 2 × 19.5) and hugs its content. */
   .drop-overlay__stage { display: none; }
+  .drop-overlay__dots { display: none; }
   .drop-sheet {
     position: relative;
     display: flex;

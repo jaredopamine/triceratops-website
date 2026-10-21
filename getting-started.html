@@ -580,6 +580,13 @@
       </button>
     </div>
 
+    <!-- Position within the current carousel (common: 3, rare: 4) — same dot-grows-
+         into-a-pill component as the home page's Meet Our Community gallery. Desktop/
+         laptop only; script.js below fills each group and shows the one that matches
+         the open card. -->
+    <div class="drop-overlay__dots drop-overlay__dots--common" role="tablist" aria-label="Common drop types"></div>
+    <div class="drop-overlay__dots drop-overlay__dots--rare" role="tablist" aria-label="Rare drop types" hidden></div>
+
     <!-- Mobile (≤1200px: vertical and landscape) version of the same pop-up: photo card with two swipeable pages.
          Filled by the same render() as the desktop binder above. -->
     <div class="drop-sheet">
@@ -832,6 +839,34 @@
       var current = 0;
       var preloaded = false;
 
+      // Carousel position dots (desktop only — see .drop-overlay__dots in the CSS):
+      // one group of 3 for Common, one of 4 for Rare, built from DROPS so they can't
+      // drift out of sync with it. Only the group matching the open card is shown.
+      var dotGroups = {
+        common: dialog.querySelector('.drop-overlay__dots--common'),
+        rare: dialog.querySelector('.drop-overlay__dots--rare')
+      };
+      var dots = DROPS.map(function (d, i) {
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'drop-overlay__dot';
+        dot.setAttribute('aria-label', d.title);
+        dot.addEventListener('click', function () { render(i); });
+        dotGroups[d.group].appendChild(dot);
+        return dot;
+      });
+
+      function updateDots(index) {
+        var group = DROPS[index].group;
+        Object.keys(dotGroups).forEach(function (key) { dotGroups[key].hidden = key !== group; });
+        dots.forEach(function (dot, i) {
+          var active = i === index;
+          dot.classList.toggle('is-active', active);
+          if (active) dot.setAttribute('aria-current', 'true');
+          else dot.removeAttribute('aria-current');
+        });
+      }
+
       // Mobile card — used by both the vertical (≤640px) and landscape (641–1200px) layouts
       var mobile = window.matchMedia('(max-width: 1200px)');
       var sheetPhoto = document.getElementById('drop-sheet-photo');
@@ -979,6 +1014,7 @@
         else { cta.hidden = true; }
         prev.style.visibility = neighbour(-1) >= 0 ? '' : 'hidden';
         next.style.visibility = neighbour(1) >= 0 ? '' : 'hidden';
+        updateDots(index);
         renderSheet(d);
       }
 
