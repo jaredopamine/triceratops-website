@@ -34,7 +34,7 @@
   --color-neutral-border: #919191; /* form borders */
 
   /* Nav + footer chrome */
-  --color-nav-bg: #f9fff7;
+  --color-nav-bg: #fffdfd; /* matches --color-bg so the fixed header doesn't show a seam against the page */
   --color-footer-gradient-start: #e6f0ff;
   --color-footer-gradient-end: #d8f5ff;
   --color-social-bg: #000000;
