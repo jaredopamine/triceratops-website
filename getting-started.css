@@ -50,9 +50,13 @@ strong { font-weight: 700; }
   font-size: 16px;
   white-space: nowrap;
   filter: drop-shadow(0 0 2px rgba(125, 86, 24, 0.25));
-  transition: filter 150ms ease;
+  /* Same hover treatment as .btn-discord: an actual background-color swap
+     (to the site's next green shade up) eased over 300ms, instead of a
+     brightness(0.94) filter dim — a real color change reads as more of an
+     "animation" than a filter darken. */
+  transition: background-color 300ms ease;
 }
-.gs-btn:hover { filter: brightness(0.94) drop-shadow(0 0 2px rgba(125, 86, 24, 0.25)); }
+.gs-btn:hover { background: var(--gs-green); }
 
 /* ---------- Hero ---------- */
 .hero--getting-started { height: 498px; }
