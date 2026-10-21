@@ -726,6 +726,10 @@
       background: var(--off-white);
       border-left: 4px solid var(--card-accent, var(--green));
       border-bottom: 4px solid var(--card-accent, var(--green));
+      /* rounds the tip where the two border edges meet, so the tail's point
+         isn't a hard right-angle corner against the card's otherwise soft,
+         rounded edges */
+      border-bottom-left-radius: 4px;
       transform: rotate(45deg);
     }
     .faq-card--right .faq-card__bubble::before {
@@ -733,8 +737,10 @@
       right: -13px;
       border-left: 0;
       border-bottom: 0;
+      border-bottom-left-radius: 0;
       border-right: 4px solid var(--card-accent, var(--green));
       border-top: 4px solid var(--card-accent, var(--green));
+      border-top-right-radius: 4px;
     }
     .faq-card__bubble h3 {
       font-family: var(--font-head);
