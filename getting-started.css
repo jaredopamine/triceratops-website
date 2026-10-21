@@ -707,9 +707,18 @@ html.has-overlay { overflow: hidden; }
   padding: 10px;
   background: var(--gs-green);
   border-radius: 24px;
-  overflow: hidden; /* clips the pages' slide-between-drop-types transition at the frame edge */
   filter: drop-shadow(0 4px 2px rgba(105, 76, 34, 0.25));
+  /* Same slide-and-fade pattern as .drop-sheet__page's Overview/Rules swipe
+     (same class names, same 180ms/18px), driven by navigate() in the script
+     below: switching drop types slides this whole card (frame, pages, grass,
+     binder holes — everything) out, swaps its content while off-screen, then
+     slides the next one in from the other side, rather than the content
+     just snapping to the next item. The arrows and pagination dots live
+     outside .binder, so they stay put. */
+  transition: transform 180ms ease, opacity 180ms ease;
 }
+.binder.is-offset-left { transform: translateX(-18px); opacity: 0; }
+.binder.is-offset-right { transform: translateX(18px); opacity: 0; }
 .binder__page {
   position: relative;
   flex: 0 0 450px;
@@ -717,15 +726,7 @@ html.has-overlay { overflow: hidden; }
   height: 550px;
   background: var(--color-bg);
   overflow: hidden;
-  /* Same slide-and-fade pattern as .drop-sheet__page's Overview/Rules swipe
-     (same class names, same 180ms/18px), driven by navigate() in the script
-     below: switching drop types slides the old pages out, swaps their
-     content while off-screen, then slides the new ones in from the other
-     side — rather than the content just snapping to the next item. */
-  transition: transform 180ms ease, opacity 180ms ease;
 }
-.binder__page.is-offset-left { transform: translateX(-18px); opacity: 0; }
-.binder__page.is-offset-right { transform: translateX(18px); opacity: 0; }
 .binder__page--photo {
   display: flex;
   flex-direction: column;
@@ -831,7 +832,7 @@ html.has-overlay { overflow: hidden; }
 .binder__holes img { width: 57.75px; height: 19.5px; max-width: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .common-card, .rare-card, .drop-arrow, .drop-sheet__dot, .drop-sheet__page, .drop-sheet, .drop-overlay, .drop-overlay::backdrop, .drop-overlay__dot, .binder__page { transition: none; }
+  .common-card, .rare-card, .drop-arrow, .drop-sheet__dot, .drop-sheet__page, .drop-sheet, .drop-overlay, .drop-overlay::backdrop, .drop-overlay__dot, .binder { transition: none; }
   .rare-card:hover, .rare-card:focus-visible { animation: none; } /* shine stays put */
 }
 

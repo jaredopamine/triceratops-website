@@ -867,14 +867,15 @@
         });
       }
 
-      // Slides the binder's two pages out and the next drop type's in, instead of
+      // Slides the whole binder card out and the next drop type's in, instead of
       // the content just snapping — same slide-and-fade pattern as the mobile
       // card's Overview/Rules page flip (showPage below), reusing its
-      // is-offset-left/right classes and 180ms timing, just applied to
-      // .binder__page instead of .drop-sheet__page. Desktop only: nothing calls
-      // this for the mobile sheet, which keeps its own existing page-flip.
-      var BINDER_SLIDE_MS = 180; // ms — must match .binder__page's CSS transition duration
-      var binderPages = Array.prototype.slice.call(dialog.querySelectorAll('.binder__page'));
+      // is-offset-left/right classes and 180ms timing, just applied to the
+      // whole .binder instead of .drop-sheet__page. The arrows and pagination
+      // dots live outside .binder, so they stay put. Desktop only: nothing
+      // calls this for the mobile sheet, which keeps its own page-flip.
+      var BINDER_SLIDE_MS = 180; // ms — must match .binder's CSS transition duration
+      var binder = dialog.querySelector('.binder');
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       var sliding = false;
 
@@ -883,16 +884,14 @@
         if (sliding) return;
         if (reduceMotion.matches) { render(index); return; }
         sliding = true;
-        binderPages.forEach(function (el) { el.classList.add(direction > 0 ? 'is-offset-left' : 'is-offset-right'); });
+        binder.classList.add(direction > 0 ? 'is-offset-left' : 'is-offset-right');
         window.setTimeout(function () {
           render(index);
-          binderPages.forEach(function (el) {
-            el.classList.remove('is-offset-left', 'is-offset-right');
-            el.classList.add(direction > 0 ? 'is-offset-right' : 'is-offset-left');
-          });
-          void dialog.offsetWidth; // commit that starting offset before transitioning away from it
+          binder.classList.remove('is-offset-left', 'is-offset-right');
+          binder.classList.add(direction > 0 ? 'is-offset-right' : 'is-offset-left');
+          void binder.offsetWidth; // commit that starting offset before transitioning away from it
           requestAnimationFrame(function () {
-            binderPages.forEach(function (el) { el.classList.remove('is-offset-left', 'is-offset-right'); });
+            binder.classList.remove('is-offset-left', 'is-offset-right');
           });
           window.setTimeout(function () { sliding = false; }, BINDER_SLIDE_MS);
         }, BINDER_SLIDE_MS);
