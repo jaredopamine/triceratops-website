@@ -749,18 +749,32 @@
       border-left: 4px solid var(--card-accent, var(--green));
       line-height: 1.5;
     }
-    /* small creature peeking out from behind each card. z-index:2 (above the
-       bubble's 1) so its paws show resting on top of the card's border
-       instead of being clipped off at the bubble's edge. */
+    /* small creature peeking out from behind each card */
     .faq-card__peek {
       position: absolute;
-      z-index: 2;
+      z-index: 0;
       top: calc(var(--fu) * -49);
       width: calc(var(--fu) * 72.4);
       height: auto;
     }
     .faq-card:not(.faq-card--right) .faq-card__peek { right: calc(var(--fu) * 86); }
     .faq-card--right .faq-card__peek { left: calc(var(--fu) * 65); }
+    /* The peek creature's little paws, as a separate cropped sticker (same
+       art, just the hand band) layered above the bubble (z-index:2 vs its 1)
+       so they show resting on the card's border — the rest of the mascot
+       stays behind the bubble like before. Shares .faq-card__peek's width
+       and side offset so the paws land in the same spot; only "top" differs,
+       since this crop starts 43 units lower in the same coordinate space. */
+    .faq-card__paws {
+      position: absolute;
+      z-index: 2;
+      top: calc(var(--fu) * -6);
+      width: calc(var(--fu) * 72.4);
+      height: auto;
+      pointer-events: none;
+    }
+    .faq-card:not(.faq-card--right) .faq-card__paws { right: calc(var(--fu) * 86); }
+    .faq-card--right .faq-card__paws { left: calc(var(--fu) * 65); }
 
     /* ---------- CTA banner ------------------------------------ */
 
@@ -982,7 +996,7 @@
       .faq-card__mascot, .faq-card--right .faq-card__mascot { width: 96px; }
       .faq-card__bubble { height: auto; flex-basis: auto; }
       .faq-card__bubble::before { display: none; }
-      .faq-card__peek { display: none; }
+      .faq-card__peek, .faq-card__paws { display: none; }
       .faq-heading { width: 100%; height: auto; padding-block: 32px; display: flex; justify-content: center; }
       .faq-cloud { position: static; width: min(320px, 90%); height: 200px; }
       .faq-cloud .section__title { white-space: normal; text-align: center; }
@@ -1759,6 +1773,7 @@
           <img class="blob-edge blob-edge--pink-left" src="assets/blob-pink-left.svg" alt="" aria-hidden="true">
           <article class="faq-card accent-green">
             <img class="faq-card__peek" src="assets/sticker-peek-green.svg" alt="" aria-hidden="true">
+            <img class="faq-card__paws" src="assets/sticker-peek-green-hands.svg" alt="" aria-hidden="true">
             <img class="faq-card__mascot" src="assets/bee-dino.png" alt="">
             <div class="faq-card__bubble">
               <h3>What if I miss a monthly dino drop? Will I have more chances to hunt for more?</h3>
@@ -1768,6 +1783,7 @@
 
           <article class="faq-card faq-card--right accent-blue">
             <img class="faq-card__peek" src="assets/sticker-peek-blue.svg" alt="" aria-hidden="true">
+            <img class="faq-card__paws" src="assets/sticker-peek-blue-hands.svg" alt="" aria-hidden="true">
             <img class="faq-card__mascot" src="assets/bee-dino.png" alt="">
             <div class="faq-card__bubble">
               <h3>Staff often drop different types of dinos within a hunt. What if I find a dino type that I already have or am not searching for?</h3>
@@ -1777,6 +1793,7 @@
 
           <article class="faq-card accent-pink">
             <img class="faq-card__peek" src="assets/sticker-peek-pink.svg" alt="" aria-hidden="true">
+            <img class="faq-card__paws" src="assets/sticker-peek-pink-hands.svg" alt="" aria-hidden="true">
             <img class="faq-card__mascot" src="assets/bee-dino.png" alt="">
             <div class="faq-card__bubble">
               <h3>Any questions on these rules, or about anything at all?</h3>
