@@ -243,8 +243,10 @@ ul {
      duplicated on it) so every button variant — including DinoDex's View
      Full Catalog/Open Catalog Sheet and the getting-started drop type
      overlay's secondary CTA, which both use these shared classes — animates
-     its hover color instead of snapping instantly. */
-  transition: background-color 300ms ease;
+     its hover color instead of snapping instantly. border-width is here too
+     for .btn-secondary, whose outline thickens on hover (1px -> 2px) and
+     was snapping instantly along with everything else. */
+  transition: background-color 300ms ease, border-width 300ms ease;
 }
 
 .btn-primary {
