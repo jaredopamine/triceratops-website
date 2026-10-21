@@ -243,10 +243,14 @@ ul {
      duplicated on it) so every button variant — including DinoDex's View
      Full Catalog/Open Catalog Sheet and the getting-started drop type
      overlay's secondary CTA, which both use these shared classes — animates
-     its hover color instead of snapping instantly. border-width is here too
-     for .btn-secondary, whose outline thickens on hover (1px -> 2px) and
-     was snapping instantly along with everything else. */
-  transition: background-color 300ms ease, border-width 300ms ease;
+     its hover color instead of snapping instantly. box-shadow is here too
+     for .btn-secondary's hover "thicker border": a literal border-width
+     transition (1px -> 2px) only has one whole pixel to cross, so it got
+     rounded to the nearest device pixel for most of the transition and
+     then snapped at the very end — looking delayed, not eased. An inset
+     box-shadow isn't snapped to device pixels, so its spread animates
+     genuinely smoothly instead. */
+  transition: background-color 300ms ease, box-shadow 300ms ease;
 }
 
 .btn-primary {
@@ -274,7 +278,10 @@ ul {
 }
 .btn-secondary:hover {
   background: var(--color-secondary-hover-bg);
-  border-width: 2px;
+  /* Stacks on top of the real 1px border instead of changing its width,
+     so the apparent thickening (still ending up ~2px total) animates
+     smoothly — see the transition comment on .btn above. */
+  box-shadow: inset 0 0 0 1px var(--color-secondary-border);
 }
 
 .btn-tertiary {
