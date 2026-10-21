@@ -759,11 +759,16 @@ html.has-overlay { overflow: hidden; }
 
 .binder__sprout {
   position: absolute;
-  left: 50px;
-  top: 47px;
+  left: 22px;
+  top: 51px;
   width: 38.45px;
   height: 34.01px;
   max-width: none;
+  /* The sprout's stem (its attachment point) sits at the bottom-center of
+     its own artwork, not the box center, so the rotation pivots around
+     that point instead of swinging the whole box — keeps the stem touching
+     the title's first letter instead of drifting away from it. */
+  transform-origin: 50% 100%;
   transform: rotate(-30deg);
 }
 .binder__close {
@@ -1302,8 +1307,8 @@ html.has-overlay { overflow: hidden; }
     display: inline-block;
     width: 18px;
     height: 16px;
-    margin-right: 10px;
-    vertical-align: -1px;
+    margin-right: -2px;
+    vertical-align: 5px;
     background: url('assets/getting-started/overlay/sprout.svg') center / contain no-repeat;
     transform: rotate(-30deg);
   }
@@ -1693,8 +1698,8 @@ html.has-overlay { overflow: hidden; }
   .drop-sheet__title::before {
     content: '';
     position: absolute;
-    left: -9px;
-    top: -4px;
+    left: -6px;
+    top: -1px;
     width: 19.22px;
     height: 17.01px;
     background: url('assets/getting-started/overlay/sprout.svg') center / contain no-repeat;
