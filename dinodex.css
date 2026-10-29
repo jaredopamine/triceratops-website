@@ -1026,7 +1026,7 @@
   /* ---- Popular Dinos header ---- */
   .dinodex-section__head { margin-bottom: 32px; }
   .subsection-header { margin: 32px 0 16px; }
-  .subsection-caption { margin: -8px 0 16px; }
+  .subsection-caption { margin: -8px 0 16px; font-size: 18px; line-height: 1.4; letter-spacing: 0.03em; }
   /* "8 Horn Types" / "Top 5" pills are hidden="true" on Figma's
      mobile frames (4782:4423, 4782:4363) — dropped on mobile. */
   .pill { display: none; }
@@ -1066,11 +1066,7 @@
     border-width: 4px !important;
   }
   .dino-grid .dino-card__name, .sought-row-wrap .dino-card__name { font-size: 20px; }
-  .dino-grid .dino-card__horn, .sought-row-wrap .dino-card__horn {
-    font-size: 18px;
-    line-height: 1.4;
-    letter-spacing: 0.03em;
-  }
+  .dino-grid .dino-card__horn, .sought-row-wrap .dino-card__horn,
   .dino-grid .dino-card__desc { font-size: 12px; }
   /* Figma mobile card info stack: 4px between name/horn (not
      desktop's 8px) — the tag pill itself is "Mobile Subtitle 2"
@@ -1096,7 +1092,7 @@
   /* ---- CTA banner: smaller mascot, clouds move to opposite
      corners, sprout dropped per Figma's mobile node 4716:905 ---- */
   .cta-banner { flex-direction: column; align-items: flex-start; text-align: left; margin: 105px 20px 50px; padding: 28px 42px; }
-  .cta-banner__mascot { width: 70px; top: auto; bottom: 58px; left: auto; right: -14px; transform: rotate(21.81deg); }
+  .cta-banner__mascot { width: 70px; top: auto; bottom: 68px; left: auto; right: -14px; transform: rotate(21.81deg); }
   /* Figma's raw export for this title (4716:907) gives 1.2
      line-height / 0.8px tracking, not the standard Mobile H1
      1.3/0.68px used by every other section heading. */
